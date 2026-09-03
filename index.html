@@ -424,6 +424,12 @@
             padding: 8px 0;
         }
 
+        .comment.reply {
+            margin-left: 42px;
+            padding-left: 12px;
+            border-left: 2px solid #e0e0e0;
+        }
+
         .comment-avatar {
             width: 32px;
             height: 32px;
@@ -440,18 +446,62 @@
 
         .comment-content {
             flex: 1;
+            min-width: 0;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
         }
 
         .comment-author {
             font-weight: 600;
             font-size: 13px;
-            margin-bottom: 2px;
+        }
+
+        .comment-reply-to {
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 500;
         }
 
         .comment-text {
             font-size: 14px;
             color: #333;
             line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .comment-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 8px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .comment-action-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 2px 0;
+            font-family: inherit;
+        }
+
+        .comment-action-btn:active {
+            color: #667eea;
         }
 
         .comment-input-wrapper {
@@ -460,11 +510,17 @@
             margin-top: 12px;
             padding-top: 12px;
             border-top: 1px solid #eee;
+            align-items: flex-end;
+        }
+
+        .comment-input-container {
+            flex: 1;
+            position: relative;
         }
 
         .comment-input {
-            flex: 1;
-            padding: 10px 14px;
+            width: 100%;
+            padding: 10px 40px 10px 14px;
             border: 1px solid #e0e0e0;
             border-radius: 20px;
             font-size: 14px;
@@ -476,6 +532,53 @@
             border-color: #667eea;
         }
 
+        .attach-image-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            color: #666;
+        }
+
+        .attach-image-btn:active {
+            color: #667eea;
+        }
+
+        .comment-image-preview {
+            display: none;
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .comment-image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .remove-image-btn {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .comment-submit {
             background: #667eea;
             color: white;
@@ -485,6 +588,32 @@
             font-weight: 600;
             cursor: pointer;
             font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .reply-indicator {
+            display: none;
+            background: #f0f0ff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #667eea;
+            margin-bottom: 8px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .reply-indicator.active {
+            display: flex;
+        }
+
+        .cancel-reply {
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
         }
 
         /* Profile Page */
@@ -872,7 +1001,7 @@
 
             <div id="upload-section">
                 <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
-                    <div class="upload-icon">📷</div>
+                    <div class="upload-icon"></div>
                     <div class="upload-text">Нажмите, чтобы загрузить</div>
                 </div>
                 <input type="file" id="file-input" accept="image/*" style="display: none" onchange="handleFileSelect(event)">
@@ -914,6 +1043,8 @@
         let currentCategory = 'all';
         let currentPostType = 'image';
         let uploadedMedia = null;
+        let replyTo = null;
+        let commentImage = null;
 
         const samplePosts = [
             { id: 1, author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', caption: 'Сегодняшняя абстракция. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
@@ -1041,7 +1172,8 @@
             else if (post.type === 'audio') mediaHtml = '<div class="post-audio"><div class="audio-player"><button class="play-btn">▶</button><div>Аудио трек</div></div></div>';
             else if (post.type === 'text' && post.text) mediaHtml = `<div class="post-text">${post.text}</div>`;
 
-            const commentsCount = (post.comments || []).length;
+            const comments = getCommentsForPost(post.id);
+            const commentsCount = comments.length;
 
             return `<div class="post-card">
                 <div class="post-header">
@@ -1067,21 +1199,79 @@
                     </button>
                 </div>
                 <div class="comments-section" id="comments-${post.id}" style="display: none;">
-                    ${(post.comments || []).map(c => `
-                        <div class="comment">
-                            <div class="comment-avatar">${c.avatar}</div>
-                            <div class="comment-content">
-                                <div class="comment-author">${c.author}</div>
-                                <div class="comment-text">${c.text}</div>
+                    <div id="comments-list-${post.id}">
+                        ${comments.map(c => renderComment(c, post.id)).join('')}
+                    </div>
+                    <div class="reply-indicator" id="reply-indicator-${post.id}">
+                        <span>Ответ ${replyTo && replyTo.postId === post.id ? '@' + replyTo.author : ''}</span>
+                        <button class="cancel-reply" onclick="cancelReply(${post.id})">×</button>
+                    </div>
+                    <div class="comment-input-wrapper">
+                        <div class="comment-input-container">
+                            <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="Написать комментарий...">
+                            <button class="attach-image-btn" onclick="document.getElementById('comment-file-${post.id}').click()">📷</button>
+                            <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
+                            <div class="comment-image-preview" id="comment-image-preview-${post.id}">
+                                <img id="comment-image-thumb-${post.id}" src="">
+                                <button class="remove-image-btn" onclick="removeCommentImage(${post.id})">×</button>
                             </div>
                         </div>
-                    `).join('')}
-                    <div class="comment-input-wrapper">
-                        <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="Написать комментарий...">
                         <button class="comment-submit" onclick="addComment(${post.id})">Отправить</button>
                     </div>
                 </div>
             </div>`;
+        }
+
+        function renderComment(comment, postId) {
+            const replies = getCommentsForPost(postId).filter(c => c.replyTo === comment.id);
+            
+            let html = `
+                <div class="comment" id="comment-${comment.id}">
+                    <div class="comment-avatar">${comment.avatar}</div>
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">${comment.author}</span>
+                            ${comment.replyTo ? `<span class="comment-reply-to">→ ${comment.replyToAuthor}</span>` : ''}
+                        </div>
+                        <div class="comment-text">${comment.text}</div>
+                        ${comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : ''}
+                        <div class="comment-actions">
+                            <button class="comment-action-btn" onclick="startReply(${postId}, '${comment.author}', ${comment.id})">Ответить</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            replies.forEach(reply => {
+                html += `
+                    <div class="comment reply" id="comment-${reply.id}">
+                        <div class="comment-avatar">${reply.avatar}</div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <span class="comment-author">${reply.author}</span>
+                                <span class="comment-reply-to">→ ${reply.replyToAuthor}</span>
+                            </div>
+                            <div class="comment-text">${reply.text}</div>
+                            ${reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')">` : ''}
+                            <div class="comment-actions">
+                                <button class="comment-action-btn" onclick="startReply(${postId}, '${reply.author}', ${reply.id})">Ответить</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        function getCommentsForPost(postId) {
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const post = posts.find(p => p.id === postId);
+            if (post) return post.comments || [];
+            
+            // Sample posts comments
+            const sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
+            return sampleComments[postId] || [];
         }
 
         function toggleComments(postId) {
@@ -1091,46 +1281,99 @@
             }
         }
 
+        function startReply(postId, authorName, commentId) {
+            replyTo = { postId, author: authorName, commentId };
+            const indicator = document.getElementById(`reply-indicator-${postId}`);
+            if (indicator) {
+                indicator.classList.add('active');
+                indicator.querySelector('span').textContent = `Ответ @${authorName}`;
+            }
+            const input = document.getElementById(`comment-input-${postId}`);
+            if (input) input.focus();
+        }
+
+        function cancelReply(postId) {
+            replyTo = null;
+            const indicator = document.getElementById(`reply-indicator-${postId}`);
+            if (indicator) indicator.classList.remove('active');
+        }
+
+        function handleCommentImage(event, postId) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 600;
+                    let width = img.width, height = img.height;
+                    if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
+                    else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
+                    canvas.width = width; canvas.height = height;
+                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                    commentImage = canvas.toDataURL('image/jpeg', 0.8);
+                    
+                    const preview = document.getElementById(`comment-image-preview-${postId}`);
+                    const thumb = document.getElementById(`comment-image-thumb-${postId}`);
+                    if (preview && thumb) {
+                        thumb.src = commentImage;
+                        preview.style.display = 'block';
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeCommentImage(postId) {
+            commentImage = null;
+            const preview = document.getElementById(`comment-image-preview-${postId}`);
+            const fileInput = document.getElementById(`comment-file-${postId}`);
+            if (preview) preview.style.display = 'none';
+            if (fileInput) fileInput.value = '';
+        }
+
         function addComment(postId) {
             const input = document.getElementById(`comment-input-${postId}`);
             const text = input.value.trim();
-            if (!text) return;
+            if (!text && !commentImage) return;
+
+            const comment = {
+                id: Date.now(),
+                author: currentUser.name,
+                avatar: currentUser.avatar,
+                text: text || '[изображение]',
+                time: Date.now(),
+                image: commentImage || null,
+                replyTo: replyTo && replyTo.postId === postId ? replyTo.commentId : null,
+                replyToAuthor: replyTo && replyTo.postId === postId ? replyTo.author : null
+            };
 
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
             
             if (post) {
                 if (!post.comments) post.comments = [];
-                post.comments.push({
-                    author: currentUser.name,
-                    avatar: currentUser.avatar,
-                    text: text,
-                    time: Date.now()
-                });
+                post.comments.push(comment);
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
-                renderFeed(document.getElementById('mainContent'));
-                // Re-open comments section
-                setTimeout(() => {
-                    const section = document.getElementById(`comments-${postId}`);
-                    if (section) section.style.display = 'block';
-                }, 50);
             } else {
-                // Comment on sample post (stored separately)
                 let sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
                 if (!sampleComments[postId]) sampleComments[postId] = [];
-                sampleComments[postId].push({
-                    author: currentUser.name,
-                    avatar: currentUser.avatar,
-                    text: text,
-                    time: Date.now()
-                });
+                sampleComments[postId].push(comment);
                 localStorage.setItem('muse_sample_comments', JSON.stringify(sampleComments));
-                renderFeed(document.getElementById('mainContent'));
-                setTimeout(() => {
-                    const section = document.getElementById(`comments-${postId}`);
-                    if (section) section.style.display = 'block';
-                }, 50);
             }
+
+            input.value = '';
+            removeCommentImage(postId);
+            cancelReply(postId);
+            renderFeed(document.getElementById('mainContent'));
+            
+            setTimeout(() => {
+                const section = document.getElementById(`comments-${postId}`);
+                if (section) section.style.display = 'block';
+            }, 50);
         }
 
         function filterCategory(cat) {
