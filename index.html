@@ -35,10 +35,21 @@
         body.dark-theme .empty-state { color: #94a3b8; }
         body.dark-theme .auth-box h2 { color: #94a3b8; }
         body.dark-theme .input-group label { color: #cbd5e1; }
-        body.dark-theme .modal-overlay { background: rgba(0,0,0,0.7); }
-        body.dark-theme .story-viewer { background: #000; }
+        body.dark-theme .auth-modal-text { color: #cbd5e1; }
         
-        .auth-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
+        .auth-modal-overlay.active { display: flex; }
+        .auth-modal { background: white; padding: 30px; border-radius: 24px; width: 100%; max-width: 400px; text-align: center; position: relative; }
+        body.dark-theme .auth-modal { background: #16213e; }
+        .auth-modal h3 { font-size: 22px; margin-bottom: 12px; }
+        .auth-modal-text { color: #666; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+        .auth-modal-btns { display: flex; flex-direction: column; gap: 10px; }
+        .auth-modal-btns .auth-btn { margin-top: 0; }
+        .auth-modal-cancel { background: #f0f0f0; color: #333; }
+        body.dark-theme .auth-modal-cancel { background: #1a1a2e; color: #eaeaea; }
+        
+        .auth-container { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .auth-container.active { display: flex; }
         .auth-box { background: white; padding: 40px 30px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
         .logo-large { font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .auth-box h2 { text-align: center; margin-bottom: 30px; color: #666; font-size: 16px; }
@@ -258,11 +269,28 @@
         .search-input { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; margin-bottom: 16px; font-family: inherit; }
         .search-input:focus { outline: none; border-color: #667eea; }
         
+        .edit-post-textarea { width: 100%; min-height: 150px; padding: 12px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; margin-bottom: 16px; }
+        .edit-post-textarea:focus { outline: none; border-color: #667eea; }
+        
         @media (max-width: 768px) { .main-content { padding: 16px; } }
     </style>
 </head>
 <body>
 
+    <!-- Модальное окно входа/регистрации (при попытке действия) -->
+    <div class="auth-modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <h3>Войдите в Muse</h3>
+            <p class="auth-modal-text">Чтобы лайкать, комментировать и публиковать посты, нужно зарегистрироваться или войти в аккаунт</p>
+            <div class="auth-modal-btns">
+                <button class="auth-btn" onclick="showFullAuth('login')">Войти</button>
+                <button class="auth-btn" onclick="showFullAuth('register')" style="background: #f0f0f0; color: #333;">Зарегистрироваться</button>
+                <button class="auth-btn auth-modal-cancel" onclick="closeAuthModal()">Позже</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Полная страница авторизации -->
     <div class="auth-container" id="authScreen">
         <div class="auth-box">
             <div class="logo-large">Muse</div>
@@ -272,6 +300,7 @@
             <div class="input-group"><label>Пароль</label><input type="password" id="regPassword" placeholder="••••••••"></div>
             <button class="auth-btn" onclick="handleAuth()">Продолжить</button>
             <div class="switch-auth"><span onclick="toggleAuthMode()">Уже есть аккаунт? Войти</span></div>
+            <div class="switch-auth" style="margin-top: 12px;"><span onclick="closeFullAuth()" style="color: #888;">← Вернуться к ленте</span></div>
         </div>
     </div>
 
@@ -280,28 +309,28 @@
         <div class="mobile-sidebar" id="mobileSidebar">
             <button class="close-sidebar" onclick="toggleSidebar()">×</button>
             <div class="logo-large" style="margin-bottom: 30px;">Muse</div>
-            <div class="sidebar-nav-item active" onclick="navigate('home'); toggleSidebar();">
+            <div class="sidebar-nav-item active" data-page="home" onclick="navigate('home'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span>Лента</span>
             </div>
-            <div class="sidebar-nav-item" onclick="navigate('following'); toggleSidebar();">
+            <div class="sidebar-nav-item" data-page="following" onclick="navigate('following'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                 <span>Подписки</span>
             </div>
-            <div class="sidebar-nav-item" onclick="navigate('explore'); toggleSidebar();">
+            <div class="sidebar-nav-item" data-page="explore" onclick="navigate('explore'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <span>Обзор</span>
             </div>
-            <div class="sidebar-nav-item" onclick="navigate('notifications'); toggleSidebar();">
+            <div class="sidebar-nav-item" data-page="notifications" onclick="navigate('notifications'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 <span>Уведомления</span>
                 <span class="notification-badge" id="notifBadge" style="display: none;">0</span>
             </div>
-            <div class="sidebar-nav-item" onclick="navigate('profile'); toggleSidebar();">
+            <div class="sidebar-nav-item" data-page="profile" onclick="navigate('profile'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                <span>Профиль</span>
+                <span id="profileMenuLabel">Профиль</span>
             </div>
-            <div class="sidebar-nav-item" onclick="toggleTheme(); toggleSidebar();">
+            <div class="sidebar-nav-item" data-page="theme" onclick="toggleTheme();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                 <span>Тема</span>
             </div>
@@ -316,7 +345,7 @@
         </div>
 
         <div class="main-content" id="mainContent"></div>
-        <button class="fab" onclick="openCreateModal()">+</button>
+        <button class="fab" onclick="fabClick()">+</button>
     </div>
 
     <div class="story-viewer" id="storyViewer">
@@ -337,7 +366,7 @@
             <div class="post-type-selector">
                 <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
                 <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
-                <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
+                <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">️</div><div>Текст</div></button>
             </div>
             <div id="image-section">
                 <div class="multi-item-list" id="image-list"></div>
@@ -356,6 +385,25 @@
             <textarea class="caption-input" id="caption" placeholder="Расскажите о своей работе..."></textarea>
             <input type="text" class="tags-input" id="tags" placeholder="Теги через запятую">
             <button class="submit-btn" id="submit-btn" onclick="submitPost()" disabled>Опубликовать</button>
+        </div>
+    </div>
+
+    <div class="modal" id="editPostModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Редактировать пост</h2>
+                <button class="close-modal" onclick="closeEditPostModal()">×</button>
+            </div>
+            <div id="edit-post-content"></div>
+            <div class="input-group">
+                <label>Описание</label>
+                <textarea class="caption-input" id="edit-caption" placeholder="Описание поста..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Теги (через запятую)</label>
+                <input type="text" class="tags-input" id="edit-tags" placeholder="тег1, тег2, тег3">
+            </div>
+            <button class="auth-btn" onclick="saveEditPost()">Сохранить</button>
         </div>
     </div>
 
@@ -417,6 +465,8 @@
         let currentAudio = null;
         let currentPlayBtn = null;
         let currentTheme = localStorage.getItem('muse_theme') || 'light';
+        let editingPostId = null;
+        let pendingAuthAction = null;
 
         const samplePosts = [
             { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
@@ -432,16 +482,33 @@
             { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [] }
         ];
 
-        const sampleStories = [
-            { id: 1, author: 'Анна К.', avatar: 'А', images: ['https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600'], time: Date.now() - 3600000 },
-            { id: 2, author: 'Максим Д.', avatar: 'М', images: ['https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600'], time: Date.now() - 7200000 }
-        ];
-
+        // Восстановление состояния при загрузке
         window.onload = function() {
             if (currentTheme === 'dark') document.body.classList.add('dark-theme');
+            
+            // Восстанавливаем авторизацию
             const saved = localStorage.getItem('muse_currentUser');
-            if (saved) { currentUser = JSON.parse(saved); showApp(); }
+            if (saved) currentUser = JSON.parse(saved);
+            
+            // Восстанавливаем последнюю страницу
+            const savedPage = localStorage.getItem('muse_lastPage');
+            if (savedPage) currentPage = savedPage;
+            
+            // Всегда показываем приложение (даже без авторизации)
+            document.getElementById('mainApp').classList.add('active');
+            navigate(currentPage);
+            updateNotifBadge();
+            updateAuthUI();
         };
+
+        function updateAuthUI() {
+            const label = document.getElementById('profileMenuLabel');
+            if (currentUser) {
+                label.textContent = 'Профиль';
+            } else {
+                label.textContent = 'Войти';
+            }
+        }
 
         function toggleTheme() {
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -463,7 +530,14 @@
             const users = getUsers();
             if (isLoginMode) {
                 const user = users.find(u => u.username === username && u.password === password);
-                if (user) { currentUser = user; localStorage.setItem('muse_currentUser', JSON.stringify(user)); showApp(); }
+                if (user) { 
+                    currentUser = user; 
+                    localStorage.setItem('muse_currentUser', JSON.stringify(user)); 
+                    closeFullAuth();
+                    updateAuthUI();
+                    updateNotifBadge();
+                    navigate(currentPage);
+                }
                 else { alert('Неверный никнейм или пароль'); }
             } else {
                 if (users.find(u => u.username === username)) { alert('Никнейм занят'); return; }
@@ -472,7 +546,10 @@
                 saveUsers(users);
                 currentUser = newUser;
                 localStorage.setItem('muse_currentUser', JSON.stringify(newUser));
-                showApp();
+                closeFullAuth();
+                updateAuthUI();
+                updateNotifBadge();
+                navigate(currentPage);
             }
         }
 
@@ -500,14 +577,32 @@
             updateNotifBadge();
         }
 
-        function logout() { localStorage.removeItem('muse_currentUser'); location.reload(); }
+        function logout() { 
+            currentUser = null;
+            localStorage.removeItem('muse_currentUser'); 
+            updateAuthUI();
+            updateNotifBadge();
+            navigate('home');
+        }
 
         function navigate(page, data) {
+            // Если нет авторизации и пытаемся зайти в профиль/уведомления/подписки — показываем вход
+            if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'following')) {
+                if (page === 'profile') {
+                    // Для профиля без авторизации — открываем вход
+                    showFullAuth('login');
+                    return;
+                }
+            }
+            
             currentPage = page;
-            document.querySelectorAll('.sidebar-nav-item').forEach((item, i) => {
-                const pages = ['home', 'following', 'explore', 'notifications', 'profile', 'theme'];
-                item.classList.toggle('active', pages[i] === page);
+            localStorage.setItem('muse_lastPage', page);
+            
+            // Обновляем активный пункт меню
+            document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.page === page);
             });
+            
             const content = document.getElementById('mainContent');
             const title = document.getElementById('pageTitle');
             switch(page) {
@@ -521,17 +616,21 @@
                         const user = getUserById(data.userId);
                         title.textContent = user ? user.name : 'Профиль';
                     } else {
-                        currentProfileUserId = currentUser.id;
-                        title.textContent = 'Профиль';
+                        currentProfileUserId = currentUser ? currentUser.id : null;
+                        title.textContent = currentUser ? 'Профиль' : 'Вход';
                     }
-                    renderProfile(content); 
+                    if (currentUser) renderProfile(content);
+                    else showFullAuth('login');
                     break;
             }
             updateSidebarFollowing();
         }
 
         function updateSidebarFollowing() {
-            if (!currentUser) return;
+            if (!currentUser) {
+                document.getElementById('sidebarFollowing').innerHTML = '';
+                return;
+            }
             const users = getUsers();
             const me = users.find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
@@ -558,6 +657,35 @@
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
+        // Проверка авторизации перед действием
+        function requireAuth(action) {
+            if (!currentUser) {
+                pendingAuthAction = action;
+                document.getElementById('authModal').classList.add('active');
+                return false;
+            }
+            return true;
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            pendingAuthAction = null;
+        }
+
+        function showFullAuth(mode) {
+            closeAuthModal();
+            isLoginMode = mode === 'login';
+            document.getElementById('authTitle').textContent = isLoginMode ? 'Войти' : 'Создать аккаунт';
+            document.querySelector('.switch-auth span').textContent = isLoginMode ? 'Нет аккаунта? Зарегистрироваться' : 'Уже есть аккаунт? Войти';
+            document.getElementById('authScreen').classList.add('active');
+            document.getElementById('mainApp').classList.remove('active');
+        }
+
+        function closeFullAuth() {
+            document.getElementById('authScreen').classList.remove('active');
+            document.getElementById('mainApp').classList.add('active');
+        }
+
         function getCommentsForPost(postId) {
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
@@ -568,17 +696,23 @@
 
         function getStories() {
             const saved = JSON.parse(localStorage.getItem('muse_stories') || '[]');
-            const allStories = [...saved, ...sampleStories];
             const now = Date.now();
             const dayAgo = now - 86400000;
-            return allStories.filter(s => s.time > dayAgo);
+            const freshStories = saved.filter(s => s.time > dayAgo);
+            const oldStories = saved.filter(s => s.time <= dayAgo);
+            if (oldStories.length > 0) {
+                localStorage.setItem('muse_stories', JSON.stringify(freshStories));
+            }
+            return freshStories;
         }
 
         function getNotifications() {
+            if (!currentUser) return [];
             return JSON.parse(localStorage.getItem('muse_notifications_' + currentUser.id) || '[]');
         }
 
         function saveNotifications(notifs) {
+            if (!currentUser) return;
             localStorage.setItem('muse_notifications_' + currentUser.id, JSON.stringify(notifs));
         }
 
@@ -604,7 +738,6 @@
         }
 
         function updateNotifBadge() {
-            if (!currentUser) return;
             const notifs = getNotifications();
             const unread = notifs.filter(n => !n.read).length;
             const badge = document.getElementById('notifBadge');
@@ -617,7 +750,6 @@
         }
 
         function markNotificationsRead() {
-            if (!currentUser) return;
             const notifs = getNotifications();
             notifs.forEach(n => n.read = true);
             saveNotifications(notifs);
@@ -633,11 +765,13 @@
             let html = '';
             if (stories.length > 0) {
                 html += '<div class="stories-container">';
-                html += `<div class="story-item add-story" onclick="openStoryModal()">
-                    <div class="story-avatar"><div class="story-placeholder">${currentUser ? (currentUser.photo ? `<img src="${currentUser.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : currentUser.avatar) : '?'}</div></div>
-                    <div class="plus-icon">+</div>
-                    <div class="story-name">История</div>
-                </div>`;
+                if (currentUser) {
+                    html += `<div class="story-item add-story" onclick="openStoryModal()">
+                        <div class="story-avatar"><div class="story-placeholder">${currentUser.photo ? `<img src="${currentUser.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : currentUser.avatar}</div></div>
+                        <div class="plus-icon">+</div>
+                        <div class="story-name">История</div>
+                    </div>`;
+                }
                 stories.forEach((story, i) => {
                     html += `<div class="story-item" onclick="openStoryViewer(${i})">
                         <div class="story-avatar"><div class="story-placeholder">${story.avatar}</div></div>
@@ -662,7 +796,7 @@
         }
 
         function renderFollowing(container) {
-            if (!currentUser) return;
+            if (!currentUser) { showFullAuth('login'); return; }
             const users = getUsers();
             const me = users.find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
@@ -747,6 +881,9 @@
             const rootComments = allComments.filter(c => !c.replyTo);
             const commentsCount = allComments.length;
             const isOwnPost = currentUser && post.authorId === currentUser.id;
+            
+            const captionHtml = post.caption ? `<div class="post-caption">${post.caption}</div>` : '';
+            const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags">${post.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : '';
 
             return `<div class="post-card">
                 <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
@@ -755,7 +892,7 @@
                         <div class="post-author-name">${post.author}</div>
                         <div class="post-author-handle">${post.handle}</div>
                     </div>
-                    ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>` : ''}
+                    ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})"></button>` : ''}
                 </div>
                 <div class="post-menu" id="post-menu-${post.id}">
                     <div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>
@@ -763,8 +900,8 @@
                 </div>
                 ${mediaHtml}
                 <div class="post-content">
-                    <div class="post-caption">${post.caption}</div>
-                    <div class="post-tags">${post.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>
+                    ${captionHtml}
+                    ${tagsHtml}
                 </div>
                 <div class="post-actions">
                     <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
@@ -790,15 +927,15 @@
                     </div>
                     <div class="comment-input-wrapper">
                         <div class="comment-input-container">
-                            <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="Написать комментарий...">
-                            <button class="attach-image-btn" onclick="document.getElementById('comment-file-${post.id}').click()">📷</button>
+                            <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : 'onclick="showFullAuth(\'login\')" readonly'}>
+                            <button class="attach-image-btn" onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}">📷</button>
                             <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
                             <div class="comment-image-preview" id="comment-image-preview-${post.id}">
                                 <img id="comment-image-thumb-${post.id}" src="">
                                 <button class="remove-image-btn" onclick="removeCommentImage(${post.id})">×</button>
                             </div>
                         </div>
-                        <button class="comment-submit" onclick="addComment(${post.id})">Отправить</button>
+                        <button class="comment-submit" onclick="${currentUser ? `addComment(${post.id})` : `showFullAuth('login')`}">Отправить</button>
                     </div>
                 </div>
             </div>`;
@@ -813,22 +950,65 @@
         }
 
         function editPost(postId) {
+            if (!requireAuth()) return;
+            editingPostId = postId;
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
             if (!post) return;
             
-            const newCaption = prompt('Изменить описание:', post.caption);
-            if (newCaption !== null) {
-                post.caption = newCaption.trim() || post.caption;
-                localStorage.setItem('muse_posts', JSON.stringify(posts));
-                document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
-                if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
-                else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
-                else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
+            document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
+            
+            let contentHtml = '';
+            if (post.type === 'text' && post.texts && post.texts.length > 0) {
+                contentHtml = `<div class="input-group"><label>Текст поста</label><textarea class="edit-post-textarea" id="edit-text-content">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
+            } else if (post.type === 'image' && post.images) {
+                contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; color: #333; display: block; margin-bottom: 8px;">Фото (${post.images.length} шт.)</label><div style="display: flex; gap: 8px; flex-wrap: wrap;">${post.images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
+            } else if (post.type === 'audio' && post.audios) {
+                contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; color: #333; display: block; margin-bottom: 8px;">Аудио (${post.audios.length} трек${post.audios.length > 1 ? 'а' : ''})</label><div>${post.audioTitles ? post.audioTitles.map((t, i) => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;">🎵 ${t}</div>`).join('') : ''}</div></div>`;
             }
+            
+            document.getElementById('edit-post-content').innerHTML = contentHtml;
+            document.getElementById('edit-caption').value = post.caption || '';
+            document.getElementById('edit-tags').value = (post.tags || []).join(', ');
+            document.getElementById('editPostModal').classList.add('active');
+        }
+
+        function closeEditPostModal() {
+            document.getElementById('editPostModal').classList.remove('active');
+            editingPostId = null;
+        }
+
+        function saveEditPost() {
+            if (!editingPostId || !currentUser) return;
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const post = posts.find(p => p.id === editingPostId);
+            if (!post) return;
+            
+            const newCaption = document.getElementById('edit-caption').value.trim();
+            const newTagsStr = document.getElementById('edit-tags').value.trim();
+            const newTags = newTagsStr ? newTagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
+            
+            post.caption = newCaption;
+            post.tags = newTags;
+            
+            if (post.type === 'text') {
+                const textContent = document.getElementById('edit-text-content');
+                if (textContent) {
+                    const texts = textContent.value.split('\n\n---\n\n').map(t => t.trim()).filter(t => t);
+                    if (texts.length > 0) post.texts = texts;
+                }
+            }
+            
+            localStorage.setItem('muse_posts', JSON.stringify(posts));
+            closeEditPostModal();
+            
+            if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+            else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
+            else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
         }
 
         function deletePost(postId) {
+            if (!requireAuth()) return;
             if (!confirm('Удалить этот пост?')) return;
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const filtered = posts.filter(p => p.id !== postId);
@@ -867,6 +1047,9 @@
         function renderComment(comment, postId, allComments) {
             const replies = allComments.filter(c => c.replyTo === comment.id);
             const isOwnComment = currentUser && comment.author === currentUser.name;
+            const commentImageHtml = comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : '';
+            const commentTextHtml = comment.text ? `<div class="comment-text">${comment.text}</div>` : '';
+            
             let html = `<div class="comment" id="comment-${comment.id}">
                 <div class="comment-avatar">${comment.avatar}</div>
                 <div class="comment-content">
@@ -874,8 +1057,8 @@
                         <span class="comment-author">${comment.author}</span>
                         ${comment.replyTo && comment.replyToAuthor ? `<span class="comment-reply-to">→ ${comment.replyToAuthor}</span>` : ''}
                     </div>
-                    <div class="comment-text">${comment.text}</div>
-                    ${comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : ''}
+                    ${commentTextHtml}
+                    ${commentImageHtml}
                     <div class="comment-actions">
                         <button class="comment-action-btn" onclick="startReply(${postId}, '${comment.author.replace(/'/g, "\\'")}', ${comment.id})">Ответить</button>
                     </div>
@@ -884,6 +1067,8 @@
             </div>`;
             replies.forEach(reply => {
                 const isOwnReply = currentUser && reply.author === currentUser.name;
+                const replyImageHtml = reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')">` : '';
+                const replyTextHtml = reply.text ? `<div class="comment-text">${reply.text}</div>` : '';
                 html += `<div class="comment reply" id="comment-${reply.id}">
                     <div class="comment-avatar">${reply.avatar}</div>
                     <div class="comment-content">
@@ -891,8 +1076,8 @@
                             <span class="comment-author">${reply.author}</span>
                             ${reply.replyToAuthor ? `<span class="comment-reply-to">→ ${reply.replyToAuthor}</span>` : ''}
                         </div>
-                        <div class="comment-text">${reply.text}</div>
-                        ${reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')">` : ''}
+                        ${replyTextHtml}
+                        ${replyImageHtml}
                         <div class="comment-actions">
                             <button class="comment-action-btn" onclick="startReply(${postId}, '${reply.author.replace(/'/g, "\\'")}', ${reply.id})">Ответить</button>
                         </div>
@@ -904,6 +1089,7 @@
         }
 
         function deleteComment(postId, commentId) {
+            if (!requireAuth()) return;
             if (!confirm('Удалить комментарий?')) return;
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
@@ -930,6 +1116,7 @@
         }
 
         function startReply(postId, authorName, commentId) {
+            if (!requireAuth()) return;
             replyTo = { postId, author: authorName, commentId };
             const indicator = document.getElementById(`reply-indicator-${postId}`);
             if (indicator) {
@@ -979,6 +1166,7 @@
         }
 
         function addComment(postId) {
+            if (!requireAuth()) return;
             const input = document.getElementById(`comment-input-${postId}`);
             const text = input.value.trim();
             if (!text && !commentImage) return;
@@ -990,7 +1178,7 @@
             }
             const comment = {
                 id: Date.now(), author: currentUser.name, avatar: currentUser.avatar,
-                text: text || '[изображение]', time: Date.now(), image: commentImage || null,
+                text: text, time: Date.now(), image: commentImage || null,
                 replyTo: replyTo && replyTo.postId === postId ? replyTo.commentId : null,
                 replyToAuthor: replyToAuthor
             };
@@ -1027,13 +1215,31 @@
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId) || samplePosts.find(p => p.id === postId);
             if (!post) return;
-            const shareData = { title: `Пост от ${post.author}`, text: post.caption, url: window.location.href };
+            const shareData = { title: `Пост от ${post.author}`, text: post.caption || '', url: window.location.href };
             if (navigator.share) { navigator.share(shareData).catch(() => {}); }
-            else { navigator.clipboard.writeText(window.location.href).then(() => alert('Ссылка скопирована!')).catch(() => alert('Поделиться: ' + post.caption)); }
+            else { navigator.clipboard.writeText(window.location.href).then(() => alert('Ссылка скопирована!')).catch(() => alert('Поделиться: ' + (post.caption || ''))); }
+        }
+
+        function toggleLike(postId) {
+            if (!requireAuth()) return;
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                post.liked = !post.liked;
+                post.likes += post.liked ? 1 : -1;
+                localStorage.setItem('muse_posts', JSON.stringify(posts));
+                if (post.liked) {
+                    const postAuthor = getUserById(post.authorId);
+                    if (postAuthor) addNotification('like', currentUser, postId, '');
+                }
+                if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+                else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
+                else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
+            }
         }
 
         function toggleFollow(targetUserId) {
-            if (!currentUser) return;
+            if (!requireAuth()) return;
             const users = getUsers();
             const me = users.find(u => u.id === currentUser.id);
             const target = users.find(u => u.id === targetUserId);
@@ -1059,7 +1265,10 @@
             updateSidebarFollowing();
         }
 
-        function openStoryModal() { document.getElementById('storyModal').classList.add('active'); }
+        function openStoryModal() {
+            if (!requireAuth()) return;
+            document.getElementById('storyModal').classList.add('active');
+        }
         function closeStoryModal() {
             document.getElementById('storyModal').classList.remove('active');
             storyImage = null;
@@ -1095,7 +1304,7 @@
         }
 
         function submitStory() {
-            if (!storyImage) return;
+            if (!requireAuth() || !storyImage) return;
             const story = { id: Date.now(), author: currentUser.name, avatar: currentUser.avatar, images: [storyImage], time: Date.now() };
             const stories = JSON.parse(localStorage.getItem('muse_stories') || '[]');
             stories.push(story);
@@ -1167,6 +1376,7 @@
         }
 
         function renderNotifications(container) {
+            if (!currentUser) { showFullAuth('login'); return; }
             const notifs = getNotifications();
             
             if (notifs.length === 0) {
@@ -1214,15 +1424,14 @@
 
         function renderExplore(container) {
             const users = getUsers();
-            const me = users.find(u => u.id === currentUser.id);
-            const following = me ? me.following || [] : [];
+            const following = currentUser ? (getUsers().find(u => u.id === currentUser.id)?.following || []) : [];
             
             let html = '<input type="text" class="search-input" id="searchInput" placeholder="Поиск пользователей..." value="' + searchQuery + '" oninput="handleSearch(this.value)">';
-            html += '<div class="info-banner">🔍 Найдите интересных авторов и подпишитесь на них!</div>';
+            html += '<div class="info-banner"> Найдите интересных авторов и подпишитесь на них!</div>';
             html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
             
             const displayUsers = users.filter(u => {
-                if (u.id === currentUser.id) return false;
+                if (currentUser && u.id === currentUser.id) return false;
                 if (!searchQuery) return true;
                 const q = searchQuery.toLowerCase();
                 return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q) || (u.bio && u.bio.toLowerCase().includes(q));
@@ -1262,6 +1471,7 @@
         }
 
         function renderProfile(container) {
+            if (!currentUser) { showFullAuth('login'); return; }
             const userId = currentProfileUserId || currentUser.id;
             const user = getUserById(userId);
             if (!user) { container.innerHTML = '<div class="empty-state"><p>Пользователь не найден</p></div>'; return; }
@@ -1322,6 +1532,7 @@
         }
 
         function openEditModal() {
+            if (!requireAuth()) return;
             document.getElementById('editName').value = currentUser.name;
             document.getElementById('editUsername').value = currentUser.username;
             document.getElementById('editBio').value = currentUser.bio || '';
@@ -1359,6 +1570,7 @@
         }
 
         function saveProfile() {
+            if (!currentUser) return;
             const newName = document.getElementById('editName').value.trim();
             const newUsername = document.getElementById('editUsername').value.trim().replace(/^@/, '');
             const newBio = document.getElementById('editBio').value.trim();
@@ -1381,21 +1593,9 @@
             alert('Профиль обновлен!');
         }
 
-        function toggleLike(postId) {
-            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            const post = posts.find(p => p.id === postId);
-            if (post) {
-                post.liked = !post.liked;
-                post.likes += post.liked ? 1 : -1;
-                localStorage.setItem('muse_posts', JSON.stringify(posts));
-                if (post.liked) {
-                    const postAuthor = getUserById(post.authorId);
-                    if (postAuthor) addNotification('like', currentUser, postId, '');
-                }
-                if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
-                else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
-                else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
-            }
+        function fabClick() {
+            if (!requireAuth()) return;
+            openCreateModal();
         }
 
         function openCreateModal() {
@@ -1517,13 +1717,14 @@
         function removeText(index) { uploadedTexts.splice(index, 1); renderMultiItemList('text'); updateSubmitButton(); }
 
         function submitPost() {
+            if (!currentUser) return;
             const caption = document.getElementById('caption').value.trim();
             const tagsStr = document.getElementById('tags').value.trim();
             const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
             let newPost = {
                 id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
                 avatar: currentUser.avatar, photo: currentUser.photo || null, time: 'только что', type: currentPostType,
-                caption: caption || 'Без подписи', tags, likes: 0, liked: false, comments: []
+                caption: caption, tags, likes: 0, liked: false, comments: []
             };
             if (currentPostType === 'image') {
                 if (uploadedImages.length === 0) { alert('Добавьте хотя бы одно фото'); return; }
@@ -1548,8 +1749,10 @@
 
         document.getElementById('caption').addEventListener('input', updateSubmitButton);
         document.getElementById('createModal').addEventListener('click', function(e) { if (e.target === this) closeCreateModal(); });
+        document.getElementById('editPostModal').addEventListener('click', function(e) { if (e.target === this) closeEditPostModal(); });
         document.getElementById('editModal').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
         document.getElementById('storyModal').addEventListener('click', function(e) { if (e.target === this) closeStoryModal(); });
+        document.getElementById('authModal').addEventListener('click', function(e) { if (e.target === this) closeAuthModal(); });
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) {
                 document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
