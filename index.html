@@ -410,6 +410,83 @@
             height: 18px;
         }
 
+        /* Comments Section */
+        .comments-section {
+            padding: 12px 16px;
+            border-top: 1px solid #f0f0f0;
+            background: #fafafa;
+        }
+
+        .comment {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .comment-input-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+        }
+
+        .comment-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .comment-submit {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
         /* Profile Page */
         .profile-header {
             background: white;
@@ -461,6 +538,45 @@
         .logout-btn {
             background: #f0f0f0;
             color: #333;
+        }
+
+        /* Users List */
+        .user-card {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .user-card-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .user-card-info {
+            flex: 1;
+        }
+
+        .user-card-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .user-card-handle {
+            color: #666;
+            font-size: 13px;
         }
 
         /* Modal */
@@ -642,6 +758,17 @@
             color: #888;
         }
 
+        .info-banner {
+            background: #fff3cd;
+            border: 1px solid #ffe69c;
+            color: #856404;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 padding: 16px;
@@ -691,9 +818,9 @@
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span>Лента</span>
             </div>
-            <div class="sidebar-nav-item" onclick="navigate('search'); toggleSidebar();">
+            <div class="sidebar-nav-item" onclick="navigate('explore'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <span>Поиск</span>
+                <span>Обзор</span>
             </div>
             <div class="sidebar-nav-item" onclick="navigate('notifications'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
@@ -745,7 +872,7 @@
 
             <div id="upload-section">
                 <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
-                    <div class="upload-icon"></div>
+                    <div class="upload-icon">📷</div>
                     <div class="upload-text">Нажмите, чтобы загрузить</div>
                 </div>
                 <input type="file" id="file-input" accept="image/*" style="display: none" onchange="handleFileSelect(event)">
@@ -789,9 +916,9 @@
         let uploadedMedia = null;
 
         const samplePosts = [
-            { id: 1, author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', caption: 'Сегодняшняя абстракция.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false },
-            { id: 2, author: 'Максим Д.', handle: '@max_photo', avatar: 'М', time: '5 часов назад', type: 'image', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800', caption: 'Утренний кофе.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false },
-            { id: 3, author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', time: '1 день назад', type: 'text', text: 'Город просыпался медленно...', caption: 'Отрывок из рассказа.', tags: ['проза'], category: 'text', likes: 93, liked: false }
+            { id: 1, author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', caption: 'Сегодняшняя абстракция. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
+            { id: 2, author: 'Максим Д.', handle: '@max_photo', avatar: 'М', time: '5 часов назад', type: 'image', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800', caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
+            { id: 3, author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', time: '1 день назад', type: 'text', text: 'Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [] }
         ];
 
         window.onload = function() {
@@ -849,7 +976,7 @@
         function navigate(page) {
             currentPage = page;
             document.querySelectorAll('.sidebar-nav-item').forEach((item, i) => {
-                const pages = ['home', 'search', 'notifications', 'profile'];
+                const pages = ['home', 'explore', 'notifications', 'profile'];
                 item.classList.toggle('active', pages[i] === page);
             });
 
@@ -861,13 +988,13 @@
                     title.textContent = 'Лента';
                     renderFeed(content);
                     break;
-                case 'search':
-                    title.textContent = 'Поиск';
-                    content.innerHTML = '<div class="empty-state"><h2>Поиск</h2><p>Скоро здесь можно будет искать творческих людей</p></div>';
+                case 'explore':
+                    title.textContent = 'Обзор';
+                    renderExplore(content);
                     break;
                 case 'notifications':
                     title.textContent = 'Уведомления';
-                    content.innerHTML = '<div class="empty-state"><h2>Уведомления</h2><p>Здесь будут уведомления о лайках</p></div>';
+                    content.innerHTML = '<div class="empty-state"><h2>Уведомления</h2><p>Здесь будут уведомления о лайках и комментариях</p></div>';
                     break;
                 case 'profile':
                     title.textContent = 'Профиль';
@@ -887,50 +1014,152 @@
             const filtered = currentCategory === 'all' ? allPosts : allPosts.filter(p => p.category === currentCategory);
 
             let html = '<div class="categories">';
-            ['all', 'photo', 'art', 'music', 'text'].forEach(cat => {
-                const names = { all: 'Всё', photo: 'Фото', art: 'Живопись', music: 'Музыка', text: 'Тексты' };
-                html += `<div class="category-chip ${currentCategory === cat ? 'active' : ''}" onclick="filterCategory('${cat}')">${names[cat]}</div>`;
+            const cats = [
+                { id: 'all', name: 'Всё' },
+                { id: 'photo', name: 'Фото' },
+                { id: 'art', name: 'Живопись' },
+                { id: 'music', name: 'Музыка' },
+                { id: 'text', name: 'Тексты' }
+            ];
+            cats.forEach(cat => {
+                html += `<div class="category-chip ${currentCategory === cat.id ? 'active' : ''}" onclick="filterCategory('${cat.id}')">${cat.name}</div>`;
             });
             html += '</div>';
 
             if (filtered.length === 0) {
-                html += '<div class="empty-state"><p>Пока нет постов</p></div>';
+                html += '<div class="empty-state"><p>Пока нет постов в этой категории</p></div>';
             } else {
-                html += filtered.map(post => {
-                    let mediaHtml = '';
-                    if (post.type === 'image' && post.image) mediaHtml = `<img src="${post.image}" class="post-image">`;
-                    else if (post.type === 'audio') mediaHtml = '<div class="post-audio"><div class="audio-player"><button class="play-btn">▶</button><div>Аудио трек</div></div></div>';
-                    else if (post.type === 'text' && post.text) mediaHtml = `<div class="post-text">${post.text}</div>`;
-
-                    return `<div class="post-card">
-                        <div class="post-header">
-                            <div class="post-avatar">${post.avatar}</div>
-                            <div class="post-author-info">
-                                <div class="post-author-name">${post.author}</div>
-                                <div class="post-author-handle">${post.handle}</div>
-                            </div>
-                        </div>
-                        ${mediaHtml}
-                        <div class="post-content">
-                            <div class="post-caption">${post.caption}</div>
-                            <div class="post-tags">${post.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>
-                        </div>
-                        <div class="post-actions">
-                            <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
-                                <svg fill="${post.liked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                                <span>${post.likes}</span>
-                            </button>
-                        </div>
-                    </div>`;
-                }).join('');
+                html += filtered.map(post => renderPostCard(post)).join('');
             }
 
             container.innerHTML = html;
         }
 
+        function renderPostCard(post) {
+            let mediaHtml = '';
+            if (post.type === 'image' && post.image) mediaHtml = `<img src="${post.image}" class="post-image">`;
+            else if (post.type === 'audio') mediaHtml = '<div class="post-audio"><div class="audio-player"><button class="play-btn">▶</button><div>Аудио трек</div></div></div>';
+            else if (post.type === 'text' && post.text) mediaHtml = `<div class="post-text">${post.text}</div>`;
+
+            const commentsCount = (post.comments || []).length;
+
+            return `<div class="post-card">
+                <div class="post-header">
+                    <div class="post-avatar">${post.avatar}</div>
+                    <div class="post-author-info">
+                        <div class="post-author-name">${post.author}</div>
+                        <div class="post-author-handle">${post.handle}</div>
+                    </div>
+                </div>
+                ${mediaHtml}
+                <div class="post-content">
+                    <div class="post-caption">${post.caption}</div>
+                    <div class="post-tags">${post.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
+                        <svg fill="${post.liked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                        <span>${post.likes}</span>
+                    </button>
+                    <button class="action-btn" onclick="toggleComments(${post.id})">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        <span>${commentsCount}</span>
+                    </button>
+                </div>
+                <div class="comments-section" id="comments-${post.id}" style="display: none;">
+                    ${(post.comments || []).map(c => `
+                        <div class="comment">
+                            <div class="comment-avatar">${c.avatar}</div>
+                            <div class="comment-content">
+                                <div class="comment-author">${c.author}</div>
+                                <div class="comment-text">${c.text}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    <div class="comment-input-wrapper">
+                        <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="Написать комментарий...">
+                        <button class="comment-submit" onclick="addComment(${post.id})">Отправить</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function toggleComments(postId) {
+            const section = document.getElementById(`comments-${postId}`);
+            if (section) {
+                section.style.display = section.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function addComment(postId) {
+            const input = document.getElementById(`comment-input-${postId}`);
+            const text = input.value.trim();
+            if (!text) return;
+
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                if (!post.comments) post.comments = [];
+                post.comments.push({
+                    author: currentUser.name,
+                    avatar: currentUser.avatar,
+                    text: text,
+                    time: Date.now()
+                });
+                localStorage.setItem('muse_posts', JSON.stringify(posts));
+                renderFeed(document.getElementById('mainContent'));
+                // Re-open comments section
+                setTimeout(() => {
+                    const section = document.getElementById(`comments-${postId}`);
+                    if (section) section.style.display = 'block';
+                }, 50);
+            } else {
+                // Comment on sample post (stored separately)
+                let sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
+                if (!sampleComments[postId]) sampleComments[postId] = [];
+                sampleComments[postId].push({
+                    author: currentUser.name,
+                    avatar: currentUser.avatar,
+                    text: text,
+                    time: Date.now()
+                });
+                localStorage.setItem('muse_sample_comments', JSON.stringify(sampleComments));
+                renderFeed(document.getElementById('mainContent'));
+                setTimeout(() => {
+                    const section = document.getElementById(`comments-${postId}`);
+                    if (section) section.style.display = 'block';
+                }, 50);
+            }
+        }
+
         function filterCategory(cat) {
             currentCategory = cat;
             renderFeed(document.getElementById('mainContent'));
+        }
+
+        function renderExplore(container) {
+            const users = JSON.parse(localStorage.getItem('muse_users') || '[]');
+            
+            let html = '<div class="info-banner">📱 <b>Важно:</b> Сейчас вы видите только пользователей, зарегистрированных на этом устройстве. Чтобы видеть всех пользователей, нужен сервер (это сделает программист).</div>';
+            
+            html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Пользователи Muse</h2>';
+            
+            if (users.length === 0) {
+                html += '<div class="empty-state"><p>Пока никто не зарегистрировался</p></div>';
+            } else {
+                html += users.map(user => `
+                    <div class="user-card">
+                        <div class="user-card-avatar">${user.avatar}</div>
+                        <div class="user-card-info">
+                            <div class="user-card-name">${user.name}</div>
+                            <div class="user-card-handle">${user.username}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            container.innerHTML = html;
         }
 
         function renderProfile(container) {
@@ -1010,7 +1239,7 @@
             } else if (type === 'audio') {
                 uploadSection.style.display = 'block';
                 textSection.style.display = 'none';
-                uploadArea.innerHTML = '<div class="upload-icon"></div><div class="upload-text">Нажмите, чтобы загрузить аудио</div>';
+                uploadArea.innerHTML = '<div class="upload-icon">🎵</div><div class="upload-text">Нажмите, чтобы загрузить аудио</div>';
                 uploadArea.classList.remove('has-media');
                 fileInput.accept = 'audio/*';
             } else {
@@ -1066,7 +1295,7 @@
                 } else if (currentPostType === 'audio') {
                     uploadedMedia = e.target.result;
                     const uploadArea = document.getElementById('upload-area');
-                    uploadArea.innerHTML = `<div class="upload-icon">🎵</div><div class="upload-text">${file.name}</div>`;
+                    uploadArea.innerHTML = `<div class="upload-icon"></div><div class="upload-text">${file.name}</div>`;
                     uploadArea.classList.add('has-media');
                     updateSubmitButton();
                 }
@@ -1087,7 +1316,7 @@
                 time: 'только что',
                 type: currentPostType,
                 caption: caption || 'Без подписи',
-                tags, likes: 0, liked: false
+                tags, likes: 0, liked: false, comments: []
             };
 
             if (currentPostType === 'image') {
