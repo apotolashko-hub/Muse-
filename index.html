@@ -79,7 +79,7 @@
         .story-nav.prev { left: 0; }
         .story-nav.next { right: 0; }
         
-        .post-card { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .post-card { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); position: relative; }
         .post-header { display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer; }
         .post-header:active { background: #f9f9f9; }
         .post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; }
@@ -87,6 +87,12 @@
         .post-author-info { flex: 1; min-width: 0; }
         .post-author-name { font-weight: 600; font-size: 14px; }
         .post-author-handle { color: #666; font-size: 13px; }
+        .post-menu-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #666; }
+        .post-menu { position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; }
+        .post-menu.active { display: block; }
+        .post-menu-item { padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; }
+        .post-menu-item:active { background: #f0f0f0; }
+        .post-menu-item.delete { color: #ef4444; }
         
         .carousel { position: relative; width: 100%; background: #f0f0f0; }
         .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -116,7 +122,7 @@
         .action-btn svg { width: 18px; height: 18px; }
         
         .comments-section { padding: 12px 16px; border-top: 1px solid #f0f0f0; background: #fafafa; }
-        .comment { display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; }
+        .comment { display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; position: relative; }
         .comment.reply { margin-left: 42px; padding-left: 12px; border-left: 2px solid #e0e0e0; }
         .comment-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden; }
         .comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -129,6 +135,8 @@
         .comment-actions { display: flex; gap: 12px; margin-top: 6px; }
         .comment-action-btn { background: none; border: none; color: #666; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; }
         .comment-action-btn:active { color: #667eea; }
+        .comment-delete-btn { position: absolute; top: 8px; right: 8px; background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer; padding: 4px; display: none; }
+        .comment:hover .comment-delete-btn { display: block; }
         .comment-input-wrapper { display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee; align-items: flex-end; }
         .comment-input-container { flex: 1; position: relative; }
         .comment-input { width: 100%; padding: 10px 40px 10px 14px; border: 1px solid #e0e0e0; border-radius: 20px; font-size: 14px; font-family: inherit; }
@@ -208,6 +216,19 @@
         .profile-photo-upload label { cursor: pointer; }
         .profile-photo-upload .change-photo { position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; }
         
+        .notification-item { background: white; padding: 16px; border-radius: 12px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; }
+        .notification-item:active { background: #f9f9f9; }
+        .notification-item.unread { border-left: 3px solid #667eea; }
+        .notification-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+        .notification-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .notification-content { flex: 1; }
+        .notification-text { font-size: 14px; line-height: 1.4; margin-bottom: 4px; }
+        .notification-time { font-size: 12px; color: #888; }
+        .notification-badge { background: #ef4444; color: white; border-radius: 10px; padding: 2px 8px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+        
+        .search-input { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; margin-bottom: 16px; font-family: inherit; }
+        .search-input:focus { outline: none; border-color: #667eea; }
+        
         @media (max-width: 768px) { .main-content { padding: 16px; } }
     </style>
 </head>
@@ -245,6 +266,7 @@
             <div class="sidebar-nav-item" onclick="navigate('notifications'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 <span>Уведомления</span>
+                <span class="notification-badge" id="notifBadge" style="display: none;">0</span>
             </div>
             <div class="sidebar-nav-item" onclick="navigate('profile'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
@@ -281,7 +303,7 @@
             </div>
             <div class="post-type-selector">
                 <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
-                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
+                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon"></div><div>Музыка</div></button>
                 <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
             </div>
             <div id="image-section">
@@ -327,11 +349,9 @@
             </div>
             <div style="text-align: center; margin-bottom: 20px;">
                 <div class="profile-photo-upload">
-                    <div class="profile-avatar-large" id="edit-avatar-preview" style="margin: 0 auto;">
-                        ${currentUser ? (currentUser.photo ? `<img src="${currentUser.photo}">` : currentUser.avatar) : '?'}
-                    </div>
+                    <div class="profile-avatar-large" id="edit-avatar-preview" style="margin: 0 auto;"></div>
                     <label for="profile-photo-input">
-                        <div class="change-photo">📷</div>
+                        <div class="change-photo"></div>
                     </label>
                     <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhoto(event)">
                 </div>
@@ -360,6 +380,9 @@
         let storyTimer = null;
         let currentProfileUserId = null;
         let pendingProfilePhoto = null;
+        let searchQuery = '';
+        let currentAudio = null;
+        let currentPlayBtn = null;
 
         const samplePosts = [
             { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
@@ -433,6 +456,7 @@
             document.getElementById('authScreen').style.display = 'none';
             document.getElementById('mainApp').classList.add('active');
             navigate('home');
+            updateNotifBadge();
         }
 
         function logout() { localStorage.removeItem('muse_currentUser'); location.reload(); }
@@ -449,7 +473,7 @@
                 case 'home': title.textContent = 'Лента'; renderFeed(content); break;
                 case 'following': title.textContent = 'Подписки'; renderFollowing(content); break;
                 case 'explore': title.textContent = 'Обзор'; renderExplore(content); break;
-                case 'notifications': title.textContent = 'Уведомления'; content.innerHTML = '<div class="empty-state"><h2>Уведомления</h2><p>Здесь будут уведомления о лайках, комментариях и подписках</p></div>'; break;
+                case 'notifications': title.textContent = 'Уведомления'; renderNotifications(content); markNotificationsRead(); break;
                 case 'profile': 
                     if (data && data.userId) {
                         currentProfileUserId = data.userId;
@@ -507,6 +531,56 @@
             const now = Date.now();
             const dayAgo = now - 86400000;
             return allStories.filter(s => s.time > dayAgo);
+        }
+
+        function getNotifications() {
+            return JSON.parse(localStorage.getItem('muse_notifications_' + currentUser.id) || '[]');
+        }
+
+        function saveNotifications(notifs) {
+            localStorage.setItem('muse_notifications_' + currentUser.id, JSON.stringify(notifs));
+        }
+
+        function addNotification(type, fromUser, postId, commentText) {
+            if (!currentUser || fromUser.id === currentUser.id) return;
+            const notifs = getNotifications();
+            const notif = {
+                id: Date.now(),
+                type: type,
+                fromUserId: fromUser.id,
+                fromUserName: fromUser.name,
+                fromUserAvatar: fromUser.avatar,
+                fromUserPhoto: fromUser.photo,
+                postId: postId,
+                commentText: commentText || '',
+                time: Date.now(),
+                read: false
+            };
+            notifs.unshift(notif);
+            if (notifs.length > 50) notifs.pop();
+            saveNotifications(notifs);
+            updateNotifBadge();
+        }
+
+        function updateNotifBadge() {
+            if (!currentUser) return;
+            const notifs = getNotifications();
+            const unread = notifs.filter(n => !n.read).length;
+            const badge = document.getElementById('notifBadge');
+            if (unread > 0) {
+                badge.textContent = unread > 99 ? '99+' : unread;
+                badge.style.display = 'inline';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function markNotificationsRead() {
+            if (!currentUser) return;
+            const notifs = getNotifications();
+            notifs.forEach(n => n.read = true);
+            saveNotifications(notifs);
+            updateNotifBadge();
         }
 
         function renderFeed(container) {
@@ -631,6 +705,7 @@
             const allComments = getCommentsForPost(post.id);
             const rootComments = allComments.filter(c => !c.replyTo);
             const commentsCount = allComments.length;
+            const isOwnPost = currentUser && post.authorId === currentUser.id;
 
             return `<div class="post-card">
                 <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
@@ -639,6 +714,10 @@
                         <div class="post-author-name">${post.author}</div>
                         <div class="post-author-handle">${post.handle}</div>
                     </div>
+                    ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>` : ''}
+                </div>
+                <div class="post-menu" id="post-menu-${post.id}">
+                    <div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить пост</div>
                 </div>
                 ${mediaHtml}
                 <div class="post-content">
@@ -683,28 +762,71 @@
             </div>`;
         }
 
+        function togglePostMenu(postId) {
+            const menu = document.getElementById(`post-menu-${postId}`);
+            document.querySelectorAll('.post-menu').forEach(m => {
+                if (m.id !== `post-menu-${postId}`) m.classList.remove('active');
+            });
+            menu.classList.toggle('active');
+        }
+
+        function deletePost(postId) {
+            if (!confirm('Удалить этот пост?')) return;
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const filtered = posts.filter(p => p.id !== postId);
+            localStorage.setItem('muse_posts', JSON.stringify(filtered));
+            document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
+            if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+            else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
+            else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
+        }
+
         function playAudio(btn, src) {
-            const existing = document.querySelector('audio.playing');
-            if (existing) {
-                existing.pause();
-                existing.classList.remove('playing');
-                const oldBtn = existing.dataset.btn;
-                if (oldBtn) oldBtn.textContent = '▶';
-            }
-            if (btn.textContent.trim() === '▶') {
-                const audio = new Audio(src);
-                audio.classList.add('playing');
-                audio.dataset.btn = btn;
-                audio.play();
-                btn.textContent = '⏸';
-                audio.onended = () => { btn.textContent = '▶'; audio.classList.remove('playing'); };
-            } else {
+            // Если кликнули на ту же кнопку - ставим на паузу
+            if (currentPlayBtn === btn && currentAudio) {
+                currentAudio.pause();
                 btn.textContent = '▶';
+                currentAudio = null;
+                currentPlayBtn = null;
+                return;
             }
+            
+            // Останавливаем предыдущий трек
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                if (currentPlayBtn) {
+                    currentPlayBtn.textContent = '▶';
+                }
+            }
+            
+            // Запускаем новый трек
+            currentAudio = new Audio(src);
+            currentPlayBtn = btn;
+            
+            currentAudio.play().catch(() => {
+                btn.textContent = '▶';
+                currentAudio = null;
+                currentPlayBtn = null;
+            });
+            btn.textContent = '⏸';
+            
+            currentAudio.onended = () => {
+                btn.textContent = '▶';
+                currentAudio = null;
+                currentPlayBtn = null;
+            };
+            
+            currentAudio.onerror = () => {
+                btn.textContent = '▶';
+                currentAudio = null;
+                currentPlayBtn = null;
+            };
         }
 
         function renderComment(comment, postId, allComments) {
             const replies = allComments.filter(c => c.replyTo === comment.id);
+            const isOwnComment = currentUser && comment.author === currentUser.name;
             let html = `<div class="comment" id="comment-${comment.id}">
                 <div class="comment-avatar">${comment.avatar}</div>
                 <div class="comment-content">
@@ -718,8 +840,10 @@
                         <button class="comment-action-btn" onclick="startReply(${postId}, '${comment.author.replace(/'/g, "\\'")}', ${comment.id})">Ответить</button>
                     </div>
                 </div>
+                ${isOwnComment ? `<button class="comment-delete-btn" onclick="deleteComment(${postId}, ${comment.id})">×</button>` : ''}
             </div>`;
             replies.forEach(reply => {
+                const isOwnReply = currentUser && reply.author === currentUser.name;
                 html += `<div class="comment reply" id="comment-${reply.id}">
                     <div class="comment-avatar">${reply.avatar}</div>
                     <div class="comment-content">
@@ -733,9 +857,31 @@
                             <button class="comment-action-btn" onclick="startReply(${postId}, '${reply.author.replace(/'/g, "\\'")}', ${reply.id})">Ответить</button>
                         </div>
                     </div>
+                    ${isOwnReply ? `<button class="comment-delete-btn" onclick="deleteComment(${postId}, ${reply.id})">×</button>` : ''}
                 </div>`;
             });
             return html;
+        }
+
+        function deleteComment(postId, commentId) {
+            if (!confirm('Удалить комментарий?')) return;
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const post = posts.find(p => p.id === postId);
+            if (post && post.comments) {
+                post.comments = post.comments.filter(c => c.id !== commentId && c.replyTo !== commentId);
+                localStorage.setItem('muse_posts', JSON.stringify(posts));
+            } else {
+                const sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
+                if (sampleComments[postId]) {
+                    sampleComments[postId] = sampleComments[postId].filter(c => c.id !== commentId && c.replyTo !== commentId);
+                    localStorage.setItem('muse_sample_comments', JSON.stringify(sampleComments));
+                }
+            }
+            renderFeed(document.getElementById('mainContent'));
+            setTimeout(() => {
+                const section = document.getElementById(`comments-${postId}`);
+                if (section) section.style.display = 'block';
+            }, 50);
         }
 
         function toggleComments(postId) {
@@ -814,6 +960,8 @@
                 if (!post.comments) post.comments = [];
                 post.comments.push(comment);
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
+                const postAuthor = getUserById(post.authorId);
+                if (postAuthor) addNotification('comment', currentUser, postId, text);
             } else {
                 let sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
                 if (!sampleComments[postId]) sampleComments[postId] = [];
@@ -861,6 +1009,7 @@
             } else {
                 me.following.push(targetUserId);
                 target.followers.push(currentUser.id);
+                addNotification('follow', currentUser, null, '');
             }
             
             saveUsers(users);
@@ -875,7 +1024,7 @@
             document.getElementById('storyModal').classList.remove('active');
             storyImage = null;
             const area = document.getElementById('story-upload-area');
-            area.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы добавить фото</div>';
+            area.innerHTML = '<div class="upload-icon"></div><div class="upload-text">Нажмите, чтобы добавить фото</div>';
             area.classList.remove('has-image');
             document.getElementById('story-submit-btn').disabled = true;
         }
@@ -977,17 +1126,70 @@
             return Math.floor(seconds / 86400) + ' дн назад';
         }
 
+        function renderNotifications(container) {
+            const notifs = getNotifications();
+            
+            if (notifs.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h2>Нет уведомлений</h2><p>Здесь будут уведомления о лайках, комментариях и подписках</p></div>';
+                return;
+            }
+
+            let html = '<div class="info-banner">🔔 Ваши уведомления</div>';
+            html += notifs.map(notif => {
+                let text = '';
+                if (notif.type === 'like') text = `<b>${notif.fromUserName}</b> оценил ваш пост`;
+                else if (notif.type === 'comment') text = `<b>${notif.fromUserName}</b> прокомментировал: "${notif.commentText.substring(0, 50)}${notif.commentText.length > 50 ? '...' : ''}"`;
+                else if (notif.type === 'follow') text = `<b>${notif.fromUserName}</b> подписался на вас`;
+                
+                return `<div class="notification-item ${notif.read ? '' : 'unread'}" onclick="handleNotifClick(${notif.id})">
+                    <div class="notification-avatar">${notif.fromUserPhoto ? `<img src="${notif.fromUserPhoto}">` : notif.fromUserAvatar}</div>
+                    <div class="notification-content">
+                        <div class="notification-text">${text}</div>
+                        <div class="notification-time">${getTimeAgo(notif.time)}</div>
+                    </div>
+                </div>`;
+            }).join('');
+            
+            container.innerHTML = html;
+        }
+
+        function handleNotifClick(notifId) {
+            const notifs = getNotifications();
+            const notif = notifs.find(n => n.id === notifId);
+            if (!notif) return;
+            notif.read = true;
+            saveNotifications(notifs);
+            updateNotifBadge();
+            if (notif.postId) {
+                navigate('home');
+                setTimeout(() => {
+                    const section = document.getElementById(`comments-${notif.postId}`);
+                    if (section) {
+                        section.style.display = 'block';
+                        section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            }
+        }
+
         function renderExplore(container) {
             const users = getUsers();
             const me = users.find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
             
-            let html = '<div class="info-banner"> Найдите интересных авторов и подпишитесь на них!</div>';
+            let html = '<input type="text" class="search-input" id="searchInput" placeholder="Поиск пользователей..." value="' + searchQuery + '" oninput="handleSearch(this.value)">';
+            html += '<div class="info-banner">🔍 Найдите интересных авторов и подпишитесь на них!</div>';
             html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
             
-            const displayUsers = users.filter(u => u.id !== currentUser.id);
+            const displayUsers = users.filter(u => {
+                if (u.id === currentUser.id) return false;
+                if (!searchQuery) return true;
+                const q = searchQuery.toLowerCase();
+                return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q) || (u.bio && u.bio.toLowerCase().includes(q));
+            });
+            
             if (displayUsers.length === 0) {
-                html += '<div class="empty-state"><p>Пока никто не зарегистрировался</p></div>';
+                html += '<div class="empty-state"><p>Пользователи не найдены</p></div>';
             } else {
                 html += displayUsers.map(user => {
                     const isFollowing = following.includes(user.id);
@@ -1005,6 +1207,18 @@
                 }).join('');
             }
             container.innerHTML = html;
+        }
+
+        function handleSearch(query) {
+            searchQuery = query;
+            renderExplore(document.getElementById('mainContent'));
+            setTimeout(() => {
+                const input = document.getElementById('searchInput');
+                if (input) {
+                    input.focus();
+                    input.setSelectionRange(query.length, query.length);
+                }
+            }, 10);
         }
 
         function renderProfile(container) {
@@ -1134,6 +1348,10 @@
                 post.liked = !post.liked;
                 post.likes += post.liked ? 1 : -1;
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
+                if (post.liked) {
+                    const postAuthor = getUserById(post.authorId);
+                    if (postAuthor) addNotification('like', currentUser, postId, '');
+                }
                 if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
                 else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
                 else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
@@ -1189,7 +1407,7 @@
             } else if (type === 'audio') {
                 list.innerHTML = uploadedAudios.map((audio, i) => `
                     <div class="multi-item">
-                        <div style="font-size: 24px;"></div>
+                        <div style="font-size: 24px;">🎵</div>
                         <div class="multi-item-text">${audio.title || 'Аудио ' + (i + 1)}</div>
                         <button class="multi-item-remove" onclick="removeAudio(${i})">×</button>
                     </div>
@@ -1292,6 +1510,11 @@
         document.getElementById('createModal').addEventListener('click', function(e) { if (e.target === this) closeCreateModal(); });
         document.getElementById('editModal').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
         document.getElementById('storyModal').addEventListener('click', function(e) { if (e.target === this) closeStoryModal(); });
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) {
+                document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
+            }
+        });
     </script>
 </body>
 </html>
