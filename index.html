@@ -8,6 +8,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; }
+        
+        /* Auth */
         .auth-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .auth-box { background: white; padding: 40px 30px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
         .logo-large { font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -16,37 +18,83 @@
         .input-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #333; }
         .input-group input, .input-group textarea { width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; transition: all 0.2s; font-family: inherit; }
         .input-group input:focus, .input-group textarea:focus { outline: none; border-color: #667eea; }
-        .auth-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s; margin-top: 10px; }
+        .auth-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
         .auth-btn:active { transform: scale(0.98); }
         .switch-auth { text-align: center; margin-top: 20px; color: #666; font-size: 14px; }
         .switch-auth span { color: #667eea; font-weight: 600; cursor: pointer; }
+        
+        /* App */
         .app { display: none; min-height: 100vh; }
         .app.active { display: block; }
         .top-bar { background: white; padding: 12px 16px; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
         .top-bar h1 { font-size: 20px; font-weight: 700; }
         .menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; margin-right: 12px; }
+        
+        /* Sidebar */
         .mobile-sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; background: white; box-shadow: 2px 0 20px rgba(0,0,0,0.1); z-index: 1000; padding: 20px; padding-top: 60px; transform: translateX(-100%); transition: transform 0.3s; }
         .mobile-sidebar.active { transform: translateX(0); }
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; }
         .sidebar-overlay.active { display: block; }
         .close-sidebar { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; }
-        .sidebar-nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; cursor: pointer; transition: all 0.2s; margin-bottom: 4px; font-size: 15px; font-weight: 500; }
+        .sidebar-nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; cursor: pointer; margin-bottom: 4px; font-size: 15px; font-weight: 500; }
         .sidebar-nav-item:active { transform: scale(0.97); }
         .sidebar-nav-item:hover { background: #f0f0f0; }
         .sidebar-nav-item.active { background: #667eea; color: white; }
         .sidebar-nav-item svg { width: 20px; height: 20px; }
+        
+        /* Main */
         .main-content { padding: 20px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; }
         .categories { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
-        .category-chip { padding: 8px 16px; border-radius: 20px; background: white; border: 1px solid #e0e0e0; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .category-chip { padding: 8px 16px; border-radius: 20px; background: white; border: 1px solid #e0e0e0; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
         .category-chip:active { transform: scale(0.95); }
         .category-chip.active { background: #667eea; color: white; border-color: #667eea; }
+        
+        /* Stories */
+        .stories-container { display: flex; gap: 12px; overflow-x: auto; padding: 16px 0; margin-bottom: 16px; scrollbar-width: none; }
+        .stories-container::-webkit-scrollbar { display: none; }
+        .story-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; flex-shrink: 0; }
+        .story-avatar { width: 64px; height: 64px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .story-avatar img, .story-avatar .story-placeholder { width: 100%; height: 100%; border-radius: 50%; border: 3px solid white; object-fit: cover; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .story-name { font-size: 11px; color: #333; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; }
+        .add-story { position: relative; }
+        .add-story .story-avatar { background: #e0e0e0; }
+        .add-story .plus-icon { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; background: #667eea; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid white; }
+        
+        /* Story Viewer */
+        .story-viewer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: black; z-index: 3000; }
+        .story-viewer.active { display: flex; flex-direction: column; }
+        .story-progress { display: flex; gap: 4px; padding: 12px 16px; position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
+        .story-progress-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
+        .story-progress-bar .fill { height: 100%; background: white; width: 0%; transition: width 0.1s linear; }
+        .story-header { display: flex; align-items: center; gap: 12px; padding: 20px 16px 12px; position: absolute; top: 20px; left: 0; right: 0; z-index: 10; }
+        .story-header-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; }
+        .story-header-name { color: white; font-weight: 600; font-size: 14px; }
+        .story-header-time { color: rgba(255,255,255,0.7); font-size: 12px; }
+        .story-close { position: absolute; top: 20px; right: 16px; background: none; border: none; color: white; font-size: 28px; cursor: pointer; z-index: 10; }
+        .story-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 80px 20px 60px; }
+        .story-content img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+        .story-nav { position: absolute; top: 0; bottom: 0; width: 50%; cursor: pointer; z-index: 5; }
+        .story-nav.prev { left: 0; }
+        .story-nav.next { right: 0; }
+        
+        /* Post Card */
         .post-card { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         .post-header { display: flex; align-items: center; gap: 12px; padding: 16px; }
         .post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; }
         .post-author-info { flex: 1; }
         .post-author-name { font-weight: 600; font-size: 14px; }
         .post-author-handle { color: #666; font-size: 13px; }
-        .post-image { width: 100%; max-height: 600px; object-fit: cover; }
+        
+        /* Carousel */
+        .carousel { position: relative; width: 100%; background: #f0f0f0; }
+        .carousel-images { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .carousel-images::-webkit-scrollbar { display: none; }
+        .carousel-images img { flex: 0 0 100%; width: 100%; max-height: 600px; object-fit: cover; scroll-snap-align: start; }
+        .carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+        .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 0.2s; }
+        .carousel-dot.active { background: white; width: 18px; border-radius: 3px; }
+        
         .post-audio { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .audio-player { display: flex; align-items: center; gap: 12px; color: white; }
         .play-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -60,6 +108,8 @@
         .action-btn:active { transform: scale(0.92); }
         .action-btn.liked { color: #ef4444; }
         .action-btn svg { width: 18px; height: 18px; }
+        
+        /* Comments */
         .comments-section { padding: 12px 16px; border-top: 1px solid #f0f0f0; background: #fafafa; }
         .comment { display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; }
         .comment.reply { margin-left: 42px; padding-left: 12px; border-left: 2px solid #e0e0e0; }
@@ -86,6 +136,8 @@
         .reply-indicator { display: none; background: #f0f0ff; padding: 6px 12px; border-radius: 8px; font-size: 12px; color: #667eea; margin-bottom: 8px; align-items: center; justify-content: space-between; }
         .reply-indicator.active { display: flex; }
         .cancel-reply { background: none; border: none; color: #667eea; cursor: pointer; font-size: 16px; font-weight: 600; }
+        
+        /* Profile */
         .profile-header { background: white; padding: 30px 20px; border-radius: 16px; margin-bottom: 20px; text-align: center; }
         .profile-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; margin: 0 auto 16px; }
         .profile-name { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
@@ -93,11 +145,15 @@
         .edit-profile-btn, .logout-btn { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin: 4px; }
         .edit-profile-btn { background: #667eea; color: white; }
         .logout-btn { background: #f0f0f0; color: #333; }
+        
+        /* Users */
         .user-card { background: white; padding: 16px; border-radius: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         .user-card-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 18px; }
         .user-card-info { flex: 1; }
         .user-card-name { font-weight: 600; font-size: 15px; }
         .user-card-handle { color: #666; font-size: 13px; }
+        
+        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
         .modal.active { display: flex; }
         .modal-content { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
@@ -120,11 +176,18 @@
         .fab { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-size: 28px; cursor: pointer; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); z-index: 99; }
         .empty-state { text-align: center; padding: 60px 20px; color: #888; }
         .info-banner { background: #fff3cd; border: 1px solid #ffe69c; color: #856404; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 14px; line-height: 1.5; }
+        
+        /* Add Story Modal */
+        .story-upload-area { border: 2px dashed #e0e0e0; border-radius: 12px; padding: 60px 40px; text-align: center; cursor: pointer; margin-bottom: 20px; }
+        .story-upload-area.has-image { padding: 0; border-style: solid; }
+        .story-upload-area img { width: 100%; border-radius: 10px; max-height: 300px; object-fit: cover; }
+        
         @media (max-width: 768px) { .main-content { padding: 16px; } }
     </style>
 </head>
 <body>
 
+    <!-- Auth -->
     <div class="auth-container" id="authScreen">
         <div class="auth-box">
             <div class="logo-large">Muse</div>
@@ -137,6 +200,7 @@
         </div>
     </div>
 
+    <!-- App -->
     <div class="app" id="mainApp">
         <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
         <div class="mobile-sidebar" id="mobileSidebar">
@@ -171,6 +235,17 @@
         <button class="fab" onclick="openCreateModal()">+</button>
     </div>
 
+    <!-- Story Viewer -->
+    <div class="story-viewer" id="storyViewer">
+        <div class="story-progress" id="storyProgress"></div>
+        <div class="story-header" id="storyHeader"></div>
+        <button class="story-close" onclick="closeStoryViewer()">×</button>
+        <div class="story-content" id="storyContent"></div>
+        <div class="story-nav prev" onclick="prevStory()"></div>
+        <div class="story-nav next" onclick="nextStory()"></div>
+    </div>
+
+    <!-- Create Post Modal -->
     <div class="modal" id="createModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -186,7 +261,7 @@
                 <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
                     <div class="upload-icon"></div><div class="upload-text">Нажмите, чтобы загрузить</div>
                 </div>
-                <input type="file" id="file-input" accept="image/*" style="display: none" onchange="handleFileSelect(event)">
+                <input type="file" id="file-input" accept="image/*" multiple style="display: none" onchange="handleFileSelect(event)">
             </div>
             <div id="text-section" style="display: none;">
                 <textarea class="text-input" id="text-content" placeholder="Напишите свой текст..."></textarea>
@@ -197,6 +272,23 @@
         </div>
     </div>
 
+    <!-- Add Story Modal -->
+    <div class="modal" id="storyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Новая история</h2>
+                <button class="close-modal" onclick="closeStoryModal()">×</button>
+            </div>
+            <div class="story-upload-area" id="story-upload-area" onclick="document.getElementById('story-file-input').click()">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Нажмите, чтобы добавить фото</div>
+            </div>
+            <input type="file" id="story-file-input" accept="image/*" style="display: none" onchange="handleStoryFileSelect(event)">
+            <button class="submit-btn" id="story-submit-btn" onclick="submitStory()" disabled>Опубликовать историю</button>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
     <div class="modal" id="editModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -216,13 +308,23 @@
         let currentCategory = 'all';
         let currentPostType = 'image';
         let uploadedMedia = null;
+        let uploadedImages = [];
         let replyTo = null;
         let commentImage = null;
+        let storyImage = null;
+        let currentStoryUser = 0;
+        let currentStoryIndex = 0;
+        let storyTimer = null;
 
         const samplePosts = [
-            { id: 1, author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', caption: 'Сегодняшняя абстракция. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
-            { id: 2, author: 'Максим Д.', handle: '@max_photo', avatar: 'М', time: '5 часов назад', type: 'image', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800', caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
+            { id: 1, author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800'], caption: 'Сегодняшняя абстракция. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
+            { id: 2, author: 'Максим Д.', handle: '@max_photo', avatar: 'М', time: '5 часов назад', type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
             { id: 3, author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', time: '1 день назад', type: 'text', text: 'Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [] }
+        ];
+
+        const sampleStories = [
+            { id: 1, author: 'Анна К.', avatar: 'А', images: ['https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600'], time: Date.now() - 3600000 },
+            { id: 2, author: 'Максим Д.', avatar: 'М', images: ['https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600'], time: Date.now() - 7200000 }
         ];
 
         window.onload = function() {
@@ -264,10 +366,7 @@
             navigate('home');
         }
 
-        function logout() {
-            localStorage.removeItem('muse_currentUser');
-            location.reload();
-        }
+        function logout() { localStorage.removeItem('muse_currentUser'); location.reload(); }
 
         function navigate(page) {
             currentPage = page;
@@ -298,12 +397,41 @@
             return sampleComments[postId] || [];
         }
 
+        function getStories() {
+            const saved = JSON.parse(localStorage.getItem('muse_stories') || '[]');
+            const allStories = [...saved, ...sampleStories];
+            const now = Date.now();
+            const dayAgo = now - 86400000;
+            return allStories.filter(s => s.time > dayAgo);
+        }
+
         function renderFeed(container) {
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const allPosts = [...posts, ...samplePosts].sort((a, b) => b.id - a.id);
             const filtered = currentCategory === 'all' ? allPosts : allPosts.filter(p => p.category === currentCategory);
+            const stories = getStories();
 
-            let html = '<div class="categories">';
+            let html = '';
+            
+            // Stories
+            if (stories.length > 0) {
+                html += '<div class="stories-container">';
+                html += `<div class="story-item add-story" onclick="openStoryModal()">
+                    <div class="story-avatar"><div class="story-placeholder">${currentUser ? currentUser.avatar : '?'}</div></div>
+                    <div class="plus-icon">+</div>
+                    <div class="story-name">История</div>
+                </div>`;
+                stories.forEach((story, i) => {
+                    html += `<div class="story-item" onclick="openStoryViewer(${i})">
+                        <div class="story-avatar"><div class="story-placeholder">${story.avatar}</div></div>
+                        <div class="story-name">${story.author.split(' ')[0]}</div>
+                    </div>`;
+                });
+                html += '</div>';
+            }
+
+            // Categories
+            html += '<div class="categories">';
             const cats = [{ id: 'all', name: 'Всё' }, { id: 'photo', name: 'Фото' }, { id: 'art', name: 'Живопись' }, { id: 'music', name: 'Музыка' }, { id: 'text', name: 'Тексты' }];
             cats.forEach(cat => { html += `<div class="category-chip ${currentCategory === cat.id ? 'active' : ''}" onclick="filterCategory('${cat.id}')">${cat.name}</div>`; });
             html += '</div>';
@@ -318,9 +446,25 @@
 
         function renderPostCard(post) {
             let mediaHtml = '';
-            if (post.type === 'image' && post.image) mediaHtml = `<img src="${post.image}" class="post-image">`;
-            else if (post.type === 'audio') mediaHtml = '<div class="post-audio"><div class="audio-player"><button class="play-btn">▶</button><div>Аудио трек</div></div></div>';
-            else if (post.type === 'text' && post.text) mediaHtml = `<div class="post-text">${post.text}</div>`;
+            if (post.type === 'image' && post.images && post.images.length > 0) {
+                if (post.images.length === 1) {
+                    mediaHtml = `<img src="${post.images[0]}" class="post-image" style="width:100%;max-height:600px;object-fit:cover;">`;
+                } else {
+                    mediaHtml = `<div class="carousel">
+                        <div class="carousel-images" id="carousel-${post.id}">
+                            ${post.images.map(img => `<img src="${img}">`).join('')}
+                        </div>
+                        <div class="carousel-counter">1/${post.images.length}</div>
+                        <div class="carousel-dots">
+                            ${post.images.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
+                        </div>
+                    </div>`;
+                }
+            } else if (post.type === 'audio') {
+                mediaHtml = '<div class="post-audio"><div class="audio-player"><button class="play-btn">▶</button><div>Аудио трек</div></div></div>';
+            } else if (post.type === 'text' && post.text) {
+                mediaHtml = `<div class="post-text">${post.text}</div>`;
+            }
 
             const allComments = getCommentsForPost(post.id);
             const rootComments = allComments.filter(c => !c.replyTo);
@@ -347,6 +491,10 @@
                     <button class="action-btn" onclick="toggleComments(${post.id})">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                         <span>${commentsCount}</span>
+                    </button>
+                    <button class="action-btn" onclick="sharePost(${post.id})">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        <span>Поделиться</span>
                     </button>
                 </div>
                 <div class="comments-section" id="comments-${post.id}" style="display: none;">
@@ -375,43 +523,36 @@
 
         function renderComment(comment, postId, allComments) {
             const replies = allComments.filter(c => c.replyTo === comment.id);
-            
-            let html = `
-                <div class="comment" id="comment-${comment.id}">
-                    <div class="comment-avatar">${comment.avatar}</div>
-                    <div class="comment-content">
-                        <div class="comment-header">
-                            <span class="comment-author">${comment.author}</span>
-                            ${comment.replyTo && comment.replyToAuthor ? `<span class="comment-reply-to">→ ${comment.replyToAuthor}</span>` : ''}
-                        </div>
-                        <div class="comment-text">${comment.text}</div>
-                        ${comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : ''}
-                        <div class="comment-actions">
-                            <button class="comment-action-btn" onclick="startReply(${postId}, '${comment.author.replace(/'/g, "\\'")}', ${comment.id})">Ответить</button>
-                        </div>
+            let html = `<div class="comment" id="comment-${comment.id}">
+                <div class="comment-avatar">${comment.avatar}</div>
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.author}</span>
+                        ${comment.replyTo && comment.replyToAuthor ? `<span class="comment-reply-to">→ ${comment.replyToAuthor}</span>` : ''}
+                    </div>
+                    <div class="comment-text">${comment.text}</div>
+                    ${comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : ''}
+                    <div class="comment-actions">
+                        <button class="comment-action-btn" onclick="startReply(${postId}, '${comment.author.replace(/'/g, "\\'")}', ${comment.id})">Ответить</button>
                     </div>
                 </div>
-            `;
-
+            </div>`;
             replies.forEach(reply => {
-                html += `
-                    <div class="comment reply" id="comment-${reply.id}">
-                        <div class="comment-avatar">${reply.avatar}</div>
-                        <div class="comment-content">
-                            <div class="comment-header">
-                                <span class="comment-author">${reply.author}</span>
-                                ${reply.replyToAuthor ? `<span class="comment-reply-to">→ ${reply.replyToAuthor}</span>` : ''}
-                            </div>
-                            <div class="comment-text">${reply.text}</div>
-                            ${reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')">` : ''}
-                            <div class="comment-actions">
-                                <button class="comment-action-btn" onclick="startReply(${postId}, '${reply.author.replace(/'/g, "\\'")}', ${reply.id})">Ответить</button>
-                            </div>
+                html += `<div class="comment reply" id="comment-${reply.id}">
+                    <div class="comment-avatar">${reply.avatar}</div>
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">${reply.author}</span>
+                            ${reply.replyToAuthor ? `<span class="comment-reply-to">→ ${reply.replyToAuthor}</span>` : ''}
+                        </div>
+                        <div class="comment-text">${reply.text}</div>
+                        ${reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')">` : ''}
+                        <div class="comment-actions">
+                            <button class="comment-action-btn" onclick="startReply(${postId}, '${reply.author.replace(/'/g, "\\'")}', ${reply.id})">Ответить</button>
                         </div>
                     </div>
-                `;
+                </div>`;
             });
-
             return html;
         }
 
@@ -473,28 +614,20 @@
             const input = document.getElementById(`comment-input-${postId}`);
             const text = input.value.trim();
             if (!text && !commentImage) return;
-
             let replyToAuthor = null;
             if (replyTo && replyTo.postId === postId) {
                 const allComments = getCommentsForPost(postId);
                 const parentComment = allComments.find(c => c.id === replyTo.commentId);
                 if (parentComment) replyToAuthor = parentComment.author;
             }
-
             const comment = {
-                id: Date.now(),
-                author: currentUser.name,
-                avatar: currentUser.avatar,
-                text: text || '[изображение]',
-                time: Date.now(),
-                image: commentImage || null,
+                id: Date.now(), author: currentUser.name, avatar: currentUser.avatar,
+                text: text || '[изображение]', time: Date.now(), image: commentImage || null,
                 replyTo: replyTo && replyTo.postId === postId ? replyTo.commentId : null,
                 replyToAuthor: replyToAuthor
             };
-
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
-            
             if (post) {
                 if (!post.comments) post.comments = [];
                 post.comments.push(comment);
@@ -505,12 +638,10 @@
                 sampleComments[postId].push(comment);
                 localStorage.setItem('muse_sample_comments', JSON.stringify(sampleComments));
             }
-
             input.value = '';
             removeCommentImage(postId);
             cancelReply(postId);
             renderFeed(document.getElementById('mainContent'));
-            
             setTimeout(() => {
                 const section = document.getElementById(`comments-${postId}`);
                 if (section) section.style.display = 'block';
@@ -520,6 +651,158 @@
         function filterCategory(cat) {
             currentCategory = cat;
             renderFeed(document.getElementById('mainContent'));
+        }
+
+        function sharePost(postId) {
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const post = posts.find(p => p.id === postId) || samplePosts.find(p => p.id === postId);
+            if (!post) return;
+            const shareData = {
+                title: `Пост от ${post.author}`,
+                text: post.caption,
+                url: window.location.href
+            };
+            if (navigator.share) {
+                navigator.share(shareData).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Ссылка скопирована!');
+                }).catch(() => {
+                    alert('Поделиться: ' + post.caption);
+                });
+            }
+        }
+
+        // Stories
+        function openStoryModal() {
+            document.getElementById('storyModal').classList.add('active');
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').classList.remove('active');
+            storyImage = null;
+            const area = document.getElementById('story-upload-area');
+            area.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы добавить фото</div>';
+            area.classList.remove('has-image');
+            document.getElementById('story-submit-btn').disabled = true;
+        }
+
+        function handleStoryFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 1080;
+                    let width = img.width, height = img.height;
+                    if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
+                    else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
+                    canvas.width = width; canvas.height = height;
+                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                    storyImage = canvas.toDataURL('image/jpeg', 0.9);
+                    const area = document.getElementById('story-upload-area');
+                    area.innerHTML = `<img src="${storyImage}">`;
+                    area.classList.add('has-image');
+                    document.getElementById('story-submit-btn').disabled = false;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function submitStory() {
+            if (!storyImage) return;
+            const story = {
+                id: Date.now(),
+                author: currentUser.name,
+                avatar: currentUser.avatar,
+                images: [storyImage],
+                time: Date.now()
+            };
+            const stories = JSON.parse(localStorage.getItem('muse_stories') || '[]');
+            stories.push(story);
+            localStorage.setItem('muse_stories', JSON.stringify(stories));
+            closeStoryModal();
+            renderFeed(document.getElementById('mainContent'));
+        }
+
+        function openStoryViewer(index) {
+            const stories = getStories();
+            if (stories.length === 0) return;
+            currentStoryUser = index;
+            currentStoryIndex = 0;
+            document.getElementById('storyViewer').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            showCurrentStory();
+        }
+
+        function closeStoryViewer() {
+            document.getElementById('storyViewer').classList.remove('active');
+            document.body.style.overflow = '';
+            clearTimeout(storyTimer);
+        }
+
+        function showCurrentStory() {
+            const stories = getStories();
+            if (currentStoryUser >= stories.length) { closeStoryViewer(); return; }
+            const story = stories[currentStoryUser];
+            if (currentStoryIndex >= story.images.length) {
+                currentStoryUser++;
+                currentStoryIndex = 0;
+                if (currentStoryUser >= stories.length) { closeStoryViewer(); return; }
+                showCurrentStory();
+                return;
+            }
+            const progressHtml = story.images.map((_, i) => 
+                `<div class="story-progress-bar"><div class="fill" id="story-fill-${i}" style="width: ${i < currentStoryIndex ? '100' : '0'}%"></div></div>`
+            ).join('');
+            document.getElementById('storyProgress').innerHTML = progressHtml;
+            document.getElementById('storyHeader').innerHTML = `
+                <div class="story-header-avatar">${story.avatar}</div>
+                <div>
+                    <div class="story-header-name">${story.author}</div>
+                    <div class="story-header-time">${getTimeAgo(story.time)}</div>
+                </div>
+            `;
+            document.getElementById('storyContent').innerHTML = `<img src="${story.images[currentStoryIndex]}">`;
+            clearTimeout(storyTimer);
+            let progress = 0;
+            const fill = document.getElementById(`story-fill-${currentStoryIndex}`);
+            storyTimer = setInterval(() => {
+                progress += 2;
+                if (fill) fill.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(storyTimer);
+                    currentStoryIndex++;
+                    showCurrentStory();
+                }
+            }, 100);
+        }
+
+        function nextStory() {
+            currentStoryIndex++;
+            showCurrentStory();
+        }
+
+        function prevStory() {
+            if (currentStoryIndex > 0) {
+                currentStoryIndex--;
+                showCurrentStory();
+            } else if (currentStoryUser > 0) {
+                currentStoryUser--;
+                const prevStory = getStories()[currentStoryUser];
+                currentStoryIndex = prevStory.images.length - 1;
+                showCurrentStory();
+            }
+        }
+
+        function getTimeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' мин назад';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' ч назад';
+            return Math.floor(seconds / 86400) + ' дн назад';
         }
 
         function renderExplore(container) {
@@ -586,12 +869,12 @@
             const fileInput = document.getElementById('file-input');
             if (type === 'image') {
                 uploadSection.style.display = 'block'; textSection.style.display = 'none';
-                uploadArea.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы загрузить</div>';
-                uploadArea.classList.remove('has-media'); fileInput.accept = 'image/*';
+                uploadArea.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы загрузить (можно несколько)</div>';
+                uploadArea.classList.remove('has-media'); fileInput.accept = 'image/*'; fileInput.multiple = true;
             } else if (type === 'audio') {
                 uploadSection.style.display = 'block'; textSection.style.display = 'none';
                 uploadArea.innerHTML = '<div class="upload-icon">🎵</div><div class="upload-text">Нажмите, чтобы загрузить аудио</div>';
-                uploadArea.classList.remove('has-media'); fileInput.accept = 'audio/*';
+                uploadArea.classList.remove('has-media'); fileInput.accept = 'audio/*'; fileInput.multiple = false;
             } else {
                 uploadSection.style.display = 'none'; textSection.style.display = 'block';
             }
@@ -601,7 +884,7 @@
         function updateSubmitButton() {
             const submitBtn = document.getElementById('submit-btn');
             if (currentPostType === 'text') submitBtn.disabled = !document.getElementById('text-content').value.trim();
-            else submitBtn.disabled = !uploadedMedia;
+            else submitBtn.disabled = uploadedImages.length === 0 && !uploadedMedia;
         }
 
         function resetForm() {
@@ -613,40 +896,58 @@
             uploadArea.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы загрузить</div>';
             uploadArea.classList.remove('has-media');
             uploadedMedia = null;
+            uploadedImages = [];
             selectPostType('image');
         }
 
         function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                if (currentPostType === 'image') {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        const maxSize = 1200;
-                        let width = img.width, height = img.height;
-                        if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
-                        else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
-                        canvas.width = width; canvas.height = height;
-                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-                        uploadedMedia = canvas.toDataURL('image/jpeg', 0.85);
-                        const uploadArea = document.getElementById('upload-area');
-                        uploadArea.innerHTML = `<img src="${uploadedMedia}">`;
-                        uploadArea.classList.add('has-media');
-                        updateSubmitButton();
+            const files = Array.from(event.target.files);
+            if (files.length === 0) return;
+            
+            if (currentPostType === 'image') {
+                uploadedImages = [];
+                let processed = 0;
+                files.forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            const maxSize = 1200;
+                            let width = img.width, height = img.height;
+                            if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
+                            else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
+                            canvas.width = width; canvas.height = height;
+                            canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                            uploadedImages.push(canvas.toDataURL('image/jpeg', 0.85));
+                            processed++;
+                            if (processed === files.length) {
+                                const uploadArea = document.getElementById('upload-area');
+                                if (uploadedImages.length === 1) {
+                                    uploadArea.innerHTML = `<img src="${uploadedImages[0]}">`;
+                                } else {
+                                    uploadArea.innerHTML = `<div style="padding: 20px; text-align: center;"><div style="font-size: 48px; margin-bottom: 12px;">️</div><div>Загружено фото: ${uploadedImages.length}</div></div>`;
+                                }
+                                uploadArea.classList.add('has-media');
+                                updateSubmitButton();
+                            }
+                        };
+                        img.src = e.target.result;
                     };
-                    img.src = e.target.result;
-                } else if (currentPostType === 'audio') {
+                    reader.readAsDataURL(file);
+                });
+            } else if (currentPostType === 'audio') {
+                const file = files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
                     uploadedMedia = e.target.result;
                     const uploadArea = document.getElementById('upload-area');
                     uploadArea.innerHTML = `<div class="upload-icon">🎵</div><div class="upload-text">${file.name}</div>`;
                     uploadArea.classList.add('has-media');
                     updateSubmitButton();
-                }
-            };
-            reader.readAsDataURL(file);
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function submitPost() {
@@ -659,15 +960,18 @@
                 caption: caption || 'Без подписи', tags, likes: 0, liked: false, comments: []
             };
             if (currentPostType === 'image') {
-                if (!uploadedMedia) { alert('Загрузите изображение'); return; }
-                newPost.image = uploadedMedia; newPost.category = 'photo';
+                if (uploadedImages.length === 0) { alert('Загрузите изображение'); return; }
+                newPost.images = uploadedImages;
+                newPost.category = 'photo';
             } else if (currentPostType === 'audio') {
                 if (!uploadedMedia) { alert('Загрузите аудио'); return; }
-                newPost.audio = uploadedMedia; newPost.category = 'music';
+                newPost.audio = uploadedMedia;
+                newPost.category = 'music';
             } else {
                 const text = document.getElementById('text-content').value.trim();
                 if (!text) { alert('Напишите текст'); return; }
-                newPost.text = text; newPost.category = 'text';
+                newPost.text = text;
+                newPost.category = 'text';
             }
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             posts.unshift(newPost);
@@ -680,6 +984,7 @@
         document.getElementById('text-content').addEventListener('input', updateSubmitButton);
         document.getElementById('createModal').addEventListener('click', function(e) { if (e.target === this) closeCreateModal(); });
         document.getElementById('editModal').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
+        document.getElementById('storyModal').addEventListener('click', function(e) { if (e.target === this) closeStoryModal(); });
     </script>
 </body>
 </html>
