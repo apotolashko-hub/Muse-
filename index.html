@@ -9,7 +9,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; }
         
-        /* Auth */
         .auth-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .auth-box { background: white; padding: 40px 30px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
         .logo-large { font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -23,15 +22,13 @@
         .switch-auth { text-align: center; margin-top: 20px; color: #666; font-size: 14px; }
         .switch-auth span { color: #667eea; font-weight: 600; cursor: pointer; }
         
-        /* App */
         .app { display: none; min-height: 100vh; }
         .app.active { display: block; }
         .top-bar { background: white; padding: 12px 16px; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
         .top-bar h1 { font-size: 20px; font-weight: 700; }
         .menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; margin-right: 12px; }
         
-        /* Sidebar */
-        .mobile-sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; background: white; box-shadow: 2px 0 20px rgba(0,0,0,0.1); z-index: 1000; padding: 20px; padding-top: 60px; transform: translateX(-100%); transition: transform 0.3s; }
+        .mobile-sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; background: white; box-shadow: 2px 0 20px rgba(0,0,0,0.1); z-index: 1000; padding: 20px; padding-top: 60px; transform: translateX(-100%); transition: transform 0.3s; overflow-y: auto; }
         .mobile-sidebar.active { transform: translateX(0); }
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; }
         .sidebar-overlay.active { display: block; }
@@ -41,15 +38,20 @@
         .sidebar-nav-item:hover { background: #f0f0f0; }
         .sidebar-nav-item.active { background: #667eea; color: white; }
         .sidebar-nav-item svg { width: 20px; height: 20px; }
+        .sidebar-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .sidebar-section-title { font-size: 12px; color: #888; text-transform: uppercase; padding: 0 16px 8px; font-weight: 600; }
+        .sidebar-user-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; cursor: pointer; border-radius: 12px; }
+        .sidebar-user-item:active { background: #f0f0f0; }
+        .sidebar-user-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden; }
+        .sidebar-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .sidebar-user-name { font-size: 14px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
-        /* Main */
         .main-content { padding: 20px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; }
         .categories { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
         .category-chip { padding: 8px 16px; border-radius: 20px; background: white; border: 1px solid #e0e0e0; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
         .category-chip:active { transform: scale(0.95); }
         .category-chip.active { background: #667eea; color: white; border-color: #667eea; }
         
-        /* Stories */
         .stories-container { display: flex; gap: 12px; overflow-x: auto; padding: 16px 0; margin-bottom: 16px; scrollbar-width: none; }
         .stories-container::-webkit-scrollbar { display: none; }
         .story-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; flex-shrink: 0; }
@@ -60,14 +62,14 @@
         .add-story .story-avatar { background: #e0e0e0; }
         .add-story .plus-icon { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; background: #667eea; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid white; }
         
-        /* Story Viewer */
         .story-viewer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: black; z-index: 3000; }
         .story-viewer.active { display: flex; flex-direction: column; }
         .story-progress { display: flex; gap: 4px; padding: 12px 16px; position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
         .story-progress-bar { flex: 1; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
         .story-progress-bar .fill { height: 100%; background: white; width: 0%; transition: width 0.1s linear; }
         .story-header { display: flex; align-items: center; gap: 12px; padding: 20px 16px 12px; position: absolute; top: 20px; left: 0; right: 0; z-index: 10; }
-        .story-header-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; }
+        .story-header-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; overflow: hidden; }
+        .story-header-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .story-header-name { color: white; font-weight: 600; font-size: 14px; }
         .story-header-time { color: rgba(255,255,255,0.7); font-size: 12px; }
         .story-close { position: absolute; top: 20px; right: 16px; background: none; border: none; color: white; font-size: 28px; cursor: pointer; z-index: 10; }
@@ -77,43 +79,47 @@
         .story-nav.prev { left: 0; }
         .story-nav.next { right: 0; }
         
-        /* Post Card */
         .post-card { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .post-header { display: flex; align-items: center; gap: 12px; padding: 16px; }
-        .post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; }
-        .post-author-info { flex: 1; }
+        .post-header { display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer; }
+        .post-header:active { background: #f9f9f9; }
+        .post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+        .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .post-author-info { flex: 1; min-width: 0; }
         .post-author-name { font-weight: 600; font-size: 14px; }
         .post-author-handle { color: #666; font-size: 13px; }
         
-        /* Carousel */
         .carousel { position: relative; width: 100%; background: #f0f0f0; }
-        .carousel-images { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-        .carousel-images::-webkit-scrollbar { display: none; }
-        .carousel-images img { flex: 0 0 100%; width: 100%; max-height: 600px; object-fit: cover; scroll-snap-align: start; }
+        .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-track > * { flex: 0 0 100%; scroll-snap-align: start; }
+        .carousel-track img { width: 100%; max-height: 600px; object-fit: cover; display: block; }
+        .carousel-track .text-slide { padding: 24px; background: #f9f9f9; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; color: #333; white-space: pre-wrap; min-height: 300px; }
+        .carousel-track .audio-slide { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center; }
         .carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
         .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
         .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 0.2s; }
         .carousel-dot.active { background: white; width: 18px; border-radius: 3px; }
         
         .post-audio { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .audio-player { display: flex; align-items: center; gap: 12px; color: white; }
-        .play-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .post-text { padding: 24px; background: #f9f9f9; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; color: #333; white-space: pre-wrap; }
+        .audio-player { display: flex; align-items: center; gap: 12px; color: white; width: 100%; }
+        .play-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+        .audio-title { font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        
         .post-content { padding: 16px; }
         .post-caption { font-size: 15px; line-height: 1.5; margin-bottom: 12px; }
         .post-tags { display: flex; gap: 6px; flex-wrap: wrap; }
         .tag { font-size: 12px; color: #667eea; background: #f0f0ff; padding: 4px 10px; border-radius: 12px; font-weight: 500; }
-        .post-actions { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid #f0f0f0; }
+        .post-actions { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid #f0f0f0; flex-wrap: wrap; }
         .action-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-size: 13px; color: #666; padding: 8px 12px; border-radius: 8px; font-family: inherit; }
         .action-btn:active { transform: scale(0.92); }
         .action-btn.liked { color: #ef4444; }
         .action-btn svg { width: 18px; height: 18px; }
         
-        /* Comments */
         .comments-section { padding: 12px 16px; border-top: 1px solid #f0f0f0; background: #fafafa; }
         .comment { display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; }
         .comment.reply { margin-left: 42px; padding-left: 12px; border-left: 2px solid #e0e0e0; }
-        .comment-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; }
+        .comment-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden; }
+        .comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .comment-content { flex: 1; min-width: 0; }
         .comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
         .comment-author { font-weight: 600; font-size: 13px; }
@@ -128,7 +134,6 @@
         .comment-input { width: 100%; padding: 10px 40px 10px 14px; border: 1px solid #e0e0e0; border-radius: 20px; font-size: 14px; font-family: inherit; }
         .comment-input:focus { outline: none; border-color: #667eea; }
         .attach-image-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px; color: #666; }
-        .attach-image-btn:active { color: #667eea; }
         .comment-image-preview { display: none; margin-top: 8px; position: relative; }
         .comment-image-preview img { max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover; }
         .remove-image-btn { position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
@@ -137,23 +142,33 @@
         .reply-indicator.active { display: flex; }
         .cancel-reply { background: none; border: none; color: #667eea; cursor: pointer; font-size: 16px; font-weight: 600; }
         
-        /* Profile */
         .profile-header { background: white; padding: 30px 20px; border-radius: 16px; margin-bottom: 20px; text-align: center; }
-        .profile-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; margin: 0 auto 16px; }
+        .profile-avatar-large { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; margin: 0 auto 16px; overflow: hidden; }
+        .profile-avatar-large img { width: 100%; height: 100%; object-fit: cover; }
         .profile-name { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
-        .profile-handle { color: #666; margin-bottom: 20px; }
-        .edit-profile-btn, .logout-btn { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin: 4px; }
+        .profile-handle { color: #666; margin-bottom: 12px; }
+        .profile-bio { color: #333; font-size: 14px; line-height: 1.5; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; white-space: pre-wrap; }
+        .profile-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 20px; }
+        .profile-stat { text-align: center; }
+        .profile-stat-value { font-size: 20px; font-weight: 700; }
+        .profile-stat-label { font-size: 12px; color: #666; }
+        .profile-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .edit-profile-btn, .logout-btn, .follow-btn, .unfollow-btn { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
         .edit-profile-btn { background: #667eea; color: white; }
         .logout-btn { background: #f0f0f0; color: #333; }
+        .follow-btn { background: #667eea; color: white; }
+        .unfollow-btn { background: #f0f0f0; color: #333; }
+        .follow-btn:active, .unfollow-btn:active { transform: scale(0.95); }
         
-        /* Users */
-        .user-card { background: white; padding: 16px; border-radius: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .user-card-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 18px; }
-        .user-card-info { flex: 1; }
+        .user-card { background: white; padding: 16px; border-radius: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; }
+        .user-card:active { background: #f9f9f9; }
+        .user-card-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 18px; overflow: hidden; flex-shrink: 0; }
+        .user-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-card-info { flex: 1; min-width: 0; }
         .user-card-name { font-weight: 600; font-size: 15px; }
         .user-card-handle { color: #666; font-size: 13px; }
+        .user-card-bio { color: #888; font-size: 12px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
-        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
         .modal.active { display: flex; }
         .modal-content { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
@@ -177,17 +192,27 @@
         .empty-state { text-align: center; padding: 60px 20px; color: #888; }
         .info-banner { background: #fff3cd; border: 1px solid #ffe69c; color: #856404; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 14px; line-height: 1.5; }
         
-        /* Add Story Modal */
         .story-upload-area { border: 2px dashed #e0e0e0; border-radius: 12px; padding: 60px 40px; text-align: center; cursor: pointer; margin-bottom: 20px; }
         .story-upload-area.has-image { padding: 0; border-style: solid; }
         .story-upload-area img { width: 100%; border-radius: 10px; max-height: 300px; object-fit: cover; }
+        
+        .multi-item-list { margin-bottom: 16px; }
+        .multi-item { background: #f5f5f5; border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .multi-item-text { flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .multi-item-remove { background: #ef4444; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+        .add-item-btn { width: 100%; padding: 12px; border: 2px dashed #e0e0e0; border-radius: 12px; background: white; cursor: pointer; font-size: 14px; color: #667eea; font-weight: 500; margin-bottom: 16px; font-family: inherit; }
+        .add-item-btn:active { transform: scale(0.98); }
+        
+        .profile-photo-upload { position: relative; display: inline-block; margin-bottom: 16px; }
+        .profile-photo-upload input { display: none; }
+        .profile-photo-upload label { cursor: pointer; }
+        .profile-photo-upload .change-photo { position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; }
         
         @media (max-width: 768px) { .main-content { padding: 16px; } }
     </style>
 </head>
 <body>
 
-    <!-- Auth -->
     <div class="auth-container" id="authScreen">
         <div class="auth-box">
             <div class="logo-large">Muse</div>
@@ -200,7 +225,6 @@
         </div>
     </div>
 
-    <!-- App -->
     <div class="app" id="mainApp">
         <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
         <div class="mobile-sidebar" id="mobileSidebar">
@@ -209,6 +233,10 @@
             <div class="sidebar-nav-item active" onclick="navigate('home'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span>Лента</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="navigate('following'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span>Подписки</span>
             </div>
             <div class="sidebar-nav-item" onclick="navigate('explore'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -222,6 +250,7 @@
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 <span>Профиль</span>
             </div>
+            <div class="sidebar-section" id="sidebarFollowing"></div>
         </div>
 
         <div class="top-bar">
@@ -235,7 +264,6 @@
         <button class="fab" onclick="openCreateModal()">+</button>
     </div>
 
-    <!-- Story Viewer -->
     <div class="story-viewer" id="storyViewer">
         <div class="story-progress" id="storyProgress"></div>
         <div class="story-header" id="storyHeader"></div>
@@ -245,7 +273,6 @@
         <div class="story-nav next" onclick="nextStory()"></div>
     </div>
 
-    <!-- Create Post Modal -->
     <div class="modal" id="createModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -253,18 +280,23 @@
                 <button class="close-modal" onclick="closeCreateModal()">×</button>
             </div>
             <div class="post-type-selector">
-                <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Изображение</div></button>
-                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon"></div><div>Музыка</div></button>
+                <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
+                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
                 <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
             </div>
-            <div id="upload-section">
-                <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
-                    <div class="upload-icon"></div><div class="upload-text">Нажмите, чтобы загрузить</div>
-                </div>
-                <input type="file" id="file-input" accept="image/*" multiple style="display: none" onchange="handleFileSelect(event)">
+            <div id="image-section">
+                <div class="multi-item-list" id="image-list"></div>
+                <button class="add-item-btn" onclick="document.getElementById('file-input').click()">+ Добавить фото</button>
+                <input type="file" id="file-input" accept="image/*" multiple style="display: none" onchange="handleImageSelect(event)">
+            </div>
+            <div id="audio-section" style="display: none;">
+                <div class="multi-item-list" id="audio-list"></div>
+                <button class="add-item-btn" onclick="document.getElementById('audio-input').click()">+ Добавить аудио</button>
+                <input type="file" id="audio-input" accept="audio/*" multiple style="display: none" onchange="handleAudioSelect(event)">
             </div>
             <div id="text-section" style="display: none;">
-                <textarea class="text-input" id="text-content" placeholder="Напишите свой текст..."></textarea>
+                <div class="multi-item-list" id="text-list"></div>
+                <button class="add-item-btn" onclick="addTextItem()">+ Добавить текст</button>
             </div>
             <textarea class="caption-input" id="caption" placeholder="Расскажите о своей работе..."></textarea>
             <input type="text" class="tags-input" id="tags" placeholder="Теги через запятую">
@@ -272,7 +304,6 @@
         </div>
     </div>
 
-    <!-- Add Story Modal -->
     <div class="modal" id="storyModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -288,15 +319,26 @@
         </div>
     </div>
 
-    <!-- Edit Profile Modal -->
     <div class="modal" id="editModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Редактировать профиль</h2>
                 <button class="close-modal" onclick="closeEditModal()">×</button>
             </div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div class="profile-photo-upload">
+                    <div class="profile-avatar-large" id="edit-avatar-preview" style="margin: 0 auto;">
+                        ${currentUser ? (currentUser.photo ? `<img src="${currentUser.photo}">` : currentUser.avatar) : '?'}
+                    </div>
+                    <label for="profile-photo-input">
+                        <div class="change-photo">📷</div>
+                    </label>
+                    <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhoto(event)">
+                </div>
+            </div>
             <div class="input-group"><label>Имя</label><input type="text" id="editName"></div>
             <div class="input-group"><label>Никнейм</label><input type="text" id="editUsername"></div>
+            <div class="input-group"><label>О себе</label><textarea id="editBio" rows="3" placeholder="Расскажите о себе..."></textarea></div>
             <button class="auth-btn" onclick="saveProfile()">Сохранить</button>
         </div>
     </div>
@@ -307,19 +349,30 @@
         let currentPage = 'home';
         let currentCategory = 'all';
         let currentPostType = 'image';
-        let uploadedMedia = null;
         let uploadedImages = [];
+        let uploadedAudios = [];
+        let uploadedTexts = [];
         let replyTo = null;
         let commentImage = null;
         let storyImage = null;
         let currentStoryUser = 0;
         let currentStoryIndex = 0;
         let storyTimer = null;
+        let currentProfileUserId = null;
+        let pendingProfilePhoto = null;
 
         const samplePosts = [
-            { id: 1, author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800'], caption: 'Сегодняшняя абстракция. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
-            { id: 2, author: 'Максим Д.', handle: '@max_photo', avatar: 'М', time: '5 часов назад', type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
-            { id: 3, author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', time: '1 день назад', type: 'text', text: 'Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [] }
+            { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
+            { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', time: '5 часов назад', type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
+            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', time: '1 день назад', type: 'text', texts: ['Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', 'Он шёл по набережной, и каждый шаг отдавался эхом в пустоте утреннего города.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [] },
+            { id: 4, authorId: 'sample4', author: 'Елена С.', handle: '@elena_sings', avatar: 'Е', time: '2 дня назад', type: 'audio', audios: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'], audioTitles: ['Утренний этюд', 'Вечерняя мелодия'], caption: 'Две новые демки.', tags: ['музыка', 'инди'], category: 'music', likes: 67, liked: false, comments: [] }
+        ];
+
+        const sampleUsers = [
+            { id: 'sample1', name: 'Анна К.', username: '@anna_art', avatar: 'А', bio: 'Художник. Пишу абстракции.', photo: null, followers: [], following: [] },
+            { id: 'sample2', name: 'Максим Д.', username: '@max_photo', avatar: 'М', bio: 'Фотограф. Ловлю моменты.', photo: null, followers: [], following: [] },
+            { id: 'sample3', name: 'Дмитрий В.', username: '@dmitry_music', avatar: 'Д', bio: 'Музыкант и писатель.', photo: null, followers: [], following: [] },
+            { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [] }
         ];
 
         const sampleStories = [
@@ -340,24 +393,40 @@
 
         function handleAuth() {
             const name = document.getElementById('regName').value.trim();
-            const username = document.getElementById('regUsername').value.trim();
+            const username = document.getElementById('regUsername').value.trim().replace(/^@/, '');
             const password = document.getElementById('regPassword').value.trim();
             if (!name || !username || !password) { alert('Заполните все поля'); return; }
+            const users = getUsers();
             if (isLoginMode) {
-                const users = JSON.parse(localStorage.getItem('muse_users') || '[]');
                 const user = users.find(u => u.username === username && u.password === password);
                 if (user) { currentUser = user; localStorage.setItem('muse_currentUser', JSON.stringify(user)); showApp(); }
                 else { alert('Неверный никнейм или пароль'); }
             } else {
-                const users = JSON.parse(localStorage.getItem('muse_users') || '[]');
                 if (users.find(u => u.username === username)) { alert('Никнейм занят'); return; }
-                const newUser = { id: Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase() };
+                const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [] };
                 users.push(newUser);
-                localStorage.setItem('muse_users', JSON.stringify(users));
+                saveUsers(users);
                 currentUser = newUser;
                 localStorage.setItem('muse_currentUser', JSON.stringify(newUser));
                 showApp();
             }
+        }
+
+        function getUsers() {
+            const saved = JSON.parse(localStorage.getItem('muse_users') || '[]');
+            const sampleIds = sampleUsers.map(u => u.id);
+            const realUsers = saved.filter(u => !sampleIds.includes(u.id));
+            return [...sampleUsers, ...realUsers];
+        }
+
+        function saveUsers(users) {
+            const sampleIds = sampleUsers.map(u => u.id);
+            const realUsers = users.filter(u => !sampleIds.includes(u.id));
+            localStorage.setItem('muse_users', JSON.stringify(realUsers));
+        }
+
+        function getUserById(id) {
+            return getUsers().find(u => u.id === id);
         }
 
         function showApp() {
@@ -368,20 +437,55 @@
 
         function logout() { localStorage.removeItem('muse_currentUser'); location.reload(); }
 
-        function navigate(page) {
+        function navigate(page, data) {
             currentPage = page;
             document.querySelectorAll('.sidebar-nav-item').forEach((item, i) => {
-                const pages = ['home', 'explore', 'notifications', 'profile'];
+                const pages = ['home', 'following', 'explore', 'notifications', 'profile'];
                 item.classList.toggle('active', pages[i] === page);
             });
             const content = document.getElementById('mainContent');
             const title = document.getElementById('pageTitle');
             switch(page) {
                 case 'home': title.textContent = 'Лента'; renderFeed(content); break;
+                case 'following': title.textContent = 'Подписки'; renderFollowing(content); break;
                 case 'explore': title.textContent = 'Обзор'; renderExplore(content); break;
-                case 'notifications': title.textContent = 'Уведомления'; content.innerHTML = '<div class="empty-state"><h2>Уведомления</h2><p>Здесь будут уведомления о лайках и комментариях</p></div>'; break;
-                case 'profile': title.textContent = 'Профиль'; renderProfile(content); break;
+                case 'notifications': title.textContent = 'Уведомления'; content.innerHTML = '<div class="empty-state"><h2>Уведомления</h2><p>Здесь будут уведомления о лайках, комментариях и подписках</p></div>'; break;
+                case 'profile': 
+                    if (data && data.userId) {
+                        currentProfileUserId = data.userId;
+                        const user = getUserById(data.userId);
+                        title.textContent = user ? user.name : 'Профиль';
+                    } else {
+                        currentProfileUserId = currentUser.id;
+                        title.textContent = 'Профиль';
+                    }
+                    renderProfile(content); 
+                    break;
             }
+            updateSidebarFollowing();
+        }
+
+        function updateSidebarFollowing() {
+            if (!currentUser) return;
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            const following = me ? me.following || [] : [];
+            const container = document.getElementById('sidebarFollowing');
+            if (following.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+            let html = '<div class="sidebar-section-title">Подписки</div>';
+            following.forEach(userId => {
+                const user = getUserById(userId);
+                if (user) {
+                    html += `<div class="sidebar-user-item" onclick="navigate('profile', {userId: '${user.id}'}); toggleSidebar();">
+                        <div class="sidebar-user-avatar">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
+                        <div class="sidebar-user-name">${user.name}</div>
+                    </div>`;
+                }
+            });
+            container.innerHTML = html;
         }
 
         function toggleSidebar() {
@@ -412,12 +516,10 @@
             const stories = getStories();
 
             let html = '';
-            
-            // Stories
             if (stories.length > 0) {
                 html += '<div class="stories-container">';
                 html += `<div class="story-item add-story" onclick="openStoryModal()">
-                    <div class="story-avatar"><div class="story-placeholder">${currentUser ? currentUser.avatar : '?'}</div></div>
+                    <div class="story-avatar"><div class="story-placeholder">${currentUser ? (currentUser.photo ? `<img src="${currentUser.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : currentUser.avatar) : '?'}</div></div>
                     <div class="plus-icon">+</div>
                     <div class="story-name">История</div>
                 </div>`;
@@ -430,7 +532,6 @@
                 html += '</div>';
             }
 
-            // Categories
             html += '<div class="categories">';
             const cats = [{ id: 'all', name: 'Всё' }, { id: 'photo', name: 'Фото' }, { id: 'art', name: 'Живопись' }, { id: 'music', name: 'Музыка' }, { id: 'text', name: 'Тексты' }];
             cats.forEach(cat => { html += `<div class="category-chip ${currentCategory === cat.id ? 'active' : ''}" onclick="filterCategory('${cat.id}')">${cat.name}</div>`; });
@@ -442,28 +543,89 @@
                 html += filtered.map(post => renderPostCard(post)).join('');
             }
             container.innerHTML = html;
+            setTimeout(attachCarouselListeners, 100);
+        }
+
+        function renderFollowing(container) {
+            if (!currentUser) return;
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            const following = me ? me.following || [] : [];
+            
+            let html = '<div class="info-banner">📱 Здесь посты тех, на кого вы подписаны. Подписывайтесь на интересных авторов!</div>';
+            
+            if (following.length === 0) {
+                html += '<div class="empty-state"><h2>Пока нет подписок</h2><p>Перейдите в раздел "Обзор" и подпишитесь на интересных авторов</p></div>';
+            } else {
+                const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+                const allPosts = [...posts, ...samplePosts].filter(p => following.includes(p.authorId)).sort((a, b) => b.id - a.id);
+                
+                if (allPosts.length === 0) {
+                    html += '<div class="empty-state"><p>Ваши подписки ещё ничего не опубликовали</p></div>';
+                } else {
+                    html += allPosts.map(post => renderPostCard(post)).join('');
+                }
+            }
+            container.innerHTML = html;
+            setTimeout(attachCarouselListeners, 100);
+        }
+
+        function attachCarouselListeners() {
+            document.querySelectorAll('.carousel-track').forEach(track => {
+                const postId = track.dataset.postId;
+                const counter = document.getElementById(`counter-${postId}`);
+                const dots = track.parentElement.querySelectorAll('.carousel-dot');
+                const updateCarousel = () => {
+                    const scrollLeft = track.scrollLeft;
+                    const width = track.offsetWidth;
+                    const index = Math.round(scrollLeft / width);
+                    const total = track.children.length;
+                    if (counter) counter.textContent = `${index + 1}/${total}`;
+                    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+                };
+                track.addEventListener('scroll', updateCarousel);
+                updateCarousel();
+            });
         }
 
         function renderPostCard(post) {
             let mediaHtml = '';
-            if (post.type === 'image' && post.images && post.images.length > 0) {
-                if (post.images.length === 1) {
-                    mediaHtml = `<img src="${post.images[0]}" class="post-image" style="width:100%;max-height:600px;object-fit:cover;">`;
-                } else {
-                    mediaHtml = `<div class="carousel">
-                        <div class="carousel-images" id="carousel-${post.id}">
-                            ${post.images.map(img => `<img src="${img}">`).join('')}
-                        </div>
-                        <div class="carousel-counter">1/${post.images.length}</div>
-                        <div class="carousel-dots">
-                            ${post.images.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
-                        </div>
-                    </div>`;
+            const allItems = post.type === 'image' ? (post.images || []) : 
+                             post.type === 'text' ? (post.texts || []) : 
+                             post.type === 'audio' ? (post.audios || []) : [];
+            const totalItems = allItems.length;
+
+            if (totalItems === 1) {
+                if (post.type === 'image') {
+                    mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;">`;
+                } else if (post.type === 'text') {
+                    mediaHtml = `<div class="post-text">${allItems[0]}</div>`;
+                } else if (post.type === 'audio') {
+                    const title = post.audioTitles ? post.audioTitles[0] : 'Аудио трек';
+                    mediaHtml = `<div class="post-audio"><div class="audio-player"><button class="play-btn" onclick="playAudio(this, '${allItems[0]}')">▶</button><div class="audio-title">${title}</div></div></div>`;
                 }
-            } else if (post.type === 'audio') {
-                mediaHtml = '<div class="post-audio"><div class="audio-player"><button class="play-btn">▶</button><div>Аудио трек</div></div></div>';
-            } else if (post.type === 'text' && post.text) {
-                mediaHtml = `<div class="post-text">${post.text}</div>`;
+            } else if (totalItems > 1) {
+                let slidesHtml = '';
+                if (post.type === 'image') {
+                    slidesHtml = allItems.map(img => `<img src="${img}">`).join('');
+                } else if (post.type === 'text') {
+                    slidesHtml = allItems.map(text => `<div class="text-slide">${text}</div>`).join('');
+                } else if (post.type === 'audio') {
+                    const titles = post.audioTitles || [];
+                    slidesHtml = allItems.map((audio, i) => {
+                        const title = titles[i] || `Трек ${i + 1}`;
+                        return `<div class="audio-slide"><div class="audio-player"><button class="play-btn" onclick="playAudio(this, '${audio}')">▶</button><div class="audio-title">${title}</div></div></div>`;
+                    }).join('');
+                }
+                mediaHtml = `<div class="carousel">
+                    <div class="carousel-track" data-post-id="${post.id}">
+                        ${slidesHtml}
+                    </div>
+                    <div class="carousel-counter" id="counter-${post.id}">1/${totalItems}</div>
+                    <div class="carousel-dots">
+                        ${allItems.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
+                    </div>
+                </div>`;
             }
 
             const allComments = getCommentsForPost(post.id);
@@ -471,8 +633,8 @@
             const commentsCount = allComments.length;
 
             return `<div class="post-card">
-                <div class="post-header">
-                    <div class="post-avatar">${post.avatar}</div>
+                <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
+                    <div class="post-avatar">${post.photo ? `<img src="${post.photo}">` : post.avatar}</div>
                     <div class="post-author-info">
                         <div class="post-author-name">${post.author}</div>
                         <div class="post-author-handle">${post.handle}</div>
@@ -508,7 +670,7 @@
                     <div class="comment-input-wrapper">
                         <div class="comment-input-container">
                             <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="Написать комментарий...">
-                            <button class="attach-image-btn" onclick="document.getElementById('comment-file-${post.id}').click()"></button>
+                            <button class="attach-image-btn" onclick="document.getElementById('comment-file-${post.id}').click()">📷</button>
                             <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
                             <div class="comment-image-preview" id="comment-image-preview-${post.id}">
                                 <img id="comment-image-thumb-${post.id}" src="">
@@ -519,6 +681,26 @@
                     </div>
                 </div>
             </div>`;
+        }
+
+        function playAudio(btn, src) {
+            const existing = document.querySelector('audio.playing');
+            if (existing) {
+                existing.pause();
+                existing.classList.remove('playing');
+                const oldBtn = existing.dataset.btn;
+                if (oldBtn) oldBtn.textContent = '▶';
+            }
+            if (btn.textContent.trim() === '▶') {
+                const audio = new Audio(src);
+                audio.classList.add('playing');
+                audio.dataset.btn = btn;
+                audio.play();
+                btn.textContent = '⏸';
+                audio.onended = () => { btn.textContent = '▶'; audio.classList.remove('playing'); };
+            } else {
+                btn.textContent = '▶';
+            }
         }
 
         function renderComment(comment, postId, allComments) {
@@ -657,27 +839,38 @@
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId) || samplePosts.find(p => p.id === postId);
             if (!post) return;
-            const shareData = {
-                title: `Пост от ${post.author}`,
-                text: post.caption,
-                url: window.location.href
-            };
-            if (navigator.share) {
-                navigator.share(shareData).catch(() => {});
+            const shareData = { title: `Пост от ${post.author}`, text: post.caption, url: window.location.href };
+            if (navigator.share) { navigator.share(shareData).catch(() => {}); }
+            else { navigator.clipboard.writeText(window.location.href).then(() => alert('Ссылка скопирована!')).catch(() => alert('Поделиться: ' + post.caption)); }
+        }
+
+        function toggleFollow(targetUserId) {
+            if (!currentUser) return;
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            const target = users.find(u => u.id === targetUserId);
+            if (!me || !target || targetUserId === currentUser.id) return;
+            
+            if (!me.following) me.following = [];
+            if (!target.followers) target.followers = [];
+            
+            const isFollowing = me.following.includes(targetUserId);
+            if (isFollowing) {
+                me.following = me.following.filter(id => id !== targetUserId);
+                target.followers = target.followers.filter(id => id !== currentUser.id);
             } else {
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    alert('Ссылка скопирована!');
-                }).catch(() => {
-                    alert('Поделиться: ' + post.caption);
-                });
+                me.following.push(targetUserId);
+                target.followers.push(currentUser.id);
             }
+            
+            saveUsers(users);
+            currentUser = me;
+            localStorage.setItem('muse_currentUser', JSON.stringify(me));
+            renderProfile(document.getElementById('mainContent'));
+            updateSidebarFollowing();
         }
 
-        // Stories
-        function openStoryModal() {
-            document.getElementById('storyModal').classList.add('active');
-        }
-
+        function openStoryModal() { document.getElementById('storyModal').classList.add('active'); }
         function closeStoryModal() {
             document.getElementById('storyModal').classList.remove('active');
             storyImage = null;
@@ -714,13 +907,7 @@
 
         function submitStory() {
             if (!storyImage) return;
-            const story = {
-                id: Date.now(),
-                author: currentUser.name,
-                avatar: currentUser.avatar,
-                images: [storyImage],
-                time: Date.now()
-            };
+            const story = { id: Date.now(), author: currentUser.name, avatar: currentUser.avatar, images: [storyImage], time: Date.now() };
             const stories = JSON.parse(localStorage.getItem('muse_stories') || '[]');
             stories.push(story);
             localStorage.setItem('muse_stories', JSON.stringify(stories));
@@ -773,29 +960,14 @@
             storyTimer = setInterval(() => {
                 progress += 2;
                 if (fill) fill.style.width = progress + '%';
-                if (progress >= 100) {
-                    clearInterval(storyTimer);
-                    currentStoryIndex++;
-                    showCurrentStory();
-                }
+                if (progress >= 100) { clearInterval(storyTimer); currentStoryIndex++; showCurrentStory(); }
             }, 100);
         }
 
-        function nextStory() {
-            currentStoryIndex++;
-            showCurrentStory();
-        }
-
+        function nextStory() { currentStoryIndex++; showCurrentStory(); }
         function prevStory() {
-            if (currentStoryIndex > 0) {
-                currentStoryIndex--;
-                showCurrentStory();
-            } else if (currentStoryUser > 0) {
-                currentStoryUser--;
-                const prevStory = getStories()[currentStoryUser];
-                currentStoryIndex = prevStory.images.length - 1;
-                showCurrentStory();
-            }
+            if (currentStoryIndex > 0) { currentStoryIndex--; showCurrentStory(); }
+            else if (currentStoryUser > 0) { currentStoryUser--; const prevStory = getStories()[currentStoryUser]; currentStoryIndex = prevStory.images.length - 1; showCurrentStory(); }
         }
 
         function getTimeAgo(timestamp) {
@@ -806,43 +978,152 @@
         }
 
         function renderExplore(container) {
-            const users = JSON.parse(localStorage.getItem('muse_users') || '[]');
-            let html = '<div class="info-banner">📱 <b>Важно:</b> Сейчас вы видите только пользователей, зарегистрированных на этом устройстве. Чтобы видеть всех пользователей, нужен сервер (это сделает программист).</div>';
-            html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Пользователи Muse</h2>';
-            if (users.length === 0) {
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            const following = me ? me.following || [] : [];
+            
+            let html = '<div class="info-banner"> Найдите интересных авторов и подпишитесь на них!</div>';
+            html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
+            
+            const displayUsers = users.filter(u => u.id !== currentUser.id);
+            if (displayUsers.length === 0) {
                 html += '<div class="empty-state"><p>Пока никто не зарегистрировался</p></div>';
             } else {
-                html += users.map(user => `<div class="user-card"><div class="user-card-avatar">${user.avatar}</div><div class="user-card-info"><div class="user-card-name">${user.name}</div><div class="user-card-handle">${user.username}</div></div></div>`).join('');
+                html += displayUsers.map(user => {
+                    const isFollowing = following.includes(user.id);
+                    return `<div class="user-card" onclick="navigate('profile', {userId: '${user.id}'})">
+                        <div class="user-card-avatar">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
+                        <div class="user-card-info">
+                            <div class="user-card-name">${user.name}</div>
+                            <div class="user-card-handle">${user.username}</div>
+                            ${user.bio ? `<div class="user-card-bio">${user.bio}</div>` : ''}
+                        </div>
+                        <button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="event.stopPropagation(); toggleFollow('${user.id}')">
+                            ${isFollowing ? 'Отписаться' : 'Подписаться'}
+                        </button>
+                    </div>`;
+                }).join('');
             }
             container.innerHTML = html;
         }
 
         function renderProfile(container) {
-            if (!currentUser) return;
-            container.innerHTML = `<div class="profile-header"><div class="profile-avatar">${currentUser.avatar}</div><div class="profile-name">${currentUser.name}</div><div class="profile-handle">${currentUser.username}</div><button class="edit-profile-btn" onclick="openEditModal()">Редактировать</button><button class="logout-btn" onclick="logout()">Выйти</button></div><div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У вас пока нет публикаций</p></div>`;
+            const userId = currentProfileUserId || currentUser.id;
+            const user = getUserById(userId);
+            if (!user) { container.innerHTML = '<div class="empty-state"><p>Пользователь не найден</p></div>'; return; }
+            
+            const isOwnProfile = userId === currentUser.id;
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            const following = me ? me.following || [] : [];
+            const isFollowing = following.includes(userId);
+            
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const allPosts = [...posts, ...samplePosts];
+            const userPosts = allPosts.filter(p => p.authorId === userId).sort((a, b) => b.id - a.id);
+            
+            const followersCount = (user.followers || []).length;
+            const followingCount = (user.following || []).length;
+
+            let html = `<div class="profile-header">
+                <div class="profile-avatar-large">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
+                <div class="profile-name">${user.name}</div>
+                <div class="profile-handle">${user.username}</div>
+                ${user.bio ? `<div class="profile-bio">${user.bio}</div>` : ''}
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">${userPosts.length}</div>
+                        <div class="profile-stat-label">публикаций</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">${followersCount}</div>
+                        <div class="profile-stat-label">подписчиков</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">${followingCount}</div>
+                        <div class="profile-stat-label">подписок</div>
+                    </div>
+                </div>
+                <div class="profile-actions">`;
+            
+            if (isOwnProfile) {
+                html += `<button class="edit-profile-btn" onclick="openEditModal()">Редактировать профиль</button>
+                         <button class="logout-btn" onclick="logout()">Выйти</button>`;
+            } else {
+                html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')">
+                            ${isFollowing ? 'Вы подписаны' : 'Подписаться'}
+                         </button>`;
+            }
+            
+            html += `</div></div>`;
+            
+            if (userPosts.length === 0) {
+                html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>';
+            } else {
+                html += userPosts.map(post => renderPostCard(post)).join('');
+            }
+            
+            container.innerHTML = html;
+            setTimeout(attachCarouselListeners, 100);
         }
 
         function openEditModal() {
             document.getElementById('editName').value = currentUser.name;
             document.getElementById('editUsername').value = currentUser.username;
+            document.getElementById('editBio').value = currentUser.bio || '';
+            pendingProfilePhoto = currentUser.photo || null;
+            const preview = document.getElementById('edit-avatar-preview');
+            preview.innerHTML = currentUser.photo ? `<img src="${currentUser.photo}">` : currentUser.avatar;
             document.getElementById('editModal').classList.add('active');
         }
 
-        function closeEditModal() { document.getElementById('editModal').classList.remove('active'); }
+        function closeEditModal() { 
+            document.getElementById('editModal').classList.remove('active');
+            pendingProfilePhoto = null;
+        }
+
+        function handleProfilePhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 400;
+                    let width = img.width, height = img.height;
+                    if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
+                    else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
+                    canvas.width = width; canvas.height = height;
+                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                    pendingProfilePhoto = canvas.toDataURL('image/jpeg', 0.9);
+                    document.getElementById('edit-avatar-preview').innerHTML = `<img src="${pendingProfilePhoto}">`;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
 
         function saveProfile() {
             const newName = document.getElementById('editName').value.trim();
-            const newUsername = document.getElementById('editUsername').value.trim();
-            if (!newName || !newUsername) { alert('Заполните все поля'); return; }
+            const newUsername = document.getElementById('editUsername').value.trim().replace(/^@/, '');
+            const newBio = document.getElementById('editBio').value.trim();
+            if (!newName || !newUsername) { alert('Заполните имя и никнейм'); return; }
+            
             currentUser.name = newName;
             currentUser.username = newUsername;
+            currentUser.bio = newBio;
             currentUser.avatar = newName.charAt(0).toUpperCase();
+            if (pendingProfilePhoto) currentUser.photo = pendingProfilePhoto;
+            
             localStorage.setItem('muse_currentUser', JSON.stringify(currentUser));
-            const users = JSON.parse(localStorage.getItem('muse_users') || '[]');
+            const users = getUsers();
             const index = users.findIndex(u => u.id === currentUser.id);
-            if (index !== -1) { users[index] = currentUser; localStorage.setItem('muse_users', JSON.stringify(users)); }
+            if (index !== -1) { users[index] = currentUser; saveUsers(users); }
             closeEditModal();
+            currentProfileUserId = currentUser.id;
             renderProfile(document.getElementById('mainContent'));
+            updateSidebarFollowing();
             alert('Профиль обновлен!');
         }
 
@@ -853,124 +1134,151 @@
                 post.liked = !post.liked;
                 post.likes += post.liked ? 1 : -1;
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
-                renderFeed(document.getElementById('mainContent'));
+                if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+                else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
+                else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
             }
         }
 
-        function openCreateModal() { document.getElementById('createModal').classList.add('active'); }
+        function openCreateModal() {
+            document.getElementById('createModal').classList.add('active');
+            resetForm();
+        }
         function closeCreateModal() { document.getElementById('createModal').classList.remove('active'); resetForm(); }
 
         function selectPostType(type) {
             currentPostType = type;
             document.querySelectorAll('.type-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.type === type));
-            const uploadSection = document.getElementById('upload-section');
-            const textSection = document.getElementById('text-section');
-            const uploadArea = document.getElementById('upload-area');
-            const fileInput = document.getElementById('file-input');
-            if (type === 'image') {
-                uploadSection.style.display = 'block'; textSection.style.display = 'none';
-                uploadArea.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы загрузить (можно несколько)</div>';
-                uploadArea.classList.remove('has-media'); fileInput.accept = 'image/*'; fileInput.multiple = true;
-            } else if (type === 'audio') {
-                uploadSection.style.display = 'block'; textSection.style.display = 'none';
-                uploadArea.innerHTML = '<div class="upload-icon">🎵</div><div class="upload-text">Нажмите, чтобы загрузить аудио</div>';
-                uploadArea.classList.remove('has-media'); fileInput.accept = 'audio/*'; fileInput.multiple = false;
-            } else {
-                uploadSection.style.display = 'none'; textSection.style.display = 'block';
-            }
+            document.getElementById('image-section').style.display = type === 'image' ? 'block' : 'none';
+            document.getElementById('audio-section').style.display = type === 'audio' ? 'block' : 'none';
+            document.getElementById('text-section').style.display = type === 'text' ? 'block' : 'none';
             updateSubmitButton();
         }
 
         function updateSubmitButton() {
             const submitBtn = document.getElementById('submit-btn');
-            if (currentPostType === 'text') submitBtn.disabled = !document.getElementById('text-content').value.trim();
-            else submitBtn.disabled = uploadedImages.length === 0 && !uploadedMedia;
+            if (currentPostType === 'image') submitBtn.disabled = uploadedImages.length === 0;
+            else if (currentPostType === 'audio') submitBtn.disabled = uploadedAudios.length === 0;
+            else if (currentPostType === 'text') submitBtn.disabled = uploadedTexts.length === 0;
         }
 
         function resetForm() {
             document.getElementById('caption').value = '';
             document.getElementById('tags').value = '';
-            document.getElementById('text-content').value = '';
             document.getElementById('file-input').value = '';
-            const uploadArea = document.getElementById('upload-area');
-            uploadArea.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы загрузить</div>';
-            uploadArea.classList.remove('has-media');
-            uploadedMedia = null;
+            document.getElementById('audio-input').value = '';
             uploadedImages = [];
+            uploadedAudios = [];
+            uploadedTexts = [];
+            renderMultiItemList('image');
+            renderMultiItemList('audio');
+            renderMultiItemList('text');
             selectPostType('image');
         }
 
-        function handleFileSelect(event) {
+        function renderMultiItemList(type) {
+            const list = document.getElementById(`${type}-list`);
+            if (type === 'image') {
+                list.innerHTML = uploadedImages.map((img, i) => `
+                    <div class="multi-item">
+                        <img src="${img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                        <div class="multi-item-text">Фото ${i + 1}</div>
+                        <button class="multi-item-remove" onclick="removeImage(${i})">×</button>
+                    </div>
+                `).join('');
+            } else if (type === 'audio') {
+                list.innerHTML = uploadedAudios.map((audio, i) => `
+                    <div class="multi-item">
+                        <div style="font-size: 24px;"></div>
+                        <div class="multi-item-text">${audio.title || 'Аудио ' + (i + 1)}</div>
+                        <button class="multi-item-remove" onclick="removeAudio(${i})">×</button>
+                    </div>
+                `).join('');
+            } else if (type === 'text') {
+                list.innerHTML = uploadedTexts.map((text, i) => `
+                    <div class="multi-item">
+                        <div style="font-size: 24px;">📝</div>
+                        <div class="multi-item-text">${text.substring(0, 50)}${text.length > 50 ? '...' : ''}</div>
+                        <button class="multi-item-remove" onclick="removeText(${i})">×</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function handleImageSelect(event) {
             const files = Array.from(event.target.files);
             if (files.length === 0) return;
-            
-            if (currentPostType === 'image') {
-                uploadedImages = [];
-                let processed = 0;
-                files.forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = new Image();
-                        img.onload = function() {
-                            const canvas = document.createElement('canvas');
-                            const maxSize = 1200;
-                            let width = img.width, height = img.height;
-                            if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
-                            else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
-                            canvas.width = width; canvas.height = height;
-                            canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-                            uploadedImages.push(canvas.toDataURL('image/jpeg', 0.85));
-                            processed++;
-                            if (processed === files.length) {
-                                const uploadArea = document.getElementById('upload-area');
-                                if (uploadedImages.length === 1) {
-                                    uploadArea.innerHTML = `<img src="${uploadedImages[0]}">`;
-                                } else {
-                                    uploadArea.innerHTML = `<div style="padding: 20px; text-align: center;"><div style="font-size: 48px; margin-bottom: 12px;">️</div><div>Загружено фото: ${uploadedImages.length}</div></div>`;
-                                }
-                                uploadArea.classList.add('has-media');
-                                updateSubmitButton();
-                            }
-                        };
-                        img.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                });
-            } else if (currentPostType === 'audio') {
-                const file = files[0];
+            let processed = 0;
+            files.forEach(file => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    uploadedMedia = e.target.result;
-                    const uploadArea = document.getElementById('upload-area');
-                    uploadArea.innerHTML = `<div class="upload-icon">🎵</div><div class="upload-text">${file.name}</div>`;
-                    uploadArea.classList.add('has-media');
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const maxSize = 1200;
+                        let width = img.width, height = img.height;
+                        if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
+                        else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
+                        canvas.width = width; canvas.height = height;
+                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                        uploadedImages.push(canvas.toDataURL('image/jpeg', 0.85));
+                        processed++;
+                        if (processed === files.length) { renderMultiItemList('image'); updateSubmitButton(); }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+            event.target.value = '';
+        }
+
+        function removeImage(index) { uploadedImages.splice(index, 1); renderMultiItemList('image'); updateSubmitButton(); }
+
+        function handleAudioSelect(event) {
+            const files = Array.from(event.target.files);
+            if (files.length === 0) return;
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedAudios.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, '') });
+                    renderMultiItemList('audio');
                     updateSubmitButton();
                 };
                 reader.readAsDataURL(file);
-            }
+            });
+            event.target.value = '';
         }
+
+        function removeAudio(index) { uploadedAudios.splice(index, 1); renderMultiItemList('audio'); updateSubmitButton(); }
+
+        function addTextItem() {
+            const text = prompt('Введите текст:');
+            if (text && text.trim()) { uploadedTexts.push(text.trim()); renderMultiItemList('text'); updateSubmitButton(); }
+        }
+
+        function removeText(index) { uploadedTexts.splice(index, 1); renderMultiItemList('text'); updateSubmitButton(); }
 
         function submitPost() {
             const caption = document.getElementById('caption').value.trim();
             const tagsStr = document.getElementById('tags').value.trim();
             const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
             let newPost = {
-                id: Date.now(), author: currentUser.name, handle: currentUser.username,
-                avatar: currentUser.avatar, time: 'только что', type: currentPostType,
+                id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
+                avatar: currentUser.avatar, photo: currentUser.photo || null, time: 'только что', type: currentPostType,
                 caption: caption || 'Без подписи', tags, likes: 0, liked: false, comments: []
             };
             if (currentPostType === 'image') {
-                if (uploadedImages.length === 0) { alert('Загрузите изображение'); return; }
+                if (uploadedImages.length === 0) { alert('Добавьте хотя бы одно фото'); return; }
                 newPost.images = uploadedImages;
                 newPost.category = 'photo';
             } else if (currentPostType === 'audio') {
-                if (!uploadedMedia) { alert('Загрузите аудио'); return; }
-                newPost.audio = uploadedMedia;
+                if (uploadedAudios.length === 0) { alert('Добавьте хотя бы одно аудио'); return; }
+                newPost.audios = uploadedAudios.map(a => a.data);
+                newPost.audioTitles = uploadedAudios.map(a => a.title);
                 newPost.category = 'music';
             } else {
-                const text = document.getElementById('text-content').value.trim();
-                if (!text) { alert('Напишите текст'); return; }
-                newPost.text = text;
+                if (uploadedTexts.length === 0) { alert('Добавьте хотя бы один текст'); return; }
+                newPost.texts = uploadedTexts;
                 newPost.category = 'text';
             }
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
@@ -981,7 +1289,6 @@
         }
 
         document.getElementById('caption').addEventListener('input', updateSubmitButton);
-        document.getElementById('text-content').addEventListener('input', updateSubmitButton);
         document.getElementById('createModal').addEventListener('click', function(e) { if (e.target === this) closeCreateModal(); });
         document.getElementById('editModal').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
         document.getElementById('storyModal').addEventListener('click', function(e) { if (e.target === this) closeStoryModal(); });
