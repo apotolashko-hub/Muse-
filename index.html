@@ -7,7 +7,36 @@
     <title>Muse — для творческих</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+        
+        body.dark-theme { background: #1a1a2e; color: #eaeaea; }
+        body.dark-theme .auth-box, body.dark-theme .modal-content, body.dark-theme .post-card, body.dark-theme .profile-header, body.dark-theme .user-card, body.dark-theme .notification-item, body.dark-theme .top-bar, body.dark-theme .mobile-sidebar, body.dark-theme .comment, body.dark-theme .multi-item, body.dark-theme .carousel-track .text-slide { background: #16213e; color: #eaeaea; }
+        body.dark-theme .category-chip, body.dark-theme .search-input, body.dark-theme .comment-input, body.dark-theme .caption-input, body.dark-theme .tags-input, body.dark-theme .text-input, body.dark-theme .input-group input, body.dark-theme .input-group textarea { background: #1a1a2e; border-color: #0f3460; color: #eaeaea; }
+        body.dark-theme .post-menu { background: #16213e; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        body.dark-theme .post-menu-item:active { background: #1a1a2e; }
+        body.dark-theme .sidebar-nav-item:hover, body.dark-theme .sidebar-user-item:active { background: #1a1a2e; }
+        body.dark-theme .post-header:active, body.dark-theme .user-card:active, body.dark-theme .notification-item:active { background: #1a1a2e; }
+        body.dark-theme .comment-reply-to { color: #a5b4fc; }
+        body.dark-theme .tag { background: #1e1b4b; color: #a5b4fc; }
+        body.dark-theme .info-banner { background: #1e1b4b; border-color: #312e81; color: #c7d2fe; }
+        body.dark-theme .post-text { background: #1a1a2e; color: #eaeaea; }
+        body.dark-theme .comments-section { background: #1a1a2e; border-color: #0f3460; }
+        body.dark-theme .post-actions { border-color: #0f3460; }
+        body.dark-theme .comment-input-wrapper { border-color: #0f3460; }
+        body.dark-theme .reply-indicator { background: #1e1b4b; }
+        body.dark-theme .sidebar-section { border-color: #0f3460; }
+        body.dark-theme .sidebar-section-title { color: #94a3b8; }
+        body.dark-theme .post-author-handle, body.dark-theme .profile-handle, body.dark-theme .user-card-handle, body.dark-theme .notification-time, body.dark-theme .profile-stat-label { color: #94a3b8; }
+        body.dark-theme .comment-text { color: #e2e8f0; }
+        body.dark-theme .profile-bio { color: #cbd5e1; }
+        body.dark-theme .carousel { background: #0f172a; }
+        body.dark-theme .carousel-track .audio-slide { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        body.dark-theme .post-audio { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        body.dark-theme .empty-state { color: #94a3b8; }
+        body.dark-theme .auth-box h2 { color: #94a3b8; }
+        body.dark-theme .input-group label { color: #cbd5e1; }
+        body.dark-theme .modal-overlay { background: rgba(0,0,0,0.7); }
+        body.dark-theme .story-viewer { background: #000; }
         
         .auth-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .auth-box { background: white; padding: 40px 30px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
@@ -272,6 +301,10 @@
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 <span>Профиль</span>
             </div>
+            <div class="sidebar-nav-item" onclick="toggleTheme(); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                <span>Тема</span>
+            </div>
             <div class="sidebar-section" id="sidebarFollowing"></div>
         </div>
 
@@ -303,7 +336,7 @@
             </div>
             <div class="post-type-selector">
                 <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
-                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon"></div><div>Музыка</div></button>
+                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
                 <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
             </div>
             <div id="image-section">
@@ -351,7 +384,7 @@
                 <div class="profile-photo-upload">
                     <div class="profile-avatar-large" id="edit-avatar-preview" style="margin: 0 auto;"></div>
                     <label for="profile-photo-input">
-                        <div class="change-photo"></div>
+                        <div class="change-photo">📷</div>
                     </label>
                     <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhoto(event)">
                 </div>
@@ -383,6 +416,7 @@
         let searchQuery = '';
         let currentAudio = null;
         let currentPlayBtn = null;
+        let currentTheme = localStorage.getItem('muse_theme') || 'light';
 
         const samplePosts = [
             { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
@@ -404,9 +438,16 @@
         ];
 
         window.onload = function() {
+            if (currentTheme === 'dark') document.body.classList.add('dark-theme');
             const saved = localStorage.getItem('muse_currentUser');
             if (saved) { currentUser = JSON.parse(saved); showApp(); }
         };
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.classList.toggle('dark-theme', currentTheme === 'dark');
+            localStorage.setItem('muse_theme', currentTheme);
+        }
 
         function toggleAuthMode() {
             isLoginMode = !isLoginMode;
@@ -464,7 +505,7 @@
         function navigate(page, data) {
             currentPage = page;
             document.querySelectorAll('.sidebar-nav-item').forEach((item, i) => {
-                const pages = ['home', 'following', 'explore', 'notifications', 'profile'];
+                const pages = ['home', 'following', 'explore', 'notifications', 'profile', 'theme'];
                 item.classList.toggle('active', pages[i] === page);
             });
             const content = document.getElementById('mainContent');
@@ -717,6 +758,7 @@
                     ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>` : ''}
                 </div>
                 <div class="post-menu" id="post-menu-${post.id}">
+                    <div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>
                     <div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить пост</div>
                 </div>
                 ${mediaHtml}
@@ -770,6 +812,22 @@
             menu.classList.toggle('active');
         }
 
+        function editPost(postId) {
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+            
+            const newCaption = prompt('Изменить описание:', post.caption);
+            if (newCaption !== null) {
+                post.caption = newCaption.trim() || post.caption;
+                localStorage.setItem('muse_posts', JSON.stringify(posts));
+                document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
+                if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+                else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
+                else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
+            }
+        }
+
         function deletePost(postId) {
             if (!confirm('Удалить этот пост?')) return;
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
@@ -782,7 +840,6 @@
         }
 
         function playAudio(btn, src) {
-            // Если кликнули на ту же кнопку - ставим на паузу
             if (currentPlayBtn === btn && currentAudio) {
                 currentAudio.pause();
                 btn.textContent = '▶';
@@ -790,38 +847,21 @@
                 currentPlayBtn = null;
                 return;
             }
-            
-            // Останавливаем предыдущий трек
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio = null;
-                if (currentPlayBtn) {
-                    currentPlayBtn.textContent = '▶';
-                }
+                if (currentPlayBtn) currentPlayBtn.textContent = '▶';
             }
-            
-            // Запускаем новый трек
             currentAudio = new Audio(src);
             currentPlayBtn = btn;
-            
             currentAudio.play().catch(() => {
                 btn.textContent = '▶';
                 currentAudio = null;
                 currentPlayBtn = null;
             });
             btn.textContent = '⏸';
-            
-            currentAudio.onended = () => {
-                btn.textContent = '▶';
-                currentAudio = null;
-                currentPlayBtn = null;
-            };
-            
-            currentAudio.onerror = () => {
-                btn.textContent = '▶';
-                currentAudio = null;
-                currentPlayBtn = null;
-            };
+            currentAudio.onended = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
+            currentAudio.onerror = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
         }
 
         function renderComment(comment, postId, allComments) {
