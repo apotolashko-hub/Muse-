@@ -36,6 +36,8 @@
         body.dark-theme .auth-box h2 { color: #94a3b8; }
         body.dark-theme .input-group label { color: #cbd5e1; }
         body.dark-theme .auth-modal-text { color: #cbd5e1; }
+        body.dark-theme .carousel-prev-btn, body.dark-theme .carousel-next-btn { background: rgba(255,255,255,0.3); }
+        body.dark-theme .carousel-prev-btn:hover, body.dark-theme .carousel-next-btn:hover { background: rgba(255,255,255,0.5); }
         
         .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
         .auth-modal-overlay.active { display: flex; }
@@ -135,16 +137,40 @@
         .post-menu-item.delete { color: #ef4444; }
         
         .carousel { position: relative; width: 100%; background: #f0f0f0; }
-        .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; cursor: grab; }
+        .carousel-track:active { cursor: grabbing; }
         .carousel-track::-webkit-scrollbar { display: none; }
-        .carousel-track > * { flex: 0 0 100%; scroll-snap-align: start; }
-        .carousel-track img { width: 100%; max-height: 600px; object-fit: cover; display: block; }
+        .carousel-track > * { flex: 0 0 100%; scroll-snap-align: start; pointer-events: none; }
+        .carousel-track img { width: 100%; max-height: 600px; object-fit: cover; display: block; pointer-events: auto; }
         .carousel-track .text-slide { padding: 24px; background: #f9f9f9; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; color: #333; white-space: pre-wrap; min-height: 300px; }
         .carousel-track .audio-slide { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center; }
-        .carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
-        .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+        .carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; z-index: 5; }
+        .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
         .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 0.2s; }
         .carousel-dot.active { background: white; width: 18px; border-radius: 3px; }
+        
+        .carousel-prev-btn, .carousel-next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .carousel-prev-btn:hover, .carousel-next-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.1); }
+        .carousel-prev-btn { left: 12px; }
+        .carousel-next-btn { right: 12px; }
+        @media (min-width: 769px) { .carousel-prev-btn, .carousel-next-btn { display: flex; } }
         
         .post-audio { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .audio-player { display: flex; align-items: center; gap: 12px; color: white; width: 100%; }
@@ -277,7 +303,6 @@
 </head>
 <body>
 
-    <!-- Модальное окно входа/регистрации (при попытке действия) -->
     <div class="auth-modal-overlay" id="authModal">
         <div class="auth-modal">
             <h3>Войдите в Muse</h3>
@@ -290,7 +315,6 @@
         </div>
     </div>
 
-    <!-- Полная страница авторизации -->
     <div class="auth-container" id="authScreen">
         <div class="auth-box">
             <div class="logo-large">Muse</div>
@@ -309,9 +333,13 @@
         <div class="mobile-sidebar" id="mobileSidebar">
             <button class="close-sidebar" onclick="toggleSidebar()">×</button>
             <div class="logo-large" style="margin-bottom: 30px;">Muse</div>
-            <div class="sidebar-nav-item active" data-page="home" onclick="navigate('home'); toggleSidebar();">
+            <div class="sidebar-nav-item" data-page="home" onclick="navigate('home'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span>Лента</span>
+            </div>
+            <div class="sidebar-nav-item" data-page="popular" onclick="navigate('popular'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                <span>Популярное</span>
             </div>
             <div class="sidebar-nav-item" data-page="following" onclick="navigate('following'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
@@ -365,8 +393,8 @@
             </div>
             <div class="post-type-selector">
                 <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
-                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
-                <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">️</div><div>Текст</div></button>
+                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon"></div><div>Музыка</div></button>
+                <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
             </div>
             <div id="image-section">
                 <div class="multi-item-list" id="image-list"></div>
@@ -468,11 +496,12 @@
         let editingPostId = null;
         let pendingAuthAction = null;
 
+        const now = Date.now();
         const samplePosts = [
-            { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', time: '2 часа назад', type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
-            { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', time: '5 часов назад', type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
-            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', time: '1 день назад', type: 'text', texts: ['Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', 'Он шёл по набережной, и каждый шаг отдавался эхом в пустоте утреннего города.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [] },
-            { id: 4, authorId: 'sample4', author: 'Елена С.', handle: '@elena_sings', avatar: 'Е', time: '2 дня назад', type: 'audio', audios: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'], audioTitles: ['Утренний этюд', 'Вечерняя мелодия'], caption: 'Две новые демки.', tags: ['музыка', 'инди'], category: 'music', likes: 67, liked: false, comments: [] }
+            { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', timestamp: now - 7200000, type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
+            { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', timestamp: now - 18000000, type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
+            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', timestamp: now - 86400000, type: 'text', texts: ['Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', 'Он шёл по набережной, и каждый шаг отдавался эхом в пустоте утреннего города.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [] },
+            { id: 4, authorId: 'sample4', author: 'Елена С.', handle: '@elena_sings', avatar: 'Е', timestamp: now - 172800000, type: 'audio', audios: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'], audioTitles: ['Утренний этюд', 'Вечерняя мелодия'], caption: 'Две новые демки.', tags: ['музыка', 'инди'], category: 'music', likes: 67, liked: false, comments: [] }
         ];
 
         const sampleUsers = [
@@ -482,19 +511,12 @@
             { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [] }
         ];
 
-        // Восстановление состояния при загрузке
         window.onload = function() {
             if (currentTheme === 'dark') document.body.classList.add('dark-theme');
-            
-            // Восстанавливаем авторизацию
             const saved = localStorage.getItem('muse_currentUser');
             if (saved) currentUser = JSON.parse(saved);
-            
-            // Восстанавливаем последнюю страницу
             const savedPage = localStorage.getItem('muse_lastPage');
             if (savedPage) currentPage = savedPage;
-            
-            // Всегда показываем приложение (даже без авторизации)
             document.getElementById('mainApp').classList.add('active');
             navigate(currentPage);
             updateNotifBadge();
@@ -503,11 +525,7 @@
 
         function updateAuthUI() {
             const label = document.getElementById('profileMenuLabel');
-            if (currentUser) {
-                label.textContent = 'Профиль';
-            } else {
-                label.textContent = 'Войти';
-            }
+            label.textContent = currentUser ? 'Профиль' : 'Войти';
         }
 
         function toggleTheme() {
@@ -537,8 +555,7 @@
                     updateAuthUI();
                     updateNotifBadge();
                     navigate(currentPage);
-                }
-                else { alert('Неверный никнейм или пароль'); }
+                } else { alert('Неверный никнейм или пароль'); }
             } else {
                 if (users.find(u => u.username === username)) { alert('Никнейм занят'); return; }
                 const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [] };
@@ -570,13 +587,6 @@
             return getUsers().find(u => u.id === id);
         }
 
-        function showApp() {
-            document.getElementById('authScreen').style.display = 'none';
-            document.getElementById('mainApp').classList.add('active');
-            navigate('home');
-            updateNotifBadge();
-        }
-
         function logout() { 
             currentUser = null;
             localStorage.removeItem('muse_currentUser'); 
@@ -586,27 +596,19 @@
         }
 
         function navigate(page, data) {
-            // Если нет авторизации и пытаемся зайти в профиль/уведомления/подписки — показываем вход
             if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'following')) {
-                if (page === 'profile') {
-                    // Для профиля без авторизации — открываем вход
-                    showFullAuth('login');
-                    return;
-                }
+                if (page === 'profile') { showFullAuth('login'); return; }
             }
-            
             currentPage = page;
             localStorage.setItem('muse_lastPage', page);
-            
-            // Обновляем активный пункт меню
             document.querySelectorAll('.sidebar-nav-item').forEach(item => {
                 item.classList.toggle('active', item.dataset.page === page);
             });
-            
             const content = document.getElementById('mainContent');
             const title = document.getElementById('pageTitle');
             switch(page) {
                 case 'home': title.textContent = 'Лента'; renderFeed(content); break;
+                case 'popular': title.textContent = 'Популярное'; renderPopular(content); break;
                 case 'following': title.textContent = 'Подписки'; renderFollowing(content); break;
                 case 'explore': title.textContent = 'Обзор'; renderExplore(content); break;
                 case 'notifications': title.textContent = 'Уведомления'; renderNotifications(content); markNotificationsRead(); break;
@@ -627,18 +629,12 @@
         }
 
         function updateSidebarFollowing() {
-            if (!currentUser) {
-                document.getElementById('sidebarFollowing').innerHTML = '';
-                return;
-            }
+            if (!currentUser) { document.getElementById('sidebarFollowing').innerHTML = ''; return; }
             const users = getUsers();
             const me = users.find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
             const container = document.getElementById('sidebarFollowing');
-            if (following.length === 0) {
-                container.innerHTML = '';
-                return;
-            }
+            if (following.length === 0) { container.innerHTML = ''; return; }
             let html = '<div class="sidebar-section-title">Подписки</div>';
             following.forEach(userId => {
                 const user = getUserById(userId);
@@ -657,7 +653,6 @@
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
-        // Проверка авторизации перед действием
         function requireAuth(action) {
             if (!currentUser) {
                 pendingAuthAction = action;
@@ -690,8 +685,7 @@
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
             if (post) return post.comments || [];
-            const sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
-            return sampleComments[postId] || [];
+            return [];
         }
 
         function getStories() {
@@ -700,9 +694,7 @@
             const dayAgo = now - 86400000;
             const freshStories = saved.filter(s => s.time > dayAgo);
             const oldStories = saved.filter(s => s.time <= dayAgo);
-            if (oldStories.length > 0) {
-                localStorage.setItem('muse_stories', JSON.stringify(freshStories));
-            }
+            if (oldStories.length > 0) localStorage.setItem('muse_stories', JSON.stringify(freshStories));
             return freshStories;
         }
 
@@ -719,18 +711,7 @@
         function addNotification(type, fromUser, postId, commentText) {
             if (!currentUser || fromUser.id === currentUser.id) return;
             const notifs = getNotifications();
-            const notif = {
-                id: Date.now(),
-                type: type,
-                fromUserId: fromUser.id,
-                fromUserName: fromUser.name,
-                fromUserAvatar: fromUser.avatar,
-                fromUserPhoto: fromUser.photo,
-                postId: postId,
-                commentText: commentText || '',
-                time: Date.now(),
-                read: false
-            };
+            const notif = { id: Date.now(), type, fromUserId: fromUser.id, fromUserName: fromUser.name, fromUserAvatar: fromUser.avatar, fromUserPhoto: fromUser.photo, postId, commentText: commentText || '', time: Date.now(), read: false };
             notifs.unshift(notif);
             if (notifs.length > 50) notifs.pop();
             saveNotifications(notifs);
@@ -741,12 +722,8 @@
             const notifs = getNotifications();
             const unread = notifs.filter(n => !n.read).length;
             const badge = document.getElementById('notifBadge');
-            if (unread > 0) {
-                badge.textContent = unread > 99 ? '99+' : unread;
-                badge.style.display = 'inline';
-            } else {
-                badge.style.display = 'none';
-            }
+            if (unread > 0) { badge.textContent = unread > 99 ? '99+' : unread; badge.style.display = 'inline'; }
+            else { badge.style.display = 'none'; }
         }
 
         function markNotificationsRead() {
@@ -756,9 +733,13 @@
             updateNotifBadge();
         }
 
-        function renderFeed(container) {
+        function getAllPosts() {
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            const allPosts = [...posts, ...samplePosts].sort((a, b) => b.id - a.id);
+            return [...posts, ...samplePosts];
+        }
+
+        function renderFeed(container) {
+            const allPosts = getAllPosts().sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
             const filtered = currentCategory === 'all' ? allPosts : allPosts.filter(p => p.category === currentCategory);
             const stories = getStories();
 
@@ -795,24 +776,45 @@
             setTimeout(attachCarouselListeners, 100);
         }
 
+        function renderPopular(container) {
+            const dayAgo = Date.now() - 86400000;
+            const allPosts = getAllPosts();
+            const recentPosts = allPosts.filter(p => (p.timestamp || 0) >= dayAgo);
+            const popularPosts = recentPosts.sort((a, b) => b.likes - a.likes);
+
+            let html = '<div class="info-banner">🔥 Популярные посты за последние 24 часа</div>';
+            
+            if (popularPosts.length === 0) {
+                html += '<div class="empty-state"><h2>Пока нет популярных постов</h2><p>Здесь будут посты, набравшие больше всего лайков за сутки</p></div>';
+            } else {
+                html += popularPosts.map((post, index) => {
+                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+                    return `<div style="position: relative;">
+                        ${medal ? `<div style="position: absolute; top: 12px; left: 12px; font-size: 24px; z-index: 10;">${medal}</div>` : ''}
+                        ${renderPostCard(post)}
+                    </div>`;
+                }).join('');
+            }
+            container.innerHTML = html;
+            setTimeout(attachCarouselListeners, 100);
+        }
+
         function renderFollowing(container) {
             if (!currentUser) { showFullAuth('login'); return; }
             const users = getUsers();
             const me = users.find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
             
-            let html = '<div class="info-banner">📱 Здесь посты тех, на кого вы подписаны. Подписывайтесь на интересных авторов!</div>';
+            let html = '<div class="info-banner">📱 Здесь посты тех, на кого вы подписаны.</div>';
             
             if (following.length === 0) {
                 html += '<div class="empty-state"><h2>Пока нет подписок</h2><p>Перейдите в раздел "Обзор" и подпишитесь на интересных авторов</p></div>';
             } else {
-                const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-                const allPosts = [...posts, ...samplePosts].filter(p => following.includes(p.authorId)).sort((a, b) => b.id - a.id);
-                
-                if (allPosts.length === 0) {
+                const posts = getAllPosts().filter(p => following.includes(p.authorId)).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                if (posts.length === 0) {
                     html += '<div class="empty-state"><p>Ваши подписки ещё ничего не опубликовали</p></div>';
                 } else {
-                    html += allPosts.map(post => renderPostCard(post)).join('');
+                    html += posts.map(post => renderPostCard(post)).join('');
                 }
             }
             container.innerHTML = html;
@@ -821,9 +823,53 @@
 
         function attachCarouselListeners() {
             document.querySelectorAll('.carousel-track').forEach(track => {
+                if (track.dataset.listenersAttached) return;
+                track.dataset.listenersAttached = 'true';
+                
                 const postId = track.dataset.postId;
                 const counter = document.getElementById(`counter-${postId}`);
                 const dots = track.parentElement.querySelectorAll('.carousel-dot');
+                
+                if (!track.parentElement.querySelector('.carousel-prev-btn')) {
+                    const prevBtn = document.createElement('button');
+                    prevBtn.className = 'carousel-prev-btn';
+                    prevBtn.innerHTML = '‹';
+                    prevBtn.onclick = (e) => { e.stopPropagation(); track.scrollBy({ left: -track.offsetWidth, behavior: 'smooth' }); };
+                    track.parentElement.appendChild(prevBtn);
+                    
+                    const nextBtn = document.createElement('button');
+                    nextBtn.className = 'carousel-next-btn';
+                    nextBtn.innerHTML = '›';
+                    nextBtn.onclick = (e) => { e.stopPropagation(); track.scrollBy({ left: track.offsetWidth, behavior: 'smooth' }); };
+                    track.parentElement.appendChild(nextBtn);
+                }
+                
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                
+                track.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    startX = e.pageX - track.offsetLeft;
+                    scrollLeft = track.scrollLeft;
+                });
+                track.addEventListener('mouseleave', () => { isDown = false; });
+                track.addEventListener('mouseup', () => { isDown = false; });
+                track.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - track.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    track.scrollLeft = scrollLeft - walk;
+                });
+                
+                track.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+                        e.preventDefault();
+                        track.scrollLeft += e.deltaY;
+                    }
+                }, { passive: false });
+                
                 const updateCarousel = () => {
                     const scrollLeft = track.scrollLeft;
                     const width = track.offsetWidth;
@@ -832,6 +878,7 @@
                     if (counter) counter.textContent = `${index + 1}/${total}`;
                     dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
                 };
+                
                 track.addEventListener('scroll', updateCarousel);
                 updateCarousel();
             });
@@ -846,7 +893,7 @@
 
             if (totalItems === 1) {
                 if (post.type === 'image') {
-                    mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;">`;
+                    mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;" onerror="this.style.display='none'">`;
                 } else if (post.type === 'text') {
                     mediaHtml = `<div class="post-text">${allItems[0]}</div>`;
                 } else if (post.type === 'audio') {
@@ -856,7 +903,7 @@
             } else if (totalItems > 1) {
                 let slidesHtml = '';
                 if (post.type === 'image') {
-                    slidesHtml = allItems.map(img => `<img src="${img}">`).join('');
+                    slidesHtml = allItems.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
                 } else if (post.type === 'text') {
                     slidesHtml = allItems.map(text => `<div class="text-slide">${text}</div>`).join('');
                 } else if (post.type === 'audio') {
@@ -927,8 +974,8 @@
                     </div>
                     <div class="comment-input-wrapper">
                         <div class="comment-input-container">
-                            <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : 'onclick="showFullAuth(\'login\')" readonly'}>
-                            <button class="attach-image-btn" onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}">📷</button>
+                            <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : `onclick="showFullAuth('login')"`} ${currentUser ? '' : 'readonly'}>
+                            <button class="attach-image-btn" onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}"></button>
                             <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
                             <div class="comment-image-preview" id="comment-image-preview-${post.id}">
                                 <img id="comment-image-thumb-${post.id}" src="">
@@ -943,9 +990,7 @@
 
         function togglePostMenu(postId) {
             const menu = document.getElementById(`post-menu-${postId}`);
-            document.querySelectorAll('.post-menu').forEach(m => {
-                if (m.id !== `post-menu-${postId}`) m.classList.remove('active');
-            });
+            document.querySelectorAll('.post-menu').forEach(m => { if (m.id !== `post-menu-${postId}`) m.classList.remove('active'); });
             menu.classList.toggle('active');
         }
 
@@ -955,9 +1000,7 @@
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
             if (!post) return;
-            
             document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
-            
             let contentHtml = '';
             if (post.type === 'text' && post.texts && post.texts.length > 0) {
                 contentHtml = `<div class="input-group"><label>Текст поста</label><textarea class="edit-post-textarea" id="edit-text-content">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
@@ -966,31 +1009,22 @@
             } else if (post.type === 'audio' && post.audios) {
                 contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; color: #333; display: block; margin-bottom: 8px;">Аудио (${post.audios.length} трек${post.audios.length > 1 ? 'а' : ''})</label><div>${post.audioTitles ? post.audioTitles.map((t, i) => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;">🎵 ${t}</div>`).join('') : ''}</div></div>`;
             }
-            
             document.getElementById('edit-post-content').innerHTML = contentHtml;
             document.getElementById('edit-caption').value = post.caption || '';
             document.getElementById('edit-tags').value = (post.tags || []).join(', ');
             document.getElementById('editPostModal').classList.add('active');
         }
 
-        function closeEditPostModal() {
-            document.getElementById('editPostModal').classList.remove('active');
-            editingPostId = null;
-        }
+        function closeEditPostModal() { document.getElementById('editPostModal').classList.remove('active'); editingPostId = null; }
 
         function saveEditPost() {
             if (!editingPostId || !currentUser) return;
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === editingPostId);
             if (!post) return;
-            
-            const newCaption = document.getElementById('edit-caption').value.trim();
+            post.caption = document.getElementById('edit-caption').value.trim();
             const newTagsStr = document.getElementById('edit-tags').value.trim();
-            const newTags = newTagsStr ? newTagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
-            
-            post.caption = newCaption;
-            post.tags = newTags;
-            
+            post.tags = newTagsStr ? newTagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
             if (post.type === 'text') {
                 const textContent = document.getElementById('edit-text-content');
                 if (textContent) {
@@ -998,11 +1032,10 @@
                     if (texts.length > 0) post.texts = texts;
                 }
             }
-            
             localStorage.setItem('muse_posts', JSON.stringify(posts));
             closeEditPostModal();
-            
             if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+            else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
             else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
             else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
         }
@@ -1011,34 +1044,20 @@
             if (!requireAuth()) return;
             if (!confirm('Удалить этот пост?')) return;
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            const filtered = posts.filter(p => p.id !== postId);
-            localStorage.setItem('muse_posts', JSON.stringify(filtered));
+            localStorage.setItem('muse_posts', JSON.stringify(posts.filter(p => p.id !== postId)));
             document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
             if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+            else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
             else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
             else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
         }
 
         function playAudio(btn, src) {
-            if (currentPlayBtn === btn && currentAudio) {
-                currentAudio.pause();
-                btn.textContent = '▶';
-                currentAudio = null;
-                currentPlayBtn = null;
-                return;
-            }
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-                if (currentPlayBtn) currentPlayBtn.textContent = '▶';
-            }
+            if (currentPlayBtn === btn && currentAudio) { currentAudio.pause(); btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; return; }
+            if (currentAudio) { currentAudio.pause(); currentAudio = null; if (currentPlayBtn) currentPlayBtn.textContent = '▶'; }
             currentAudio = new Audio(src);
             currentPlayBtn = btn;
-            currentAudio.play().catch(() => {
-                btn.textContent = '▶';
-                currentAudio = null;
-                currentPlayBtn = null;
-            });
+            currentAudio.play().catch(() => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; });
             btn.textContent = '⏸';
             currentAudio.onended = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
             currentAudio.onerror = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
@@ -1049,7 +1068,6 @@
             const isOwnComment = currentUser && comment.author === currentUser.name;
             const commentImageHtml = comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : '';
             const commentTextHtml = comment.text ? `<div class="comment-text">${comment.text}</div>` : '';
-            
             let html = `<div class="comment" id="comment-${comment.id}">
                 <div class="comment-avatar">${comment.avatar}</div>
                 <div class="comment-content">
@@ -1096,18 +1114,10 @@
             if (post && post.comments) {
                 post.comments = post.comments.filter(c => c.id !== commentId && c.replyTo !== commentId);
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
-            } else {
-                const sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
-                if (sampleComments[postId]) {
-                    sampleComments[postId] = sampleComments[postId].filter(c => c.id !== commentId && c.replyTo !== commentId);
-                    localStorage.setItem('muse_sample_comments', JSON.stringify(sampleComments));
-                }
             }
-            renderFeed(document.getElementById('mainContent'));
-            setTimeout(() => {
-                const section = document.getElementById(`comments-${postId}`);
-                if (section) section.style.display = 'block';
-            }, 50);
+            if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+            else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
+            setTimeout(() => { const section = document.getElementById(`comments-${postId}`); if (section) section.style.display = 'block'; }, 50);
         }
 
         function toggleComments(postId) {
@@ -1119,19 +1129,12 @@
             if (!requireAuth()) return;
             replyTo = { postId, author: authorName, commentId };
             const indicator = document.getElementById(`reply-indicator-${postId}`);
-            if (indicator) {
-                indicator.classList.add('active');
-                indicator.querySelector('span').textContent = `Ответ @${authorName}`;
-            }
+            if (indicator) { indicator.classList.add('active'); indicator.querySelector('span').textContent = `Ответ @${authorName}`; }
             const input = document.getElementById(`comment-input-${postId}`);
             if (input) input.focus();
         }
 
-        function cancelReply(postId) {
-            replyTo = null;
-            const indicator = document.getElementById(`reply-indicator-${postId}`);
-            if (indicator) indicator.classList.remove('active');
-        }
+        function cancelReply(postId) { replyTo = null; const indicator = document.getElementById(`reply-indicator-${postId}`); if (indicator) indicator.classList.remove('active'); }
 
         function handleCommentImage(event, postId) {
             const file = event.target.files[0];
@@ -1176,12 +1179,7 @@
                 const parentComment = allComments.find(c => c.id === replyTo.commentId);
                 if (parentComment) replyToAuthor = parentComment.author;
             }
-            const comment = {
-                id: Date.now(), author: currentUser.name, avatar: currentUser.avatar,
-                text: text, time: Date.now(), image: commentImage || null,
-                replyTo: replyTo && replyTo.postId === postId ? replyTo.commentId : null,
-                replyToAuthor: replyToAuthor
-            };
+            const comment = { id: Date.now(), author: currentUser.name, avatar: currentUser.avatar, text: text, time: Date.now(), image: commentImage || null, replyTo: replyTo && replyTo.postId === postId ? replyTo.commentId : null, replyToAuthor: replyToAuthor };
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const post = posts.find(p => p.id === postId);
             if (post) {
@@ -1190,30 +1188,19 @@
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
                 const postAuthor = getUserById(post.authorId);
                 if (postAuthor) addNotification('comment', currentUser, postId, text);
-            } else {
-                let sampleComments = JSON.parse(localStorage.getItem('muse_sample_comments') || '{}');
-                if (!sampleComments[postId]) sampleComments[postId] = [];
-                sampleComments[postId].push(comment);
-                localStorage.setItem('muse_sample_comments', JSON.stringify(sampleComments));
             }
             input.value = '';
             removeCommentImage(postId);
             cancelReply(postId);
-            renderFeed(document.getElementById('mainContent'));
-            setTimeout(() => {
-                const section = document.getElementById(`comments-${postId}`);
-                if (section) section.style.display = 'block';
-            }, 50);
+            if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+            else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
+            setTimeout(() => { const section = document.getElementById(`comments-${postId}`); if (section) section.style.display = 'block'; }, 50);
         }
 
-        function filterCategory(cat) {
-            currentCategory = cat;
-            renderFeed(document.getElementById('mainContent'));
-        }
+        function filterCategory(cat) { currentCategory = cat; if (currentPage === 'home') renderFeed(document.getElementById('mainContent')); }
 
         function sharePost(postId) {
-            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            const post = posts.find(p => p.id === postId) || samplePosts.find(p => p.id === postId);
+            const post = getAllPosts().find(p => p.id === postId);
             if (!post) return;
             const shareData = { title: `Пост от ${post.author}`, text: post.caption || '', url: window.location.href };
             if (navigator.share) { navigator.share(shareData).catch(() => {}); }
@@ -1228,11 +1215,9 @@
                 post.liked = !post.liked;
                 post.likes += post.liked ? 1 : -1;
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
-                if (post.liked) {
-                    const postAuthor = getUserById(post.authorId);
-                    if (postAuthor) addNotification('like', currentUser, postId, '');
-                }
+                if (post.liked) { const postAuthor = getUserById(post.authorId); if (postAuthor) addNotification('like', currentUser, postId, ''); }
                 if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
+                else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
                 else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
                 else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
             }
@@ -1244,20 +1229,11 @@
             const me = users.find(u => u.id === currentUser.id);
             const target = users.find(u => u.id === targetUserId);
             if (!me || !target || targetUserId === currentUser.id) return;
-            
             if (!me.following) me.following = [];
             if (!target.followers) target.followers = [];
-            
             const isFollowing = me.following.includes(targetUserId);
-            if (isFollowing) {
-                me.following = me.following.filter(id => id !== targetUserId);
-                target.followers = target.followers.filter(id => id !== currentUser.id);
-            } else {
-                me.following.push(targetUserId);
-                target.followers.push(currentUser.id);
-                addNotification('follow', currentUser, null, '');
-            }
-            
+            if (isFollowing) { me.following = me.following.filter(id => id !== targetUserId); target.followers = target.followers.filter(id => id !== currentUser.id); }
+            else { me.following.push(targetUserId); target.followers.push(currentUser.id); addNotification('follow', currentUser, null, ''); }
             saveUsers(users);
             currentUser = me;
             localStorage.setItem('muse_currentUser', JSON.stringify(me));
@@ -1265,18 +1241,8 @@
             updateSidebarFollowing();
         }
 
-        function openStoryModal() {
-            if (!requireAuth()) return;
-            document.getElementById('storyModal').classList.add('active');
-        }
-        function closeStoryModal() {
-            document.getElementById('storyModal').classList.remove('active');
-            storyImage = null;
-            const area = document.getElementById('story-upload-area');
-            area.innerHTML = '<div class="upload-icon"></div><div class="upload-text">Нажмите, чтобы добавить фото</div>';
-            area.classList.remove('has-image');
-            document.getElementById('story-submit-btn').disabled = true;
-        }
+        function openStoryModal() { if (!requireAuth()) return; document.getElementById('storyModal').classList.add('active'); }
+        function closeStoryModal() { document.getElementById('storyModal').classList.remove('active'); storyImage = null; const area = document.getElementById('story-upload-area'); area.innerHTML = '<div class="upload-icon">📷</div><div class="upload-text">Нажмите, чтобы добавить фото</div>'; area.classList.remove('has-image'); document.getElementById('story-submit-btn').disabled = true; }
 
         function handleStoryFileSelect(event) {
             const file = event.target.files[0];
@@ -1316,57 +1282,31 @@
         function openStoryViewer(index) {
             const stories = getStories();
             if (stories.length === 0) return;
-            currentStoryUser = index;
-            currentStoryIndex = 0;
+            currentStoryUser = index; currentStoryIndex = 0;
             document.getElementById('storyViewer').classList.add('active');
             document.body.style.overflow = 'hidden';
             showCurrentStory();
         }
 
-        function closeStoryViewer() {
-            document.getElementById('storyViewer').classList.remove('active');
-            document.body.style.overflow = '';
-            clearTimeout(storyTimer);
-        }
+        function closeStoryViewer() { document.getElementById('storyViewer').classList.remove('active'); document.body.style.overflow = ''; clearTimeout(storyTimer); }
 
         function showCurrentStory() {
             const stories = getStories();
             if (currentStoryUser >= stories.length) { closeStoryViewer(); return; }
             const story = stories[currentStoryUser];
-            if (currentStoryIndex >= story.images.length) {
-                currentStoryUser++;
-                currentStoryIndex = 0;
-                if (currentStoryUser >= stories.length) { closeStoryViewer(); return; }
-                showCurrentStory();
-                return;
-            }
-            const progressHtml = story.images.map((_, i) => 
-                `<div class="story-progress-bar"><div class="fill" id="story-fill-${i}" style="width: ${i < currentStoryIndex ? '100' : '0'}%"></div></div>`
-            ).join('');
+            if (currentStoryIndex >= story.images.length) { currentStoryUser++; currentStoryIndex = 0; if (currentStoryUser >= stories.length) { closeStoryViewer(); return; } showCurrentStory(); return; }
+            const progressHtml = story.images.map((_, i) => `<div class="story-progress-bar"><div class="fill" id="story-fill-${i}" style="width: ${i < currentStoryIndex ? '100' : '0'}%"></div></div>`).join('');
             document.getElementById('storyProgress').innerHTML = progressHtml;
-            document.getElementById('storyHeader').innerHTML = `
-                <div class="story-header-avatar">${story.avatar}</div>
-                <div>
-                    <div class="story-header-name">${story.author}</div>
-                    <div class="story-header-time">${getTimeAgo(story.time)}</div>
-                </div>
-            `;
+            document.getElementById('storyHeader').innerHTML = `<div class="story-header-avatar">${story.avatar}</div><div><div class="story-header-name">${story.author}</div><div class="story-header-time">${getTimeAgo(story.time)}</div></div>`;
             document.getElementById('storyContent').innerHTML = `<img src="${story.images[currentStoryIndex]}">`;
             clearTimeout(storyTimer);
             let progress = 0;
             const fill = document.getElementById(`story-fill-${currentStoryIndex}`);
-            storyTimer = setInterval(() => {
-                progress += 2;
-                if (fill) fill.style.width = progress + '%';
-                if (progress >= 100) { clearInterval(storyTimer); currentStoryIndex++; showCurrentStory(); }
-            }, 100);
+            storyTimer = setInterval(() => { progress += 2; if (fill) fill.style.width = progress + '%'; if (progress >= 100) { clearInterval(storyTimer); currentStoryIndex++; showCurrentStory(); } }, 100);
         }
 
         function nextStory() { currentStoryIndex++; showCurrentStory(); }
-        function prevStory() {
-            if (currentStoryIndex > 0) { currentStoryIndex--; showCurrentStory(); }
-            else if (currentStoryUser > 0) { currentStoryUser--; const prevStory = getStories()[currentStoryUser]; currentStoryIndex = prevStory.images.length - 1; showCurrentStory(); }
-        }
+        function prevStory() { if (currentStoryIndex > 0) { currentStoryIndex--; showCurrentStory(); } else if (currentStoryUser > 0) { currentStoryUser--; const prevStory = getStories()[currentStoryUser]; currentStoryIndex = prevStory.images.length - 1; showCurrentStory(); } }
 
         function getTimeAgo(timestamp) {
             const seconds = Math.floor((Date.now() - timestamp) / 1000);
@@ -1378,28 +1318,18 @@
         function renderNotifications(container) {
             if (!currentUser) { showFullAuth('login'); return; }
             const notifs = getNotifications();
-            
-            if (notifs.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h2>Нет уведомлений</h2><p>Здесь будут уведомления о лайках, комментариях и подписках</p></div>';
-                return;
-            }
-
+            if (notifs.length === 0) { container.innerHTML = '<div class="empty-state"><h2>Нет уведомлений</h2><p>Здесь будут уведомления о лайках, комментариях и подписках</p></div>'; return; }
             let html = '<div class="info-banner">🔔 Ваши уведомления</div>';
             html += notifs.map(notif => {
                 let text = '';
                 if (notif.type === 'like') text = `<b>${notif.fromUserName}</b> оценил ваш пост`;
                 else if (notif.type === 'comment') text = `<b>${notif.fromUserName}</b> прокомментировал: "${notif.commentText.substring(0, 50)}${notif.commentText.length > 50 ? '...' : ''}"`;
                 else if (notif.type === 'follow') text = `<b>${notif.fromUserName}</b> подписался на вас`;
-                
                 return `<div class="notification-item ${notif.read ? '' : 'unread'}" onclick="handleNotifClick(${notif.id})">
                     <div class="notification-avatar">${notif.fromUserPhoto ? `<img src="${notif.fromUserPhoto}">` : notif.fromUserAvatar}</div>
-                    <div class="notification-content">
-                        <div class="notification-text">${text}</div>
-                        <div class="notification-time">${getTimeAgo(notif.time)}</div>
-                    </div>
+                    <div class="notification-content"><div class="notification-text">${text}</div><div class="notification-time">${getTimeAgo(notif.time)}</div></div>
                 </div>`;
             }).join('');
-            
             container.innerHTML = html;
         }
 
@@ -1407,51 +1337,30 @@
             const notifs = getNotifications();
             const notif = notifs.find(n => n.id === notifId);
             if (!notif) return;
-            notif.read = true;
-            saveNotifications(notifs);
-            updateNotifBadge();
-            if (notif.postId) {
-                navigate('home');
-                setTimeout(() => {
-                    const section = document.getElementById(`comments-${notif.postId}`);
-                    if (section) {
-                        section.style.display = 'block';
-                        section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 100);
-            }
+            notif.read = true; saveNotifications(notifs); updateNotifBadge();
+            if (notif.postId) { navigate('home'); setTimeout(() => { const section = document.getElementById(`comments-${notif.postId}`); if (section) { section.style.display = 'block'; section.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }, 100); }
         }
 
         function renderExplore(container) {
             const users = getUsers();
             const following = currentUser ? (getUsers().find(u => u.id === currentUser.id)?.following || []) : [];
-            
             let html = '<input type="text" class="search-input" id="searchInput" placeholder="Поиск пользователей..." value="' + searchQuery + '" oninput="handleSearch(this.value)">';
-            html += '<div class="info-banner"> Найдите интересных авторов и подпишитесь на них!</div>';
+            html += '<div class="info-banner">🔍 Найдите интересных авторов и подпишитесь на них!</div>';
             html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
-            
             const displayUsers = users.filter(u => {
                 if (currentUser && u.id === currentUser.id) return false;
                 if (!searchQuery) return true;
                 const q = searchQuery.toLowerCase();
                 return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q) || (u.bio && u.bio.toLowerCase().includes(q));
             });
-            
-            if (displayUsers.length === 0) {
-                html += '<div class="empty-state"><p>Пользователи не найдены</p></div>';
-            } else {
+            if (displayUsers.length === 0) { html += '<div class="empty-state"><p>Пользователи не найдены</p></div>'; }
+            else {
                 html += displayUsers.map(user => {
                     const isFollowing = following.includes(user.id);
                     return `<div class="user-card" onclick="navigate('profile', {userId: '${user.id}'})">
                         <div class="user-card-avatar">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
-                        <div class="user-card-info">
-                            <div class="user-card-name">${user.name}</div>
-                            <div class="user-card-handle">${user.username}</div>
-                            ${user.bio ? `<div class="user-card-bio">${user.bio}</div>` : ''}
-                        </div>
-                        <button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="event.stopPropagation(); toggleFollow('${user.id}')">
-                            ${isFollowing ? 'Отписаться' : 'Подписаться'}
-                        </button>
+                        <div class="user-card-info"><div class="user-card-name">${user.name}</div><div class="user-card-handle">${user.username}</div>${user.bio ? `<div class="user-card-bio">${user.bio}</div>` : ''}</div>
+                        <button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="event.stopPropagation(); toggleFollow('${user.id}')">${isFollowing ? 'Отписаться' : 'Подписаться'}</button>
                     </div>`;
                 }).join('');
             }
@@ -1461,13 +1370,7 @@
         function handleSearch(query) {
             searchQuery = query;
             renderExplore(document.getElementById('mainContent'));
-            setTimeout(() => {
-                const input = document.getElementById('searchInput');
-                if (input) {
-                    input.focus();
-                    input.setSelectionRange(query.length, query.length);
-                }
-            }, 10);
+            setTimeout(() => { const input = document.getElementById('searchInput'); if (input) { input.focus(); input.setSelectionRange(query.length, query.length); } }, 10);
         }
 
         function renderProfile(container) {
@@ -1475,17 +1378,13 @@
             const userId = currentProfileUserId || currentUser.id;
             const user = getUserById(userId);
             if (!user) { container.innerHTML = '<div class="empty-state"><p>Пользователь не найден</p></div>'; return; }
-            
             const isOwnProfile = userId === currentUser.id;
             const users = getUsers();
             const me = users.find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
             const isFollowing = following.includes(userId);
-            
-            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            const allPosts = [...posts, ...samplePosts];
-            const userPosts = allPosts.filter(p => p.authorId === userId).sort((a, b) => b.id - a.id);
-            
+            const allPosts = getAllPosts();
+            const userPosts = allPosts.filter(p => p.authorId === userId).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
             const followersCount = (user.followers || []).length;
             const followingCount = (user.following || []).length;
 
@@ -1495,38 +1394,16 @@
                 <div class="profile-handle">${user.username}</div>
                 ${user.bio ? `<div class="profile-bio">${user.bio}</div>` : ''}
                 <div class="profile-stats">
-                    <div class="profile-stat">
-                        <div class="profile-stat-value">${userPosts.length}</div>
-                        <div class="profile-stat-label">публикаций</div>
-                    </div>
-                    <div class="profile-stat">
-                        <div class="profile-stat-value">${followersCount}</div>
-                        <div class="profile-stat-label">подписчиков</div>
-                    </div>
-                    <div class="profile-stat">
-                        <div class="profile-stat-value">${followingCount}</div>
-                        <div class="profile-stat-label">подписок</div>
-                    </div>
+                    <div class="profile-stat"><div class="profile-stat-value">${userPosts.length}</div><div class="profile-stat-label">публикаций</div></div>
+                    <div class="profile-stat"><div class="profile-stat-value">${followersCount}</div><div class="profile-stat-label">подписчиков</div></div>
+                    <div class="profile-stat"><div class="profile-stat-value">${followingCount}</div><div class="profile-stat-label">подписок</div></div>
                 </div>
                 <div class="profile-actions">`;
-            
-            if (isOwnProfile) {
-                html += `<button class="edit-profile-btn" onclick="openEditModal()">Редактировать профиль</button>
-                         <button class="logout-btn" onclick="logout()">Выйти</button>`;
-            } else {
-                html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')">
-                            ${isFollowing ? 'Вы подписаны' : 'Подписаться'}
-                         </button>`;
-            }
-            
+            if (isOwnProfile) { html += `<button class="edit-profile-btn" onclick="openEditModal()">Редактировать профиль</button><button class="logout-btn" onclick="logout()">Выйти</button>`; }
+            else { html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')">${isFollowing ? 'Вы подписаны' : 'Подписаться'}</button>`; }
             html += `</div></div>`;
-            
-            if (userPosts.length === 0) {
-                html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>';
-            } else {
-                html += userPosts.map(post => renderPostCard(post)).join('');
-            }
-            
+            if (userPosts.length === 0) { html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>'; }
+            else { html += userPosts.map(post => renderPostCard(post)).join(''); }
             container.innerHTML = html;
             setTimeout(attachCarouselListeners, 100);
         }
@@ -1542,10 +1419,7 @@
             document.getElementById('editModal').classList.add('active');
         }
 
-        function closeEditModal() { 
-            document.getElementById('editModal').classList.remove('active');
-            pendingProfilePhoto = null;
-        }
+        function closeEditModal() { document.getElementById('editModal').classList.remove('active'); pendingProfilePhoto = null; }
 
         function handleProfilePhoto(event) {
             const file = event.target.files[0];
@@ -1575,13 +1449,9 @@
             const newUsername = document.getElementById('editUsername').value.trim().replace(/^@/, '');
             const newBio = document.getElementById('editBio').value.trim();
             if (!newName || !newUsername) { alert('Заполните имя и никнейм'); return; }
-            
-            currentUser.name = newName;
-            currentUser.username = newUsername;
-            currentUser.bio = newBio;
+            currentUser.name = newName; currentUser.username = newUsername; currentUser.bio = newBio;
             currentUser.avatar = newName.charAt(0).toUpperCase();
             if (pendingProfilePhoto) currentUser.photo = pendingProfilePhoto;
-            
             localStorage.setItem('muse_currentUser', JSON.stringify(currentUser));
             const users = getUsers();
             const index = users.findIndex(u => u.id === currentUser.id);
@@ -1593,15 +1463,8 @@
             alert('Профиль обновлен!');
         }
 
-        function fabClick() {
-            if (!requireAuth()) return;
-            openCreateModal();
-        }
-
-        function openCreateModal() {
-            document.getElementById('createModal').classList.add('active');
-            resetForm();
-        }
+        function fabClick() { if (!requireAuth()) return; openCreateModal(); }
+        function openCreateModal() { document.getElementById('createModal').classList.add('active'); resetForm(); }
         function closeCreateModal() { document.getElementById('createModal').classList.remove('active'); resetForm(); }
 
         function selectPostType(type) {
@@ -1625,41 +1488,19 @@
             document.getElementById('tags').value = '';
             document.getElementById('file-input').value = '';
             document.getElementById('audio-input').value = '';
-            uploadedImages = [];
-            uploadedAudios = [];
-            uploadedTexts = [];
-            renderMultiItemList('image');
-            renderMultiItemList('audio');
-            renderMultiItemList('text');
+            uploadedImages = []; uploadedAudios = []; uploadedTexts = [];
+            renderMultiItemList('image'); renderMultiItemList('audio'); renderMultiItemList('text');
             selectPostType('image');
         }
 
         function renderMultiItemList(type) {
             const list = document.getElementById(`${type}-list`);
             if (type === 'image') {
-                list.innerHTML = uploadedImages.map((img, i) => `
-                    <div class="multi-item">
-                        <img src="${img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
-                        <div class="multi-item-text">Фото ${i + 1}</div>
-                        <button class="multi-item-remove" onclick="removeImage(${i})">×</button>
-                    </div>
-                `).join('');
+                list.innerHTML = uploadedImages.map((img, i) => `<div class="multi-item"><img src="${img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"><div class="multi-item-text">Фото ${i + 1}</div><button class="multi-item-remove" onclick="removeImage(${i})">×</button></div>`).join('');
             } else if (type === 'audio') {
-                list.innerHTML = uploadedAudios.map((audio, i) => `
-                    <div class="multi-item">
-                        <div style="font-size: 24px;">🎵</div>
-                        <div class="multi-item-text">${audio.title || 'Аудио ' + (i + 1)}</div>
-                        <button class="multi-item-remove" onclick="removeAudio(${i})">×</button>
-                    </div>
-                `).join('');
+                list.innerHTML = uploadedAudios.map((audio, i) => `<div class="multi-item"><div style="font-size: 24px;">🎵</div><div class="multi-item-text">${audio.title || 'Аудио ' + (i + 1)}</div><button class="multi-item-remove" onclick="removeAudio(${i})">×</button></div>`).join('');
             } else if (type === 'text') {
-                list.innerHTML = uploadedTexts.map((text, i) => `
-                    <div class="multi-item">
-                        <div style="font-size: 24px;">📝</div>
-                        <div class="multi-item-text">${text.substring(0, 50)}${text.length > 50 ? '...' : ''}</div>
-                        <button class="multi-item-remove" onclick="removeText(${i})">×</button>
-                    </div>
-                `).join('');
+                list.innerHTML = uploadedTexts.map((text, i) => `<div class="multi-item"><div style="font-size: 24px;">📝</div><div class="multi-item-text">${text.substring(0, 50)}${text.length > 50 ? '...' : ''}</div><button class="multi-item-remove" onclick="removeText(${i})">×</button></div>`).join('');
             }
         }
 
@@ -1699,8 +1540,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     uploadedAudios.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, '') });
-                    renderMultiItemList('audio');
-                    updateSubmitButton();
+                    renderMultiItemList('audio'); updateSubmitButton();
                 };
                 reader.readAsDataURL(file);
             });
@@ -1709,11 +1549,7 @@
 
         function removeAudio(index) { uploadedAudios.splice(index, 1); renderMultiItemList('audio'); updateSubmitButton(); }
 
-        function addTextItem() {
-            const text = prompt('Введите текст:');
-            if (text && text.trim()) { uploadedTexts.push(text.trim()); renderMultiItemList('text'); updateSubmitButton(); }
-        }
-
+        function addTextItem() { const text = prompt('Введите текст:'); if (text && text.trim()) { uploadedTexts.push(text.trim()); renderMultiItemList('text'); updateSubmitButton(); } }
         function removeText(index) { uploadedTexts.splice(index, 1); renderMultiItemList('text'); updateSubmitButton(); }
 
         function submitPost() {
@@ -1721,24 +1557,16 @@
             const caption = document.getElementById('caption').value.trim();
             const tagsStr = document.getElementById('tags').value.trim();
             const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
-            let newPost = {
-                id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
-                avatar: currentUser.avatar, photo: currentUser.photo || null, time: 'только что', type: currentPostType,
-                caption: caption, tags, likes: 0, liked: false, comments: []
-            };
+            let newPost = { id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username, avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(), type: currentPostType, caption: caption, tags, likes: 0, liked: false, comments: [] };
             if (currentPostType === 'image') {
                 if (uploadedImages.length === 0) { alert('Добавьте хотя бы одно фото'); return; }
-                newPost.images = uploadedImages;
-                newPost.category = 'photo';
+                newPost.images = uploadedImages; newPost.category = 'photo';
             } else if (currentPostType === 'audio') {
                 if (uploadedAudios.length === 0) { alert('Добавьте хотя бы одно аудио'); return; }
-                newPost.audios = uploadedAudios.map(a => a.data);
-                newPost.audioTitles = uploadedAudios.map(a => a.title);
-                newPost.category = 'music';
+                newPost.audios = uploadedAudios.map(a => a.data); newPost.audioTitles = uploadedAudios.map(a => a.title); newPost.category = 'music';
             } else {
                 if (uploadedTexts.length === 0) { alert('Добавьте хотя бы один текст'); return; }
-                newPost.texts = uploadedTexts;
-                newPost.category = 'text';
+                newPost.texts = uploadedTexts; newPost.category = 'text';
             }
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             posts.unshift(newPost);
@@ -1753,11 +1581,7 @@
         document.getElementById('editModal').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
         document.getElementById('storyModal').addEventListener('click', function(e) { if (e.target === this) closeStoryModal(); });
         document.getElementById('authModal').addEventListener('click', function(e) { if (e.target === this) closeAuthModal(); });
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) {
-                document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
-            }
-        });
+        document.addEventListener('click', function(e) { if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) { document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active')); } });
     </script>
 </body>
 </html>
