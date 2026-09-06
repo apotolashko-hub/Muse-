@@ -8,40 +8,45 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
-        
         body.dark-theme { background: #1a1a2e; color: #eaeaea; }
-        body.dark-theme .auth-box, body.dark-theme .modal-content, body.dark-theme .post-card, body.dark-theme .profile-header, body.dark-theme .user-card, body.dark-theme .notification-item, body.dark-theme .top-bar, body.dark-theme .mobile-sidebar, body.dark-theme .comment, body.dark-theme .multi-item, body.dark-theme .carousel-track .text-slide { background: #16213e; color: #eaeaea; }
+        body.dark-theme .auth-box, body.dark-theme .modal-content, body.dark-theme .post-card, body.dark-theme .profile-header, body.dark-theme .user-card, body.dark-theme .notification-item, body.dark-theme .top-bar, body.dark-theme .mobile-sidebar, body.dark-theme .comment, body.dark-theme .multi-item, body.dark-theme .carousel-track .text-slide, body.dark-theme .challenge-card, body.dark-theme .achievement-card, body.dark-theme .moodboard-card, body.dark-theme .draft-card { background: #16213e; color: #eaeaea; }
         body.dark-theme .category-chip, body.dark-theme .search-input, body.dark-theme .comment-input, body.dark-theme .caption-input, body.dark-theme .tags-input, body.dark-theme .text-input, body.dark-theme .input-group input, body.dark-theme .input-group textarea { background: #1a1a2e; border-color: #0f3460; color: #eaeaea; }
-        body.dark-theme .post-menu { background: #16213e; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        body.dark-theme .post-menu-item:active { background: #1a1a2e; }
+        body.dark-theme .post-menu, body.dark-theme .action-dropdown { background: #16213e; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        body.dark-theme .post-menu-item:active, body.dark-theme .action-dropdown-item:active { background: #1a1a2e; }
         body.dark-theme .sidebar-nav-item:hover, body.dark-theme .sidebar-user-item:active { background: #1a1a2e; }
         body.dark-theme .post-header:active, body.dark-theme .user-card:active, body.dark-theme .notification-item:active { background: #1a1a2e; }
         body.dark-theme .comment-reply-to { color: #a5b4fc; }
         body.dark-theme .tag { background: #1e1b4b; color: #a5b4fc; }
-        body.dark-theme .info-banner { background: #1e1b4b; border-color: #312e81; color: #c7d2fe; }
+        body.dark-theme .info-banner, body.dark-theme .challenge-banner { background: #1e1b4b; border-color: #312e81; color: #c7d2fe; }
         body.dark-theme .post-text { background: #1a1a2e; color: #eaeaea; }
         body.dark-theme .comments-section { background: #1a1a2e; border-color: #0f3460; }
-        body.dark-theme .post-actions { border-color: #0f3460; }
-        body.dark-theme .comment-input-wrapper { border-color: #0f3460; }
+        body.dark-theme .post-actions, body.dark-theme .comment-input-wrapper { border-color: #0f3460; }
         body.dark-theme .reply-indicator { background: #1e1b4b; }
         body.dark-theme .sidebar-section { border-color: #0f3460; }
         body.dark-theme .sidebar-section-title { color: #94a3b8; }
-        body.dark-theme .post-author-handle, body.dark-theme .profile-handle, body.dark-theme .user-card-handle, body.dark-theme .notification-time, body.dark-theme .profile-stat-label { color: #94a3b8; }
+        body.dark-theme .post-author-handle, body.dark-theme .profile-handle, body.dark-theme .user-card-handle, body.dark-theme .notification-time, body.dark-theme .profile-stat-label, body.dark-theme .challenge-meta { color: #94a3b8; }
         body.dark-theme .comment-text { color: #e2e8f0; }
         body.dark-theme .profile-bio { color: #cbd5e1; }
         body.dark-theme .carousel { background: #0f172a; }
-        body.dark-theme .carousel-track .audio-slide { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
-        body.dark-theme .post-audio { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        body.dark-theme .carousel-track .audio-slide, body.dark-theme .post-audio { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
         body.dark-theme .empty-state { color: #94a3b8; }
         body.dark-theme .auth-box h2 { color: #94a3b8; }
         body.dark-theme .input-group label { color: #cbd5e1; }
         body.dark-theme .auth-modal-text { color: #cbd5e1; }
         body.dark-theme .carousel-prev-btn, body.dark-theme .carousel-next-btn { background: rgba(255,255,255,0.3); }
         body.dark-theme .carousel-prev-btn:hover, body.dark-theme .carousel-next-btn:hover { background: rgba(255,255,255,0.5); }
+        body.dark-theme .challenge-card { background: #16213e; border-color: #312e81; }
+        body.dark-theme .achievement-card { background: #1e1b4b; border-color: #4338ca; }
+        body.dark-theme .moodboard-card { background: #16213e; }
+        body.dark-theme .draft-card { background: #16213e; border-color: #312e81; }
+        body.dark-theme .create-step { background: #16213e; }
+        body.dark-theme .audio-comment-player { background: #1e1b4b; }
+        body.dark-theme .vote-btn { background: #1e1b4b; color: #a5b4fc; }
+        body.dark-theme .vote-btn.voted { background: #4338ca; color: white; }
         
         .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
         .auth-modal-overlay.active { display: flex; }
-        .auth-modal { background: white; padding: 30px; border-radius: 24px; width: 100%; max-width: 400px; text-align: center; position: relative; }
+        .auth-modal { background: white; padding: 30px; border-radius: 24px; width: 100%; max-width: 400px; text-align: center; }
         body.dark-theme .auth-modal { background: #16213e; }
         .auth-modal h3 { font-size: 22px; margin-bottom: 12px; }
         .auth-modal-text { color: #666; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
@@ -121,7 +126,22 @@
         .story-nav.prev { left: 0; }
         .story-nav.next { right: 0; }
         
+        .challenge-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 16px; margin-bottom: 20px; cursor: pointer; }
+        .challenge-banner h3 { font-size: 18px; margin-bottom: 8px; }
+        .challenge-banner p { font-size: 14px; opacity: 0.9; margin-bottom: 12px; }
+        .challenge-banner .challenge-tag { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+        
+        .challenge-card { background: white; border: 2px solid #e0e0e0; border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+        .challenge-card h4 { font-size: 16px; margin-bottom: 8px; }
+        .challenge-meta { font-size: 12px; color: #666; margin-bottom: 12px; }
+        .challenge-votes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+        .vote-btn { padding: 8px 16px; border-radius: 20px; background: #f0f0ff; color: #667eea; border: none; cursor: pointer; font-size: 13px; font-weight: 500; }
+        .vote-btn.voted { background: #667eea; color: white; }
+        .vote-btn:active { transform: scale(0.95); }
+        
         .post-card { background: white; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); position: relative; }
+        .collab-badge { display: inline-flex; align-items: center; gap: 4px; background: #f0f0ff; color: #667eea; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+        .anonymous-badge { display: inline-flex; align-items: center; gap: 4px; background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px; }
         .post-header { display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer; }
         .post-header:active { background: #f9f9f9; }
         .post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; }
@@ -130,10 +150,10 @@
         .post-author-name { font-weight: 600; font-size: 14px; }
         .post-author-handle { color: #666; font-size: 13px; }
         .post-menu-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #666; }
-        .post-menu { position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; }
-        .post-menu.active { display: block; }
-        .post-menu-item { padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; }
-        .post-menu-item:active { background: #f0f0f0; }
+        .post-menu, .action-dropdown { position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; }
+        .post-menu.active, .action-dropdown.active { display: block; }
+        .post-menu-item, .action-dropdown-item { padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; }
+        .post-menu-item:active, .action-dropdown-item:active { background: #f0f0f0; }
         .post-menu-item.delete { color: #ef4444; }
         
         .carousel { position: relative; width: 100%; background: #f0f0f0; }
@@ -148,25 +168,7 @@
         .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
         .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 0.2s; }
         .carousel-dot.active { background: white; width: 18px; border-radius: 3px; }
-        
-        .carousel-prev-btn, .carousel-next-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 10;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
+        .carousel-prev-btn, .carousel-next-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10; display: none; align-items: center; justify-content: center; transition: all 0.2s; }
         .carousel-prev-btn:hover, .carousel-next-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.1); }
         .carousel-prev-btn { left: 12px; }
         .carousel-next-btn { right: 12px; }
@@ -207,10 +209,15 @@
         .comment-input-container { flex: 1; position: relative; }
         .comment-input { width: 100%; padding: 10px 40px 10px 14px; border: 1px solid #e0e0e0; border-radius: 20px; font-size: 14px; font-family: inherit; }
         .comment-input:focus { outline: none; border-color: #667eea; }
-        .attach-image-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px; color: #666; }
-        .comment-image-preview { display: none; margin-top: 8px; position: relative; }
+        .attach-image-btn, .record-audio-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px; color: #666; }
+        .attach-image-btn { right: 8px; }
+        .record-audio-btn { right: 36px; }
+        .record-audio-btn.recording { color: #ef4444; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .comment-image-preview, .audio-comment-preview { display: none; margin-top: 8px; position: relative; }
         .comment-image-preview img { max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover; }
-        .remove-image-btn { position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .audio-comment-player { display: flex; align-items: center; gap: 8px; background: #f0f0ff; padding: 8px 12px; border-radius: 20px; font-size: 13px; }
+        .remove-attachment-btn { position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .comment-submit { background: #667eea; color: white; border: none; padding: 10px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 14px; flex-shrink: 0; }
         .reply-indicator { display: none; background: #f0f0ff; padding: 6px 12px; border-radius: 8px; font-size: 12px; color: #667eea; margin-bottom: 8px; align-items: center; justify-content: space-between; }
         .reply-indicator.active { display: flex; }
@@ -226,13 +233,29 @@
         .profile-stat { text-align: center; }
         .profile-stat-value { font-size: 20px; font-weight: 700; }
         .profile-stat-label { font-size: 12px; color: #666; }
-        .profile-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .profile-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
         .edit-profile-btn, .logout-btn, .follow-btn, .unfollow-btn { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
         .edit-profile-btn { background: #667eea; color: white; }
         .logout-btn { background: #f0f0f0; color: #333; }
         .follow-btn { background: #667eea; color: white; }
         .unfollow-btn { background: #f0f0f0; color: #333; }
         .follow-btn:active, .unfollow-btn:active { transform: scale(0.95); }
+        
+        .achievements-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .achievements-section h3 { font-size: 16px; margin-bottom: 12px; }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+        .achievement-card { background: #f9f9f9; border: 2px solid #e0e0e0; border-radius: 12px; padding: 12px; text-align: center; }
+        .achievement-icon { font-size: 32px; margin-bottom: 8px; }
+        .achievement-name { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+        .achievement-desc { font-size: 10px; color: #666; }
+        .achievement-card.locked { opacity: 0.4; }
+        
+        .moodboards-section { margin-top: 20px; }
+        .moodboards-section h3 { font-size: 16px; margin-bottom: 12px; }
+        .moodboard-card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; cursor: pointer; }
+        .moodboard-card:active { background: #f9f9f9; }
+        .moodboard-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+        .moodboard-count { font-size: 12px; color: #666; }
         
         .user-card { background: white; padding: 16px; border-radius: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; }
         .user-card:active { background: #f9f9f9; }
@@ -249,10 +272,17 @@
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
         .modal-header h2 { font-size: 20px; }
         .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; }
+        
+        .create-steps { display: flex; gap: 8px; margin-bottom: 20px; }
+        .create-step { flex: 1; padding: 12px; border: 2px solid #e0e0e0; border-radius: 12px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+        .create-step.active { border-color: #667eea; background: #f0f0ff; color: #667eea; }
+        .create-step:active { transform: scale(0.95); }
+        
         .post-type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
         .type-btn { padding: 12px; border: 2px solid #e0e0e0; border-radius: 12px; background: white; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; text-align: center; }
         .type-btn.active { border-color: #667eea; background: #f0f0ff; color: #667eea; }
         .type-btn-icon { font-size: 24px; margin-bottom: 4px; }
+        
         .upload-area { border: 2px dashed #e0e0e0; border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; margin-bottom: 20px; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .upload-area.has-media { padding: 0; border-style: solid; }
         .upload-area img { width: 100%; border-radius: 10px; }
@@ -260,8 +290,22 @@
         .text-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; font-size: 15px; font-family: 'Georgia', serif; resize: vertical; min-height: 200px; margin-bottom: 16px; line-height: 1.6; }
         .caption-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; font-size: 15px; resize: vertical; min-height: 100px; margin-bottom: 16px; }
         .tags-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; font-size: 14px; margin-bottom: 20px; }
-        .submit-btn { width: 100%; background: #667eea; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .submit-btn { width: 100%; background: #667eea; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 8px; }
         .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .draft-btn { width: 100%; background: #f0f0f0; color: #333; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .draft-btn:active { transform: scale(0.98); }
+        
+        .collab-input { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; margin-bottom: 16px; font-family: inherit; }
+        .collab-input:focus { outline: none; border-color: #667eea; }
+        .collab-suggestions { max-height: 150px; overflow-y: auto; margin-bottom: 16px; }
+        .collab-suggestion { padding: 10px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .collab-suggestion:active { background: #f0f0f0; }
+        .collab-suggestion-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; }
+        
+        .anonymous-toggle { display: flex; align-items: center; gap: 12px; padding: 12px; background: #f9f9f9; border-radius: 12px; margin-bottom: 16px; cursor: pointer; }
+        .anonymous-toggle input { width: 20px; height: 20px; }
+        .anonymous-toggle label { font-size: 14px; cursor: pointer; flex: 1; }
+        
         .fab { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-size: 28px; cursor: pointer; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4); z-index: 99; }
         .empty-state { text-align: center; padding: 60px 20px; color: #888; }
         .info-banner { background: #fff3cd; border: 1px solid #ffe69c; color: #856404; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 14px; line-height: 1.5; }
@@ -297,6 +341,28 @@
         
         .edit-post-textarea { width: 100%; min-height: 150px; padding: 12px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; margin-bottom: 16px; }
         .edit-post-textarea:focus { outline: none; border-color: #667eea; }
+        
+        .draft-card { background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .draft-card:active { background: #f9f9f9; }
+        .draft-icon { font-size: 24px; }
+        .draft-info { flex: 1; }
+        .draft-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+        .draft-date { font-size: 12px; color: #666; }
+        .draft-actions { display: flex; gap: 8px; }
+        .draft-action-btn { padding: 6px 12px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; }
+        .draft-action-btn.publish { background: #667eea; color: white; }
+        .draft-action-btn.delete { background: #f0f0f0; color: #333; }
+        
+        .random-creator-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 24px; border-radius: 16px; text-align: center; margin-bottom: 20px; }
+        .random-creator-card h3 { font-size: 18px; margin-bottom: 16px; }
+        .random-creator-avatar { width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; overflow: hidden; }
+        .random-creator-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .random-creator-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .random-creator-handle { font-size: 14px; opacity: 0.9; margin-bottom: 16px; }
+        .random-creator-bio { font-size: 13px; opacity: 0.9; margin-bottom: 16px; }
+        .random-creator-btn { background: white; color: #667eea; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; }
+        .random-creator-btn:active { transform: scale(0.95); }
+        .random-creator-btn.secondary { background: rgba(255,255,255,0.2); color: white; }
         
         @media (max-width: 768px) { .main-content { padding: 16px; } }
     </style>
@@ -341,13 +407,29 @@
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                 <span>Популярное</span>
             </div>
+            <div class="sidebar-nav-item" data-page="challenges" onclick="navigate('challenges'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                <span>Челленджи</span>
+            </div>
             <div class="sidebar-nav-item" data-page="following" onclick="navigate('following'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                 <span>Подписки</span>
             </div>
+            <div class="sidebar-nav-item" data-page="moodboards" onclick="navigate('moodboards'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span>Коллекции</span>
+            </div>
+            <div class="sidebar-nav-item" data-page="drafts" onclick="navigate('drafts'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                <span>Черновики</span>
+            </div>
             <div class="sidebar-nav-item" data-page="explore" onclick="navigate('explore'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <span>Обзор</span>
+            </div>
+            <div class="sidebar-nav-item" data-page="random" onclick="navigate('random'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                <span>Случайный творец</span>
             </div>
             <div class="sidebar-nav-item" data-page="notifications" onclick="navigate('notifications'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
@@ -391,28 +473,52 @@
                 <h2>Новый пост</h2>
                 <button class="close-modal" onclick="closeCreateModal()">×</button>
             </div>
-            <div class="post-type-selector">
-                <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
-                <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon"></div><div>Музыка</div></button>
-                <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
+            <div class="create-steps">
+                <div class="create-step active" onclick="setCreateStep(1)">1. Контент</div>
+                <div class="create-step" onclick="setCreateStep(2)">2. Описание</div>
+                <div class="create-step" onclick="setCreateStep(3)">3. Опции</div>
             </div>
-            <div id="image-section">
-                <div class="multi-item-list" id="image-list"></div>
-                <button class="add-item-btn" onclick="document.getElementById('file-input').click()">+ Добавить фото</button>
-                <input type="file" id="file-input" accept="image/*" multiple style="display: none" onchange="handleImageSelect(event)">
+            <div id="create-step-1">
+                <div class="post-type-selector">
+                    <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
+                    <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
+                    <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
+                </div>
+                <div id="image-section">
+                    <div class="multi-item-list" id="image-list"></div>
+                    <button class="add-item-btn" onclick="document.getElementById('file-input').click()">+ Добавить фото</button>
+                    <input type="file" id="file-input" accept="image/*" multiple style="display: none" onchange="handleImageSelect(event)">
+                </div>
+                <div id="audio-section" style="display: none;">
+                    <div class="multi-item-list" id="audio-list"></div>
+                    <button class="add-item-btn" onclick="document.getElementById('audio-input').click()">+ Добавить аудио</button>
+                    <input type="file" id="audio-input" accept="audio/*" multiple style="display: none" onchange="handleAudioSelect(event)">
+                </div>
+                <div id="text-section" style="display: none;">
+                    <div class="multi-item-list" id="text-list"></div>
+                    <button class="add-item-btn" onclick="addTextItem()">+ Добавить текст</button>
+                </div>
             </div>
-            <div id="audio-section" style="display: none;">
-                <div class="multi-item-list" id="audio-list"></div>
-                <button class="add-item-btn" onclick="document.getElementById('audio-input').click()">+ Добавить аудио</button>
-                <input type="file" id="audio-input" accept="audio/*" multiple style="display: none" onchange="handleAudioSelect(event)">
+            <div id="create-step-2" style="display: none;">
+                <textarea class="caption-input" id="caption" placeholder="Расскажите о своей работе..."></textarea>
+                <input type="text" class="tags-input" id="tags" placeholder="Теги через запятую">
             </div>
-            <div id="text-section" style="display: none;">
-                <div class="multi-item-list" id="text-list"></div>
-                <button class="add-item-btn" onclick="addTextItem()">+ Добавить текст</button>
+            <div id="create-step-3" style="display: none;">
+                <div class="input-group">
+                    <label>Коллаборация (необязательно)</label>
+                    <input type="text" class="collab-input" id="collab-input" placeholder="Начните вводить имя соавтора..." oninput="handleCollabSearch(this.value)">
+                    <div class="collab-suggestions" id="collab-suggestions"></div>
+                    <div id="collab-selected"></div>
+                </div>
+                <div class="anonymous-toggle">
+                    <input type="checkbox" id="anonymous-feedback">
+                    <label for="anonymous-feedback">Анонимный фидбек (комментарии будут анонимными)</label>
+                </div>
             </div>
-            <textarea class="caption-input" id="caption" placeholder="Расскажите о своей работе..."></textarea>
-            <input type="text" class="tags-input" id="tags" placeholder="Теги через запятую">
-            <button class="submit-btn" id="submit-btn" onclick="submitPost()" disabled>Опубликовать</button>
+            <div style="display: flex; gap: 8px; margin-top: 16px;">
+                <button class="draft-btn" onclick="saveDraft()" style="flex: 1;"> Черновик</button>
+                <button class="submit-btn" id="submit-btn" onclick="submitPost()" disabled style="flex: 2; margin-bottom: 0;">Опубликовать</button>
+            </div>
         </div>
     </div>
 
@@ -472,6 +578,16 @@
         </div>
     </div>
 
+    <div class="modal" id="moodboardModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="moodboard-title">Коллекция</h2>
+                <button class="close-modal" onclick="closeMoodboardModal()">×</button>
+            </div>
+            <div id="moodboard-content"></div>
+        </div>
+    </div>
+
     <script>
         let currentUser = null;
         let isLoginMode = false;
@@ -483,6 +599,10 @@
         let uploadedTexts = [];
         let replyTo = null;
         let commentImage = null;
+        let commentAudio = null;
+        let isRecordingAudio = false;
+        let mediaRecorder = null;
+        let audioChunks = [];
         let storyImage = null;
         let currentStoryUser = 0;
         let currentStoryIndex = 0;
@@ -495,20 +615,50 @@
         let currentTheme = localStorage.getItem('muse_theme') || 'light';
         let editingPostId = null;
         let pendingAuthAction = null;
+        let createStep = 1;
+        let collabUser = null;
+        let currentMoodboard = null;
+
+        const challenges = [
+            { week: 1, title: 'Закат за 30 минут', desc: 'Нарисуйте или сфотографируйте закат', tag: '#закат30', category: 'photo' },
+            { week: 1, title: 'Стих о дожде', desc: 'Напишите стихотворение о дожде', tag: '#дождьстих', category: 'text' },
+            { week: 1, title: 'Один аккорд', desc: 'Создайте трек на одном аккорде', tag: '#один_аккорд', category: 'music' },
+            { week: 2, title: 'Портрет незнакомца', desc: 'Нарисуйте портрет человека, которого видите впервые', tag: '#портрет', category: 'art' },
+            { week: 2, title: 'Городской ритм', desc: 'Запишите звуки города и сделайте из них трек', tag: '#городской_ритм', category: 'music' },
+            { week: 2, title: 'Микро-рассказ', desc: 'Напишите рассказ ровно в 100 слов', tag: '#микро_рассказ', category: 'text' },
+            { week: 3, title: 'Абстракция эмоций', desc: 'Выразите эмоцию через абстракцию', tag: '#эмоции', category: 'art' },
+            { week: 3, title: 'Фото в движении', desc: 'Снимите движение (люди, транспорт, природа)', tag: '#движение', category: 'photo' },
+            { week: 3, title: 'Песня без слов', desc: 'Создайте инструментальный трек', tag: '#без_слов', category: 'music' },
+            { week: 4, title: 'Ночной город', desc: 'Фото или рисунок ночного города', tag: '#ночной_город', category: 'photo' },
+            { week: 4, title: 'Диалог', desc: 'Напишите диалог двух незнакомцев', tag: '#диалог', category: 'text' },
+            { week: 4, title: 'Ремикс классики', desc: 'Переработайте классическое произведение', tag: '#ремикс', category: 'music' }
+        ];
+
+        const achievements = [
+            { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
+            { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
+            { id: 'hundred_posts', name: 'Летописец', desc: '100 публикаций', icon: '📚', check: (u) => getUserPosts(u.id).length >= 100 },
+            { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
+            { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
+            { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '👥', check: (u) => (u.followers || []).length >= 10 },
+            { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '💬', check: (u) => getUserComments(u.name).length >= 1 },
+            { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '🏆', check: (u) => false },
+            { id: 'collab_author', name: 'Соавтор', desc: 'Опубликуйте коллаборацию', icon: '🤝', check: (u) => false }
+        ];
 
         const now = Date.now();
         const samplePosts = [
-            { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', timestamp: now - 7200000, type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [] },
-            { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', timestamp: now - 18000000, type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [] },
-            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', timestamp: now - 86400000, type: 'text', texts: ['Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', 'Он шёл по набережной, и каждый шаг отдавался эхом в пустоте утреннего города.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [] },
-            { id: 4, authorId: 'sample4', author: 'Елена С.', handle: '@elena_sings', avatar: 'Е', timestamp: now - 172800000, type: 'audio', audios: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'], audioTitles: ['Утренний этюд', 'Вечерняя мелодия'], caption: 'Две новые демки.', tags: ['музыка', 'инди'], category: 'music', likes: 67, liked: false, comments: [] }
+            { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', timestamp: now - 7200000, type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [], anonymous: false },
+            { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', timestamp: now - 18000000, type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [], anonymous: false },
+            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', timestamp: now - 86400000, type: 'text', texts: ['Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', 'Он шёл по набережной, и каждый шаг отдавался эхом в пустоте утреннего города.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [], anonymous: false },
+            { id: 4, authorId: 'sample4', author: 'Елена С.', handle: '@elena_sings', avatar: 'Е', timestamp: now - 172800000, type: 'audio', audios: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'], audioTitles: ['Утренний этюд', 'Вечерняя мелодия'], caption: 'Две новые демки.', tags: ['музыка', 'инди'], category: 'music', likes: 67, liked: false, comments: [], anonymous: false }
         ];
 
         const sampleUsers = [
-            { id: 'sample1', name: 'Анна К.', username: '@anna_art', avatar: 'А', bio: 'Художник. Пишу абстракции.', photo: null, followers: [], following: [] },
-            { id: 'sample2', name: 'Максим Д.', username: '@max_photo', avatar: 'М', bio: 'Фотограф. Ловлю моменты.', photo: null, followers: [], following: [] },
-            { id: 'sample3', name: 'Дмитрий В.', username: '@dmitry_music', avatar: 'Д', bio: 'Музыкант и писатель.', photo: null, followers: [], following: [] },
-            { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [] }
+            { id: 'sample1', name: 'Анна К.', username: '@anna_art', avatar: 'А', bio: 'Художник. Пишу абстракции.', photo: null, followers: [], following: [], achievements: [] },
+            { id: 'sample2', name: 'Максим Д.', username: '@max_photo', avatar: 'М', bio: 'Фотограф. Ловлю моменты.', photo: null, followers: [], following: [], achievements: [] },
+            { id: 'sample3', name: 'Дмитрий В.', username: '@dmitry_music', avatar: 'Д', bio: 'Музыкант и писатель.', photo: null, followers: [], following: [], achievements: [] },
+            { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [], achievements: [] }
         ];
 
         window.onload = function() {
@@ -524,8 +674,7 @@
         };
 
         function updateAuthUI() {
-            const label = document.getElementById('profileMenuLabel');
-            label.textContent = currentUser ? 'Профиль' : 'Войти';
+            document.getElementById('profileMenuLabel').textContent = currentUser ? 'Профиль' : 'Войти';
         }
 
         function toggleTheme() {
@@ -558,7 +707,7 @@
                 } else { alert('Неверный никнейм или пароль'); }
             } else {
                 if (users.find(u => u.username === username)) { alert('Никнейм занят'); return; }
-                const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [] };
+                const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [], achievements: [] };
                 users.push(newUser);
                 saveUsers(users);
                 currentUser = newUser;
@@ -583,8 +732,48 @@
             localStorage.setItem('muse_users', JSON.stringify(realUsers));
         }
 
-        function getUserById(id) {
-            return getUsers().find(u => u.id === id);
+        function getUserById(id) { return getUsers().find(u => u.id === id); }
+
+        function getUserPosts(userId) {
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            return posts.filter(p => p.authorId === userId);
+        }
+
+        function getUserTotalLikes(userId) {
+            const posts = getUserPosts(userId);
+            return posts.reduce((sum, p) => sum + (p.likes || 0), 0);
+        }
+
+        function getUserComments(userName) {
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            const comments = [];
+            posts.forEach(p => {
+                (p.comments || []).forEach(c => {
+                    if (c.author === userName) comments.push(c);
+                });
+            });
+            return comments;
+        }
+
+        function checkAchievements() {
+            if (!currentUser) return;
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            if (!me.achievements) me.achievements = [];
+            let newAchievements = [];
+            achievements.forEach(ach => {
+                if (!me.achievements.includes(ach.id) && ach.check(me)) {
+                    me.achievements.push(ach.id);
+                    newAchievements.push(ach);
+                }
+            });
+            if (newAchievements.length > 0) {
+                const names = newAchievements.map(a => `${a.icon} ${a.name}`).join(', ');
+                setTimeout(() => alert(`🎉 Новые достижения: ${names}!`), 500);
+            }
+            saveUsers(users);
+            currentUser = me;
+            localStorage.setItem('muse_currentUser', JSON.stringify(me));
         }
 
         function logout() { 
@@ -596,7 +785,7 @@
         }
 
         function navigate(page, data) {
-            if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'following')) {
+            if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'following' || page === 'drafts' || page === 'moodboards')) {
                 if (page === 'profile') { showFullAuth('login'); return; }
             }
             currentPage = page;
@@ -609,8 +798,12 @@
             switch(page) {
                 case 'home': title.textContent = 'Лента'; renderFeed(content); break;
                 case 'popular': title.textContent = 'Популярное'; renderPopular(content); break;
+                case 'challenges': title.textContent = 'Челленджи'; renderChallenges(content); break;
                 case 'following': title.textContent = 'Подписки'; renderFollowing(content); break;
+                case 'moodboards': title.textContent = 'Коллекции'; renderMoodboards(content); break;
+                case 'drafts': title.textContent = 'Черновики'; renderDrafts(content); break;
                 case 'explore': title.textContent = 'Обзор'; renderExplore(content); break;
+                case 'random': title.textContent = 'Случайный творец'; renderRandomCreator(content); break;
                 case 'notifications': title.textContent = 'Уведомления'; renderNotifications(content); markNotificationsRead(); break;
                 case 'profile': 
                     if (data && data.userId) {
@@ -653,19 +846,15 @@
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
-        function requireAuth(action) {
+        function requireAuth() {
             if (!currentUser) {
-                pendingAuthAction = action;
                 document.getElementById('authModal').classList.add('active');
                 return false;
             }
             return true;
         }
 
-        function closeAuthModal() {
-            document.getElementById('authModal').classList.remove('active');
-            pendingAuthAction = null;
-        }
+        function closeAuthModal() { document.getElementById('authModal').classList.remove('active'); }
 
         function showFullAuth(mode) {
             closeAuthModal();
@@ -693,8 +882,7 @@
             const now = Date.now();
             const dayAgo = now - 86400000;
             const freshStories = saved.filter(s => s.time > dayAgo);
-            const oldStories = saved.filter(s => s.time <= dayAgo);
-            if (oldStories.length > 0) localStorage.setItem('muse_stories', JSON.stringify(freshStories));
+            if (saved.length !== freshStories.length) localStorage.setItem('muse_stories', JSON.stringify(freshStories));
             return freshStories;
         }
 
@@ -711,8 +899,7 @@
         function addNotification(type, fromUser, postId, commentText) {
             if (!currentUser || fromUser.id === currentUser.id) return;
             const notifs = getNotifications();
-            const notif = { id: Date.now(), type, fromUserId: fromUser.id, fromUserName: fromUser.name, fromUserAvatar: fromUser.avatar, fromUserPhoto: fromUser.photo, postId, commentText: commentText || '', time: Date.now(), read: false };
-            notifs.unshift(notif);
+            notifs.unshift({ id: Date.now(), type, fromUserId: fromUser.id, fromUserName: fromUser.name, fromUserAvatar: fromUser.avatar, fromUserPhoto: fromUser.photo, postId, commentText: commentText || '', time: Date.now(), read: false });
             if (notifs.length > 50) notifs.pop();
             saveNotifications(notifs);
             updateNotifBadge();
@@ -733,17 +920,31 @@
             updateNotifBadge();
         }
 
+        function getCurrentWeekChallenges() {
+            const weekNum = Math.floor((Date.now() / 86400000) % challenges.length / 3) + 1;
+            return challenges.filter(c => c.week === ((weekNum - 1) % 4) + 1);
+        }
+
         function getAllPosts() {
-            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            return [...posts, ...samplePosts];
+            return [...JSON.parse(localStorage.getItem('muse_posts') || '[]'), ...samplePosts];
         }
 
         function renderFeed(container) {
             const allPosts = getAllPosts().sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
             const filtered = currentCategory === 'all' ? allPosts : allPosts.filter(p => p.category === currentCategory);
             const stories = getStories();
+            const currentChallenges = getCurrentWeekChallenges();
 
             let html = '';
+            if (currentChallenges.length > 0) {
+                const ch = currentChallenges[0];
+                html += `<div class="challenge-banner" onclick="navigate('challenges')">
+                    <h3>🔥 Челлендж недели: ${ch.title}</h3>
+                    <p>${ch.desc}</p>
+                    <span class="challenge-tag">${ch.tag}</span>
+                </div>`;
+            }
+
             if (stories.length > 0) {
                 html += '<div class="stories-container">';
                 if (currentUser) {
@@ -763,8 +964,9 @@
             }
 
             html += '<div class="categories">';
-            const cats = [{ id: 'all', name: 'Всё' }, { id: 'photo', name: 'Фото' }, { id: 'art', name: 'Живопись' }, { id: 'music', name: 'Музыка' }, { id: 'text', name: 'Тексты' }];
-            cats.forEach(cat => { html += `<div class="category-chip ${currentCategory === cat.id ? 'active' : ''}" onclick="filterCategory('${cat.id}')">${cat.name}</div>`; });
+            [{ id: 'all', name: 'Всё' }, { id: 'photo', name: 'Фото' }, { id: 'art', name: 'Живопись' }, { id: 'music', name: 'Музыка' }, { id: 'text', name: 'Тексты' }].forEach(cat => {
+                html += `<div class="category-chip ${currentCategory === cat.id ? 'active' : ''}" onclick="filterCategory('${cat.id}')">${cat.name}</div>`;
+            });
             html += '</div>';
 
             if (filtered.length === 0) {
@@ -778,14 +980,10 @@
 
         function renderPopular(container) {
             const dayAgo = Date.now() - 86400000;
-            const allPosts = getAllPosts();
-            const recentPosts = allPosts.filter(p => (p.timestamp || 0) >= dayAgo);
-            const popularPosts = recentPosts.sort((a, b) => b.likes - a.likes);
-
+            const popularPosts = getAllPosts().filter(p => (p.timestamp || 0) >= dayAgo).sort((a, b) => b.likes - a.likes);
             let html = '<div class="info-banner">🔥 Популярные посты за последние 24 часа</div>';
-            
             if (popularPosts.length === 0) {
-                html += '<div class="empty-state"><h2>Пока нет популярных постов</h2><p>Здесь будут посты, набравшие больше всего лайков за сутки</p></div>';
+                html += '<div class="empty-state"><h2>Пока нет популярных постов</h2></div>';
             } else {
                 html += popularPosts.map((post, index) => {
                     const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
@@ -799,23 +997,256 @@
             setTimeout(attachCarouselListeners, 100);
         }
 
+        function renderChallenges(container) {
+            const currentChallenges = getCurrentWeekChallenges();
+            const votes = JSON.parse(localStorage.getItem('muse_challenge_votes') || '{}');
+            
+            let html = '<div class="info-banner"> Челленджи меняются каждую неделю. Голосуйте за лучшие работы!</div>';
+            html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Текущие челленджи</h2>';
+            
+            currentChallenges.forEach((ch, idx) => {
+                const posts = getAllPosts().filter(p => p.tags && p.tags.some(t => t.toLowerCase().includes(ch.tag.replace('#', '').toLowerCase())));
+                const topPosts = posts.sort((a, b) => b.likes - a.likes).slice(0, 5);
+                
+                html += `<div class="challenge-card">
+                    <h4>${idx + 1}. ${ch.title} <span style="color: #667eea; font-size: 13px;">${ch.tag}</span></h4>
+                    <div class="challenge-meta">${ch.desc} • ${posts.length} работ</div>`;
+                
+                if (topPosts.length > 0) {
+                    html += '<div class="challenge-votes">';
+                    topPosts.forEach(post => {
+                        const voted = votes[post.id] === currentUser?.id;
+                        html += `<button class="vote-btn ${voted ? 'voted' : ''}" onclick="voteForPost(${post.id})">
+                            ${post.author} — ${post.likes} ❤️ ${voted ? '✓' : ''}
+                        </button>`;
+                    });
+                    html += '</div>';
+                } else {
+                    html += '<div style="color: #888; font-size: 13px; margin-top: 8px;">Пока нет работ. Используйте тег ' + ch.tag + ' в посте!</div>';
+                }
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function voteForPost(postId) {
+            if (!requireAuth()) return;
+            const votes = JSON.parse(localStorage.getItem('muse_challenge_votes') || '{}');
+            if (votes[postId] === currentUser.id) {
+                delete votes[postId];
+            } else {
+                votes[postId] = currentUser.id;
+            }
+            localStorage.setItem('muse_challenge_votes', JSON.stringify(votes));
+            renderChallenges(document.getElementById('mainContent'));
+        }
+
         function renderFollowing(container) {
             if (!currentUser) { showFullAuth('login'); return; }
-            const users = getUsers();
-            const me = users.find(u => u.id === currentUser.id);
+            const me = getUsers().find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
-            
             let html = '<div class="info-banner">📱 Здесь посты тех, на кого вы подписаны.</div>';
-            
             if (following.length === 0) {
-                html += '<div class="empty-state"><h2>Пока нет подписок</h2><p>Перейдите в раздел "Обзор" и подпишитесь на интересных авторов</p></div>';
+                html += '<div class="empty-state"><h2>Пока нет подписок</h2><p>Перейдите в "Обзор" и подпишитесь на авторов</p></div>';
             } else {
                 const posts = getAllPosts().filter(p => following.includes(p.authorId)).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                if (posts.length === 0) {
-                    html += '<div class="empty-state"><p>Ваши подписки ещё ничего не опубликовали</p></div>';
-                } else {
-                    html += posts.map(post => renderPostCard(post)).join('');
+                if (posts.length === 0) html += '<div class="empty-state"><p>Подписки ещё ничего не опубликовали</p></div>';
+                else html += posts.map(post => renderPostCard(post)).join('');
+            }
+            container.innerHTML = html;
+            setTimeout(attachCarouselListeners, 100);
+        }
+
+        function renderMoodboards(container) {
+            if (!currentUser) { showFullAuth('login'); return; }
+            const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
+            let html = '<div class="info-banner">📌 Ваши коллекции вдохновения</div>';
+            html += '<button class="auth-btn" onclick="createNewMoodboard()" style="margin-bottom: 20px;">+ Новая коллекция</button>';
+            
+            const keys = Object.keys(moodboards);
+            if (keys.length === 0) {
+                html += '<div class="empty-state"><h2>Пока нет коллекций</h2><p>Сохраняйте посты в коллекции для вдохновения</p></div>';
+            } else {
+                keys.forEach(key => {
+                    const mb = moodboards[key];
+                    html += `<div class="moodboard-card" onclick="openMoodboard('${key}')">
+                        <div class="moodboard-name">${mb.name}</div>
+                        <div class="moodboard-count">${mb.posts.length} постов</div>
+                    </div>`;
+                });
+            }
+            container.innerHTML = html;
+        }
+
+        function createNewMoodboard() {
+            const name = prompt('Название коллекции:');
+            if (!name || !name.trim()) return;
+            const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
+            moodboards[Date.now()] = { name: name.trim(), posts: [] };
+            localStorage.setItem('muse_moodboards_' + currentUser.id, JSON.stringify(moodboards));
+            renderMoodboards(document.getElementById('mainContent'));
+        }
+
+        function openMoodboard(key) {
+            currentMoodboard = key;
+            const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
+            const mb = moodboards[key];
+            if (!mb) return;
+            document.getElementById('moodboard-title').textContent = mb.name;
+            const posts = getAllPosts().filter(p => mb.posts.includes(p.id));
+            let html = '';
+            if (posts.length === 0) {
+                html = '<div class="empty-state"><p>Коллекция пуста. Добавляйте посты через кнопку "Сохранить"</p></div>';
+            } else {
+                html = posts.map(post => renderPostCard(post)).join('');
+            }
+            document.getElementById('moodboard-content').innerHTML = html;
+            document.getElementById('moodboardModal').classList.add('active');
+            setTimeout(attachCarouselListeners, 100);
+        }
+
+        function closeMoodboardModal() { document.getElementById('moodboardModal').classList.remove('active'); currentMoodboard = null; }
+
+        function addToMoodboard(postId) {
+            if (!requireAuth()) return;
+            const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
+            const keys = Object.keys(moodboards);
+            if (keys.length === 0) {
+                if (confirm('У вас нет коллекций. Создать новую?')) {
+                    const name = prompt('Название коллекции:');
+                    if (name && name.trim()) {
+                        moodboards[Date.now()] = { name: name.trim(), posts: [postId] };
+                        localStorage.setItem('muse_moodboards_' + currentUser.id, JSON.stringify(moodboards));
+                        alert('Пост добавлен в коллекцию!');
+                    }
                 }
+                return;
+            }
+            const options = keys.map(k => `${moodboards[k].name} (${moodboards[k].posts.length})`).join('\n');
+            const choice = prompt(`Выберите коллекцию (введите номер):\n${options}`);
+            if (choice && keys[parseInt(choice) - 1]) {
+                const key = keys[parseInt(choice) - 1];
+                if (!moodboards[key].posts.includes(postId)) {
+                    moodboards[key].posts.push(postId);
+                    localStorage.setItem('muse_moodboards_' + currentUser.id, JSON.stringify(moodboards));
+                    alert('Пост добавлен в коллекцию!');
+                } else {
+                    alert('Пост уже в этой коллекции');
+                }
+            }
+        }
+
+        function renderDrafts(container) {
+            if (!currentUser) { showFullAuth('login'); return; }
+            const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+            let html = '<div class="info-banner">📝 Ваши черновики</div>';
+            if (drafts.length === 0) {
+                html += '<div class="empty-state"><h2>Нет черновиков</h2><p>Сохраняйте посты как черновики, чтобы доделать позже</p></div>';
+            } else {
+                html += drafts.map((draft, idx) => {
+                    const icon = draft.type === 'image' ? '🖼️' : draft.type === 'audio' ? '🎵' : '️';
+                    const title = draft.caption || 'Без названия';
+                    const date = new Date(draft.timestamp).toLocaleDateString('ru-RU');
+                    return `<div class="draft-card">
+                        <div class="draft-icon">${icon}</div>
+                        <div class="draft-info">
+                            <div class="draft-title">${title.substring(0, 50)}${title.length > 50 ? '...' : ''}</div>
+                            <div class="draft-date">${date}</div>
+                        </div>
+                        <div class="draft-actions">
+                            <button class="draft-action-btn publish" onclick="publishDraft(${idx})">Опубликовать</button>
+                            <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">×</button>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+            container.innerHTML = html;
+        }
+
+        function saveDraft() {
+            if (!currentUser) return;
+            if (currentPostType === 'image' && uploadedImages.length === 0 && currentPostType === 'audio' && uploadedAudios.length === 0 && currentPostType === 'text' && uploadedTexts.length === 0) {
+                alert('Добавьте хотя бы один элемент');
+                return;
+            }
+            const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+            const draft = {
+                id: Date.now(),
+                timestamp: Date.now(),
+                type: currentPostType,
+                images: uploadedImages,
+                audios: uploadedAudios.map(a => a.data),
+                audioTitles: uploadedAudios.map(a => a.title),
+                texts: uploadedTexts,
+                caption: document.getElementById('caption').value.trim(),
+                tags: document.getElementById('tags').value.trim().split(',').map(t => t.trim()).filter(t => t),
+                collabUser: collabUser,
+                anonymous: document.getElementById('anonymous-feedback').checked
+            };
+            drafts.unshift(draft);
+            localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
+            closeCreateModal();
+            alert('Черновик сохранён!');
+            navigate('drafts');
+        }
+
+        function publishDraft(idx) {
+            const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+            const draft = drafts[idx];
+            if (!draft) return;
+            let newPost = {
+                id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
+                avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
+                type: draft.type, caption: draft.caption || '', tags: draft.tags || [],
+                likes: 0, liked: false, comments: [], anonymous: draft.anonymous || false
+            };
+            if (draft.collabUser) {
+                newPost.collabAuthor = draft.collabUser.name;
+                newPost.collabAuthorId = draft.collabUser.id;
+                newPost.collabAvatar = draft.collabUser.avatar;
+            }
+            if (draft.type === 'image') { newPost.images = draft.images; newPost.category = 'photo'; }
+            else if (draft.type === 'audio') { newPost.audios = draft.audios; newPost.audioTitles = draft.audioTitles; newPost.category = 'music'; }
+            else { newPost.texts = draft.texts; newPost.category = 'text'; }
+            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+            posts.unshift(newPost);
+            localStorage.setItem('muse_posts', JSON.stringify(posts));
+            drafts.splice(idx, 1);
+            localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
+            checkAchievements();
+            navigate('home');
+        }
+
+        function deleteDraft(idx) {
+            if (!confirm('Удалить черновик?')) return;
+            const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+            drafts.splice(idx, 1);
+            localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
+            renderDrafts(document.getElementById('mainContent'));
+        }
+
+        function renderRandomCreator(container) {
+            const users = getUsers().filter(u => u.id !== currentUser?.id);
+            if (users.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h2>Пока мало пользователей</h2></div>';
+                return;
+            }
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+            const userPosts = getAllPosts().filter(p => p.authorId === randomUser.id);
+            let html = `<div class="random-creator-card">
+                <h3>🎲 Случайный творец</h3>
+                <div class="random-creator-avatar">${randomUser.photo ? `<img src="${randomUser.photo}">` : randomUser.avatar}</div>
+                <div class="random-creator-name">${randomUser.name}</div>
+                <div class="random-creator-handle">${randomUser.username}</div>
+                ${randomUser.bio ? `<div class="random-creator-bio">${randomUser.bio}</div>` : ''}
+                <div style="font-size: 13px; opacity: 0.9; margin-bottom: 16px;">${userPosts.length} публикаций</div>
+                <button class="random-creator-btn" onclick="navigate('profile', {userId: '${randomUser.id}'})">Открыть профиль</button>
+                <button class="random-creator-btn secondary" onclick="renderRandomCreator(document.getElementById('mainContent'))">🔄 Другой</button>
+            </div>`;
+            if (userPosts.length > 0) {
+                html += '<h3 style="margin-bottom: 12px; font-size: 16px;">Последние работы</h3>';
+                html += userPosts.slice(0, 3).map(post => renderPostCard(post)).join('');
             }
             container.innerHTML = html;
             setTimeout(attachCarouselListeners, 100);
@@ -825,60 +1256,32 @@
             document.querySelectorAll('.carousel-track').forEach(track => {
                 if (track.dataset.listenersAttached) return;
                 track.dataset.listenersAttached = 'true';
-                
                 const postId = track.dataset.postId;
                 const counter = document.getElementById(`counter-${postId}`);
                 const dots = track.parentElement.querySelectorAll('.carousel-dot');
-                
                 if (!track.parentElement.querySelector('.carousel-prev-btn')) {
                     const prevBtn = document.createElement('button');
                     prevBtn.className = 'carousel-prev-btn';
                     prevBtn.innerHTML = '‹';
                     prevBtn.onclick = (e) => { e.stopPropagation(); track.scrollBy({ left: -track.offsetWidth, behavior: 'smooth' }); };
                     track.parentElement.appendChild(prevBtn);
-                    
                     const nextBtn = document.createElement('button');
                     nextBtn.className = 'carousel-next-btn';
                     nextBtn.innerHTML = '›';
                     nextBtn.onclick = (e) => { e.stopPropagation(); track.scrollBy({ left: track.offsetWidth, behavior: 'smooth' }); };
                     track.parentElement.appendChild(nextBtn);
                 }
-                
-                let isDown = false;
-                let startX;
-                let scrollLeft;
-                
-                track.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    startX = e.pageX - track.offsetLeft;
-                    scrollLeft = track.scrollLeft;
-                });
+                let isDown = false, startX, scrollLeft;
+                track.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
                 track.addEventListener('mouseleave', () => { isDown = false; });
                 track.addEventListener('mouseup', () => { isDown = false; });
-                track.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    const x = e.pageX - track.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    track.scrollLeft = scrollLeft - walk;
-                });
-                
-                track.addEventListener('wheel', (e) => {
-                    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-                        e.preventDefault();
-                        track.scrollLeft += e.deltaY;
-                    }
-                }, { passive: false });
-                
+                track.addEventListener('mousemove', (e) => { if (!isDown) return; e.preventDefault(); const x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 2; });
+                track.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) { e.preventDefault(); track.scrollLeft += e.deltaY; } }, { passive: false });
                 const updateCarousel = () => {
-                    const scrollLeft = track.scrollLeft;
-                    const width = track.offsetWidth;
-                    const index = Math.round(scrollLeft / width);
-                    const total = track.children.length;
-                    if (counter) counter.textContent = `${index + 1}/${total}`;
+                    const index = Math.round(track.scrollLeft / track.offsetWidth);
+                    if (counter) counter.textContent = `${index + 1}/${track.children.length}`;
                     dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
                 };
-                
                 track.addEventListener('scroll', updateCarousel);
                 updateCarousel();
             });
@@ -886,70 +1289,52 @@
 
         function renderPostCard(post) {
             let mediaHtml = '';
-            const allItems = post.type === 'image' ? (post.images || []) : 
-                             post.type === 'text' ? (post.texts || []) : 
-                             post.type === 'audio' ? (post.audios || []) : [];
+            const allItems = post.type === 'image' ? (post.images || []) : post.type === 'text' ? (post.texts || []) : post.type === 'audio' ? (post.audios || []) : [];
             const totalItems = allItems.length;
 
             if (totalItems === 1) {
-                if (post.type === 'image') {
-                    mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;" onerror="this.style.display='none'">`;
-                } else if (post.type === 'text') {
-                    mediaHtml = `<div class="post-text">${allItems[0]}</div>`;
-                } else if (post.type === 'audio') {
+                if (post.type === 'image') mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;" onerror="this.style.display='none'">`;
+                else if (post.type === 'text') mediaHtml = `<div class="post-text">${allItems[0]}</div>`;
+                else if (post.type === 'audio') {
                     const title = post.audioTitles ? post.audioTitles[0] : 'Аудио трек';
                     mediaHtml = `<div class="post-audio"><div class="audio-player"><button class="play-btn" onclick="playAudio(this, '${allItems[0]}')">▶</button><div class="audio-title">${title}</div></div></div>`;
                 }
             } else if (totalItems > 1) {
                 let slidesHtml = '';
-                if (post.type === 'image') {
-                    slidesHtml = allItems.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
-                } else if (post.type === 'text') {
-                    slidesHtml = allItems.map(text => `<div class="text-slide">${text}</div>`).join('');
-                } else if (post.type === 'audio') {
+                if (post.type === 'image') slidesHtml = allItems.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
+                else if (post.type === 'text') slidesHtml = allItems.map(text => `<div class="text-slide">${text}</div>`).join('');
+                else if (post.type === 'audio') {
                     const titles = post.audioTitles || [];
-                    slidesHtml = allItems.map((audio, i) => {
-                        const title = titles[i] || `Трек ${i + 1}`;
-                        return `<div class="audio-slide"><div class="audio-player"><button class="play-btn" onclick="playAudio(this, '${audio}')">▶</button><div class="audio-title">${title}</div></div></div>`;
-                    }).join('');
+                    slidesHtml = allItems.map((audio, i) => `<div class="audio-slide"><div class="audio-player"><button class="play-btn" onclick="playAudio(this, '${audio}')">▶</button><div class="audio-title">${titles[i] || `Трек ${i + 1}`}</div></div></div>`).join('');
                 }
-                mediaHtml = `<div class="carousel">
-                    <div class="carousel-track" data-post-id="${post.id}">
-                        ${slidesHtml}
-                    </div>
-                    <div class="carousel-counter" id="counter-${post.id}">1/${totalItems}</div>
-                    <div class="carousel-dots">
-                        ${allItems.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
-                    </div>
-                </div>`;
+                mediaHtml = `<div class="carousel"><div class="carousel-track" data-post-id="${post.id}">${slidesHtml}</div><div class="carousel-counter" id="counter-${post.id}">1/${totalItems}</div><div class="carousel-dots">${allItems.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}"></div>`).join('')}</div></div>`;
             }
 
             const allComments = getCommentsForPost(post.id);
             const rootComments = allComments.filter(c => !c.replyTo);
             const commentsCount = allComments.length;
             const isOwnPost = currentUser && post.authorId === currentUser.id;
-            
             const captionHtml = post.caption ? `<div class="post-caption">${post.caption}</div>` : '';
             const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags">${post.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : '';
+            const collabBadge = post.collabAuthor ? `<span class="collab-badge"> с ${post.collabAuthor}</span>` : '';
+            const anonymousBadge = post.anonymous ? `<span class="anonymous-badge"> Анонимный фидбек</span>` : '';
 
             return `<div class="post-card">
                 <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
                     <div class="post-avatar">${post.photo ? `<img src="${post.photo}">` : post.avatar}</div>
                     <div class="post-author-info">
-                        <div class="post-author-name">${post.author}</div>
-                        <div class="post-author-handle">${post.handle}</div>
+                        <div class="post-author-name">${post.author}${collabBadge}</div>
+                        <div class="post-author-handle">${post.handle}${anonymousBadge}</div>
                     </div>
-                    ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})"></button>` : ''}
+                    ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>` : ''}
                 </div>
                 <div class="post-menu" id="post-menu-${post.id}">
                     <div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>
-                    <div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить пост</div>
+                    <div class="post-menu-item" onclick="addToMoodboard(${post.id})">📌 В коллекцию</div>
+                    <div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить</div>
                 </div>
                 ${mediaHtml}
-                <div class="post-content">
-                    ${captionHtml}
-                    ${tagsHtml}
-                </div>
+                <div class="post-content">${captionHtml}${tagsHtml}</div>
                 <div class="post-actions">
                     <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
                         <svg fill="${post.liked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
@@ -965,22 +1350,16 @@
                     </button>
                 </div>
                 <div class="comments-section" id="comments-${post.id}" style="display: none;">
-                    <div id="comments-list-${post.id}">
-                        ${rootComments.map(c => renderComment(c, post.id, allComments)).join('')}
-                    </div>
-                    <div class="reply-indicator" id="reply-indicator-${post.id}">
-                        <span></span>
-                        <button class="cancel-reply" onclick="cancelReply(${post.id})">×</button>
-                    </div>
+                    <div id="comments-list-${post.id}">${rootComments.map(c => renderComment(c, post.id, allComments)).join('')}</div>
+                    <div class="reply-indicator" id="reply-indicator-${post.id}"><span></span><button class="cancel-reply" onclick="cancelReply(${post.id})">×</button></div>
                     <div class="comment-input-wrapper">
                         <div class="comment-input-container">
                             <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : `onclick="showFullAuth('login')"`} ${currentUser ? '' : 'readonly'}>
+                            <button class="record-audio-btn" id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})">🎤</button>
                             <button class="attach-image-btn" onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}"></button>
                             <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
-                            <div class="comment-image-preview" id="comment-image-preview-${post.id}">
-                                <img id="comment-image-thumb-${post.id}" src="">
-                                <button class="remove-image-btn" onclick="removeCommentImage(${post.id})">×</button>
-                            </div>
+                            <div class="comment-image-preview" id="comment-image-preview-${post.id}"><img id="comment-image-thumb-${post.id}" src=""><button class="remove-attachment-btn" onclick="removeCommentImage(${post.id})">×</button></div>
+                            <div class="audio-comment-preview" id="audio-comment-preview-${post.id}"><div class="audio-comment-player"><button onclick="playCommentAudio(${post.id})">▶</button><span>Голосовое сообщение</span><button class="remove-attachment-btn" onclick="removeCommentAudio(${post.id})">×</button></div></div>
                         </div>
                         <button class="comment-submit" onclick="${currentUser ? `addComment(${post.id})` : `showFullAuth('login')`}">Отправить</button>
                     </div>
@@ -1002,13 +1381,9 @@
             if (!post) return;
             document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
             let contentHtml = '';
-            if (post.type === 'text' && post.texts && post.texts.length > 0) {
-                contentHtml = `<div class="input-group"><label>Текст поста</label><textarea class="edit-post-textarea" id="edit-text-content">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
-            } else if (post.type === 'image' && post.images) {
-                contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; color: #333; display: block; margin-bottom: 8px;">Фото (${post.images.length} шт.)</label><div style="display: flex; gap: 8px; flex-wrap: wrap;">${post.images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
-            } else if (post.type === 'audio' && post.audios) {
-                contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; color: #333; display: block; margin-bottom: 8px;">Аудио (${post.audios.length} трек${post.audios.length > 1 ? 'а' : ''})</label><div>${post.audioTitles ? post.audioTitles.map((t, i) => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;">🎵 ${t}</div>`).join('') : ''}</div></div>`;
-            }
+            if (post.type === 'text' && post.texts) contentHtml = `<div class="input-group"><label>Текст</label><textarea class="edit-post-textarea" id="edit-text-content">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
+            else if (post.type === 'image' && post.images) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Фото (${post.images.length})</label><div style="display: flex; gap: 8px; flex-wrap: wrap;">${post.images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
+            else if (post.type === 'audio' && post.audios) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Аудио (${post.audios.length})</label>${(post.audioTitles || []).map(t => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;"> ${t}</div>`).join('')}</div>`;
             document.getElementById('edit-post-content').innerHTML = contentHtml;
             document.getElementById('edit-caption').value = post.caption || '';
             document.getElementById('edit-tags').value = (post.tags || []).join(', ');
@@ -1026,78 +1401,75 @@
             const newTagsStr = document.getElementById('edit-tags').value.trim();
             post.tags = newTagsStr ? newTagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
             if (post.type === 'text') {
-                const textContent = document.getElementById('edit-text-content');
-                if (textContent) {
-                    const texts = textContent.value.split('\n\n---\n\n').map(t => t.trim()).filter(t => t);
-                    if (texts.length > 0) post.texts = texts;
-                }
+                const tc = document.getElementById('edit-text-content');
+                if (tc) { const texts = tc.value.split('\n\n---\n\n').map(t => t.trim()).filter(t => t); if (texts.length > 0) post.texts = texts; }
             }
             localStorage.setItem('muse_posts', JSON.stringify(posts));
             closeEditPostModal();
             if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
             else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
-            else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
             else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
         }
 
         function deletePost(postId) {
             if (!requireAuth()) return;
-            if (!confirm('Удалить этот пост?')) return;
-            const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            localStorage.setItem('muse_posts', JSON.stringify(posts.filter(p => p.id !== postId)));
+            if (!confirm('Удалить пост?')) return;
+            localStorage.setItem('muse_posts', JSON.stringify(JSON.parse(localStorage.getItem('muse_posts') || '[]').filter(p => p.id !== postId)));
             document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
             if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
             else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
-            else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
             else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
         }
 
         function playAudio(btn, src) {
             if (currentPlayBtn === btn && currentAudio) { currentAudio.pause(); btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; return; }
             if (currentAudio) { currentAudio.pause(); currentAudio = null; if (currentPlayBtn) currentPlayBtn.textContent = '▶'; }
-            currentAudio = new Audio(src);
-            currentPlayBtn = btn;
+            currentAudio = new Audio(src); currentPlayBtn = btn;
             currentAudio.play().catch(() => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; });
             btn.textContent = '⏸';
-            currentAudio.onended = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
-            currentAudio.onerror = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
+            currentAudio.onended = currentAudio.onerror = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
         }
 
         function renderComment(comment, postId, allComments) {
             const replies = allComments.filter(c => c.replyTo === comment.id);
             const isOwnComment = currentUser && comment.author === currentUser.name;
+            const isAnonymous = comment.anonymous;
+            const authorName = isAnonymous ? 'Аноним' : comment.author;
             const commentImageHtml = comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : '';
             const commentTextHtml = comment.text ? `<div class="comment-text">${comment.text}</div>` : '';
+            const commentAudioHtml = comment.audio ? `<div class="audio-comment-player" style="margin-top: 8px;"><button onclick="playCommentAudioDirect('${comment.audio}')">▶</button><span>Голосовое</span></div>` : '';
+            
             let html = `<div class="comment" id="comment-${comment.id}">
-                <div class="comment-avatar">${comment.avatar}</div>
+                <div class="comment-avatar">${isAnonymous ? '?' : comment.avatar}</div>
                 <div class="comment-content">
                     <div class="comment-header">
-                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-author">${authorName}${isAnonymous ? ' <span style="font-size: 10px; color: #92400e;">(аноним)</span>' : ''}</span>
                         ${comment.replyTo && comment.replyToAuthor ? `<span class="comment-reply-to">→ ${comment.replyToAuthor}</span>` : ''}
                     </div>
-                    ${commentTextHtml}
-                    ${commentImageHtml}
+                    ${commentTextHtml}${commentAudioHtml}${commentImageHtml}
                     <div class="comment-actions">
-                        <button class="comment-action-btn" onclick="startReply(${postId}, '${comment.author.replace(/'/g, "\\'")}', ${comment.id})">Ответить</button>
+                        <button class="comment-action-btn" onclick="startReply(${postId}, '${authorName.replace(/'/g, "\\'")}', ${comment.id})">Ответить</button>
                     </div>
                 </div>
                 ${isOwnComment ? `<button class="comment-delete-btn" onclick="deleteComment(${postId}, ${comment.id})">×</button>` : ''}
             </div>`;
             replies.forEach(reply => {
                 const isOwnReply = currentUser && reply.author === currentUser.name;
+                const replyIsAnonymous = reply.anonymous;
+                const replyAuthorName = replyIsAnonymous ? 'Аноним' : reply.author;
                 const replyImageHtml = reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')">` : '';
                 const replyTextHtml = reply.text ? `<div class="comment-text">${reply.text}</div>` : '';
+                const replyAudioHtml = reply.audio ? `<div class="audio-comment-player" style="margin-top: 8px;"><button onclick="playCommentAudioDirect('${reply.audio}')">▶</button><span>Голосовое</span></div>` : '';
                 html += `<div class="comment reply" id="comment-${reply.id}">
-                    <div class="comment-avatar">${reply.avatar}</div>
+                    <div class="comment-avatar">${replyIsAnonymous ? '?' : reply.avatar}</div>
                     <div class="comment-content">
                         <div class="comment-header">
-                            <span class="comment-author">${reply.author}</span>
+                            <span class="comment-author">${replyAuthorName}${replyIsAnonymous ? ' <span style="font-size: 10px; color: #92400e;">(аноним)</span>' : ''}</span>
                             ${reply.replyToAuthor ? `<span class="comment-reply-to">→ ${reply.replyToAuthor}</span>` : ''}
                         </div>
-                        ${replyTextHtml}
-                        ${replyImageHtml}
+                        ${replyTextHtml}${replyAudioHtml}${replyImageHtml}
                         <div class="comment-actions">
-                            <button class="comment-action-btn" onclick="startReply(${postId}, '${reply.author.replace(/'/g, "\\'")}', ${reply.id})">Ответить</button>
+                            <button class="comment-action-btn" onclick="startReply(${postId}, '${replyAuthorName.replace(/'/g, "\\'")}', ${reply.id})">Ответить</button>
                         </div>
                     </div>
                     ${isOwnReply ? `<button class="comment-delete-btn" onclick="deleteComment(${postId}, ${reply.id})">×</button>` : ''}
@@ -1117,12 +1489,12 @@
             }
             if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
             else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
-            setTimeout(() => { const section = document.getElementById(`comments-${postId}`); if (section) section.style.display = 'block'; }, 50);
+            setTimeout(() => { const s = document.getElementById(`comments-${postId}`); if (s) s.style.display = 'block'; }, 50);
         }
 
         function toggleComments(postId) {
-            const section = document.getElementById(`comments-${postId}`);
-            if (section) section.style.display = section.style.display === 'none' ? 'block' : 'none';
+            const s = document.getElementById(`comments-${postId}`);
+            if (s) s.style.display = s.style.display === 'none' ? 'block' : 'none';
         }
 
         function startReply(postId, authorName, commentId) {
@@ -1145,11 +1517,11 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const maxSize = 600;
-                    let width = img.width, height = img.height;
-                    if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
-                    else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
-                    canvas.width = width; canvas.height = height;
-                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                    let w = img.width, h = img.height;
+                    if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
+                    else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                     commentImage = canvas.toDataURL('image/jpeg', 0.8);
                     const preview = document.getElementById(`comment-image-preview-${postId}`);
                     const thumb = document.getElementById(`comment-image-thumb-${postId}`);
@@ -1168,33 +1540,93 @@
             if (fileInput) fileInput.value = '';
         }
 
+        async function toggleAudioRecording(postId) {
+            if (!requireAuth()) return;
+            const btn = document.getElementById(`record-btn-${postId}`);
+            if (isRecordingAudio) {
+                mediaRecorder.stop();
+                isRecordingAudio = false;
+                btn.classList.remove('recording');
+                btn.textContent = '🎤';
+            } else {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            commentAudio = e.target.result;
+                            document.getElementById(`audio-comment-preview-${postId}`).style.display = 'block';
+                        };
+                        reader.readAsDataURL(audioBlob);
+                        stream.getTracks().forEach(t => t.stop());
+                    };
+                    mediaRecorder.start();
+                    isRecordingAudio = true;
+                    btn.classList.add('recording');
+                    btn.textContent = '⏹';
+                } catch (err) {
+                    alert('Не удалось получить доступ к микрофону');
+                }
+            }
+        }
+
+        function playCommentAudioDirect(src) {
+            if (currentAudio && currentAudio.src === src) { currentAudio.pause(); currentAudio = null; return; }
+            if (currentAudio) { currentAudio.pause(); if (currentPlayBtn) currentPlayBtn.textContent = '▶'; }
+            currentAudio = new Audio(src);
+            currentAudio.play();
+            currentAudio.onended = () => { currentAudio = null; };
+        }
+
+        function playCommentAudio(postId) {
+            if (commentAudio) playCommentAudioDirect(commentAudio);
+        }
+
+        function removeCommentAudio(postId) {
+            commentAudio = null;
+            document.getElementById(`audio-comment-preview-${postId}`).style.display = 'none';
+        }
+
         function addComment(postId) {
             if (!requireAuth()) return;
             const input = document.getElementById(`comment-input-${postId}`);
             const text = input.value.trim();
-            if (!text && !commentImage) return;
+            if (!text && !commentImage && !commentAudio) return;
             let replyToAuthor = null;
             if (replyTo && replyTo.postId === postId) {
                 const allComments = getCommentsForPost(postId);
-                const parentComment = allComments.find(c => c.id === replyTo.commentId);
-                if (parentComment) replyToAuthor = parentComment.author;
+                const parent = allComments.find(c => c.id === replyTo.commentId);
+                if (parent) replyToAuthor = parent.author;
             }
-            const comment = { id: Date.now(), author: currentUser.name, avatar: currentUser.avatar, text: text, time: Date.now(), image: commentImage || null, replyTo: replyTo && replyTo.postId === postId ? replyTo.commentId : null, replyToAuthor: replyToAuthor };
+            const post = JSON.parse(localStorage.getItem('muse_posts') || '[]').find(p => p.id === postId);
+            const isAnonymous = post && post.anonymous;
+            const comment = {
+                id: Date.now(), author: currentUser.name, avatar: currentUser.avatar,
+                text: text, time: Date.now(), image: commentImage || null, audio: commentAudio || null,
+                replyTo: replyTo && replyTo.postId === postId ? replyTo.commentId : null,
+                replyToAuthor: replyToAuthor, anonymous: isAnonymous
+            };
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-            const post = posts.find(p => p.id === postId);
-            if (post) {
-                if (!post.comments) post.comments = [];
-                post.comments.push(comment);
+            const p = posts.find(x => x.id === postId);
+            if (p) {
+                if (!p.comments) p.comments = [];
+                p.comments.push(comment);
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
-                const postAuthor = getUserById(post.authorId);
+                const postAuthor = getUserById(p.authorId);
                 if (postAuthor) addNotification('comment', currentUser, postId, text);
             }
             input.value = '';
             removeCommentImage(postId);
+            removeCommentAudio(postId);
             cancelReply(postId);
+            checkAchievements();
             if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
             else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
-            setTimeout(() => { const section = document.getElementById(`comments-${postId}`); if (section) section.style.display = 'block'; }, 50);
+            setTimeout(() => { const s = document.getElementById(`comments-${postId}`); if (s) s.style.display = 'block'; }, 50);
         }
 
         function filterCategory(cat) { currentCategory = cat; if (currentPage === 'home') renderFeed(document.getElementById('mainContent')); }
@@ -1216,6 +1648,7 @@
                 post.likes += post.liked ? 1 : -1;
                 localStorage.setItem('muse_posts', JSON.stringify(posts));
                 if (post.liked) { const postAuthor = getUserById(post.authorId); if (postAuthor) addNotification('like', currentUser, postId, ''); }
+                checkAchievements();
                 if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
                 else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
                 else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
@@ -1237,6 +1670,7 @@
             saveUsers(users);
             currentUser = me;
             localStorage.setItem('muse_currentUser', JSON.stringify(me));
+            checkAchievements();
             renderProfile(document.getElementById('mainContent'));
             updateSidebarFollowing();
         }
@@ -1253,11 +1687,11 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const maxSize = 1080;
-                    let width = img.width, height = img.height;
-                    if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
-                    else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
-                    canvas.width = width; canvas.height = height;
-                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                    let w = img.width, h = img.height;
+                    if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
+                    else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                     storyImage = canvas.toDataURL('image/jpeg', 0.9);
                     const area = document.getElementById('story-upload-area');
                     area.innerHTML = `<img src="${storyImage}">`;
@@ -1271,9 +1705,8 @@
 
         function submitStory() {
             if (!requireAuth() || !storyImage) return;
-            const story = { id: Date.now(), author: currentUser.name, avatar: currentUser.avatar, images: [storyImage], time: Date.now() };
             const stories = JSON.parse(localStorage.getItem('muse_stories') || '[]');
-            stories.push(story);
+            stories.push({ id: Date.now(), author: currentUser.name, avatar: currentUser.avatar, images: [storyImage], time: Date.now() });
             localStorage.setItem('muse_stories', JSON.stringify(stories));
             closeStoryModal();
             renderFeed(document.getElementById('mainContent'));
@@ -1295,8 +1728,7 @@
             if (currentStoryUser >= stories.length) { closeStoryViewer(); return; }
             const story = stories[currentStoryUser];
             if (currentStoryIndex >= story.images.length) { currentStoryUser++; currentStoryIndex = 0; if (currentStoryUser >= stories.length) { closeStoryViewer(); return; } showCurrentStory(); return; }
-            const progressHtml = story.images.map((_, i) => `<div class="story-progress-bar"><div class="fill" id="story-fill-${i}" style="width: ${i < currentStoryIndex ? '100' : '0'}%"></div></div>`).join('');
-            document.getElementById('storyProgress').innerHTML = progressHtml;
+            document.getElementById('storyProgress').innerHTML = story.images.map((_, i) => `<div class="story-progress-bar"><div class="fill" id="story-fill-${i}" style="width: ${i < currentStoryIndex ? '100' : '0'}%"></div></div>`).join('');
             document.getElementById('storyHeader').innerHTML = `<div class="story-header-avatar">${story.avatar}</div><div><div class="story-header-name">${story.author}</div><div class="story-header-time">${getTimeAgo(story.time)}</div></div>`;
             document.getElementById('storyContent').innerHTML = `<img src="${story.images[currentStoryIndex]}">`;
             clearTimeout(storyTimer);
@@ -1306,7 +1738,7 @@
         }
 
         function nextStory() { currentStoryIndex++; showCurrentStory(); }
-        function prevStory() { if (currentStoryIndex > 0) { currentStoryIndex--; showCurrentStory(); } else if (currentStoryUser > 0) { currentStoryUser--; const prevStory = getStories()[currentStoryUser]; currentStoryIndex = prevStory.images.length - 1; showCurrentStory(); } }
+        function prevStory() { if (currentStoryIndex > 0) { currentStoryIndex--; showCurrentStory(); } else if (currentStoryUser > 0) { currentStoryUser--; currentStoryIndex = getStories()[currentStoryUser].images.length - 1; showCurrentStory(); } }
 
         function getTimeAgo(timestamp) {
             const seconds = Math.floor((Date.now() - timestamp) / 1000);
@@ -1318,8 +1750,8 @@
         function renderNotifications(container) {
             if (!currentUser) { showFullAuth('login'); return; }
             const notifs = getNotifications();
-            if (notifs.length === 0) { container.innerHTML = '<div class="empty-state"><h2>Нет уведомлений</h2><p>Здесь будут уведомления о лайках, комментариях и подписках</p></div>'; return; }
-            let html = '<div class="info-banner">🔔 Ваши уведомления</div>';
+            if (notifs.length === 0) { container.innerHTML = '<div class="empty-state"><h2>Нет уведомлений</h2></div>'; return; }
+            let html = '<div class="info-banner"> Ваши уведомления</div>';
             html += notifs.map(notif => {
                 let text = '';
                 if (notif.type === 'like') text = `<b>${notif.fromUserName}</b> оценил ваш пост`;
@@ -1338,14 +1770,14 @@
             const notif = notifs.find(n => n.id === notifId);
             if (!notif) return;
             notif.read = true; saveNotifications(notifs); updateNotifBadge();
-            if (notif.postId) { navigate('home'); setTimeout(() => { const section = document.getElementById(`comments-${notif.postId}`); if (section) { section.style.display = 'block'; section.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }, 100); }
+            if (notif.postId) { navigate('home'); setTimeout(() => { const s = document.getElementById(`comments-${notif.postId}`); if (s) { s.style.display = 'block'; s.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }, 100); }
         }
 
         function renderExplore(container) {
             const users = getUsers();
             const following = currentUser ? (getUsers().find(u => u.id === currentUser.id)?.following || []) : [];
             let html = '<input type="text" class="search-input" id="searchInput" placeholder="Поиск пользователей..." value="' + searchQuery + '" oninput="handleSearch(this.value)">';
-            html += '<div class="info-banner">🔍 Найдите интересных авторов и подпишитесь на них!</div>';
+            html += '<div class="info-banner"> Найдите интересных авторов!</div>';
             html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
             const displayUsers = users.filter(u => {
                 if (currentUser && u.id === currentUser.id) return false;
@@ -1353,7 +1785,7 @@
                 const q = searchQuery.toLowerCase();
                 return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q) || (u.bio && u.bio.toLowerCase().includes(q));
             });
-            if (displayUsers.length === 0) { html += '<div class="empty-state"><p>Пользователи не найдены</p></div>'; }
+            if (displayUsers.length === 0) html += '<div class="empty-state"><p>Пользователи не найдены</p></div>';
             else {
                 html += displayUsers.map(user => {
                     const isFollowing = following.includes(user.id);
@@ -1379,14 +1811,13 @@
             const user = getUserById(userId);
             if (!user) { container.innerHTML = '<div class="empty-state"><p>Пользователь не найден</p></div>'; return; }
             const isOwnProfile = userId === currentUser.id;
-            const users = getUsers();
-            const me = users.find(u => u.id === currentUser.id);
+            const me = getUsers().find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
             const isFollowing = following.includes(userId);
-            const allPosts = getAllPosts();
-            const userPosts = allPosts.filter(p => p.authorId === userId).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            const userPosts = getAllPosts().filter(p => p.authorId === userId).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
             const followersCount = (user.followers || []).length;
             const followingCount = (user.following || []).length;
+            const userAchievements = (user.achievements || []);
 
             let html = `<div class="profile-header">
                 <div class="profile-avatar-large">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
@@ -1401,9 +1832,24 @@
                 <div class="profile-actions">`;
             if (isOwnProfile) { html += `<button class="edit-profile-btn" onclick="openEditModal()">Редактировать профиль</button><button class="logout-btn" onclick="logout()">Выйти</button>`; }
             else { html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')">${isFollowing ? 'Вы подписаны' : 'Подписаться'}</button>`; }
-            html += `</div></div>`;
-            if (userPosts.length === 0) { html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>'; }
-            else { html += userPosts.map(post => renderPostCard(post)).join(''); }
+            html += `</div>`;
+            
+            if (isOwnProfile && userAchievements.length > 0) {
+                html += `<div class="achievements-section"><h3>🏆 Достижения (${userAchievements.length}/${achievements.length})</h3><div class="achievements-grid">`;
+                achievements.forEach(ach => {
+                    const unlocked = userAchievements.includes(ach.id);
+                    html += `<div class="achievement-card ${unlocked ? '' : 'locked'}">
+                        <div class="achievement-icon">${ach.icon}</div>
+                        <div class="achievement-name">${ach.name}</div>
+                        <div class="achievement-desc">${ach.desc}</div>
+                    </div>`;
+                });
+                html += `</div></div>`;
+            }
+            html += `</div>`;
+            
+            if (userPosts.length === 0) html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>';
+            else html += userPosts.map(post => renderPostCard(post)).join('');
             container.innerHTML = html;
             setTimeout(attachCarouselListeners, 100);
         }
@@ -1430,11 +1876,11 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const maxSize = 400;
-                    let width = img.width, height = img.height;
-                    if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
-                    else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
-                    canvas.width = width; canvas.height = height;
-                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                    let w = img.width, h = img.height;
+                    if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
+                    else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                     pendingProfilePhoto = canvas.toDataURL('image/jpeg', 0.9);
                     document.getElementById('edit-avatar-preview').innerHTML = `<img src="${pendingProfilePhoto}">`;
                 };
@@ -1464,8 +1910,16 @@
         }
 
         function fabClick() { if (!requireAuth()) return; openCreateModal(); }
-        function openCreateModal() { document.getElementById('createModal').classList.add('active'); resetForm(); }
+        function openCreateModal() { document.getElementById('createModal').classList.add('active'); resetForm(); setCreateStep(1); }
         function closeCreateModal() { document.getElementById('createModal').classList.remove('active'); resetForm(); }
+
+        function setCreateStep(step) {
+            createStep = step;
+            document.querySelectorAll('.create-step').forEach((s, i) => s.classList.toggle('active', i + 1 === step));
+            document.getElementById('create-step-1').style.display = step === 1 ? 'block' : 'none';
+            document.getElementById('create-step-2').style.display = step === 2 ? 'block' : 'none';
+            document.getElementById('create-step-3').style.display = step === 3 ? 'block' : 'none';
+        }
 
         function selectPostType(type) {
             currentPostType = type;
@@ -1486,22 +1940,23 @@
         function resetForm() {
             document.getElementById('caption').value = '';
             document.getElementById('tags').value = '';
+            document.getElementById('collab-input').value = '';
+            document.getElementById('anonymous-feedback').checked = false;
             document.getElementById('file-input').value = '';
             document.getElementById('audio-input').value = '';
             uploadedImages = []; uploadedAudios = []; uploadedTexts = [];
+            collabUser = null;
+            document.getElementById('collab-selected').innerHTML = '';
+            document.getElementById('collab-suggestions').innerHTML = '';
             renderMultiItemList('image'); renderMultiItemList('audio'); renderMultiItemList('text');
             selectPostType('image');
         }
 
         function renderMultiItemList(type) {
             const list = document.getElementById(`${type}-list`);
-            if (type === 'image') {
-                list.innerHTML = uploadedImages.map((img, i) => `<div class="multi-item"><img src="${img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"><div class="multi-item-text">Фото ${i + 1}</div><button class="multi-item-remove" onclick="removeImage(${i})">×</button></div>`).join('');
-            } else if (type === 'audio') {
-                list.innerHTML = uploadedAudios.map((audio, i) => `<div class="multi-item"><div style="font-size: 24px;">🎵</div><div class="multi-item-text">${audio.title || 'Аудио ' + (i + 1)}</div><button class="multi-item-remove" onclick="removeAudio(${i})">×</button></div>`).join('');
-            } else if (type === 'text') {
-                list.innerHTML = uploadedTexts.map((text, i) => `<div class="multi-item"><div style="font-size: 24px;">📝</div><div class="multi-item-text">${text.substring(0, 50)}${text.length > 50 ? '...' : ''}</div><button class="multi-item-remove" onclick="removeText(${i})">×</button></div>`).join('');
-            }
+            if (type === 'image') list.innerHTML = uploadedImages.map((img, i) => `<div class="multi-item"><img src="${img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"><div class="multi-item-text">Фото ${i + 1}</div><button class="multi-item-remove" onclick="removeImage(${i})">×</button></div>`).join('');
+            else if (type === 'audio') list.innerHTML = uploadedAudios.map((audio, i) => `<div class="multi-item"><div style="font-size: 24px;">🎵</div><div class="multi-item-text">${audio.title || 'Аудио ' + (i + 1)}</div><button class="multi-item-remove" onclick="removeAudio(${i})">×</button></div>`).join('');
+            else if (type === 'text') list.innerHTML = uploadedTexts.map((text, i) => `<div class="multi-item"><div style="font-size: 24px;">📝</div><div class="multi-item-text">${text.substring(0, 50)}${text.length > 50 ? '...' : ''}</div><button class="multi-item-remove" onclick="removeText(${i})">×</button></div>`).join('');
         }
 
         function handleImageSelect(event) {
@@ -1515,11 +1970,11 @@
                     img.onload = function() {
                         const canvas = document.createElement('canvas');
                         const maxSize = 1200;
-                        let width = img.width, height = img.height;
-                        if (width > height && width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
-                        else if (height > maxSize) { width = (width * maxSize) / height; height = maxSize; }
-                        canvas.width = width; canvas.height = height;
-                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                        let w = img.width, h = img.height;
+                        if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
+                        else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
+                        canvas.width = w; canvas.height = h;
+                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
                         uploadedImages.push(canvas.toDataURL('image/jpeg', 0.85));
                         processed++;
                         if (processed === files.length) { renderMultiItemList('image'); updateSubmitButton(); }
@@ -1552,12 +2007,42 @@
         function addTextItem() { const text = prompt('Введите текст:'); if (text && text.trim()) { uploadedTexts.push(text.trim()); renderMultiItemList('text'); updateSubmitButton(); } }
         function removeText(index) { uploadedTexts.splice(index, 1); renderMultiItemList('text'); updateSubmitButton(); }
 
+        function handleCollabSearch(query) {
+            if (!query || query.length < 2) { document.getElementById('collab-suggestions').innerHTML = ''; return; }
+            const users = getUsers().filter(u => u.id !== currentUser.id && (u.name.toLowerCase().includes(query.toLowerCase()) || u.username.toLowerCase().includes(query.toLowerCase())));
+            document.getElementById('collab-suggestions').innerHTML = users.slice(0, 5).map(u => `<div class="collab-suggestion" onclick="selectCollabUser('${u.id}')">
+                <div class="collab-suggestion-avatar">${u.avatar}</div>
+                <div><div style="font-weight: 600; font-size: 14px;">${u.name}</div><div style="font-size: 12px; color: #666;">${u.username}</div></div>
+            </div>`).join('');
+        }
+
+        function selectCollabUser(userId) {
+            collabUser = getUserById(userId);
+            document.getElementById('collab-input').value = '';
+            document.getElementById('collab-suggestions').innerHTML = '';
+            document.getElementById('collab-selected').innerHTML = `<div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f0f0ff; border-radius: 12px; margin-bottom: 16px;">
+                <div class="collab-suggestion-avatar">${collabUser.avatar}</div>
+                <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">${collabUser.name}</div><div style="font-size: 12px; color: #666;">${collabUser.username}</div></div>
+                <button onclick="collabUser = null; document.getElementById('collab-selected').innerHTML = '';" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
+            </div>`;
+        }
+
         function submitPost() {
             if (!currentUser) return;
             const caption = document.getElementById('caption').value.trim();
             const tagsStr = document.getElementById('tags').value.trim();
             const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
-            let newPost = { id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username, avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(), type: currentPostType, caption: caption, tags, likes: 0, liked: false, comments: [] };
+            const anonymous = document.getElementById('anonymous-feedback').checked;
+            let newPost = {
+                id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
+                avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
+                type: currentPostType, caption: caption, tags, likes: 0, liked: false, comments: [], anonymous
+            };
+            if (collabUser) {
+                newPost.collabAuthor = collabUser.name;
+                newPost.collabAuthorId = collabUser.id;
+                newPost.collabAvatar = collabUser.avatar;
+            }
             if (currentPostType === 'image') {
                 if (uploadedImages.length === 0) { alert('Добавьте хотя бы одно фото'); return; }
                 newPost.images = uploadedImages; newPost.category = 'photo';
@@ -1571,6 +2056,7 @@
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             posts.unshift(newPost);
             localStorage.setItem('muse_posts', JSON.stringify(posts));
+            checkAchievements();
             closeCreateModal();
             navigate('home');
         }
@@ -1581,6 +2067,7 @@
         document.getElementById('editModal').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
         document.getElementById('storyModal').addEventListener('click', function(e) { if (e.target === this) closeStoryModal(); });
         document.getElementById('authModal').addEventListener('click', function(e) { if (e.target === this) closeAuthModal(); });
+        document.getElementById('moodboardModal').addEventListener('click', function(e) { if (e.target === this) closeMoodboardModal(); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) { document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active')); } });
     </script>
 </body>
