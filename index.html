@@ -400,6 +400,7 @@
         .draft-action-btn { padding: 6px 12px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; }
         .draft-action-btn.publish { background: #667eea; color: white; }
         .draft-action-btn.delete { background: #f0f0f0; color: #333; }
+        .draft-action-btn.preview { background: #f0f0ff; color: #667eea; }
         
         .random-creator-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 24px; border-radius: 16px; text-align: center; margin-bottom: 20px; }
         .random-creator-card h3 { font-size: 18px; margin-bottom: 16px; }
@@ -545,7 +546,7 @@
             </div>
             <div id="create-step-1">
                 <div class="post-type-selector">
-                    <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">🖼️</div><div>Фото</div></button>
+                    <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">️</div><div>Фото</div></button>
                     <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
                     <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
                 </div>
@@ -653,6 +654,16 @@
         </div>
     </div>
 
+    <div class="modal" id="draftPreviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Просмотр черновика</h2>
+                <button class="close-modal" onclick="closeDraftPreview()">×</button>
+            </div>
+            <div id="draft-preview-content"></div>
+        </div>
+    </div>
+
     <script>
         let currentUser = null;
         let isLoginMode = false;
@@ -704,28 +715,28 @@
             { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
             { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
             { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '🎨', check: (u) => getUserPosts(u.id).length >= 50 },
-            { id: 'hundred_posts', name: 'Летописец', desc: '100 публикаций', icon: '📚', check: (u) => getUserPosts(u.id).length >= 100 },
+            { id: 'hundred_posts', name: 'Летописец', desc: '100 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 100 },
             { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
             { id: 'fifty_likes', name: 'Востребованный', desc: 'Получите 50 лайков', icon: '💫', check: (u) => getUserTotalLikes(u.id) >= 50 },
             { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
-            { id: 'five_hundred_likes', name: 'Легенда', desc: 'Получите 500 лайков', icon: '👑', check: (u) => getUserTotalLikes(u.id) >= 500 },
+            { id: 'five_hundred_likes', name: 'Легенда', desc: 'Получите 500 лайков', icon: '', check: (u) => getUserTotalLikes(u.id) >= 500 },
             { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '', check: (u) => (u.followers || []).length >= 10 },
             { id: 'fifty_followers', name: 'Лидер мнений', desc: '50 подписчиков', icon: '🌟', check: (u) => (u.followers || []).length >= 50 },
-            { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '💬', check: (u) => getUserComments(u.name).length >= 1 },
-            { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '🗨️', check: (u) => getUserComments(u.name).length >= 10 },
+            { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '', check: (u) => getUserComments(u.name).length >= 1 },
+            { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '️', check: (u) => getUserComments(u.name).length >= 10 },
             { id: 'fifty_comments', name: 'Критик', desc: '50 комментариев', icon: '📢', check: (u) => getUserComments(u.name).length >= 50 },
             { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '', check: (u) => false },
             { id: 'challenge_winner', name: 'Победитель', desc: 'Победите в челлендже', icon: '🥇', check: (u) => false },
             { id: 'collab_author', name: 'Соавтор', desc: 'Опубликуйте коллаборацию', icon: '🤝', check: (u) => false },
             { id: 'first_story', name: 'Рассказчик', desc: 'Опубликуйте первую историю', icon: '📖', check: (u) => false },
-            { id: 'moodboard_creator', name: 'Куратор', desc: 'Создайте первую коллекцию', icon: '📌', check: (u) => false },
+            { id: 'moodboard_creator', name: 'Куратор', desc: 'Создайте первую коллекцию', icon: '', check: (u) => false },
             { id: 'week_active', name: 'Неделя подряд', desc: 'Заходите 7 дней подряд', icon: '', check: (u) => false },
-            { id: 'month_active', name: 'Месяц подряд', desc: 'Заходите 30 дней подряд', icon: '💎', check: (u) => false },
+            { id: 'month_active', name: 'Месяц подряд', desc: 'Заходите 30 дней подряд', icon: '', check: (u) => false },
             { id: 'first_draft', name: 'Перфекционист', desc: 'Сохраните первый черновик', icon: '✏️', check: (u) => false },
             { id: 'ten_drafts', name: 'Редактор', desc: 'Сохраните 10 черновиков', icon: '📋', check: (u) => false },
             { id: 'photo_author', name: 'Фотограф', desc: 'Опубликуйте 20 фото', icon: '📸', check: (u) => getUserPosts(u.id).filter(p => p.category === 'photo').length >= 20 },
             { id: 'music_author', name: 'Музыкант', desc: 'Опубликуйте 20 треков', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'music').length >= 20 },
-            { id: 'writer', name: 'Писатель', desc: 'Опубликуйте 20 текстов', icon: '📝', check: (u) => getUserPosts(u.id).filter(p => p.category === 'text').length >= 20 },
+            { id: 'writer', name: 'Писатель', desc: 'Опубликуйте 20 текстов', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'text').length >= 20 },
             { id: 'artist', name: 'Художник', desc: 'Опубликуйте 20 работ', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'art').length >= 20 },
             { id: 'secret_night', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
             { id: 'secret_early', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
@@ -1051,7 +1062,7 @@
             if (currentChallenge) {
                 const categoryNames = { text: '✍️ Для писателей', music: '🎵 Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
                 html += `<div class="challenge-banner" onclick="navigate('challenges')">
-                    <h3>🔥 Челлендж недели: ${currentChallenge.title}</h3>
+                    <h3> Челлендж недели: ${currentChallenge.title}</h3>
                     <p>${currentChallenge.desc}</p>
                     <span class="challenge-tag">${categoryNames[currentChallenge.category] || ''} • ${currentChallenge.tag}</span>
                 </div>`;
@@ -1098,7 +1109,7 @@
                 html += '<div class="empty-state"><h2>Пока нет популярных постов</h2></div>';
             } else {
                 html += popularPosts.map((post, index) => {
-                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+                    const medal = index === 0 ? '🥇' : index === 1 ? '' : index === 2 ? '🥉' : '';
                     return `<div style="position: relative;">
                         ${medal ? `<div style="position: absolute; top: 12px; left: 12px; font-size: 24px; z-index: 10;">${medal}</div>` : ''}
                         ${renderPostCard(post)}
@@ -1116,7 +1127,7 @@
             let html = '<div class="info-banner">🏆 Новый челлендж каждую неделю. Чередуются: писатели → музыканты → художники → фотографы</div>';
             
             if (currentChallenge) {
-                const categoryNames = { text: '✍️ Для писателей', music: ' Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
+                const categoryNames = { text: '✍️ Для писателей', music: '🎵 Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
                 const posts = getAllPosts().filter(p => p.tags && p.tags.some(t => t.toLowerCase().includes(currentChallenge.tag.replace('#', '').toLowerCase())));
                 const topPosts = posts.sort((a, b) => b.likes - a.likes).slice(0, 5);
                 
@@ -1170,7 +1181,7 @@
         function renderMoodboards(container) {
             if (!currentUser) { showFullAuth('login'); return; }
             const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
-            let html = '<div class="info-banner">📌 Ваши коллекции вдохновения</div>';
+            let html = '<div class="info-banner"> Ваши коллекции вдохновения</div>';
             html += '<button class="auth-btn" onclick="createNewMoodboard()" style="margin-bottom: 20px;">+ Новая коллекция</button>';
             
             const keys = Object.keys(moodboards);
@@ -1262,6 +1273,7 @@
                             <div class="draft-date">${date}</div>
                         </div>
                         <div class="draft-actions">
+                            <button class="draft-action-btn preview" onclick="previewDraft(${idx})">👁️ Просмотр</button>
                             <button class="draft-action-btn publish" onclick="publishDraft(${idx})">Опубликовать</button>
                             <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">×</button>
                         </div>
@@ -1269,6 +1281,40 @@
                 }).join('');
             }
             container.innerHTML = html;
+        }
+
+        function previewDraft(idx) {
+            const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+            const draft = drafts[idx];
+            if (!draft) return;
+            
+            let contentHtml = '';
+            if (draft.type === 'text' && draft.texts && draft.texts.length > 0) {
+                contentHtml = `<div style="background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 16px; white-space: pre-wrap; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8;">${draft.texts.join('\n\n')}</div>`;
+            } else if (draft.type === 'image' && draft.images) {
+                contentHtml = `<div style="margin-bottom: 16px;"><div style="display: flex; gap: 8px; flex-wrap: wrap;">${draft.images.map(img => `<img src="${img}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
+            } else if (draft.type === 'audio' && draft.audios) {
+                contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;">🎵</span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
+            }
+            
+            const tagsHtml = draft.tags && draft.tags.length > 0 ? `<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">${draft.tags.map(t => `<span style="font-size: 12px; color: #667eea; background: #f0f0ff; padding: 4px 10px; border-radius: 12px;">#${t}</span>`).join('')}</div>` : '';
+            
+            document.getElementById('draft-preview-content').innerHTML = `
+                <div style="margin-bottom: 16px;">
+                    <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Тип: ${draft.type === 'image' ? '🖼️ Фото' : draft.type === 'audio' ? ' Аудио' : '✍️ Текст'}</div>
+                    <div style="font-size: 12px; color: #666; margin-bottom: 12px;">Создан: ${new Date(draft.timestamp).toLocaleString('ru-RU')}</div>
+                </div>
+                ${contentHtml}
+                ${draft.caption ? `<div style="margin-bottom: 12px;"><strong>Описание:</strong> ${draft.caption}</div>` : ''}
+                ${tagsHtml}
+                ${draft.anonymous ? '<div style="background: #fef3c7; color: #92400e; padding: 8px 12px; border-radius: 8px; font-size: 13px;">🔒 Анонимный фидбек включён</div>' : ''}
+                ${draft.collabUser ? `<div style="background: #f0f0ff; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-top: 8px;">🤝 Коллаборация с ${draft.collabUser.name}</div>` : ''}
+            `;
+            document.getElementById('draftPreviewModal').classList.add('active');
+        }
+
+        function closeDraftPreview() {
+            document.getElementById('draftPreviewModal').classList.remove('active');
         }
 
         function saveDraft() {
@@ -1352,7 +1398,7 @@
             const me = users.find(u => u.id === currentUser.id);
             const unlocked = me.achievements || [];
             
-            let html = '<div class="info-banner">🏆 Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
+            let html = '<div class="info-banner"> Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
             html += `<h2 style="margin-bottom: 16px; font-size: 18px;">Достижения (${unlocked.length}/${achievements.length})</h2>`;
             html += '<div class="achievements-grid">';
             
@@ -1446,7 +1492,7 @@
             const captionHtml = post.caption ? `<div class="post-caption">${post.caption}</div>` : '';
             const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags">${post.tags.map(t => `<span class="tag" onclick="searchByTag('${t}')">#${t}</span>`).join('')}</div>` : '';
             const collabBadge = post.collabAuthor ? `<span class="collab-badge">🤝 с ${post.collabAuthor}</span>` : '';
-            const anonymousBadge = post.anonymous ? `<span class="anonymous-badge">🔒 Анонимный фидбек</span>` : '';
+            const anonymousBadge = post.anonymous ? `<span class="anonymous-badge"> Анонимный фидбек</span>` : '';
 
             return `<div class="post-card">
                 <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
@@ -1459,7 +1505,7 @@
                 </div>
                 <div class="post-menu" id="post-menu-${post.id}">
                     ${isOwnPost ? `<div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>` : ''}
-                    <div class="post-menu-item" onclick="addToMoodboard(${post.id})">📌 В коллекцию</div>
+                    <div class="post-menu-item" onclick="addToMoodboard(${post.id})"> В коллекцию</div>
                     ${isOwnPost ? `<div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить</div>` : ''}
                 </div>
                 ${mediaHtml}
@@ -1965,7 +2011,7 @@
             if (!currentUser) { showFullAuth('login'); return; }
             const notifs = getNotifications();
             if (notifs.length === 0) { container.innerHTML = '<div class="empty-state"><h2>Нет уведомлений</h2></div>'; return; }
-            let html = '<div class="info-banner"> Ваши уведомления</div>';
+            let html = '<div class="info-banner">🔔 Ваши уведомления</div>';
             html += notifs.map(notif => {
                 let text = '';
                 if (notif.type === 'like') text = `<b>${notif.fromUserName}</b> оценил ваш пост`;
@@ -1999,7 +2045,7 @@
             html += `<input type="text" class="search-input" id="searchInput" placeholder="${searchMode === 'users' ? 'Поиск пользователей...' : 'Поиск по тегам...'}" value="${searchQuery}" oninput="handleSearch(this.value)">`;
             
             if (searchMode === 'users') {
-                html += '<div class="info-banner"> Найдите интересных авторов!</div>';
+                html += '<div class="info-banner">🔍 Найдите интересных авторов!</div>';
                 html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
                 const displayUsers = users.filter(u => {
                     if (currentUser && u.id === currentUser.id) return false;
@@ -2341,6 +2387,7 @@
         document.getElementById('authModal').addEventListener('click', function(e) { if (e.target === this) closeAuthModal(); });
         document.getElementById('moodboardModal').addEventListener('click', function(e) { if (e.target === this) closeMoodboardModal(); });
         document.getElementById('textInputModal').addEventListener('click', function(e) { if (e.target === this) closeTextInputModal(); });
+        document.getElementById('draftPreviewModal').addEventListener('click', function(e) { if (e.target === this) closeDraftPreview(); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) { document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active')); } });
     </script>
 </body>
