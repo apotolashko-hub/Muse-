@@ -430,14 +430,8 @@
   --muse-radius:20px;--muse-sidebar:264px;--muse-max:1180px;
 }
 html{scroll-behavior:smooth}body{background:#f6f6fb!important;color:var(--muse-text)}
-body.theme-light{background:#f6f6fb!important;--muse-accent:#6d5dfc;--muse-accent-2:#8b5cf6;--muse-text:#171725;--muse-muted:#73738a;--muse-surface:rgba(255,255,255,.94);--muse-border:rgba(30,30,60,.09);--muse-on-accent:#fff}
-body.theme-dark{background:#0d1020!important;color:#eef0ff;--muse-accent:#7c83ff;--muse-accent-2:#a78bfa;--muse-text:#eef0ff;--muse-muted:#9ca3b8;--muse-surface:rgba(22,25,47,.96);--muse-border:rgba(255,255,255,.10);--muse-on-accent:#fff}
-body.theme-purple{background:linear-gradient(135deg,#667eea,#764ba2)!important;--muse-accent:#667eea;--muse-accent-2:#764ba2;--muse-text:#20213b;--muse-muted:#65677f;--muse-surface:rgba(255,255,255,.92);--muse-border:rgba(90,70,160,.16);--muse-on-accent:#fff}
-body.theme-ocean{background:linear-gradient(135deg,#087f8c,#54c6df)!important;--muse-accent:#087f8c;--muse-accent-2:#169fd3;--muse-text:#12313a;--muse-muted:#58727a;--muse-surface:rgba(246,253,255,.93);--muse-border:rgba(8,127,140,.16);--muse-on-accent:#fff}
-body.theme-sunset{background:linear-gradient(135deg,#e78b9a,#ffd5bb)!important;--muse-accent:#d96578;--muse-accent-2:#ee8a63;--muse-text:#392329;--muse-muted:#80666c;--muse-surface:rgba(255,250,247,.94);--muse-border:rgba(180,90,100,.16);--muse-on-accent:#fff}
-body.theme-forest{background:linear-gradient(135deg,#134e5e,#71b280)!important;--muse-accent:#277b57;--muse-accent-2:#4fa56d;--muse-text:#183026;--muse-muted:#5d7469;--muse-surface:rgba(247,253,249,.94);--muse-border:rgba(39,123,87,.16);--muse-on-accent:#fff}
-body.theme-midnight{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)!important;--muse-accent:#8b7cff;--muse-accent-2:#b29cff;--muse-text:#f2f1ff;--muse-muted:#aaa7c4;--muse-surface:rgba(20,19,43,.96);--muse-border:rgba(190,180,255,.12);--muse-on-accent:#fff}
-body.theme-rose{background:linear-gradient(135deg,#ff6b6b,#ee5a6f)!important;--muse-accent:#e74368;--muse-accent-2:#ff6b81;--muse-text:#381c25;--muse-muted:#80606a;--muse-surface:rgba(255,248,250,.94);--muse-border:rgba(220,70,100,.16);--muse-on-accent:#fff}
+body.theme-light{background:#f6f6fb!important}body.theme-dark{background:#0d1020!important;color:#eef0ff}
+body.theme-purple{background:linear-gradient(135deg,#667eea,#764ba2)!important;--muse-accent:#667eea;--muse-accent-2:#764ba2}body.theme-ocean{background:linear-gradient(135deg,#2193b0,#6dd5ed)!important;--muse-accent:#2193b0;--muse-accent-2:#0ea5e9}body.theme-sunset{background:linear-gradient(135deg,#ee9ca7,#ffdde1)!important;--muse-accent:#e8798b;--muse-accent-2:#f59e9e}body.theme-forest{background:linear-gradient(135deg,#134e5e,#71b280)!important;--muse-accent:#2f855a;--muse-accent-2:#71b280}body.theme-midnight{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)!important;--muse-accent:#7c6cff;--muse-accent-2:#a78bfa}body.theme-rose{background:linear-gradient(135deg,#ff6b6b,#ee5a6f)!important;--muse-accent:#ef476f;--muse-accent-2:#ff6b6b}
 .app.active{padding-bottom:24px;min-height:100vh}
 .top-bar{height:72px;padding:0 28px;border-bottom:1px solid var(--muse-border);background:rgba(246,246,251,.82)!important;box-shadow:none;position:sticky}
 .top-bar h1{font-size:20px;letter-spacing:-.02em}.menu-btn{font-size:0;width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--muse-border);position:relative}
@@ -480,15 +474,6 @@ body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!
   #mainApp>.top-bar,#mainApp>.main-content{margin-left:0}.top-bar{height:64px;padding:0 14px}.main-content{padding:18px 12px 92px}.bottom-nav{display:flex}.app.active{padding-bottom:0}.studio-grid{grid-template-columns:repeat(2,1fr)}.studio-actions{grid-template-columns:1fr}.studio-hero{padding:20px}
 }
 
-
-/* ===== Theme polish ===== */
-body:not(.theme-light):not(.theme-dark) .top-bar,body:not(.theme-light):not(.theme-dark) .sidebar{background:var(--muse-surface)!important}
-body.theme-dark .post-card,body.theme-dark .profile-header,body.theme-dark .user-card,body.theme-dark .challenge-card,body.theme-dark .achievement-card,body.theme-dark .moodboard-card,body.theme-dark .draft-card,body.theme-dark .notification-item,body.theme-dark .settings-section-card,body.theme-midnight .post-card,body.theme-midnight .profile-header,body.theme-midnight .user-card,body.theme-midnight .challenge-card,body.theme-midnight .achievement-card,body.theme-midnight .moodboard-card,body.theme-midnight .draft-card,body.theme-midnight .notification-item,body.theme-midnight .settings-section-card{background:var(--muse-surface)!important;color:var(--muse-text)!important;border-color:var(--muse-border)!important}
-body.theme-purple .post-card,body.theme-ocean .post-card,body.theme-sunset .post-card,body.theme-forest .post-card,body.theme-rose .post-card{background:var(--muse-surface)!important;color:var(--muse-text)!important}
-body.theme-dark .post-caption,body.theme-midnight .post-caption{color:var(--muse-text)}
-body.theme-dark .post-card [style*="color: #666"],body.theme-midnight .post-card [style*="color: #666"]{color:var(--muse-muted)!important}
-body.theme-dark .post-card [style*="color: #888"],body.theme-midnight .post-card [style*="color: #888"]{color:var(--muse-muted)!important}
-.theme-option.active{border-color:var(--muse-accent)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--muse-accent) 18%,transparent)!important}
 
 /* ===== Refactored content creation UI ===== */
 .vk-post-creation.active{display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
@@ -535,8 +520,6 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
 .desktop-create-fab:active{transform:scale(.94)}
 .desktop-create-fab svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
 @media(max-width:700px){.desktop-create-fab{display:none}}
-
-.muse-story-ring{position:relative;border-radius:50%;padding:3px;background:linear-gradient(135deg,#ff4d8d,#7c5cff,#28c7fa);display:inline-flex;box-sizing:border-box}.muse-story-ring>span,.muse-story-ring>img{display:flex;width:100%;height:100%;border-radius:50%;border:3px solid var(--muse-surface,#fff);box-sizing:border-box;overflow:hidden;align-items:center;justify-content:center}.muse-story-ring>img{object-fit:cover}.story-picker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:min(520px,90%);margin:auto;color:white;text-align:center}.story-picker-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.story-picker-btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:12px 16px;cursor:pointer;font:inherit}.story-picker-btn.primary{background:#667eea;border-color:#667eea}.story-viewer{display:none;position:fixed;inset:0;background:#050507;z-index:5000;align-items:center;justify-content:center}.story-viewer.active{display:flex}.story-viewer-content{position:relative;width:min(480px,100vw);height:min(850px,100vh);background:#111;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center}.story-viewer-content img,.story-viewer-content video{width:100%;height:100%;object-fit:contain;background:#000}.story-viewer-content audio{width:calc(100% - 36px)}.story-viewer-close{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:24px;cursor:pointer}.story-viewer-meta{position:absolute;top:16px;left:16px;z-index:5;color:#fff;background:rgba(0,0,0,.45);padding:8px 12px;border-radius:14px;font-size:13px}.story-progress{position:absolute;top:8px;left:10px;right:10px;height:3px;background:rgba(255,255,255,.25);z-index:6;border-radius:4px;overflow:hidden}.story-progress i{display:block;height:100%;width:100%;background:#fff;transform-origin:left}
 </style>
 </head>
 <body class="theme-light">
@@ -832,7 +815,6 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
         </div>
     </div>
     <input type="file" id="vkPostFileInput" accept="image/*,audio/*,video/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
-    <input type="file" id="storyFileInput" accept="image/*,video/*,audio/*" style="display:none" onchange="handleStoryFile(event)">
     
     <div class="vk-post-meta" style="padding: 20px;">
         <div class="input-group">
@@ -933,10 +915,6 @@ let vkPostImages = [];
 let vkPostText = '';
 let vkPostType = 'text';
 let isLoginMode = false;
-let storyDraft = null;
-let storyViewerStories = [];
-let storyViewerIndex = 0;
-let storyViewerTimer = null;
 
 const challenges = [
     { week: 0, title: 'Песня без слов', desc: 'Создайте инструментальный трек', tag: '#без_слов', category: 'music' },
@@ -1196,18 +1174,11 @@ function getCommentsForPost(postId) {
 function getStories() {
     const saved = JSON.parse(localStorage.getItem('muse_stories') || '[]');
     const now = Date.now();
-    const fresh = saved.filter(s => (s.createdAt || s.time || 0) > now - 86400000);
-    if (fresh.length !== saved.length) localStorage.setItem('muse_stories', JSON.stringify(fresh));
-    return fresh;
+    const dayAgo = now - 86400000;
+    const freshStories = saved.filter(s => s.time > dayAgo);
+    if (saved.length !== freshStories.length) localStorage.setItem('muse_stories', JSON.stringify(freshStories));
+    return freshStories;
 }
-function hasActiveStories(userId){ return getStories().some(s=>s.authorId===userId); }
-function getUserStories(userId){ return getStories().filter(s=>s.authorId===userId).sort((a,b)=>(a.createdAt||a.time)-(b.createdAt||b.time)); }
-function openStories(userId){ const stories=getUserStories(userId); if(!stories.length)return; storyViewerStories=stories;storyViewerIndex=0; if(!document.getElementById('storyViewer')) document.body.insertAdjacentHTML('beforeend',`<div id="storyViewer" class="story-viewer" onclick="if(event.target===this)closeStoryViewer()"><div class="story-viewer-content"><div class="story-progress"><i id="storyProgressBar"></i></div><div class="story-viewer-meta" id="storyViewerMeta"></div><button class="story-viewer-close" onclick="closeStoryViewer()">×</button><div id="storyViewerMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div></div>`); document.getElementById('storyViewer').classList.add('active');renderCurrentStory(); }
-function renderCurrentStory(){ const story=storyViewerStories[storyViewerIndex];if(!story)return closeStoryViewer();const user=getUserById(story.authorId)||{name:story.author||'Автор'};document.getElementById('storyViewerMeta').textContent=user.name;const m=document.getElementById('storyViewerMedia');if(story.type==='video')m.innerHTML=`<video src="${story.data}" autoplay playsinline controls></video>`;else if(story.type==='audio')m.innerHTML=`<audio src="${story.data}" controls autoplay></audio>`;else m.innerHTML=`<img src="${story.data}" alt="История">`;const b=document.getElementById('storyProgressBar');b.style.transition='none';b.style.transform='scaleX(0)';setTimeout(()=>{b.style.transition='transform 5s linear';b.style.transform='scaleX(1)'},30);clearTimeout(storyViewerTimer);storyViewerTimer=setTimeout(()=>{storyViewerIndex++;storyViewerIndex<storyViewerStories.length?renderCurrentStory():closeStoryViewer()},5000); }
-function closeStoryViewer(){clearTimeout(storyViewerTimer);storyViewerTimer=null;const v=document.getElementById('storyViewer');if(v)v.classList.remove('active');const m=document.getElementById('storyViewerMedia');if(m)m.innerHTML='';}
-function openStoryFilePicker(){document.getElementById('storyFileInput')?.click();}
-function handleStoryFile(event){const file=event.target.files[0];if(!file||!currentUser)return;const type=file.type.startsWith('video/')?'video':file.type.startsWith('audio/')?'audio':file.type.startsWith('image/')?'image':null;if(!type){alert('Можно добавить только фото, короткое видео или аудио.');return}const r=new FileReader();r.onload=e=>{storyDraft={type,data:e.target.result,title:file.name};updateVKCreationUI()};r.readAsDataURL(file);event.target.value='';}
-function publishStory(){if(!currentUser||!storyDraft)return;const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,avatar:currentUser.avatar,photo:currentUser.photo||null,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;document.getElementById('vkPostCreationPage').classList.remove('active');navigate('home');}
 
 function getNotifications() {
     if (!currentUser) return [];
@@ -1328,7 +1299,10 @@ function renderProfile(container) {
     const userStories = getStories().filter(s => s.authorId === userId);
 
     let html = `<div class="profile-header" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 20px;">
-        <div class="${userStories.length ? 'muse-story-ring' : ''}" style="width:120px;height:120px;margin:0 auto 20px;" onclick="${userStories.length ? `openStories('${userId}')` : (user.photo ? `openPhotoViewer('${user.photo}')` : '')}">${user.photo ? `<img src="${user.photo}">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:48px;font-weight:700;">${user.avatar}</span>`}</div>
+        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 700; box-shadow: 0 8px 32px rgba(102,126,234,0.4); overflow: hidden; cursor: pointer; position: relative;" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">
+            ${user.photo ? `<img src="${user.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : user.avatar}
+            ${userStories.length > 0 ? '<div style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 3px solid white;">' + userStories.length + '</div>' : ''}
+        </div>
         <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${user.name}</div>
         <div style="font-size: 16px; color: #888; margin-bottom: 24px;">${user.username}</div>
         
@@ -1835,11 +1809,6 @@ function updateVKCreationUI() {
     if (!textarea || !gallery || !input) return;
 
     const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
-    if(vkPostType==='history'){
-      textarea.style.display='none'; input.style.display='none'; gallery.style.display='flex';
-      gallery.innerHTML=`<div class="story-picker"><div style="font-size:18px;font-weight:700">Новая история</div><div style="opacity:.75;font-size:13px">Фото, короткое видео или аудио. История живёт 24 часа и не попадает в ленту.</div><div class="story-picker-actions"><button type="button" class="story-picker-btn primary" onclick="openStoryFilePicker()">Выбрать файл</button>${storyDraft?`<button type="button" class="story-picker-btn" onclick="publishStory()">Опубликовать</button>`:''}</div>${storyDraft?`<div style="font-size:12px;opacity:.7">Выбрано: ${storyDraft.title||storyDraft.type}</div>`:''}</div>`; if(hint)hint.textContent='История автоматически исчезнет через 24 часа.'; return;
-    }
-    textarea.style.display='block';
     const config = {
       text:    {placeholder:'Напишите стих, рассказ или эссе...', hint:'Текстовая публикация. Добавьте заголовок в самом тексте, если он нужен.'},
       history: {placeholder:'Расскажите свою историю...', hint:'Личная история, воспоминание или хроника.'},
@@ -1917,7 +1886,6 @@ function discardVKDraft() {
 }
 
 function selectVKPostType(type) {
-    storyDraft=null;
     const allowed = ['text','image','art','audio','video','design','history'];
     if (!allowed.includes(type)) return;
     vkPostType = type;
@@ -1933,7 +1901,7 @@ function selectVKPostType(type) {
 function checkVKPostContent() {
     const text = document.getElementById('vkPostTextarea')?.value.trim() || '';
     const hasMedia = vkPostImages.length > 0;
-    const textOnly = ['text'].includes(vkPostType);
+    const textOnly = ['text','history'].includes(vkPostType);
     const valid = textOnly ? !!text : hasMedia;
     const btn = document.getElementById('vkPostNextBtn');
     if (btn) btn.disabled = !valid;
@@ -2020,8 +1988,7 @@ function publishVKPost() {
     const text = document.getElementById('vkPostTextarea').value.trim();
     const tagsStr = document.getElementById('vkPostTags').value.trim();
     const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
-    if(vkPostType==='history'){publishStory();return;}
-    const textOnly = ['text'].includes(vkPostType);
+    const textOnly = ['text','history'].includes(vkPostType);
     if (textOnly && !text) return;
     if (!textOnly && !vkPostImages.length) return;
 
@@ -2259,7 +2226,7 @@ function renderPostCard(post) {
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
         <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="openProfile('${post.authorId}')">
-            ${(()=>{const author=getUserById(post.authorId)||{};const avatarPhoto=author.photo||null;const avatarLetter=author.avatar||post.avatar||'М';const story=hasActiveStories(post.authorId);return `<div class="${story?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;border-radius:50%;overflow:visible;cursor:pointer;" onclick="event.stopPropagation();${story?`openStories('${post.authorId}')`:(avatarPhoto?`openPhotoViewer('${avatarPhoto}')`:'')}">${avatarPhoto?`<img src="${avatarPhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">`:`<span style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(135deg,var(--muse-accent),var(--muse-accent-2));color:#fff;font-weight:700;">${avatarLetter}</span>`}</div>`;})()}
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer;" onclick="event.stopPropagation(); ${post.photo ? `openPhotoViewer('${post.photo}')` : ''}">${post.photo ? `<img src="${post.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : post.avatar}</div>
             <div style="flex: 1; min-width: 0;">
                 <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
                 <div style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
