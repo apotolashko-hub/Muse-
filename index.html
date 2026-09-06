@@ -9,175 +9,159 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: #fafafa;
             color: #1a1a1a; 
             min-height: 100vh; 
             overflow-x: hidden; 
             transition: background 0.3s, color 0.3s;
         }
-        body.dark-theme { 
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: #eaeaea; 
-        }
         
-        /* Glassmorphism effects */
-        .glass {
-            background: rgba(255, 255, 255, 0.1);
+        /* Темы */
+        body.theme-light { background: #fafafa; color: #1a1a1a; }
+        body.theme-dark { background: #1a1a2e; color: #eaeaea; }
+        body.theme-purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+        body.theme-ocean { background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%); color: #fff; }
+        body.theme-sunset { background: linear-gradient(135deg, #ee9ca7 0%, #ffdde1 50%, #ee9ca7 100%); color: #333; }
+        body.theme-forest { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); color: #fff; }
+        body.theme-midnight { background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); color: #fff; }
+        body.theme-rose { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: #fff; }
+        
+        /* Стили для светлых тем */
+        body.theme-light .post-card, body.theme-light .profile-header, body.theme-light .user-card,
+        body.theme-light .notification-item, body.theme-light .top-bar, body.theme-light .mobile-sidebar,
+        body.theme-light .comment, body.theme-light .multi-item, body.theme-light .challenge-card,
+        body.theme-light .achievement-card, body.theme-light .moodboard-card, body.theme-light .draft-card,
+        body.theme-light .modal-content, body.theme-light .auth-box, body.theme-light .auth-modal,
+        body.theme-light .tag-search-result {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        body.dark-theme .glass {
-            background: rgba(22, 33, 62, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        /* Стили для тёмных/цветных тем */
+        body.theme-dark .post-card, body.theme-dark .profile-header, body.theme-dark .user-card,
+        body.theme-dark .notification-item, body.theme-dark .top-bar, body.theme-dark .mobile-sidebar,
+        body.theme-dark .comment, body.theme-dark .multi-item, body.theme-dark .challenge-card,
+        body.theme-dark .achievement-card, body.theme-dark .moodboard-card, body.theme-dark .draft-card,
+        body.theme-dark .modal-content, body.theme-dark .auth-box, body.theme-dark .auth-modal,
+        body.theme-dark .tag-search-result {
+            background: rgba(22, 33, 62, 0.95);
+            backdrop-filter: blur(10px);
+            color: #eaeaea;
+        }
+        
+        body.theme-purple .post-card, body.theme-purple .profile-header, body.theme-purple .user-card,
+        body.theme-purple .notification-item, body.theme-purple .top-bar, body.theme-purple .mobile-sidebar,
+        body.theme-purple .comment, body.theme-purple .multi-item, body.theme-purple .challenge-card,
+        body.theme-purple .achievement-card, body.theme-purple .moodboard-card, body.theme-purple .draft-card,
+        body.theme-purple .modal-content, body.theme-purple .auth-box, body.theme-purple .auth-modal,
+        body.theme-purple .tag-search-result {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        
+        body.theme-ocean .post-card, body.theme-ocean .profile-header, body.theme-ocean .user-card,
+        body.theme-ocean .notification-item, body.theme-ocean .top-bar, body.theme-ocean .mobile-sidebar,
+        body.theme-ocean .comment, body.theme-ocean .multi-item, body.theme-ocean .challenge-card,
+        body.theme-ocean .achievement-card, body.theme-ocean .moodboard-card, body.theme-ocean .draft-card,
+        body.theme-ocean .modal-content, body.theme-ocean .auth-box, body.theme-ocean .auth-modal,
+        body.theme-ocean .tag-search-result {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        
+        body.theme-sunset .post-card, body.theme-sunset .profile-header, body.theme-sunset .user-card,
+        body.theme-sunset .notification-item, body.theme-sunset .top-bar, body.theme-sunset .mobile-sidebar,
+        body.theme-sunset .comment, body.theme-sunset .multi-item, body.theme-sunset .challenge-card,
+        body.theme-sunset .achievement-card, body.theme-sunset .moodboard-card, body.theme-sunset .draft-card,
+        body.theme-sunset .modal-content, body.theme-sunset .auth-box, body.theme-sunset .auth-modal,
+        body.theme-sunset .tag-search-result {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #333;
+        }
+        
+        body.theme-forest .post-card, body.theme-forest .profile-header, body.theme-forest .user-card,
+        body.theme-forest .notification-item, body.theme-forest .top-bar, body.theme-forest .mobile-sidebar,
+        body.theme-forest .comment, body.theme-forest .multi-item, body.theme-forest .challenge-card,
+        body.theme-forest .achievement-card, body.theme-forest .moodboard-card, body.theme-forest .draft-card,
+        body.theme-forest .modal-content, body.theme-forest .auth-box, body.theme-forest .auth-modal,
+        body.theme-forest .tag-search-result {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        
+        body.theme-midnight .post-card, body.theme-midnight .profile-header, body.theme-midnight .user-card,
+        body.theme-midnight .notification-item, body.theme-midnight .top-bar, body.theme-midnight .mobile-sidebar,
+        body.theme-midnight .comment, body.theme-midnight .multi-item, body.theme-midnight .challenge-card,
+        body.theme-midnight .achievement-card, body.theme-midnight .moodboard-card, body.theme-midnight .draft-card,
+        body.theme-midnight .modal-content, body.theme-midnight .auth-box, body.theme-midnight .auth-modal,
+        body.theme-midnight .tag-search-result {
+            background: rgba(30, 30, 60, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        body.theme-rose .post-card, body.theme-rose .profile-header, body.theme-rose .user-card,
+        body.theme-rose .notification-item, body.theme-rose .top-bar, body.theme-rose .mobile-sidebar,
+        body.theme-rose .comment, body.theme-rose .multi-item, body.theme-rose .challenge-card,
+        body.theme-rose .achievement-card, body.theme-rose .moodboard-card, body.theme-rose .draft-card,
+        body.theme-rose .modal-content, body.theme-rose .auth-box, body.theme-rose .auth-modal,
+        body.theme-rose .tag-search-result {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        
+        /* Общие стили */
         .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
         .auth-modal-overlay.active { display: flex; }
-        .auth-modal { 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(20px);
-            padding: 30px; 
-            border-radius: 24px; 
-            width: 100%; 
-            max-width: 400px; 
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        body.dark-theme .auth-modal { 
-            background: rgba(22, 33, 62, 0.95); 
-        }
+        .auth-modal { padding: 30px; border-radius: 24px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
         .auth-modal h3 { font-size: 22px; margin-bottom: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .auth-modal-text { color: #666; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
         .auth-modal-btns { display: flex; flex-direction: column; gap: 10px; }
         .auth-modal-btns .auth-btn { margin-top: 0; }
         .auth-modal-cancel { background: #f0f0f0; color: #333; }
-        body.dark-theme .auth-modal-cancel { background: #1a1a2e; color: #eaeaea; }
         
         .auth-container { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .auth-container.active { display: flex; }
-        .auth-box { 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(20px);
-            padding: 40px 30px; 
-            border-radius: 24px; 
-            width: 100%; 
-            max-width: 400px; 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-        .logo-large { 
-            font-size: 48px; 
-            font-weight: 700; 
-            text-align: center; 
-            margin-bottom: 10px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-        }
+        .auth-box { padding: 40px 30px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .logo-large { font-size: 48px; font-weight: 700; text-align: center; margin-bottom: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .auth-box h2 { text-align: center; margin-bottom: 30px; color: #666; font-size: 16px; }
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #333; }
-        .input-group input, .input-group textarea { 
-            width: 100%; 
-            padding: 14px 16px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            font-size: 16px; 
-            transition: all 0.2s; 
-            font-family: inherit;
-            background: rgba(255, 255, 255, 0.8);
-        }
-        .input-group input:focus, .input-group textarea:focus { 
-            outline: none; 
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        .auth-btn { 
-            width: 100%; 
-            padding: 16px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            border: none; 
-            border-radius: 12px; 
-            font-size: 16px; 
-            font-weight: 600; 
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
+        .input-group input, .input-group textarea { width: 100%; padding: 14px 16px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 12px; font-size: 16px; transition: all 0.2s; font-family: inherit; background: rgba(255, 255, 255, 0.8); }
+        .input-group input:focus, .input-group textarea:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .auth-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
         .auth-btn:active { transform: scale(0.98); }
         .switch-auth { text-align: center; margin-top: 20px; color: #666; font-size: 14px; }
         .switch-auth span { color: #667eea; font-weight: 600; cursor: pointer; }
         
         .app { display: none; min-height: 100vh; }
         .app.active { display: block; }
-        .top-bar { 
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 12px 16px; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-        }
-        .top-bar h1 { 
-            font-size: 20px; 
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, #e0e0ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; margin-right: 12px; color: white; }
+        .top-bar { padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(10px); }
+        .top-bar h1 { font-size: 20px; font-weight: 700; }
+        .menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; margin-right: 12px; }
         
-        .mobile-sidebar { 
-            position: fixed; 
-            left: 0; 
-            top: 0; 
-            bottom: 0; 
-            width: 280px; 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 2px 0 20px rgba(0,0,0,0.1); 
-            z-index: 1000; 
-            padding: 20px; 
-            padding-top: 60px; 
-            transform: translateX(-100%); 
-            transition: transform 0.3s; 
-            overflow-y: auto; 
-        }
-        body.dark-theme .mobile-sidebar {
-            background: rgba(22, 33, 62, 0.95);
-        }
+        .mobile-sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; box-shadow: 2px 0 20px rgba(0,0,0,0.1); z-index: 1000; padding: 20px; padding-top: 60px; transform: translateX(-100%); transition: transform 0.3s; overflow-y: auto; }
         .mobile-sidebar.active { transform: translateX(0); }
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; }
         .sidebar-overlay.active { display: block; }
         .close-sidebar { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; }
-        .sidebar-nav-item { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            padding: 12px 16px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            margin-bottom: 4px; 
-            font-size: 15px; 
-            font-weight: 500;
-            transition: all 0.2s;
-        }
+        .sidebar-nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; cursor: pointer; margin-bottom: 4px; font-size: 15px; font-weight: 500; transition: all 0.2s; }
         .sidebar-nav-item:active { transform: scale(0.97); }
         .sidebar-nav-item:hover { background: rgba(102, 126, 234, 0.1); }
-        .sidebar-nav-item.active { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
+        .sidebar-nav-item.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
         .sidebar-nav-item svg { width: 20px; height: 20px; }
         .sidebar-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1); }
-        body.dark-theme .sidebar-section { border-color: rgba(255,255,255,0.1); }
         .sidebar-section-title { font-size: 12px; color: #888; text-transform: uppercase; padding: 0 16px 8px; font-weight: 600; }
         .sidebar-user-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; cursor: pointer; border-radius: 12px; }
         .sidebar-user-item:active { background: rgba(102, 126, 234, 0.1); }
@@ -187,78 +171,19 @@
         
         .main-content { padding: 20px; padding-bottom: 80px; max-width: 800px; margin: 0 auto; }
         .categories { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
-        .category-chip { 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            font-size: 13px; 
-            font-weight: 500; 
-            cursor: pointer; 
-            white-space: nowrap;
-            color: white;
-            transition: all 0.2s;
-        }
+        .category-chip { padding: 8px 16px; border-radius: 20px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; color: inherit; transition: all 0.2s; }
         .category-chip:active { transform: scale(0.95); }
-        .category-chip.active { 
-            background: white; 
-            color: #667eea; 
-            border-color: white;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
-        }
+        .category-chip.active { background: #667eea; color: white; border-color: #667eea; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
         
-        .stories-container { 
-            display: flex; 
-            gap: 12px; 
-            overflow-x: auto; 
-            padding: 16px 0; 
-            margin-bottom: 16px; 
-            scrollbar-width: none; 
-        }
+        .stories-container { display: flex; gap: 12px; overflow-x: auto; padding: 16px 0; margin-bottom: 16px; scrollbar-width: none; }
         .stories-container::-webkit-scrollbar { display: none; }
         .story-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; flex-shrink: 0; }
-        .story-avatar { 
-            width: 64px; 
-            height: 64px; 
-            border-radius: 50%; 
-            padding: 3px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-        .story-avatar img, .story-avatar .story-placeholder { 
-            width: 100%; 
-            height: 100%; 
-            border-radius: 50%; 
-            border: 3px solid white; 
-            object-fit: cover; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: white; 
-            font-weight: 600; 
-            font-size: 20px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-        }
-        .story-name { font-size: 11px; color: white; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .story-avatar { width: 64px; height: 64px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+        .story-avatar img, .story-avatar .story-placeholder { width: 100%; height: 100%; border-radius: 50%; border: 3px solid white; object-fit: cover; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .story-name { font-size: 11px; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; }
         .add-story { position: relative; }
         .add-story .story-avatar { background: rgba(255,255,255,0.3); }
-        .add-story .plus-icon { 
-            position: absolute; 
-            bottom: 0; 
-            right: 0; 
-            width: 20px; 
-            height: 20px; 
-            background: white; 
-            color: #667eea; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 14px; 
-            border: 2px solid white;
-            font-weight: bold;
-        }
+        .add-story .plus-icon { position: absolute; bottom: 0; right: 0; width: 20px; height: 20px; background: white; color: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 2px solid white; font-weight: bold; }
         
         .story-viewer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: black; z-index: 3000; }
         .story-viewer.active { display: flex; flex-direction: column; }
@@ -277,273 +202,76 @@
         .story-nav.prev { left: 0; }
         .story-nav.next { right: 0; }
         
-        .challenge-banner { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            padding: 20px; 
-            border-radius: 20px; 
-            margin-bottom: 20px; 
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        .challenge-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
+        .challenge-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; cursor: pointer; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); position: relative; overflow: hidden; }
+        .challenge-banner::before { content: ''; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
         .challenge-banner h3 { font-size: 18px; margin-bottom: 8px; position: relative; z-index: 1; }
         .challenge-banner p { font-size: 14px; opacity: 0.9; margin-bottom: 12px; position: relative; z-index: 1; }
-        .challenge-banner .challenge-tag { 
-            display: inline-block; 
-            background: rgba(255,255,255,0.2); 
-            padding: 4px 12px; 
-            border-radius: 12px; 
-            font-size: 12px; 
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-        }
+        .challenge-banner .challenge-tag { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; position: relative; z-index: 1; }
         
-        .challenge-card { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px; 
-            padding: 20px; 
-            margin-bottom: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-        body.dark-theme .challenge-card {
-            background: rgba(22, 33, 62, 0.95);
-            border-color: rgba(255,255,255,0.1);
-        }
+        .challenge-card { border-radius: 20px; padding: 20px; margin-bottom: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
         .challenge-card h4 { font-size: 16px; margin-bottom: 8px; }
-        .challenge-meta { font-size: 12px; color: #666; margin-bottom: 12px; }
-        body.dark-theme .challenge-meta { color: #94a3b8; }
+        .challenge-meta { font-size: 12px; opacity: 0.7; margin-bottom: 12px; }
         .challenge-votes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-        .vote-btn { 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); 
-            color: #667eea; 
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            cursor: pointer; 
-            font-size: 13px; 
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .vote-btn.voted { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
+        .vote-btn { padding: 8px 16px; border-radius: 20px; background: rgba(102, 126, 234, 0.1); color: #667eea; border: 1px solid rgba(102, 126, 234, 0.3); cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+        .vote-btn.voted { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
         .vote-btn:active { transform: scale(0.95); }
         
-        .post-card { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px; 
-            margin-bottom: 16px; 
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative; 
-        }
-        body.dark-theme .post-card {
-            background: rgba(22, 33, 62, 0.95);
-            border-color: rgba(255,255,255,0.1);
-        }
-        .collab-badge { display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%); color: #667eea; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+        .post-card { border-radius: 20px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: relative; }
+        .collab-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(102, 126, 234, 0.2); color: #667eea; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px; }
         .anonymous-badge { display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px; }
         .post-header { display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer; transition: background 0.2s; }
         .post-header:active { background: rgba(102, 126, 234, 0.05); }
-        .post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); }
+        .post-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); cursor: pointer; }
         .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .post-author-info { flex: 1; min-width: 0; }
         .post-author-name { font-weight: 600; font-size: 14px; }
-        .post-author-handle { color: #666; font-size: 13px; }
-        body.dark-theme .post-author-handle { color: #94a3b8; }
-        .post-menu-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #666; }
-        .post-menu { position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; }
-        body.dark-theme .post-menu { background: #16213e; }
+        .post-author-handle { font-size: 13px; opacity: 0.7; }
+        .post-menu-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; }
+        .post-menu { position: absolute; top: 16px; right: 16px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; }
         .post-menu.active { display: block; }
         .post-menu-item { padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; }
-        .post-menu-item:active { background: #f0f0f0; }
-        body.dark-theme .post-menu-item:active { background: #1a1a2e; }
+        .post-menu-item:active { background: rgba(102, 126, 234, 0.1); }
         .post-menu-item.delete { color: #ef4444; }
         
-        .carousel { position: relative; width: 100%; background: #f0f0f0; }
+        .carousel { position: relative; width: 100%; background: rgba(0,0,0,0.05); }
         .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; cursor: grab; }
         .carousel-track:active { cursor: grabbing; }
         .carousel-track::-webkit-scrollbar { display: none; }
         .carousel-track > * { flex: 0 0 100%; scroll-snap-align: start; pointer-events: none; }
         .carousel-track img { width: 100%; max-height: 600px; object-fit: cover; display: block; pointer-events: auto; }
-        .carousel-track .text-slide { 
-            padding: 24px; 
-            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0ff 100%);
-            font-family: 'Georgia', serif; 
-            font-size: 16px; 
-            line-height: 1.8; 
-            color: #333; 
-            white-space: pre-line; 
-            word-wrap: break-word; 
-            min-height: 300px; 
-        }
-        body.dark-theme .carousel-track .text-slide {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #eaeaea;
-        }
-        .carousel-track .audio-slide { 
-            padding: 20px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            min-height: 120px; 
-            display: flex; 
-            align-items: center; 
-        }
-        .carousel-counter { 
-            position: absolute; 
-            top: 12px; 
-            right: 12px; 
-            background: rgba(0,0,0,0.6); 
-            color: white; 
-            padding: 4px 10px; 
-            border-radius: 12px; 
-            font-size: 12px; 
-            font-weight: 600; 
-            z-index: 5;
-            backdrop-filter: blur(10px);
-        }
+        .carousel-track .text-slide { padding: 24px; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; white-space: pre-line; word-wrap: break-word; min-height: 300px; }
+        .carousel-track .audio-slide { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center; }
+        .carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; z-index: 5; backdrop-filter: blur(10px); }
         .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
         .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 0.2s; }
         .carousel-dot.active { background: white; width: 18px; border-radius: 3px; }
-        .carousel-prev-btn, .carousel-next-btn { 
-            position: absolute; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            background: rgba(0,0,0,0.5); 
-            color: white; 
-            border: none; 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 50%; 
-            font-size: 24px; 
-            cursor: pointer; 
-            z-index: 10; 
-            display: none; 
-            align-items: center; 
-            justify-content: center; 
-            transition: all 0.2s;
-            backdrop-filter: blur(10px);
-        }
-        .carousel-prev-btn:hover, .carousel-next-btn:hover { 
-            background: rgba(0,0,0,0.8); 
-            transform: translateY(-50%) scale(1.1); 
-        }
+        .carousel-prev-btn, .carousel-next-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10; display: none; align-items: center; justify-content: center; transition: all 0.2s; backdrop-filter: blur(10px); }
+        .carousel-prev-btn:hover, .carousel-next-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.1); }
         .carousel-prev-btn { left: 12px; }
         .carousel-next-btn { right: 12px; }
         @media (min-width: 769px) { .carousel-prev-btn, .carousel-next-btn { display: flex; } }
         
-        .post-audio { 
-            padding: 20px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .post-audio::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
-        }
+        .post-audio { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden; }
+        .post-audio::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%); }
         .audio-player { display: flex; align-items: center; gap: 12px; color: white; width: 100%; position: relative; z-index: 1; }
-        .play-btn { 
-            width: 48px; 
-            height: 48px; 
-            border-radius: 50%; 
-            background: rgba(255,255,255,0.2); 
-            border: none; 
-            color: white; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            flex-shrink: 0; 
-            font-size: 18px;
-            backdrop-filter: blur(10px);
-            transition: all 0.2s;
-        }
-        .play-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.05);
-        }
+        .play-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; backdrop-filter: blur(10px); transition: all 0.2s; }
+        .play-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
         .audio-title { font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
         .post-content { padding: 16px; }
         .post-caption { font-size: 15px; line-height: 1.5; margin-bottom: 12px; white-space: pre-line; }
         .post-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-        .tag { 
-            font-size: 12px; 
-            color: #667eea; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            padding: 4px 10px; 
-            border-radius: 12px; 
-            font-weight: 500; 
-            cursor: pointer;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            transition: all 0.2s;
-        }
+        .tag { font-size: 12px; color: #667eea; background: rgba(102, 126, 234, 0.1); padding: 4px 10px; border-radius: 12px; font-weight: 500; cursor: pointer; border: 1px solid rgba(102, 126, 234, 0.2); transition: all 0.2s; }
         .tag:active { transform: scale(0.95); background: #667eea; color: white; }
-        .post-actions { 
-            display: flex; 
-            gap: 8px; 
-            padding: 12px 16px; 
-            border-top: 1px solid rgba(0,0,0,0.05); 
-            flex-wrap: wrap; 
-        }
-        body.dark-theme .post-actions { border-color: rgba(255,255,255,0.1); }
-        .action-btn { 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            background: none; 
-            border: none; 
-            cursor: pointer; 
-            font-size: 13px; 
-            color: #666; 
-            padding: 8px 12px; 
-            border-radius: 8px; 
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        body.dark-theme .action-btn { color: #94a3b8; }
+        .post-actions { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05); flex-wrap: wrap; }
+        .action-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-size: 13px; padding: 8px 12px; border-radius: 8px; font-family: inherit; transition: all 0.2s; }
         .action-btn:hover { background: rgba(102, 126, 234, 0.1); }
         .action-btn:active { transform: scale(0.92); }
         .action-btn.liked { color: #ef4444; }
         .action-btn svg { width: 18px; height: 18px; }
         
-        .comments-section { 
-            padding: 12px 16px; 
-            border-top: 1px solid rgba(0,0,0,0.05); 
-            background: rgba(250, 250, 250, 0.5);
-        }
-        body.dark-theme .comments-section { 
-            background: rgba(22, 33, 62, 0.5);
-            border-color: rgba(255,255,255,0.1);
-        }
+        .comments-section { padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05); }
         .comment { display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; position: relative; }
         .comment.reply { margin-left: 42px; padding-left: 12px; border-left: 2px solid rgba(102, 126, 234, 0.2); }
         .comment-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden; }
@@ -552,1081 +280,274 @@
         .comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
         .comment-author { font-weight: 600; font-size: 13px; }
         .comment-reply-to { font-size: 12px; color: #667eea; font-weight: 500; }
-        .comment-text { font-size: 14px; color: #333; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap; }
-        body.dark-theme .comment-text { color: #e2e8f0; }
+        .comment-text { font-size: 14px; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap; }
         .comment-image { max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 8px; object-fit: cover; cursor: pointer; }
         .comment-actions { display: flex; gap: 12px; margin-top: 6px; }
-        .comment-action-btn { background: none; border: none; color: #666; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; }
-        body.dark-theme .comment-action-btn { color: #94a3b8; }
-        .comment-action-btn:active { color: #667eea; }
+        .comment-action-btn { background: none; border: none; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; opacity: 0.7; }
+        .comment-action-btn:active { opacity: 1; color: #667eea; }
         .comment-delete-btn { position: absolute; top: 8px; right: 8px; background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer; padding: 4px; display: none; }
         .comment:hover .comment-delete-btn { display: block; }
         .comment-input-wrapper { display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.05); align-items: flex-end; }
-        body.dark-theme .comment-input-wrapper { border-color: rgba(255,255,255,0.1); }
         .comment-input-container { flex: 1; position: relative; }
-        .comment-input { 
-            width: 100%; 
-            padding: 12px 90px 12px 16px; 
-            border: 1px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 24px; 
-            font-size: 14px; 
-            font-family: inherit;
-            background: rgba(255, 255, 255, 0.8);
-            transition: all 0.2s;
-        }
-        body.dark-theme .comment-input {
-            background: rgba(22, 33, 62, 0.8);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #eaeaea;
-        }
-        .comment-input:focus { 
-            outline: none; 
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        body.dark-theme .comment-input:focus {
-            background: #16213e;
-        }
-        .attach-image-btn, .record-audio-btn { 
-            position: absolute; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            background: none; 
-            border: none; 
-            font-size: 18px; 
-            cursor: pointer; 
-            color: #666; 
-            width: 34px; 
-            height: 34px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border-radius: 50%; 
-            transition: all 0.2s; 
-        }
-        body.dark-theme .attach-image-btn, body.dark-theme .record-audio-btn { color: #a5b4fc; }
+        .comment-input { width: 100%; padding: 12px 90px 12px 16px; border: 1px solid rgba(102, 126, 234, 0.3); border-radius: 24px; font-size: 14px; font-family: inherit; background: rgba(255, 255, 255, 0.8); transition: all 0.2s; }
+        .comment-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .attach-image-btn, .record-audio-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s; }
         .attach-image-btn:hover, .record-audio-btn:hover { background: rgba(102, 126, 234, 0.1); }
         .attach-image-btn { right: 48px; }
         .record-audio-btn { right: 8px; }
-        .record-audio-btn.recording { color: #ef4444; animation: pulse 1s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); } 50% { opacity: 0.5; transform: translateY(-50%) scale(1.1); } }
+        .record-audio-btn.recording { color: #ef4444; animation: pulse-rec 1s infinite; }
+        @keyframes pulse-rec { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .comment-image-preview, .audio-comment-preview { display: none; margin-top: 8px; position: relative; }
         .comment-image-preview img { max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover; }
         .remove-attachment-btn { position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .comment-submit { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 24px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            font-size: 14px; 
-            flex-shrink: 0;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            transition: all 0.2s;
-        }
+        .comment-submit { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.2s; }
         .comment-submit:active { transform: scale(0.95); }
-        .reply-indicator { 
-            display: none; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); 
-            padding: 6px 12px; 
-            border-radius: 8px; 
-            font-size: 12px; 
-            color: #667eea; 
-            margin-bottom: 8px; 
-            align-items: center; 
-            justify-content: space-between; 
-        }
+        .reply-indicator { display: none; background: rgba(102, 126, 234, 0.1); padding: 6px 12px; border-radius: 8px; font-size: 12px; color: #667eea; margin-bottom: 8px; align-items: center; justify-content: space-between; }
         .reply-indicator.active { display: flex; }
         .cancel-reply { background: none; border: none; color: #667eea; cursor: pointer; font-size: 16px; font-weight: 600; }
         
-        .audio-voice-btn { 
-            width: 36px; 
-            height: 36px; 
-            border-radius: 50%; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            color: #667eea; 
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 16px; 
-            flex-shrink: 0; 
-            transition: all 0.2s;
-        }
-        .audio-voice-btn:hover { 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-            transform: scale(1.05);
-        }
-        .audio-voice-btn.playing { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            animation: pulse-voice 1.5s infinite;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
+        .audio-voice-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(102, 126, 234, 0.1); color: #667eea; border: 1px solid rgba(102, 126, 234, 0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; transition: all 0.2s; }
+        .audio-voice-btn:hover { background: rgba(102, 126, 234, 0.2); transform: scale(1.05); }
+        .audio-voice-btn.playing { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; animation: pulse-voice 1.5s infinite; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
         @keyframes pulse-voice { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         .audio-voice-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-        .audio-voice-duration { font-size: 12px; color: #666; }
-        body.dark-theme .audio-voice-duration { color: #94a3b8; }
+        .audio-voice-duration { font-size: 12px; opacity: 0.7; }
         
-        .profile-header { 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 30px 20px; 
-            border-radius: 24px; 
-            margin-bottom: 20px; 
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        body.dark-theme .profile-header {
-            background: rgba(22, 33, 62, 0.95);
-            border-color: rgba(255,255,255,0.1);
-        }
-        .profile-avatar-large { 
-            width: 100px; 
-            height: 100px; 
-            border-radius: 50%; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: white; 
-            font-size: 40px; 
-            font-weight: 700; 
-            margin: 0 auto 16px; 
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
-        }
+        .profile-header { padding: 30px 20px; border-radius: 24px; margin-bottom: 20px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        .profile-avatar-large { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; margin: 0 auto 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4); cursor: pointer; transition: transform 0.2s; }
+        .profile-avatar-large:hover { transform: scale(1.05); }
         .profile-avatar-large img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-name { 
-            font-size: 24px; 
-            font-weight: 700; 
-            margin-bottom: 4px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        body.dark-theme .profile-name {
+        .profile-name { font-size: 24px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body.theme-dark .profile-name, body.theme-purple .profile-name, body.theme-ocean .profile-name,
+        body.theme-forest .profile-name, body.theme-midnight .profile-name, body.theme-rose .profile-name {
             background: linear-gradient(135deg, #fff 0%, #e0e0ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .profile-handle { color: #666; margin-bottom: 12px; }
-        body.dark-theme .profile-handle { color: #94a3b8; }
-        .profile-bio { color: #333; font-size: 14px; line-height: 1.5; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; white-space: pre-wrap; }
-        body.dark-theme .profile-bio { color: #cbd5e1; }
+        .profile-handle { margin-bottom: 12px; opacity: 0.7; }
+        .profile-bio { font-size: 14px; line-height: 1.5; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; white-space: pre-wrap; }
         .profile-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 20px; }
         .profile-stat { text-align: center; cursor: pointer; transition: transform 0.2s; }
         .profile-stat:hover { transform: scale(1.05); }
-        .profile-stat-value { 
-            font-size: 20px; 
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .profile-stat-label { font-size: 12px; color: #666; }
-        body.dark-theme .profile-stat-label { color: #94a3b8; }
+        .profile-stat-value { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .profile-stat-label { font-size: 12px; opacity: 0.7; }
         .profile-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-        .edit-profile-btn, .logout-btn, .follow-btn, .unfollow-btn, .view-achievements-btn { 
-            padding: 10px 24px; 
-            border: none; 
-            border-radius: 12px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-        .edit-profile-btn { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-        .logout-btn { background: rgba(0,0,0,0.05); color: #333; }
-        body.dark-theme .logout-btn { background: rgba(255,255,255,0.1); color: #eaeaea; }
-        .follow-btn { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-        .unfollow-btn { background: rgba(0,0,0,0.05); color: #333; }
-        body.dark-theme .unfollow-btn { background: rgba(255,255,255,0.1); color: #eaeaea; }
-        .view-achievements-btn { 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); 
-            color: #667eea;
-            border: 1px solid rgba(102, 126, 234, 0.3);
-        }
-        .follow-btn:active, .unfollow-btn:active, .view-achievements-btn:active, .edit-profile-btn:active { transform: scale(0.95); }
+        .edit-profile-btn, .logout-btn, .follow-btn, .unfollow-btn, .view-achievements-btn, .settings-btn { padding: 10px 24px; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .edit-profile-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+        .logout-btn { background: rgba(0,0,0,0.05); }
+        .follow-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+        .unfollow-btn { background: rgba(0,0,0,0.05); }
+        .view-achievements-btn { background: rgba(102, 126, 234, 0.1); color: #667eea; border: 1px solid rgba(102, 126, 234, 0.3); }
+        .settings-btn { background: rgba(102, 126, 234, 0.1); color: #667eea; border: 1px solid rgba(102, 126, 234, 0.3); }
+        .follow-btn:active, .unfollow-btn:active, .view-achievements-btn:active, .edit-profile-btn:active, .settings-btn:active { transform: scale(0.95); }
         
         .profile-tabs { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
-        .profile-tab { 
-            padding: 10px 20px; 
-            border-radius: 20px; 
-            background: rgba(255,255,255,0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            cursor: pointer; 
-            font-size: 14px; 
-            font-weight: 500; 
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
-        body.dark-theme .profile-tab {
-            background: rgba(22,33,62,0.5);
-            border-color: rgba(255,255,255,0.1);
-        }
-        .profile-tab.active { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
+        .profile-tab { padding: 10px 20px; border-radius: 20px; background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); cursor: pointer; font-size: 14px; font-weight: 500; white-space: nowrap; transition: all 0.2s; }
+        .profile-tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
         .profile-tab:active { transform: scale(0.95); }
         
         .profile-achievements-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.05); }
-        body.dark-theme .profile-achievements-section { border-color: rgba(255,255,255,0.1); }
-        .profile-achievements-section h4 { font-size: 14px; margin-bottom: 10px; color: #666; }
-        body.dark-theme .profile-achievements-section h4 { color: #94a3b8; }
+        .profile-achievements-section h4 { font-size: 14px; margin-bottom: 10px; opacity: 0.7; }
         .profile-achievements-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-        .achievement-tag { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 4px; 
-            padding: 4px 10px; 
-            border-radius: 12px; 
-            font-size: 11px; 
-            font-weight: 600; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            color: #667eea; 
-            border: 1px solid rgba(102, 126, 234, 0.3);
-        }
-        .achievement-tag.secret { 
-            background: rgba(0,0,0,0.05); 
-            color: #999; 
-            border: 1px dashed rgba(0,0,0,0.2); 
-        }
-        body.dark-theme .achievement-tag.secret {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.2);
-        }
+        .achievement-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: rgba(102, 126, 234, 0.1); color: #667eea; border: 1px solid rgba(102, 126, 234, 0.3); }
+        .achievement-tag.secret { background: rgba(0,0,0,0.05); color: #999; border: 1px dashed rgba(0,0,0,0.2); }
         
         .achievements-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05); }
-        body.dark-theme .achievements-section { border-color: rgba(255,255,255,0.1); }
         .achievements-section h3 { font-size: 16px; margin-bottom: 12px; }
-        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
-        .achievement-card { 
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 16px; 
-            padding: 12px; 
-            text-align: center; 
-            cursor: pointer; 
-            transition: all 0.2s; 
-            position: relative;
-        }
-        body.dark-theme .achievement-card {
-            background: rgba(22, 33, 62, 0.6);
-            border-color: rgba(255,255,255,0.1);
-        }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        .achievement-card { border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; border: 2px solid rgba(0,0,0,0.1); }
         .achievement-card:active { transform: scale(0.95); }
-        .achievement-card.selected { 
-            border-color: #667eea; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-        }
-        .achievement-icon { font-size: 32px; margin-bottom: 8px; }
+        .achievement-card.selected { border-color: #667eea; background: rgba(102, 126, 234, 0.1); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2); }
+        .achievement-icon { font-size: 36px; margin-bottom: 8px; }
         .achievement-name { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
-        .achievement-desc { font-size: 10px; color: #666; }
-        body.dark-theme .achievement-desc { color: #94a3b8; }
-        .achievement-card.locked { opacity: 0.5; }
-        .achievement-card.secret { 
-            border-style: dashed; 
-            background: rgba(0,0,0,0.05);
-            border-color: rgba(0,0,0,0.2);
-        }
-        body.dark-theme .achievement-card.secret {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.2);
-        }
-        .achievement-card.secret .achievement-icon { font-size: 28px; }
+        .achievement-desc { font-size: 10px; opacity: 0.7; }
+        .achievement-card.locked { opacity: 0.4; }
+        .achievement-card.secret { border-style: dashed; }
+        .achievement-card.secret .achievement-icon { font-size: 32px; }
         
         .moodboards-section { margin-top: 20px; }
         .moodboards-section h3 { font-size: 16px; margin-bottom: 12px; }
-        .moodboard-card { 
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 16px; 
-            padding: 16px; 
-            margin-bottom: 12px; 
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.2s;
-        }
-        body.dark-theme .moodboard-card {
-            background: rgba(22, 33, 62, 0.6);
-            border-color: rgba(255,255,255,0.1);
-        }
-        .moodboard-card:active { 
-            background: rgba(255,255,255,0.8);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        body.dark-theme .moodboard-card:active {
-            background: rgba(22, 33, 62, 0.8);
-        }
+        .moodboard-card { border-radius: 16px; padding: 16px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; }
+        .moodboard-card:active { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .moodboard-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
-        .moodboard-count { font-size: 12px; color: #666; }
-        body.dark-theme .moodboard-count { color: #94a3b8; }
+        .moodboard-count { font-size: 12px; opacity: 0.7; }
         
-        .user-card { 
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 16px; 
-            border-radius: 16px; 
-            margin-bottom: 12px; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        body.dark-theme .user-card {
-            background: rgba(22, 33, 62, 0.6);
-            border-color: rgba(255,255,255,0.1);
-        }
-        .user-card:active { 
-            background: rgba(255,255,255,0.8);
-            transform: scale(0.98);
-        }
-        body.dark-theme .user-card:active {
-            background: rgba(22, 33, 62, 0.8);
-        }
+        .user-card { padding: 16px; border-radius: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; }
+        .user-card:active { transform: scale(0.98); }
         .user-card-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 18px; overflow: hidden; flex-shrink: 0; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
         .user-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .user-card-info { flex: 1; min-width: 0; }
         .user-card-name { font-weight: 600; font-size: 15px; }
-        .user-card-handle { color: #666; font-size: 13px; }
-        body.dark-theme .user-card-handle { color: #94a3b8; }
-        .user-card-bio { color: #888; font-size: 12px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        body.dark-theme .user-card-bio { color: #64748b; }
+        .user-card-handle { font-size: 13px; opacity: 0.7; }
+        .user-card-bio { font-size: 12px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0.7; }
+        .online-indicator { width: 10px; height: 10px; border-radius: 50%; background: #4ade80; border: 2px solid white; position: absolute; bottom: 0; right: 0; }
         
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
         .modal.active { display: flex; }
-        .modal-content { 
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            padding: 30px; 
-            border-radius: 24px; 
-            width: 100%; 
-            max-width: 500px; 
-            max-height: 90vh; 
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        body.dark-theme .modal-content {
-            background: rgba(22, 33, 62, 0.98);
-            border-color: rgba(255,255,255,0.1);
-        }
+        .modal-content { padding: 30px; border-radius: 24px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .modal-header h2 { 
-            font-size: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; color: #666; }
-        body.dark-theme .close-modal { color: #94a3b8; }
+        .modal-header h2 { font-size: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; }
         
         .create-steps { display: flex; gap: 8px; margin-bottom: 20px; }
-        .create-step { 
-            flex: 1; 
-            padding: 12px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            text-align: center; 
-            cursor: pointer; 
-            font-size: 13px; 
-            font-weight: 500; 
-            transition: all 0.2s;
-            background: rgba(255,255,255,0.5);
-        }
-        body.dark-theme .create-step {
-            background: rgba(22,33,62,0.5);
-        }
-        .create-step.active { 
-            border-color: #667eea; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            color: #667eea;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-        }
+        .create-step { flex: 1; padding: 12px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 12px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; background: rgba(255,255,255,0.5); }
+        .create-step.active { border-color: #667eea; background: rgba(102, 126, 234, 0.1); color: #667eea; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2); }
         .create-step:active { transform: scale(0.95); }
         
         .post-type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
-        .type-btn { 
-            padding: 16px 12px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 16px; 
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            cursor: pointer; 
-            font-family: inherit; 
-            font-size: 13px; 
-            font-weight: 500; 
-            text-align: center; 
-            transition: all 0.2s;
-        }
-        body.dark-theme .type-btn {
-            background: rgba(22, 33, 62, 0.5);
-        }
-        .type-btn:hover { 
-            background: rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
-        }
-        .type-btn.active { 
-            border-color: #667eea; 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            color: #667eea;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
+        .type-btn { padding: 16px 12px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 16px; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; text-align: center; transition: all 0.2s; }
+        .type-btn:hover { background: rgba(102, 126, 234, 0.1); transform: translateY(-2px); }
+        .type-btn.active { border-color: #667eea; background: rgba(102, 126, 234, 0.1); color: #667eea; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
         .type-btn-icon { margin-bottom: 8px; }
         .type-btn-icon svg { width: 32px; height: 32px; stroke: #667eea; stroke-width: 1.5; fill: none; }
-        .type-btn.active .type-btn-icon svg { stroke: #667eea; }
         
-        .upload-area { 
-            border: 2px dashed rgba(102, 126, 234, 0.3); 
-            border-radius: 16px; 
-            padding: 40px; 
-            text-align: center; 
-            cursor: pointer; 
-            margin-bottom: 20px; 
-            min-height: 160px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            background: rgba(255,255,255,0.3);
-            transition: all 0.2s;
-        }
-        body.dark-theme .upload-area {
-            background: rgba(22,33,62,0.3);
-        }
-        .upload-area:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
-        }
+        .upload-area { border: 2px dashed rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 40px; text-align: center; cursor: pointer; margin-bottom: 20px; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.3); transition: all 0.2s; }
+        .upload-area:hover { border-color: #667eea; background: rgba(102, 126, 234, 0.05); }
         .upload-area.has-media { padding: 0; border-style: solid; border-color: #667eea; }
         .upload-area img { width: 100%; border-radius: 10px; }
         .upload-icon { font-size: 48px; margin-bottom: 12px; }
         
-        .text-input-large { 
-            width: 100%; 
-            min-height: 400px; 
-            padding: 20px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 16px; 
-            font-size: 18px; 
-            font-family: 'Georgia', serif; 
-            resize: vertical; 
-            line-height: 1.8; 
-            margin-bottom: 16px; 
-            white-space: pre-line;
-            background: rgba(255,255,255,0.8);
-            transition: all 0.2s;
-        }
-        body.dark-theme .text-input-large {
-            background: rgba(22,33,62,0.8);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #eaeaea;
-        }
-        .text-input-large:focus { 
-            outline: none; 
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        body.dark-theme .text-input-large:focus {
-            background: #16213e;
-        }
+        .text-input-large { width: 100%; min-height: 400px; padding: 20px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 16px; font-size: 18px; font-family: 'Georgia', serif; resize: vertical; line-height: 1.8; margin-bottom: 16px; white-space: pre-line; background: rgba(255,255,255,0.8); transition: all 0.2s; }
+        .text-input-large:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
         .text-input-large::placeholder { color: #999; }
-        body.dark-theme .text-input-large::placeholder { color: #64748b; }
         
-        .caption-input { 
-            width: 100%; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            padding: 16px; 
-            font-size: 15px; 
-            resize: vertical; 
-            min-height: 100px; 
-            margin-bottom: 16px; 
-            font-family: inherit;
-            background: rgba(255,255,255,0.8);
-            transition: all 0.2s;
-        }
-        body.dark-theme .caption-input {
-            background: rgba(22,33,62,0.8);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #eaeaea;
-        }
-        .caption-input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        body.dark-theme .caption-input:focus {
-            background: #16213e;
-        }
-        .tags-input { 
-            width: 100%; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            padding: 12px 16px; 
-            font-size: 14px; 
-            margin-bottom: 20px; 
-            font-family: inherit;
-            background: rgba(255,255,255,0.8);
-            transition: all 0.2s;
-        }
-        body.dark-theme .tags-input {
-            background: rgba(22,33,62,0.8);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #eaeaea;
-        }
-        .tags-input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        body.dark-theme .tags-input:focus {
-            background: #16213e;
-        }
-        .submit-btn { 
-            width: 100%; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            border: none; 
-            padding: 14px; 
-            border-radius: 12px; 
-            font-size: 15px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            margin-bottom: 8px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            transition: all 0.2s;
-        }
+        .caption-input { width: 100%; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 12px; padding: 16px; font-size: 15px; resize: vertical; min-height: 100px; margin-bottom: 16px; font-family: inherit; background: rgba(255,255,255,0.8); transition: all 0.2s; }
+        .caption-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .tags-input { width: 100%; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 12px; padding: 12px 16px; font-size: 14px; margin-bottom: 20px; font-family: inherit; background: rgba(255,255,255,0.8); transition: all 0.2s; }
+        .tags-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .submit-btn { width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 8px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.2s; }
         .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .submit-btn:active { transform: scale(0.98); }
-        .draft-btn { 
-            width: 100%; 
-            background: rgba(0,0,0,0.05); 
-            color: #333; 
-            border: none; 
-            padding: 14px; 
-            border-radius: 12px; 
-            font-size: 15px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        body.dark-theme .draft-btn {
-            background: rgba(255,255,255,0.1);
-            color: #eaeaea;
-        }
+        .draft-btn { width: 100%; background: rgba(0,0,0,0.05); border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
         .draft-btn:active { transform: scale(0.98); }
         
-        .collab-input { 
-            width: 100%; 
-            padding: 12px 16px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            font-size: 14px; 
-            margin-bottom: 16px; 
-            font-family: inherit;
-            background: rgba(255,255,255,0.8);
-            transition: all 0.2s;
-        }
-        body.dark-theme .collab-input {
-            background: rgba(22,33,62,0.8);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #eaeaea;
-        }
-        .collab-input:focus { 
-            outline: none; 
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        body.dark-theme .collab-input:focus {
-            background: #16213e;
-        }
+        .collab-input { width: 100%; padding: 12px 16px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 12px; font-size: 14px; margin-bottom: 16px; font-family: inherit; background: rgba(255,255,255,0.8); transition: all 0.2s; }
+        .collab-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
         .collab-suggestions { max-height: 150px; overflow-y: auto; margin-bottom: 16px; }
         .collab-suggestion { padding: 10px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
         .collab-suggestion:active { background: rgba(102, 126, 234, 0.1); }
         .collab-suggestion-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; }
         
-        .anonymous-toggle { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            padding: 12px; 
-            background: rgba(102, 126, 234, 0.05); 
-            border-radius: 12px; 
-            margin-bottom: 16px; 
-            cursor: pointer;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-        body.dark-theme .anonymous-toggle {
-            background: rgba(102, 126, 234, 0.1);
-        }
+        .anonymous-toggle { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(102, 126, 234, 0.05); border-radius: 12px; margin-bottom: 16px; cursor: pointer; border: 1px solid rgba(102, 126, 234, 0.2); }
         .anonymous-toggle input { width: 20px; height: 20px; }
         .anonymous-toggle label { font-size: 14px; cursor: pointer; flex: 1; }
         
-        .fab { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            width: 56px; 
-            height: 56px; 
-            border-radius: 50%; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            border: none; 
-            font-size: 28px; 
-            cursor: pointer; 
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.5);
-            z-index: 99;
-            transition: all 0.2s;
-        }
-        .fab:hover {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
-        }
+        .fab { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-size: 28px; cursor: pointer; box-shadow: 0 8px 32px rgba(102, 126, 234, 0.5); z-index: 99; transition: all 0.2s; }
+        .fab:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6); }
         .fab:active { transform: scale(1.05) rotate(90deg); }
-        .empty-state { text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.8); }
-        .info-banner { 
-            background: linear-gradient(135deg, rgba(255, 243, 205, 0.9) 0%, rgba(255, 230, 156, 0.9) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 230, 156, 0.5);
-            color: #856404; 
-            padding: 12px 16px; 
-            border-radius: 16px; 
-            margin-bottom: 16px; 
-            font-size: 14px; 
-            line-height: 1.5;
-            box-shadow: 0 4px 15px rgba(255, 230, 156, 0.3);
-        }
-        body.dark-theme .info-banner {
-            background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(49, 46, 129, 0.9) 100%);
-            border-color: rgba(49, 46, 129, 0.5);
-            color: #c7d2fe;
-        }
+        .empty-state { text-align: center; padding: 60px 20px; opacity: 0.8; }
+        .info-banner { padding: 12px 16px; border-radius: 16px; margin-bottom: 16px; font-size: 14px; line-height: 1.5; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
-        .story-upload-area { 
-            border: 2px dashed rgba(102, 126, 234, 0.3); 
-            border-radius: 16px; 
-            padding: 60px 40px; 
-            text-align: center; 
-            cursor: pointer; 
-            margin-bottom: 20px;
-            background: rgba(255,255,255,0.5);
-            transition: all 0.2s;
-        }
-        body.dark-theme .story-upload-area {
-            background: rgba(22,33,62,0.5);
-        }
-        .story-upload-area:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
-        }
+        .story-upload-area { border: 2px dashed rgba(102, 126, 234, 0.3); border-radius: 16px; padding: 60px 40px; text-align: center; cursor: pointer; margin-bottom: 20px; background: rgba(255,255,255,0.5); transition: all 0.2s; }
+        .story-upload-area:hover { border-color: #667eea; background: rgba(102, 126, 234, 0.05); }
         .story-upload-area.has-image { padding: 0; border-style: solid; border-color: #667eea; }
         .story-upload-area img { width: 100%; border-radius: 10px; max-height: 300px; object-fit: cover; }
         
         .multi-item-list { margin-bottom: 16px; }
-        .multi-item { 
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 12px; 
-            padding: 12px; 
-            margin-bottom: 8px; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        body.dark-theme .multi-item {
-            background: rgba(22, 33, 62, 0.6);
-            border-color: rgba(255,255,255,0.1);
-        }
+        .multi-item { border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
         .multi-item-text { flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .multi-item-remove { 
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white; 
-            border: none; 
-            width: 28px; 
-            height: 28px; 
-            border-radius: 50%; 
-            cursor: pointer; 
-            font-size: 16px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-            transition: all 0.2s;
-        }
-        .multi-item-remove:hover {
-            transform: scale(1.1);
-        }
-        .add-item-btn { 
-            width: 100%; 
-            padding: 12px; 
-            border: 2px dashed rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            background: rgba(255,255,255,0.5);
-            cursor: pointer; 
-            font-size: 14px; 
-            color: #667eea; 
-            font-weight: 500; 
-            margin-bottom: 16px; 
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        body.dark-theme .add-item-btn {
-            background: rgba(22,33,62,0.5);
-        }
-        .add-item-btn:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
-        }
+        .multi-item-remove { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3); transition: all 0.2s; }
+        .multi-item-remove:hover { transform: scale(1.1); }
+        .add-item-btn { width: 100%; padding: 12px; border: 2px dashed rgba(102, 126, 234, 0.3); border-radius: 12px; background: rgba(255,255,255,0.5); cursor: pointer; font-size: 14px; color: #667eea; font-weight: 500; margin-bottom: 16px; font-family: inherit; transition: all 0.2s; }
+        .add-item-btn:hover { border-color: #667eea; background: rgba(102, 126, 234, 0.05); }
         .add-item-btn:active { transform: scale(0.98); }
         
         .profile-photo-upload { position: relative; display: inline-block; margin-bottom: 16px; }
         .profile-photo-upload input { display: none; }
         .profile-photo-upload label { cursor: pointer; }
-        .profile-photo-upload .change-photo { 
-            position: absolute; 
-            bottom: 0; 
-            right: 0; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; 
-            width: 32px; 
-            height: 32px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 16px; 
-            border: 3px solid white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            transition: all 0.2s;
-        }
-        .profile-photo-upload .change-photo:hover {
-            transform: scale(1.1);
-        }
+        .profile-photo-upload .change-photo { position: absolute; bottom: 0; right: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.2s; }
+        .profile-photo-upload .change-photo:hover { transform: scale(1.1); }
         
-        .notification-item { 
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 16px; 
-            border-radius: 16px; 
-            margin-bottom: 12px; 
-            display: flex; 
-            align-items: flex-start; 
-            gap: 12px;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        body.dark-theme .notification-item {
-            background: rgba(22, 33, 62, 0.6);
-            border-color: rgba(255,255,255,0.1);
-        }
-        .notification-item:active { 
-            background: rgba(255,255,255,0.8);
-            transform: scale(0.98);
-        }
-        body.dark-theme .notification-item:active {
-            background: rgba(22, 33, 62, 0.8);
-        }
-        .notification-item.unread { 
-            border-left: 3px solid #667eea;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-        }
+        .notification-item { padding: 16px; border-radius: 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s; }
+        .notification-item:active { transform: scale(0.98); }
+        .notification-item.unread { border-left: 3px solid #667eea; background: rgba(102, 126, 234, 0.05); }
         .notification-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
         .notification-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .notification-content { flex: 1; }
         .notification-text { font-size: 14px; line-height: 1.4; margin-bottom: 4px; }
-        .notification-time { font-size: 12px; color: #888; }
-        body.dark-theme .notification-time { color: #94a3b8; }
-        .notification-badge { 
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white; 
-            border-radius: 10px; 
-            padding: 2px 8px; 
-            font-size: 12px; 
-            font-weight: 600; 
-            margin-left: 8px;
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-        }
+        .notification-time { font-size: 12px; opacity: 0.7; }
+        .notification-badge { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border-radius: 10px; padding: 2px 8px; font-size: 12px; font-weight: 600; margin-left: 8px; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3); }
         
-        .search-input { 
-            width: 100%; 
-            padding: 12px 16px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            font-size: 14px; 
-            margin-bottom: 12px; 
-            font-family: inherit;
-            background: rgba(255,255,255,0.8);
-            transition: all 0.2s;
-        }
-        body.dark-theme .search-input {
-            background: rgba(22,33,62,0.8);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #eaeaea;
-        }
-        .search-input:focus { 
-            outline: none; 
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        body.dark-theme .search-input:focus {
-            background: #16213e;
-        }
+        .search-input { width: 100%; padding: 12px 16px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 12px; font-size: 14px; margin-bottom: 12px; font-family: inherit; background: rgba(255,255,255,0.8); transition: all 0.2s; }
+        .search-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
         
         .search-modes { display: flex; gap: 8px; margin-bottom: 16px; }
-        .search-mode-btn { 
-            flex: 1; 
-            padding: 10px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 10px; 
-            background: rgba(255,255,255,0.5);
-            backdrop-filter: blur(10px);
-            cursor: pointer; 
-            font-size: 13px; 
-            font-weight: 500; 
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        body.dark-theme .search-mode-btn {
-            background: rgba(22,33,62,0.5);
-        }
-        .search-mode-btn.active { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
+        .search-mode-btn { flex: 1; padding: 10px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 10px; background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); cursor: pointer; font-size: 13px; font-weight: 500; font-family: inherit; transition: all 0.2s; }
+        .search-mode-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
         
-        .tag-search-result { 
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 16px; 
-            padding: 16px; 
-            margin-bottom: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        body.dark-theme .tag-search-result {
-            background: rgba(22, 33, 62, 0.6);
-            border-color: rgba(255,255,255,0.1);
-        }
+        .tag-search-result { border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .tag-search-result-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        .tag-search-result-tag { 
-            font-size: 14px; 
-            font-weight: 600; 
-            color: #667eea;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            padding: 4px 10px;
-            border-radius: 10px;
-        }
-        .tag-search-result-count { font-size: 12px; color: #666; }
-        body.dark-theme .tag-search-result-count { color: #94a3b8; }
+        .tag-search-result-tag { font-size: 14px; font-weight: 600; color: #667eea; background: rgba(102, 126, 234, 0.1); padding: 4px 10px; border-radius: 10px; }
+        .tag-search-result-count { font-size: 12px; opacity: 0.7; }
         
-        .edit-post-textarea { 
-            width: 100%; 
-            min-height: 150px; 
-            padding: 12px; 
-            border: 2px solid rgba(102, 126, 234, 0.3); 
-            border-radius: 12px; 
-            font-size: 14px; 
-            font-family: inherit; 
-            resize: vertical; 
-            margin-bottom: 16px;
-            background: rgba(255,255,255,0.8);
-            transition: all 0.2s;
-        }
-        body.dark-theme .edit-post-textarea {
-            background: rgba(22,33,62,0.8);
-            border-color: rgba(102, 126, 234, 0.5);
-            color: #eaeaea;
-        }
-        .edit-post-textarea:focus { 
-            outline: none; 
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        body.dark-theme .edit-post-textarea:focus {
-            background: #16213e;
-        }
+        .edit-post-textarea { width: 100%; min-height: 150px; padding: 12px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; margin-bottom: 16px; background: rgba(255,255,255,0.8); transition: all 0.2s; }
+        .edit-post-textarea:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
         
-        .draft-card { 
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 16px; 
-            padding: 16px; 
-            margin-bottom: 12px; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.2s;
-        }
-        body.dark-theme .draft-card {
-            background: rgba(22, 33, 62, 0.6);
-            border-color: rgba(255,255,255,0.1);
-        }
-        .draft-card:active { 
-            background: rgba(255,255,255,0.8);
-            transform: scale(0.98);
-        }
-        body.dark-theme .draft-card:active {
-            background: rgba(22, 33, 62, 0.8);
-        }
+        .draft-card { border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s; }
+        .draft-card:active { transform: scale(0.98); }
         .draft-icon { font-size: 24px; }
         .draft-info { flex: 1; }
         .draft-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-        .draft-date { font-size: 12px; color: #666; }
-        body.dark-theme .draft-date { color: #94a3b8; }
+        .draft-date { font-size: 12px; opacity: 0.7; }
         .draft-actions { display: flex; gap: 8px; }
-        .draft-action-btn { 
-            padding: 6px 12px; 
-            border-radius: 8px; 
-            border: none; 
-            font-size: 12px; 
-            font-weight: 600; 
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .draft-action-btn.publish { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-        .draft-action-btn.delete { 
-            background: rgba(0,0,0,0.05); 
-            color: #333;
-        }
-        body.dark-theme .draft-action-btn.delete {
-            background: rgba(255,255,255,0.1);
-            color: #eaeaea;
-        }
-        .draft-action-btn.preview { 
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); 
-            color: #667eea;
-            border: 1px solid rgba(102, 126, 234, 0.3);
-        }
+        .draft-action-btn { padding: 6px 12px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .draft-action-btn.publish { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); }
+        .draft-action-btn.delete { background: rgba(0,0,0,0.05); }
+        .draft-action-btn.preview { background: rgba(102, 126, 234, 0.1); color: #667eea; border: 1px solid rgba(102, 126, 234, 0.3); }
         .draft-action-btn:active { transform: scale(0.95); }
         
-        .random-creator-card { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            color: white; 
-            padding: 24px; 
-            border-radius: 24px; 
-            text-align: center; 
-            margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        .random-creator-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
+        .random-creator-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 24px; border-radius: 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4); position: relative; overflow: hidden; }
+        .random-creator-card::before { content: ''; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite; }
         .random-creator-card h3 { font-size: 18px; margin-bottom: 16px; position: relative; z-index: 1; }
-        .random-creator-avatar { 
-            width: 80px; 
-            height: 80px; 
-            border-radius: 50%; 
-            background: rgba(255,255,255,0.2); 
-            margin: 0 auto 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 32px; 
-            font-weight: 700; 
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            border: 3px solid rgba(255,255,255,0.3);
-        }
+        .random-creator-avatar { width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; overflow: hidden; backdrop-filter: blur(10px); border: 3px solid rgba(255,255,255,0.3); }
         .random-creator-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .random-creator-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
         .random-creator-handle { font-size: 14px; opacity: 0.9; margin-bottom: 16px; }
         .random-creator-bio { font-size: 13px; opacity: 0.9; margin-bottom: 16px; }
-        .random-creator-btn { 
-            background: white; 
-            color: #667eea; 
-            border: none; 
-            padding: 10px 24px; 
-            border-radius: 20px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            margin: 4px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.2s;
-        }
+        .random-creator-btn { background: white; color: #667eea; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.2s; }
         .random-creator-btn:active { transform: scale(0.95); }
-        .random-creator-btn.secondary { 
-            background: rgba(255,255,255,0.2); 
-            color: white;
-            backdrop-filter: blur(10px);
-        }
+        .random-creator-btn.secondary { background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(10px); }
         
         .feed-filter { display: flex; gap: 8px; margin-bottom: 16px; }
-        .feed-filter-btn { 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            font-size: 13px; 
-            font-weight: 500; 
-            cursor: pointer;
-            color: white;
-            transition: all 0.2s;
-        }
-        .feed-filter-btn.active { 
-            background: white; 
-            color: #667eea; 
-            border-color: white;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
-        }
+        .feed-filter-btn { padding: 8px 16px; border-radius: 20px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+        .feed-filter-btn.active { background: #667eea; color: white; border-color: #667eea; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
+        
+        /* Настройки */
+        .settings-section { margin-bottom: 24px; }
+        .settings-section h3 { font-size: 16px; margin-bottom: 12px; opacity: 0.7; }
+        .settings-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-radius: 12px; margin-bottom: 8px; background: rgba(0,0,0,0.03); transition: background 0.2s; }
+        .settings-item:hover { background: rgba(0,0,0,0.05); }
+        .settings-item-label { font-size: 14px; font-weight: 500; }
+        .settings-item-desc { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+        
+        .theme-selector { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; }
+        .theme-option { padding: 12px; border-radius: 12px; border: 2px solid rgba(0,0,0,0.1); cursor: pointer; text-align: center; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+        .theme-option:hover { transform: scale(1.02); }
+        .theme-option.active { border-color: #667eea; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+        .theme-option-light { background: #fafafa; color: #333; }
+        .theme-option-dark { background: #1a1a2e; color: #fff; }
+        .theme-option-purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+        .theme-option-ocean { background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%); color: #fff; }
+        .theme-option-sunset { background: linear-gradient(135deg, #ee9ca7 0%, #ffdde1 100%); color: #333; }
+        .theme-option-forest { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); color: #fff; }
+        .theme-option-midnight { background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%); color: #fff; }
+        .theme-option-rose { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: #fff; }
+        
+        .toggle-switch { position: relative; width: 48px; height: 26px; background: rgba(0,0,0,0.2); border-radius: 13px; cursor: pointer; transition: background 0.2s; }
+        .toggle-switch.active { background: #667eea; }
+        .toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.2s; }
+        .toggle-switch.active::after { transform: translateX(22px); }
+        
+        /* Просмотр фото */
+        .photo-viewer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 4000; align-items: center; justify-content: center; }
+        .photo-viewer.active { display: flex; }
+        .photo-viewer img { max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 8px; }
+        .photo-viewer-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; backdrop-filter: blur(10px); }
         
         @media (max-width: 768px) { .main-content { padding: 16px; } }
     </style>
 </head>
-<body>
+<body class="theme-light">
 
     <div class="auth-modal-overlay" id="authModal">
         <div class="auth-modal">
@@ -1687,13 +608,11 @@
                 <span>Уведомления</span>
                 <span class="notification-badge" id="notifBadge" style="display: none;">0</span>
             </div>
-            <div class="sidebar-nav-item" data-page="theme" onclick="toggleTheme();">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" id="theme-icon">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                </svg>
-                <span id="theme-label">Тема</span>
-            </div>
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
+                <div class="sidebar-nav-item" data-page="settings" onclick="openSettings(); toggleSidebar();">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span>Настройки</span>
+                </div>
                 <div class="sidebar-nav-item" onclick="logout(); toggleSidebar();" style="color: #ef4444;">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                     <span>Выйти</span>
@@ -1722,6 +641,11 @@
         <div class="story-nav next" onclick="nextStory()"></div>
     </div>
 
+    <div class="photo-viewer" id="photoViewer">
+        <button class="photo-viewer-close" onclick="closePhotoViewer()">×</button>
+        <img id="photoViewerImg" src="" alt="">
+    </div>
+
     <div class="modal" id="textInputModal" style="z-index: 2100;">
         <div class="modal-content">
             <div class="modal-header">
@@ -1747,21 +671,15 @@
             <div id="create-step-1">
                 <div class="post-type-selector">
                     <button class="type-btn active" data-type="image" onclick="selectPostType('image')">
-                        <div class="type-btn-icon">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                        </div>
+                        <div class="type-btn-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
                         <div>Фото</div>
                     </button>
                     <button class="type-btn" data-type="audio" onclick="selectPostType('audio')">
-                        <div class="type-btn-icon">
-                            <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                        </div>
+                        <div class="type-btn-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
                         <div>Музыка</div>
                     </button>
                     <button class="type-btn" data-type="text" onclick="selectPostType('text')">
-                        <div class="type-btn-icon">
-                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                        </div>
+                        <div class="type-btn-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
                         <div>Текст</div>
                     </button>
                 </div>
@@ -1879,6 +797,96 @@
         </div>
     </div>
 
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Настройки</h2>
+                <button class="close-modal" onclick="closeSettings()">×</button>
+            </div>
+            
+            <div class="settings-section">
+                <h3> Тема оформления</h3>
+                <div class="theme-selector" id="themeSelector">
+                    <div class="theme-option theme-option-light" data-theme="light" onclick="selectTheme('light')">☀️ Светлая</div>
+                    <div class="theme-option theme-option-dark" data-theme="dark" onclick="selectTheme('dark')">🌙 Тёмная</div>
+                    <div class="theme-option theme-option-purple" data-theme="purple" onclick="selectTheme('purple')">💜 Фиолет</div>
+                    <div class="theme-option theme-option-ocean" data-theme="ocean" onclick="selectTheme('ocean')">🌊 Океан</div>
+                    <div class="theme-option theme-option-sunset" data-theme="sunset" onclick="selectTheme('sunset')">🌅 Закат</div>
+                    <div class="theme-option theme-option-forest" data-theme="forest" onclick="selectTheme('forest')">🌲 Лес</div>
+                    <div class="theme-option theme-option-midnight" data-theme="midnight" onclick="selectTheme('midnight')"> Полночь</div>
+                    <div class="theme-option theme-option-rose" data-theme="rose" onclick="selectTheme('rose')">🌹 Роза</div>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3> Уведомления</h3>
+                <div class="settings-item">
+                    <div>
+                        <div class="settings-item-label">Лайки</div>
+                        <div class="settings-item-desc">Уведомления о лайках</div>
+                    </div>
+                    <div class="toggle-switch active" id="notif-likes" onclick="toggleSetting('notif-likes')"></div>
+                </div>
+                <div class="settings-item">
+                    <div>
+                        <div class="settings-item-label">Комментарии</div>
+                        <div class="settings-item-desc">Уведомления о комментариях</div>
+                    </div>
+                    <div class="toggle-switch active" id="notif-comments" onclick="toggleSetting('notif-comments')"></div>
+                </div>
+                <div class="settings-item">
+                    <div>
+                        <div class="settings-item-label">Подписки</div>
+                        <div class="settings-item-desc">Уведомления о новых подписчиках</div>
+                    </div>
+                    <div class="toggle-switch active" id="notif-follows" onclick="toggleSetting('notif-follows')"></div>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>👁️ Приватность</h3>
+                <div class="settings-item">
+                    <div>
+                        <div class="settings-item-label">Показывать онлайн статус</div>
+                        <div class="settings-item-desc">Другие видят, когда вы в сети</div>
+                    </div>
+                    <div class="toggle-switch active" id="show-online" onclick="toggleSetting('show-online')"></div>
+                </div>
+                <div class="settings-item">
+                    <div>
+                        <div class="settings-item-label">Анонимный фидбек по умолчанию</div>
+                        <div class="settings-item-desc">Комментарии к вашим постам анонимны</div>
+                    </div>
+                    <div class="toggle-switch" id="default-anonymous" onclick="toggleSetting('default-anonymous')"></div>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>🔐 Безопасность</h3>
+                <div class="settings-item" onclick="openChangePassword()" style="cursor: pointer;">
+                    <div>
+                        <div class="settings-item-label">Сменить пароль</div>
+                        <div class="settings-item-desc">Изменить пароль от аккаунта</div>
+                    </div>
+                    <span>→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Сменить пароль</h2>
+                <button class="close-modal" onclick="closeChangePassword()">×</button>
+            </div>
+            <div class="input-group"><label>Текущий пароль</label><input type="password" id="currentPassword"></div>
+            <div class="input-group"><label>Новый пароль</label><input type="password" id="newPassword"></div>
+            <div class="input-group"><label>Повторите новый пароль</label><input type="password" id="confirmPassword"></div>
+            <button class="auth-btn" onclick="changePassword()">Сменить пароль</button>
+        </div>
+    </div>
+
     <script>
         let currentUser = null;
         let isLoginMode = false;
@@ -1904,7 +912,6 @@
         let searchMode = 'users';
         let currentAudio = null;
         let currentPlayBtn = null;
-        let currentTheme = localStorage.getItem('muse_theme') || 'light';
         let editingPostId = null;
         let createStep = 1;
         let collabUser = null;
@@ -1912,6 +919,7 @@
         let playingVoiceId = null;
         let currentProfileTab = 'posts';
         let feedFilter = 'all';
+        let userSettings = { theme: 'light', 'notif-likes': true, 'notif-comments': true, 'notif-follows': true, 'show-online': true, 'default-anonymous': false };
 
         const challenges = [
             { week: 0, title: 'Стих о дожде', desc: 'Напишите стихотворение о дожде', tag: '#дождьстих', category: 'text' },
@@ -1929,34 +937,34 @@
         ];
 
         const achievements = [
-            { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '', check: (u) => getUserPosts(u.id).length >= 1 },
-            { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
-            { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 50 },
+            { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
+            { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 10 },
+            { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '🎨', check: (u) => getUserPosts(u.id).length >= 50 },
             { id: 'hundred_posts', name: 'Летописец', desc: '100 публикаций', icon: '📚', check: (u) => getUserPosts(u.id).length >= 100 },
             { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
             { id: 'fifty_likes', name: 'Востребованный', desc: 'Получите 50 лайков', icon: '💫', check: (u) => getUserTotalLikes(u.id) >= 50 },
             { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
-            { id: 'five_hundred_likes', name: 'Легенда', desc: 'Получите 500 лайков', icon: '', check: (u) => getUserTotalLikes(u.id) >= 500 },
+            { id: 'five_hundred_likes', name: 'Легенда', desc: 'Получите 500 лайков', icon: '👑', check: (u) => getUserTotalLikes(u.id) >= 500 },
             { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '👥', check: (u) => (u.followers || []).length >= 10 },
             { id: 'fifty_followers', name: 'Лидер мнений', desc: '50 подписчиков', icon: '🌟', check: (u) => (u.followers || []).length >= 50 },
-            { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '', check: (u) => getUserComments(u.name).length >= 1 },
-            { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '️', check: (u) => getUserComments(u.name).length >= 10 },
+            { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '💬', check: (u) => getUserComments(u.name).length >= 1 },
+            { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '🗨️', check: (u) => getUserComments(u.name).length >= 10 },
             { id: 'fifty_comments', name: 'Критик', desc: '50 комментариев', icon: '📢', check: (u) => getUserComments(u.name).length >= 50 },
-            { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '🏆', check: (u) => false },
+            { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '', check: (u) => false },
             { id: 'challenge_winner', name: 'Победитель', desc: 'Победите в челлендже', icon: '🥇', check: (u) => false },
             { id: 'collab_author', name: 'Соавтор', desc: 'Опубликуйте коллаборацию', icon: '🤝', check: (u) => false },
-            { id: 'first_story', name: 'Рассказчик', desc: 'Опубликуйте первую историю', icon: '', check: (u) => false },
+            { id: 'first_story', name: 'Рассказчик', desc: 'Опубликуйте первую историю', icon: '📖', check: (u) => false },
             { id: 'moodboard_creator', name: 'Куратор', desc: 'Создайте первую коллекцию', icon: '📌', check: (u) => false },
-            { id: 'week_active', name: 'Неделя подряд', desc: 'Заходите 7 дней подряд', icon: '', check: (u) => false },
+            { id: 'week_active', name: 'Неделя подряд', desc: 'Заходите 7 дней подряд', icon: '🔥', check: (u) => false },
             { id: 'month_active', name: 'Месяц подряд', desc: 'Заходите 30 дней подряд', icon: '💎', check: (u) => false },
-            { id: 'first_draft', name: 'Перфекционист', desc: 'Сохраните первый черновик', icon: '️', check: (u) => false },
+            { id: 'first_draft', name: 'Перфекционист', desc: 'Сохраните первый черновик', icon: '✏️', check: (u) => false },
             { id: 'ten_drafts', name: 'Редактор', desc: 'Сохраните 10 черновиков', icon: '📋', check: (u) => false },
             { id: 'photo_author', name: 'Фотограф', desc: 'Опубликуйте 20 фото', icon: '📸', check: (u) => getUserPosts(u.id).filter(p => p.category === 'photo').length >= 20 },
             { id: 'music_author', name: 'Музыкант', desc: 'Опубликуйте 20 треков', icon: '🎵', check: (u) => getUserPosts(u.id).filter(p => p.category === 'music').length >= 20 },
             { id: 'writer', name: 'Писатель', desc: 'Опубликуйте 20 текстов', icon: '✍️', check: (u) => getUserPosts(u.id).filter(p => p.category === 'text').length >= 20 },
-            { id: 'artist', name: 'Художник', desc: 'Опубликуйте 20 работ', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'art').length >= 20 },
+            { id: 'artist', name: 'Художник', desc: 'Опубликуйте 20 работ', icon: '🎨', check: (u) => getUserPosts(u.id).filter(p => p.category === 'art').length >= 20 },
             { id: 'secret_night', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
-            { id: 'secret_early', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
+            { id: 'secret_early', name: '???', desc: 'Секретное достижение', icon: '', secret: true, check: (u) => false },
             { id: 'secret_rare', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false }
         ];
 
@@ -1969,46 +977,111 @@
         ];
 
         const sampleUsers = [
-            { id: 'sample1', name: 'Анна К.', username: '@anna_art', avatar: 'А', bio: 'Художник. Пишу абстракции.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] },
-            { id: 'sample2', name: 'Максим Д.', username: '@max_photo', avatar: 'М', bio: 'Фотограф. Ловлю моменты.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] },
-            { id: 'sample3', name: 'Дмитрий В.', username: '@dmitry_music', avatar: 'Д', bio: 'Музыкант и писатель.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] },
-            { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] }
+            { id: 'sample1', name: 'Анна К.', username: '@anna_art', avatar: 'А', bio: 'Художник. Пишу абстракции.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [], lastOnline: Date.now() },
+            { id: 'sample2', name: 'Максим Д.', username: '@max_photo', avatar: 'М', bio: 'Фотограф. Ловлю моменты.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [], lastOnline: Date.now() - 3600000 },
+            { id: 'sample3', name: 'Дмитрий В.', username: '@dmitry_music', avatar: 'Д', bio: 'Музыкант и писатель.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [], lastOnline: Date.now() - 86400000 },
+            { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [], lastOnline: Date.now() }
         ];
 
         window.onload = function() {
-            if (currentTheme === 'dark') document.body.classList.add('dark-theme');
             const saved = localStorage.getItem('muse_currentUser');
             if (saved) currentUser = JSON.parse(saved);
             const savedPage = localStorage.getItem('muse_lastPage');
             if (savedPage) currentPage = savedPage;
+            
+            // Загрузка настроек пользователя
+            if (currentUser) {
+                const savedSettings = localStorage.getItem('muse_settings_' + currentUser.id);
+                if (savedSettings) userSettings = JSON.parse(savedSettings);
+            }
+            applyTheme(userSettings.theme);
+            
             document.getElementById('mainApp').classList.add('active');
-            updateThemeIcon();
             navigate(currentPage);
             updateNotifBadge();
             updateAuthUI();
         };
 
-        function updateAuthUI() {
-            document.getElementById('profileMenuLabel').textContent = currentUser ? 'Профиль' : 'Войти';
+        function applyTheme(theme) {
+            document.body.className = 'theme-' + theme;
+            userSettings.theme = theme;
+            saveUserSettings();
+            
+            // Обновить активную тему в селекторе
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.theme === theme);
+            });
         }
 
-        function updateThemeIcon() {
-            const icon = document.getElementById('theme-icon');
-            const label = document.getElementById('theme-label');
-            if (currentTheme === 'dark') {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>';
-                label.textContent = 'Светлая тема';
-            } else {
-                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
-                label.textContent = 'Тёмная тема';
+        function selectTheme(theme) {
+            applyTheme(theme);
+        }
+
+        function toggleSetting(settingId) {
+            const el = document.getElementById(settingId);
+            el.classList.toggle('active');
+            userSettings[settingId] = el.classList.contains('active');
+            saveUserSettings();
+        }
+
+        function saveUserSettings() {
+            if (currentUser) {
+                localStorage.setItem('muse_settings_' + currentUser.id, JSON.stringify(userSettings));
             }
         }
 
-        function toggleTheme() {
-            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-            document.body.classList.toggle('dark-theme', currentTheme === 'dark');
-            localStorage.setItem('muse_theme', currentTheme);
-            updateThemeIcon();
+        function openSettings() {
+            // Загрузить текущие настройки
+            document.querySelectorAll('.toggle-switch').forEach(el => {
+                const settingId = el.id;
+                if (userSettings[settingId] !== undefined) {
+                    el.classList.toggle('active', userSettings[settingId]);
+                }
+            });
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.theme === userSettings.theme);
+            });
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        function openChangePassword() {
+            closeSettings();
+            document.getElementById('changePasswordModal').classList.add('active');
+        }
+
+        function closeChangePassword() {
+            document.getElementById('changePasswordModal').classList.remove('active');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        function changePassword() {
+            const current = document.getElementById('currentPassword').value;
+            const newP = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            
+            if (current !== currentUser.password) { alert('Неверный текущий пароль'); return; }
+            if (newP.length < 4) { alert('Пароль должен быть минимум 4 символа'); return; }
+            if (newP !== confirm) { alert('Пароли не совпадают'); return; }
+            
+            currentUser.password = newP;
+            localStorage.setItem('muse_currentUser', JSON.stringify(currentUser));
+            const users = getUsers();
+            const idx = users.findIndex(u => u.id === currentUser.id);
+            if (idx !== -1) { users[idx] = currentUser; saveUsers(users); }
+            
+            closeChangePassword();
+            alert('Пароль успешно изменён!');
+        }
+
+        function updateAuthUI() {
+            const label = document.getElementById('profileMenuLabel');
+            if (label) label.textContent = currentUser ? 'Профиль' : 'Войти';
         }
 
         function toggleAuthMode() {
@@ -2027,7 +1100,10 @@
                 const user = users.find(u => u.username === username && u.password === password);
                 if (user) { 
                     currentUser = user; 
-                    localStorage.setItem('muse_currentUser', JSON.stringify(user)); 
+                    localStorage.setItem('muse_currentUser', JSON.stringify(user));
+                    // Загрузить настройки
+                    const savedSettings = localStorage.getItem('muse_settings_' + currentUser.id);
+                    if (savedSettings) { userSettings = JSON.parse(savedSettings); applyTheme(userSettings.theme); }
                     closeFullAuth();
                     updateAuthUI();
                     updateNotifBadge();
@@ -2035,7 +1111,7 @@
                 } else { alert('Неверный никнейм или пароль'); }
             } else {
                 if (users.find(u => u.username === username)) { alert('Никнейм занят'); return; }
-                const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] };
+                const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [], lastOnline: Date.now() };
                 users.push(newUser);
                 saveUsers(users);
                 currentUser = newUser;
@@ -2093,7 +1169,7 @@
             });
             if (newAchievements.length > 0) {
                 const names = newAchievements.map(a => `${a.icon} ${a.name}`).join(', ');
-                setTimeout(() => alert(`🎉 Новые достижения: ${names}!`), 500);
+                setTimeout(() => alert(` Новые достижения: ${names}!`), 500);
             }
             saveUsers(users);
             currentUser = me;
@@ -2238,6 +1314,9 @@
 
         function addNotification(type, fromUser, postId, commentText) {
             if (!currentUser || fromUser.id === currentUser.id) return;
+            if (type === 'like' && !userSettings['notif-likes']) return;
+            if (type === 'comment' && !userSettings['notif-comments']) return;
+            if (type === 'follow' && !userSettings['notif-follows']) return;
             const notifs = getNotifications();
             notifs.unshift({ id: Date.now(), type, fromUserId: fromUser.id, fromUserName: fromUser.name, fromUserAvatar: fromUser.avatar, fromUserPhoto: fromUser.photo, postId, commentText: commentText || '', time: Date.now(), read: false });
             if (notifs.length > 50) notifs.pop();
@@ -2278,7 +1357,7 @@
 
             let html = '';
             if (currentChallenge) {
-                const categoryNames = { text: '✍️ Для писателей', music: ' Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
+                const categoryNames = { text: '✍️ Для писателей', music: '🎵 Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
                 html += `<div class="challenge-banner" onclick="navigate('challenges')">
                     <h3>🔥 Челлендж недели: ${currentChallenge.title}</h3>
                     <p>${currentChallenge.desc}</p>
@@ -2344,7 +1423,7 @@
                 html += '<div class="empty-state"><h2>Пока нет популярных постов</h2></div>';
             } else {
                 html += popularPosts.map((post, index) => {
-                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '' : '';
+                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
                     return `<div style="position: relative;">
                         ${medal ? `<div style="position: absolute; top: 12px; left: 12px; font-size: 24px; z-index: 10;">${medal}</div>` : ''}
                         ${renderPostCard(post)}
@@ -2362,7 +1441,7 @@
             let html = '<div class="info-banner">🏆 Новый челлендж каждую неделю. Чередуются: писатели → музыканты → художники → фотографы</div>';
             
             if (currentChallenge) {
-                const categoryNames = { text: '️ Для писателей', music: ' Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
+                const categoryNames = { text: '✍️ Для писателей', music: '🎵 Для музыкантов', art: '🎨 Для художников', photo: ' Для фотографов' };
                 const posts = getAllPosts().filter(p => p.tags && p.tags.some(t => t.toLowerCase().includes(currentChallenge.tag.replace('#', '').toLowerCase())));
                 const topPosts = posts.sort((a, b) => b.likes - a.likes).slice(0, 5);
                 
@@ -2380,7 +1459,7 @@
                     });
                     html += '</div>';
                 } else {
-                    html += '<div style="color: #888; font-size: 13px; margin-top: 8px;">Пока нет работ. Используйте тег ' + currentChallenge.tag + ' в посте!</div>';
+                    html += '<div style="opacity: 0.7; font-size: 13px; margin-top: 8px;">Пока нет работ. Используйте тег ' + currentChallenge.tag + ' в посте!</div>';
                 }
                 html += '</div>';
             }
@@ -2401,7 +1480,7 @@
             if (!currentUser) { showFullAuth('login'); return; }
             const me = getUsers().find(u => u.id === currentUser.id);
             const following = me ? me.following || [] : [];
-            let html = '<div class="info-banner">📱 Здесь посты тех, на кого вы подписаны.</div>';
+            let html = '<div class="info-banner"> Здесь посты тех, на кого вы подписаны.</div>';
             if (following.length === 0) {
                 html += '<div class="empty-state"><h2>Пока нет подписок</h2><p>Перейдите в "Обзор" и подпишитесь на авторов</p></div>';
             } else {
@@ -2452,7 +1531,7 @@
             const posts = getAllPosts().filter(p => mb.posts.includes(p.id));
             let html = '';
             if (posts.length === 0) {
-                html = '<div class="empty-state"><p>Коллекция пуста. Добавляйте посты через меню " В коллекцию"</p></div>';
+                html = '<div class="empty-state"><p>Коллекция пуста. Добавляйте посты через меню "📌 В коллекцию"</p></div>';
             } else {
                 html = posts.map(post => renderPostCard(post)).join('');
             }
@@ -2493,29 +1572,125 @@
         function renderDrafts(container) {
             if (!currentUser) { showFullAuth('login'); return; }
             const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
-            let html = '<div class="info-banner">📝 Ваши черновики</div>';
+            let html = '<div class="info-banner">📝 Ваши черновики (отложенные посты)</div>';
             if (drafts.length === 0) {
                 html += '<div class="empty-state"><h2>Нет черновиков</h2><p>Сохраняйте посты как черновики, чтобы доделать позже</p></div>';
             } else {
-                html += drafts.map((draft, idx) => {
-                    const icon = draft.type === 'image' ? '️' : draft.type === 'audio' ? '🎵' : '✍️';
-                    const title = draft.caption || 'Без названия';
-                    const date = new Date(draft.timestamp).toLocaleDateString('ru-RU');
-                    return `<div class="draft-card">
-                        <div class="draft-icon">${icon}</div>
-                        <div class="draft-info">
-                            <div class="draft-title">${title.substring(0, 50)}${title.length > 50 ? '...' : ''}</div>
-                            <div class="draft-date">${date}</div>
-                        </div>
-                        <div class="draft-actions">
-                            <button class="draft-action-btn preview" onclick="previewDraft(${idx})">️ Просмотр</button>
-                            <button class="draft-action-btn publish" onclick="publishDraft(${idx})">Опубликовать</button>
-                            <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">×</button>
-                        </div>
-                    </div>`;
-                }).join('');
+                // Рендерим черновики как посты
+                drafts.forEach((draft, idx) => {
+                    // Конвертируем черновик в формат поста для отображения
+                    const draftAsPost = {
+                        id: 'draft_' + draft.id,
+                        authorId: currentUser.id,
+                        author: currentUser.name,
+                        handle: currentUser.username,
+                        avatar: currentUser.avatar,
+                        photo: currentUser.photo,
+                        timestamp: draft.timestamp,
+                        type: draft.type,
+                        caption: draft.caption || '',
+                        tags: draft.tags || [],
+                        likes: 0,
+                        liked: false,
+                        comments: [],
+                        anonymous: draft.anonymous || false,
+                        isDraft: true,
+                        draftIndex: idx,
+                        images: draft.images,
+                        texts: draft.texts,
+                        audios: draft.audios,
+                        audioTitles: draft.audioTitles,
+                        collabAuthor: draft.collabUser ? draft.collabUser.name : null
+                    };
+                    html += renderDraftCard(draftAsPost);
+                });
             }
             container.innerHTML = html;
+            setTimeout(attachCarouselListeners, 100);
+        }
+
+        function renderDraftCard(draftPost) {
+            let mediaHtml = '';
+            const allItems = draftPost.type === 'image' ? (draftPost.images || []) : draftPost.type === 'text' ? (draftPost.texts || []) : draftPost.type === 'audio' ? (draftPost.audios || []) : [];
+            const totalItems = allItems.length;
+
+            if (totalItems === 1) {
+                if (draftPost.type === 'image') mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;" onerror="this.style.display='none'">`;
+                else if (draftPost.type === 'text') mediaHtml = `<div class="post-text">${allItems[0]}</div>`;
+                else if (draftPost.type === 'audio') {
+                    const title = draftPost.audioTitles ? draftPost.audioTitles[0] : 'Аудио трек';
+                    mediaHtml = `<div class="post-audio"><div class="audio-player"><div style="font-size: 24px;">🎵</div><div class="audio-title">${title}</div></div></div>`;
+                }
+            } else if (totalItems > 1) {
+                let slidesHtml = '';
+                if (draftPost.type === 'image') slidesHtml = allItems.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
+                else if (draftPost.type === 'text') slidesHtml = allItems.map(text => `<div class="text-slide">${text}</div>`).join('');
+                else if (draftPost.type === 'audio') {
+                    const titles = draftPost.audioTitles || [];
+                    slidesHtml = allItems.map((audio, i) => `<div class="audio-slide"><div class="audio-player"><div style="font-size: 24px;"></div><div class="audio-title">${titles[i] || `Трек ${i + 1}`}</div></div></div>`).join('');
+                }
+                mediaHtml = `<div class="carousel"><div class="carousel-track" data-post-id="${draftPost.id}">${slidesHtml}</div><div class="carousel-counter" id="counter-${draftPost.id}">1/${totalItems}</div><div class="carousel-dots">${allItems.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}"></div>`).join('')}</div></div>`;
+            }
+
+            const captionHtml = draftPost.caption ? `<div class="post-caption">${draftPost.caption}</div>` : '';
+            const tagsHtml = draftPost.tags && draftPost.tags.length > 0 ? `<div class="post-tags">${draftPost.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : '';
+            const collabBadge = draftPost.collabAuthor ? `<span class="collab-badge"> с ${draftPost.collabAuthor}</span>` : '';
+            const draftBadge = `<span class="anonymous-badge">📝 Черновик</span>`;
+
+            return `<div class="post-card">
+                <div class="post-header">
+                    <div class="post-avatar">${draftPost.photo ? `<img src="${draftPost.photo}">` : draftPost.avatar}</div>
+                    <div class="post-author-info">
+                        <div class="post-author-name">${draftPost.author}${collabBadge}</div>
+                        <div class="post-author-handle">${draftPost.handle} ${draftBadge}</div>
+                    </div>
+                </div>
+                ${mediaHtml}
+                <div class="post-content">${captionHtml}${tagsHtml}</div>
+                <div class="post-actions">
+                    <button class="action-btn" onclick="editDraft(${draftPost.draftIndex})">✏️ Редактировать</button>
+                    <button class="action-btn" onclick="publishDraft(${draftPost.draftIndex})">📤 Опубликовать</button>
+                    <button class="action-btn" onclick="deleteDraft(${draftPost.draftIndex})" style="color: #ef4444;">️ Удалить</button>
+                </div>
+            </div>`;
+        }
+
+        function editDraft(idx) {
+            const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+            const draft = drafts[idx];
+            if (!draft) return;
+            
+            // Заполняем форму создания поста данными черновика
+            currentPostType = draft.type;
+            uploadedImages = draft.images || [];
+            uploadedAudios = (draft.audios || []).map((a, i) => ({ data: a, title: (draft.audioTitles || [])[i] || 'Аудио' }));
+            uploadedTexts = draft.texts || [];
+            
+            document.getElementById('caption').value = draft.caption || '';
+            document.getElementById('tags').value = (draft.tags || []).join(', ');
+            document.getElementById('anonymous-feedback').checked = draft.anonymous || false;
+            
+            if (draft.collabUser) {
+                collabUser = draft.collabUser;
+                document.getElementById('collab-selected').innerHTML = `<div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f0f0ff; border-radius: 12px; margin-bottom: 16px;">
+                    <div class="collab-suggestion-avatar">${collabUser.avatar}</div>
+                    <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">${collabUser.name}</div><div style="font-size: 12px; color: #666;">${collabUser.username}</div></div>
+                    <button onclick="collabUser = null; document.getElementById('collab-selected').innerHTML = '';" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
+                </div>`;
+            }
+            
+            // Удаляем черновик
+            drafts.splice(idx, 1);
+            localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
+            
+            // Открываем модалку создания
+            document.getElementById('createModal').classList.add('active');
+            setCreateStep(1);
+            selectPostType(draft.type);
+            updateSubmitButton();
+            renderMultiItemList('image');
+            renderMultiItemList('audio');
+            renderMultiItemList('text');
         }
 
         function previewDraft(idx) {
@@ -2525,25 +1700,25 @@
             
             let contentHtml = '';
             if (draft.type === 'text' && draft.texts && draft.texts.length > 0) {
-                contentHtml = `<div style="background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 16px; white-space: pre-line; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8;">${draft.texts.join('\n\n')}</div>`;
+                contentHtml = `<div style="background: rgba(0,0,0,0.03); padding: 20px; border-radius: 12px; margin-bottom: 16px; white-space: pre-line; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8;">${draft.texts.join('\n\n')}</div>`;
             } else if (draft.type === 'image' && draft.images) {
                 contentHtml = `<div style="margin-bottom: 16px;"><div style="display: flex; gap: 8px; flex-wrap: wrap;">${draft.images.map(img => `<img src="${img}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
             } else if (draft.type === 'audio' && draft.audios) {
                 contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;">🎵</span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
             }
             
-            const tagsHtml = draft.tags && draft.tags.length > 0 ? `<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">${draft.tags.map(t => `<span style="font-size: 12px; color: #667eea; background: #f0f0ff; padding: 4px 10px; border-radius: 12px;">#${t}</span>`).join('')}</div>` : '';
+            const tagsHtml = draft.tags && draft.tags.length > 0 ? `<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">${draft.tags.map(t => `<span style="font-size: 12px; color: #667eea; background: rgba(102, 126, 234, 0.1); padding: 4px 10px; border-radius: 12px;">#${t}</span>`).join('')}</div>` : '';
             
             document.getElementById('draft-preview-content').innerHTML = `
                 <div style="margin-bottom: 16px;">
-                    <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Тип: ${draft.type === 'image' ? '🖼️ Фото' : draft.type === 'audio' ? ' Аудио' : '✍️ Текст'}</div>
-                    <div style="font-size: 12px; color: #666; margin-bottom: 12px;">Создан: ${new Date(draft.timestamp).toLocaleString('ru-RU')}</div>
+                    <div style="font-size: 12px; opacity: 0.7; margin-bottom: 4px;">Тип: ${draft.type === 'image' ? '️ Фото' : draft.type === 'audio' ? '🎵 Аудио' : '✍️ Текст'}</div>
+                    <div style="font-size: 12px; opacity: 0.7; margin-bottom: 12px;">Создан: ${new Date(draft.timestamp).toLocaleString('ru-RU')}</div>
                 </div>
                 ${contentHtml}
                 ${draft.caption ? `<div style="margin-bottom: 12px;"><strong>Описание:</strong> ${draft.caption}</div>` : ''}
                 ${tagsHtml}
-                ${draft.anonymous ? '<div style="background: #fef3c7; color: #92400e; padding: 8px 12px; border-radius: 8px; font-size: 13px;">🔒 Анонимный фидбек включён</div>' : ''}
-                ${draft.collabUser ? `<div style="background: #f0f0ff; padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-top: 8px;">🤝 Коллаборация с ${draft.collabUser.name}</div>` : ''}
+                ${draft.anonymous ? '<div style="background: rgba(254, 243, 199, 0.5); color: #92400e; padding: 8px 12px; border-radius: 8px; font-size: 13px;">🔒 Анонимный фидбек включён</div>' : ''}
+                ${draft.collabUser ? `<div style="background: rgba(102, 126, 234, 0.1); padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-top: 8px;">🤝 Коллаборация с ${draft.collabUser.name}</div>` : ''}
             `;
             document.getElementById('draftPreviewModal').classList.add('active');
         }
@@ -2633,7 +1808,7 @@
             const me = users.find(u => u.id === currentUser.id);
             const unlocked = me.achievements || [];
             
-            let html = '<div class="info-banner">🏆 Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
+            let html = '<div class="info-banner"> Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
             html += `<h2 style="margin-bottom: 16px; font-size: 18px;">Достижения (${unlocked.length}/${achievements.length})</h2>`;
             html += '<div class="achievements-grid">';
             
@@ -2697,6 +1872,15 @@
             });
         }
 
+        function openPhotoViewer(src) {
+            document.getElementById('photoViewerImg').src = src;
+            document.getElementById('photoViewer').classList.add('active');
+        }
+
+        function closePhotoViewer() {
+            document.getElementById('photoViewer').classList.remove('active');
+        }
+
         function renderPostCard(post) {
             let mediaHtml = '';
             const allItems = post.type === 'image' ? (post.images || []) : post.type === 'text' ? (post.texts || []) : post.type === 'audio' ? (post.audios || []) : [];
@@ -2731,12 +1915,12 @@
 
             return `<div class="post-card">
                 <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
-                    <div class="post-avatar">${post.photo ? `<img src="${post.photo}">` : post.avatar}</div>
+                    <div class="post-avatar" onclick="event.stopPropagation(); ${post.photo ? `openPhotoViewer('${post.photo}')` : ''}">${post.photo ? `<img src="${post.photo}">` : post.avatar}</div>
                     <div class="post-author-info">
                         <div class="post-author-name">${post.author}${collabBadge}</div>
                         <div class="post-author-handle">${post.handle}${anonymousBadge}</div>
                     </div>
-                    <button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>
+                    ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>` : ''}
                 </div>
                 <div class="post-menu" id="post-menu-${post.id}">
                     ${isOwnPost ? `<div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>` : ''}
@@ -2793,7 +1977,7 @@
             let contentHtml = '';
             if (post.type === 'text' && post.texts) contentHtml = `<div class="input-group"><label>Текст</label><textarea class="edit-post-textarea" id="edit-text-content" style="white-space: pre-wrap;">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
             else if (post.type === 'image' && post.images) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Фото (${post.images.length})</label><div style="display: flex; gap: 8px; flex-wrap: wrap;">${post.images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
-            else if (post.type === 'audio' && post.audios) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Аудио (${post.audios.length})</label>${(post.audioTitles || []).map(t => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;">🎵 ${t}</div>`).join('')}</div>`;
+            else if (post.type === 'audio' && post.audios) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Аудио (${post.audios.length})</label>${(post.audioTitles || []).map(t => `<div style="padding: 8px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 4px;">🎵 ${t}</div>`).join('')}</div>`;
             document.getElementById('edit-post-content').innerHTML = contentHtml;
             document.getElementById('edit-caption').value = post.caption || '';
             document.getElementById('edit-tags').value = (post.tags || []).join(', ');
@@ -2836,7 +2020,7 @@
             if (currentAudio) { currentAudio.pause(); currentAudio = null; if (currentPlayBtn) currentPlayBtn.textContent = '▶'; }
             currentAudio = new Audio(src); currentPlayBtn = btn;
             currentAudio.play().catch(() => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; });
-            btn.textContent = '';
+            btn.textContent = '⏸';
             currentAudio.onended = currentAudio.onerror = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
         }
 
@@ -2853,7 +2037,7 @@
                 <div class="comment-avatar">${isAnonymous ? '?' : comment.avatar}</div>
                 <div class="comment-content">
                     <div class="comment-header">
-                        <span class="comment-author">${authorName}${isAnonymous ? ' <span style="font-size: 10px; color: #92400e;">(аноним)</span>' : ''}</span>
+                        <span class="comment-author">${authorName}${isAnonymous ? ' <span style="font-size: 10px; opacity: 0.7;">(аноним)</span>' : ''}</span>
                         ${comment.replyTo && comment.replyToAuthor ? `<span class="comment-reply-to">→ ${comment.replyToAuthor}</span>` : ''}
                     </div>
                     ${commentTextHtml}${commentAudioHtml}${commentImageHtml}
@@ -2874,7 +2058,7 @@
                     <div class="comment-avatar">${replyIsAnonymous ? '?' : reply.avatar}</div>
                     <div class="comment-content">
                         <div class="comment-header">
-                            <span class="comment-author">${replyAuthorName}${replyIsAnonymous ? ' <span style="font-size: 10px; color: #92400e;">(аноним)</span>' : ''}</span>
+                            <span class="comment-author">${replyAuthorName}${replyIsAnonymous ? ' <span style="font-size: 10px; opacity: 0.7;">(аноним)</span>' : ''}</span>
                             ${reply.replyToAuthor ? `<span class="comment-reply-to">→ ${reply.replyToAuthor}</span>` : ''}
                         </div>
                         ${replyTextHtml}${replyAudioHtml}${replyImageHtml}
@@ -3045,7 +2229,7 @@
                 mediaRecorder.stop();
                 isRecordingAudio = false;
                 btn.classList.remove('recording');
-                btn.textContent = '';
+                btn.textContent = '🎤';
             } else {
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -3292,8 +2476,9 @@
                 else {
                     html += displayUsers.map(user => {
                         const isFollowing = following.includes(user.id);
+                        const isOnline = userSettings['show-online'] && user.lastOnline && (Date.now() - user.lastOnline) < 300000;
                         return `<div class="user-card" onclick="navigate('profile', {userId: '${user.id}'})">
-                            <div class="user-card-avatar">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
+                            <div class="user-card-avatar" style="position: relative;">${user.photo ? `<img src="${user.photo}">` : user.avatar}${isOnline ? '<div class="online-indicator"></div>' : ''}</div>
                             <div class="user-card-info"><div class="user-card-name">${user.name}</div><div class="user-card-handle">${user.username}</div>${user.bio ? `<div class="user-card-bio">${user.bio}</div>` : ''}</div>
                             <button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="event.stopPropagation(); toggleFollow('${user.id}')">${isFollowing ? 'Отписаться' : 'Подписаться'}</button>
                         </div>`;
@@ -3362,7 +2547,7 @@
             const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + userId) || '{}');
 
             let html = `<div class="profile-header">
-                <div class="profile-avatar-large">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
+                <div class="profile-avatar-large" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
                 <div class="profile-name">${user.name}</div>
                 <div class="profile-handle">${user.username}</div>
                 ${user.bio ? `<div class="profile-bio">${user.bio}</div>` : ''}
@@ -3443,23 +2628,32 @@
                 if (drafts.length === 0) {
                     html += '<div class="empty-state"><p>Нет черновиков</p></div>';
                 } else {
-                    html += drafts.map((draft, idx) => {
-                        const icon = draft.type === 'image' ? '🖼️' : draft.type === 'audio' ? '🎵' : '✍️';
-                        const title = draft.caption || 'Без названия';
-                        const date = new Date(draft.timestamp).toLocaleDateString('ru-RU');
-                        return `<div class="draft-card">
-                            <div class="draft-icon">${icon}</div>
-                            <div class="draft-info">
-                                <div class="draft-title">${title.substring(0, 50)}${title.length > 50 ? '...' : ''}</div>
-                                <div class="draft-date">${date}</div>
-                            </div>
-                            <div class="draft-actions">
-                                <button class="draft-action-btn preview" onclick="previewDraft(${idx})">️ Просмотр</button>
-                                <button class="draft-action-btn publish" onclick="publishDraft(${idx})">Опубликовать</button>
-                                <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">×</button>
-                            </div>
-                        </div>`;
-                    }).join('');
+                    drafts.forEach((draft, idx) => {
+                        const draftAsPost = {
+                            id: 'draft_' + draft.id,
+                            authorId: currentUser.id,
+                            author: currentUser.name,
+                            handle: currentUser.username,
+                            avatar: currentUser.avatar,
+                            photo: currentUser.photo,
+                            timestamp: draft.timestamp,
+                            type: draft.type,
+                            caption: draft.caption || '',
+                            tags: draft.tags || [],
+                            likes: 0,
+                            liked: false,
+                            comments: [],
+                            anonymous: draft.anonymous || false,
+                            isDraft: true,
+                            draftIndex: idx,
+                            images: draft.images,
+                            texts: draft.texts,
+                            audios: draft.audios,
+                            audioTitles: draft.audioTitles,
+                            collabAuthor: draft.collabUser ? draft.collabUser.name : null
+                        };
+                        html += renderDraftCard(draftAsPost);
+                    });
                 }
             } else if (currentProfileTab === 'moodboards' && isOwnProfile) {
                 const moodboardKeys = Object.keys(moodboards);
@@ -3653,7 +2847,7 @@
             const users = getUsers().filter(u => u.id !== currentUser.id && (u.name.toLowerCase().includes(query.toLowerCase()) || u.username.toLowerCase().includes(query.toLowerCase())));
             document.getElementById('collab-suggestions').innerHTML = users.slice(0, 5).map(u => `<div class="collab-suggestion" onclick="selectCollabUser('${u.id}')">
                 <div class="collab-suggestion-avatar">${u.avatar}</div>
-                <div><div style="font-weight: 600; font-size: 14px;">${u.name}</div><div style="font-size: 12px; color: #666;">${u.username}</div></div>
+                <div><div style="font-weight: 600; font-size: 14px;">${u.name}</div><div style="font-size: 12px; opacity: 0.7;">${u.username}</div></div>
             </div>`).join('');
         }
 
@@ -3661,9 +2855,9 @@
             collabUser = getUserById(userId);
             document.getElementById('collab-input').value = '';
             document.getElementById('collab-suggestions').innerHTML = '';
-            document.getElementById('collab-selected').innerHTML = `<div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f0f0ff; border-radius: 12px; margin-bottom: 16px;">
+            document.getElementById('collab-selected').innerHTML = `<div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(102, 126, 234, 0.1); border-radius: 12px; margin-bottom: 16px;">
                 <div class="collab-suggestion-avatar">${collabUser.avatar}</div>
-                <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">${collabUser.name}</div><div style="font-size: 12px; color: #666;">${collabUser.username}</div></div>
+                <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">${collabUser.name}</div><div style="font-size: 12px; opacity: 0.7;">${collabUser.username}</div></div>
                 <button onclick="collabUser = null; document.getElementById('collab-selected').innerHTML = '';" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
             </div>`;
         }
@@ -3707,6 +2901,9 @@
         document.getElementById('moodboardModal').addEventListener('click', function(e) { if (e.target === this) closeMoodboardModal(); });
         document.getElementById('textInputModal').addEventListener('click', function(e) { if (e.target === this) closeTextInputModal(); });
         document.getElementById('draftPreviewModal').addEventListener('click', function(e) { if (e.target === this) closeDraftPreview(); });
+        document.getElementById('settingsModal').addEventListener('click', function(e) { if (e.target === this) closeSettings(); });
+        document.getElementById('changePasswordModal').addEventListener('click', function(e) { if (e.target === this) closeChangePassword(); });
+        document.getElementById('photoViewer').addEventListener('click', function(e) { if (e.target === this) closePhotoViewer(); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) { document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active')); } });
     </script>
 </body>
