@@ -59,6 +59,10 @@
         body.dark-theme .attach-image-btn, body.dark-theme .record-audio-btn { color: #a5b4fc; }
         body.dark-theme .attach-image-btn:hover, body.dark-theme .record-audio-btn:hover { background: #1e1b4b; }
         body.dark-theme .audio-voice-duration { color: #94a3b8; }
+        body.dark-theme .type-btn { background: rgba(102, 126, 234, 0.1); border-color: rgba(102, 126, 234, 0.3); color: #667eea; }
+        body.dark-theme .type-btn.active { background: rgba(102, 126, 234, 0.2); border-color: #667eea; color: #667eea; }
+        body.dark-theme .type-btn-icon svg { stroke: #667eea; }
+        body.dark-theme .type-btn.active .type-btn-icon svg { stroke: #667eea; }
         
         .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
         .auth-modal-overlay.active { display: flex; }
@@ -178,7 +182,7 @@
         .carousel-track::-webkit-scrollbar { display: none; }
         .carousel-track > * { flex: 0 0 100%; scroll-snap-align: start; pointer-events: none; }
         .carousel-track img { width: 100%; max-height: 600px; object-fit: cover; display: block; pointer-events: auto; }
-        .carousel-track .text-slide { padding: 24px; background: #f9f9f9; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; color: #333; white-space: pre-wrap; word-wrap: break-word; min-height: 300px; }
+        .carousel-track .text-slide { padding: 24px; background: #f9f9f9; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; color: #333; white-space: pre-line; word-wrap: break-word; min-height: 300px; }
         .carousel-track .audio-slide { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center; }
         .carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; z-index: 5; }
         .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
@@ -254,7 +258,8 @@
         .profile-handle { color: #666; margin-bottom: 12px; }
         .profile-bio { color: #333; font-size: 14px; line-height: 1.5; margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; white-space: pre-wrap; }
         .profile-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 20px; }
-        .profile-stat { text-align: center; }
+        .profile-stat { text-align: center; cursor: pointer; }
+        .profile-stat:hover { transform: scale(1.05); }
         .profile-stat-value { font-size: 20px; font-weight: 700; }
         .profile-stat-label { font-size: 12px; color: #666; }
         .profile-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
@@ -314,16 +319,19 @@
         .create-step:active { transform: scale(0.95); }
         
         .post-type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
-        .type-btn { padding: 12px; border: 2px solid #e0e0e0; border-radius: 12px; background: white; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; text-align: center; }
-        .type-btn.active { border-color: #667eea; background: #f0f0ff; color: #667eea; }
-        .type-btn-icon { font-size: 24px; margin-bottom: 4px; }
+        .type-btn { padding: 16px 12px; border: 2px solid rgba(102, 126, 234, 0.3); border-radius: 16px; background: rgba(102, 126, 234, 0.1); cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; text-align: center; transition: all 0.2s; }
+        .type-btn:hover { background: rgba(102, 126, 234, 0.15); }
+        .type-btn.active { border-color: #667eea; background: rgba(102, 126, 234, 0.2); color: #667eea; }
+        .type-btn-icon { margin-bottom: 8px; }
+        .type-btn-icon svg { width: 32px; height: 32px; stroke: #667eea; stroke-width: 1.5; fill: none; }
+        .type-btn.active .type-btn-icon svg { stroke: #667eea; }
         
         .upload-area { border: 2px dashed #e0e0e0; border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; margin-bottom: 20px; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .upload-area.has-media { padding: 0; border-style: solid; }
         .upload-area img { width: 100%; border-radius: 10px; }
         .upload-icon { font-size: 48px; margin-bottom: 12px; }
         
-        .text-input-large { width: 100%; min-height: 400px; padding: 20px; border: 2px solid #e0e0e0; border-radius: 16px; font-size: 18px; font-family: 'Georgia', serif; resize: vertical; line-height: 1.8; margin-bottom: 16px; }
+        .text-input-large { width: 100%; min-height: 400px; padding: 20px; border: 2px solid #e0e0e0; border-radius: 16px; font-size: 18px; font-family: 'Georgia', serif; resize: vertical; line-height: 1.8; margin-bottom: 16px; white-space: pre-line; }
         .text-input-large:focus { outline: none; border-color: #667eea; }
         .text-input-large::placeholder { color: #999; }
         
@@ -413,6 +421,11 @@
         .random-creator-btn:active { transform: scale(0.95); }
         .random-creator-btn.secondary { background: rgba(255,255,255,0.2); color: white; }
         
+        .profile-tabs { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; }
+        .profile-tab { padding: 10px 20px; border-radius: 20px; background: #f0f0f0; border: none; cursor: pointer; font-size: 14px; font-weight: 500; white-space: nowrap; }
+        .profile-tab.active { background: #667eea; color: white; }
+        .profile-tab:active { transform: scale(0.95); }
+        
         @media (max-width: 768px) { .main-content { padding: 16px; } }
     </style>
 </head>
@@ -448,6 +461,10 @@
         <div class="mobile-sidebar" id="mobileSidebar">
             <button class="close-sidebar" onclick="toggleSidebar()">×</button>
             <div class="logo-large" style="margin-bottom: 30px;">Muse</div>
+            <div class="sidebar-nav-item" data-page="profile" onclick="navigate('profile'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <span>Профиль</span>
+            </div>
             <div class="sidebar-nav-item" data-page="home" onclick="navigate('home'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span>Лента</span>
@@ -460,18 +477,6 @@
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
                 <span>Челлендж</span>
             </div>
-            <div class="sidebar-nav-item" data-page="following" onclick="navigate('following'); toggleSidebar();">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                <span>Подписки</span>
-            </div>
-            <div class="sidebar-nav-item" data-page="moodboards" onclick="navigate('moodboards'); toggleSidebar();">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                <span>Коллекции</span>
-            </div>
-            <div class="sidebar-nav-item" data-page="drafts" onclick="navigate('drafts'); toggleSidebar();">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                <span>Черновики</span>
-            </div>
             <div class="sidebar-nav-item" data-page="explore" onclick="navigate('explore'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <span>Обзор</span>
@@ -480,18 +485,10 @@
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                 <span>Случайный творец</span>
             </div>
-            <div class="sidebar-nav-item" data-page="achievements" onclick="navigate('achievements'); toggleSidebar();">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                <span>Достижения</span>
-            </div>
             <div class="sidebar-nav-item" data-page="notifications" onclick="navigate('notifications'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 <span>Уведомления</span>
                 <span class="notification-badge" id="notifBadge" style="display: none;">0</span>
-            </div>
-            <div class="sidebar-nav-item" data-page="profile" onclick="navigate('profile'); toggleSidebar();">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                <span id="profileMenuLabel">Профиль</span>
             </div>
             <div class="sidebar-nav-item" data-page="theme" onclick="toggleTheme();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" id="theme-icon">
@@ -522,7 +519,8 @@
         <div class="story-nav next" onclick="nextStory()"></div>
     </div>
 
-    <div class="modal" id="textInputModal">
+    <!-- Модальное окно для ввода текста (z-index выше чем у createModal) -->
+    <div class="modal" id="textInputModal" style="z-index: 2100;">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Текст поста</h2>
@@ -546,9 +544,24 @@
             </div>
             <div id="create-step-1">
                 <div class="post-type-selector">
-                    <button class="type-btn active" data-type="image" onclick="selectPostType('image')"><div class="type-btn-icon">️</div><div>Фото</div></button>
-                    <button class="type-btn" data-type="audio" onclick="selectPostType('audio')"><div class="type-btn-icon">🎵</div><div>Музыка</div></button>
-                    <button class="type-btn" data-type="text" onclick="selectPostType('text')"><div class="type-btn-icon">✍️</div><div>Текст</div></button>
+                    <button class="type-btn active" data-type="image" onclick="selectPostType('image')">
+                        <div class="type-btn-icon">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        </div>
+                        <div>Фото</div>
+                    </button>
+                    <button class="type-btn" data-type="audio" onclick="selectPostType('audio')">
+                        <div class="type-btn-icon">
+                            <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        </div>
+                        <div>Музыка</div>
+                    </button>
+                    <button class="type-btn" data-type="text" onclick="selectPostType('text')">
+                        <div class="type-btn-icon">
+                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        </div>
+                        <div>Текст</div>
+                    </button>
                 </div>
                 <div id="image-section">
                     <div class="multi-item-list" id="image-list"></div>
@@ -695,6 +708,7 @@
         let collabUser = null;
         let currentMoodboard = null;
         let playingVoiceId = null;
+        let currentProfileTab = 'posts';
 
         const challenges = [
             { week: 0, title: 'Стих о дожде', desc: 'Напишите стихотворение о дожде', tag: '#дождьстих', category: 'text' },
@@ -713,41 +727,41 @@
 
         const achievements = [
             { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
-            { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
+            { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 10 },
             { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '🎨', check: (u) => getUserPosts(u.id).length >= 50 },
-            { id: 'hundred_posts', name: 'Летописец', desc: '100 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 100 },
+            { id: 'hundred_posts', name: 'Летописец', desc: '100 публикаций', icon: '📚', check: (u) => getUserPosts(u.id).length >= 100 },
             { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
             { id: 'fifty_likes', name: 'Востребованный', desc: 'Получите 50 лайков', icon: '💫', check: (u) => getUserTotalLikes(u.id) >= 50 },
             { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
-            { id: 'five_hundred_likes', name: 'Легенда', desc: 'Получите 500 лайков', icon: '', check: (u) => getUserTotalLikes(u.id) >= 500 },
-            { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '', check: (u) => (u.followers || []).length >= 10 },
+            { id: 'five_hundred_likes', name: 'Легенда', desc: 'Получите 500 лайков', icon: '👑', check: (u) => getUserTotalLikes(u.id) >= 500 },
+            { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '👥', check: (u) => (u.followers || []).length >= 10 },
             { id: 'fifty_followers', name: 'Лидер мнений', desc: '50 подписчиков', icon: '🌟', check: (u) => (u.followers || []).length >= 50 },
             { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '', check: (u) => getUserComments(u.name).length >= 1 },
             { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '️', check: (u) => getUserComments(u.name).length >= 10 },
             { id: 'fifty_comments', name: 'Критик', desc: '50 комментариев', icon: '📢', check: (u) => getUserComments(u.name).length >= 50 },
-            { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '', check: (u) => false },
+            { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '🏆', check: (u) => false },
             { id: 'challenge_winner', name: 'Победитель', desc: 'Победите в челлендже', icon: '🥇', check: (u) => false },
             { id: 'collab_author', name: 'Соавтор', desc: 'Опубликуйте коллаборацию', icon: '🤝', check: (u) => false },
-            { id: 'first_story', name: 'Рассказчик', desc: 'Опубликуйте первую историю', icon: '📖', check: (u) => false },
-            { id: 'moodboard_creator', name: 'Куратор', desc: 'Создайте первую коллекцию', icon: '', check: (u) => false },
-            { id: 'week_active', name: 'Неделя подряд', desc: 'Заходите 7 дней подряд', icon: '', check: (u) => false },
-            { id: 'month_active', name: 'Месяц подряд', desc: 'Заходите 30 дней подряд', icon: '', check: (u) => false },
-            { id: 'first_draft', name: 'Перфекционист', desc: 'Сохраните первый черновик', icon: '✏️', check: (u) => false },
-            { id: 'ten_drafts', name: 'Редактор', desc: 'Сохраните 10 черновиков', icon: '📋', check: (u) => false },
+            { id: 'first_story', name: 'Рассказчик', desc: 'Опубликуйте первую историю', icon: '', check: (u) => false },
+            { id: 'moodboard_creator', name: 'Куратор', desc: 'Создайте первую коллекцию', icon: '📌', check: (u) => false },
+            { id: 'week_active', name: 'Неделя подряд', desc: 'Заходите 7 дней подряд', icon: '🔥', check: (u) => false },
+            { id: 'month_active', name: 'Месяц подряд', desc: 'Заходите 30 дней подряд', icon: '💎', check: (u) => false },
+            { id: 'first_draft', name: 'Перфекционист', desc: 'Сохраните первый черновик', icon: '️', check: (u) => false },
+            { id: 'ten_drafts', name: 'Редактор', desc: 'Сохраните 10 черновиков', icon: '', check: (u) => false },
             { id: 'photo_author', name: 'Фотограф', desc: 'Опубликуйте 20 фото', icon: '📸', check: (u) => getUserPosts(u.id).filter(p => p.category === 'photo').length >= 20 },
-            { id: 'music_author', name: 'Музыкант', desc: 'Опубликуйте 20 треков', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'music').length >= 20 },
-            { id: 'writer', name: 'Писатель', desc: 'Опубликуйте 20 текстов', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'text').length >= 20 },
-            { id: 'artist', name: 'Художник', desc: 'Опубликуйте 20 работ', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'art').length >= 20 },
+            { id: 'music_author', name: 'Музыкант', desc: 'Опубликуйте 20 треков', icon: '🎵', check: (u) => getUserPosts(u.id).filter(p => p.category === 'music').length >= 20 },
+            { id: 'writer', name: 'Писатель', desc: 'Опубликуйте 20 текстов', icon: '✍️', check: (u) => getUserPosts(u.id).filter(p => p.category === 'text').length >= 20 },
+            { id: 'artist', name: 'Художник', desc: 'Опубликуйте 20 работ', icon: '🎨', check: (u) => getUserPosts(u.id).filter(p => p.category === 'art').length >= 20 },
             { id: 'secret_night', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
             { id: 'secret_early', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
-            { id: 'secret_rare', name: '???', desc: 'Секретное достижение', icon: '', secret: true, check: (u) => false }
+            { id: 'secret_rare', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false }
         ];
 
         const now = Date.now();
         const samplePosts = [
             { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', timestamp: now - 7200000, type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [], anonymous: false },
             { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', timestamp: now - 18000000, type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро', 'кофе'], category: 'photo', likes: 128, liked: false, comments: [], anonymous: false },
-            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', timestamp: now - 86400000, type: 'text', texts: ['Город просыпался медленно,\nсловно нехотя открывая глаза\nпосле долгой ночи.\n\nТуман стелился по улицам,\nобнимая старые фонари,\nкоторые ещё горели,\nнесмотря на рассвет.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город', 'стихи'], category: 'text', likes: 93, liked: false, comments: [], anonymous: false },
+            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', timestamp: now - 86400000, type: 'text', texts: ['И шёл тот дождь и солнце чахло\nИ тьма накрыла небеса.\nИ сыростью везде запахло,\nЗамолкли чьи-то голоса.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город', 'стихи'], category: 'text', likes: 93, liked: false, comments: [], anonymous: false },
             { id: 4, authorId: 'sample4', author: 'Елена С.', handle: '@elena_sings', avatar: 'Е', timestamp: now - 172800000, type: 'audio', audios: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'], audioTitles: ['Утренний этюд', 'Вечерняя мелодия'], caption: 'Две новые демки.', tags: ['музыка', 'инди'], category: 'music', likes: 67, liked: false, comments: [], anonymous: false }
         ];
 
@@ -909,7 +923,7 @@
         }
 
         function navigate(page, data) {
-            if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'following' || page === 'drafts' || page === 'moodboards' || page === 'achievements')) {
+            if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'drafts' || page === 'moodboards' || page === 'achievements')) {
                 if (page === 'profile') { showFullAuth('login'); return; }
             }
             currentPage = page;
@@ -1062,7 +1076,7 @@
             if (currentChallenge) {
                 const categoryNames = { text: '✍️ Для писателей', music: '🎵 Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
                 html += `<div class="challenge-banner" onclick="navigate('challenges')">
-                    <h3> Челлендж недели: ${currentChallenge.title}</h3>
+                    <h3>🔥 Челлендж недели: ${currentChallenge.title}</h3>
                     <p>${currentChallenge.desc}</p>
                     <span class="challenge-tag">${categoryNames[currentChallenge.category] || ''} • ${currentChallenge.tag}</span>
                 </div>`;
@@ -1104,12 +1118,12 @@
         function renderPopular(container) {
             const dayAgo = Date.now() - 86400000;
             const popularPosts = getAllPosts().filter(p => (p.timestamp || 0) >= dayAgo).sort((a, b) => b.likes - a.likes);
-            let html = '<div class="info-banner">🔥 Популярные посты за последние 24 часа</div>';
+            let html = '<div class="info-banner"> Популярные посты за последние 24 часа</div>';
             if (popularPosts.length === 0) {
                 html += '<div class="empty-state"><h2>Пока нет популярных постов</h2></div>';
             } else {
                 html += popularPosts.map((post, index) => {
-                    const medal = index === 0 ? '🥇' : index === 1 ? '' : index === 2 ? '🥉' : '';
+                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
                     return `<div style="position: relative;">
                         ${medal ? `<div style="position: absolute; top: 12px; left: 12px; font-size: 24px; z-index: 10;">${medal}</div>` : ''}
                         ${renderPostCard(post)}
@@ -1181,7 +1195,7 @@
         function renderMoodboards(container) {
             if (!currentUser) { showFullAuth('login'); return; }
             const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
-            let html = '<div class="info-banner"> Ваши коллекции вдохновения</div>';
+            let html = '<div class="info-banner">📌 Ваши коллекции вдохновения</div>';
             html += '<button class="auth-btn" onclick="createNewMoodboard()" style="margin-bottom: 20px;">+ Новая коллекция</button>';
             
             const keys = Object.keys(moodboards);
@@ -1290,7 +1304,7 @@
             
             let contentHtml = '';
             if (draft.type === 'text' && draft.texts && draft.texts.length > 0) {
-                contentHtml = `<div style="background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 16px; white-space: pre-wrap; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8;">${draft.texts.join('\n\n')}</div>`;
+                contentHtml = `<div style="background: #f9f9f9; padding: 20px; border-radius: 12px; margin-bottom: 16px; white-space: pre-line; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8;">${draft.texts.join('\n\n')}</div>`;
             } else if (draft.type === 'image' && draft.images) {
                 contentHtml = `<div style="margin-bottom: 16px;"><div style="display: flex; gap: 8px; flex-wrap: wrap;">${draft.images.map(img => `<img src="${img}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
             } else if (draft.type === 'audio' && draft.audios) {
@@ -1375,7 +1389,7 @@
             const randomUser = users[Math.floor(Math.random() * users.length)];
             const userPosts = getAllPosts().filter(p => p.authorId === randomUser.id);
             let html = `<div class="random-creator-card">
-                <h3>🎲 Случайный творец</h3>
+                <h3> Случайный творец</h3>
                 <div class="random-creator-avatar">${randomUser.photo ? `<img src="${randomUser.photo}">` : randomUser.avatar}</div>
                 <div class="random-creator-name">${randomUser.name}</div>
                 <div class="random-creator-handle">${randomUser.username}</div>
@@ -1398,7 +1412,7 @@
             const me = users.find(u => u.id === currentUser.id);
             const unlocked = me.achievements || [];
             
-            let html = '<div class="info-banner"> Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
+            let html = '<div class="info-banner">🏆 Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
             html += `<h2 style="margin-bottom: 16px; font-size: 18px;">Достижения (${unlocked.length}/${achievements.length})</h2>`;
             html += '<div class="achievements-grid">';
             
@@ -1492,7 +1506,7 @@
             const captionHtml = post.caption ? `<div class="post-caption">${post.caption}</div>` : '';
             const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags">${post.tags.map(t => `<span class="tag" onclick="searchByTag('${t}')">#${t}</span>`).join('')}</div>` : '';
             const collabBadge = post.collabAuthor ? `<span class="collab-badge">🤝 с ${post.collabAuthor}</span>` : '';
-            const anonymousBadge = post.anonymous ? `<span class="anonymous-badge"> Анонимный фидбек</span>` : '';
+            const anonymousBadge = post.anonymous ? `<span class="anonymous-badge">🔒 Анонимный фидбек</span>` : '';
 
             return `<div class="post-card">
                 <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
@@ -1505,7 +1519,7 @@
                 </div>
                 <div class="post-menu" id="post-menu-${post.id}">
                     ${isOwnPost ? `<div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>` : ''}
-                    <div class="post-menu-item" onclick="addToMoodboard(${post.id})"> В коллекцию</div>
+                    <div class="post-menu-item" onclick="addToMoodboard(${post.id})">📌 В коллекцию</div>
                     ${isOwnPost ? `<div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить</div>` : ''}
                 </div>
                 ${mediaHtml}
@@ -1558,7 +1572,7 @@
             let contentHtml = '';
             if (post.type === 'text' && post.texts) contentHtml = `<div class="input-group"><label>Текст</label><textarea class="edit-post-textarea" id="edit-text-content" style="white-space: pre-wrap;">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
             else if (post.type === 'image' && post.images) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Фото (${post.images.length})</label><div style="display: flex; gap: 8px; flex-wrap: wrap;">${post.images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
-            else if (post.type === 'audio' && post.audios) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Аудио (${post.audios.length})</label>${(post.audioTitles || []).map(t => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;"> ${t}</div>`).join('')}</div>`;
+            else if (post.type === 'audio' && post.audios) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Аудио (${post.audios.length})</label>${(post.audioTitles || []).map(t => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;">🎵 ${t}</div>`).join('')}</div>`;
             document.getElementById('edit-post-content').innerHTML = contentHtml;
             document.getElementById('edit-caption').value = post.caption || '';
             document.getElementById('edit-tags').value = (post.tags || []).join(', ');
@@ -1601,7 +1615,7 @@
             if (currentAudio) { currentAudio.pause(); currentAudio = null; if (currentPlayBtn) currentPlayBtn.textContent = '▶'; }
             currentAudio = new Audio(src); currentPlayBtn = btn;
             currentAudio.play().catch(() => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; });
-            btn.textContent = '⏸';
+            btn.textContent = '';
             currentAudio.onended = currentAudio.onerror = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
         }
 
@@ -2130,14 +2144,14 @@
                 <div class="profile-handle">${user.username}</div>
                 ${user.bio ? `<div class="profile-bio">${user.bio}</div>` : ''}
                 <div class="profile-stats">
-                    <div class="profile-stat"><div class="profile-stat-value">${userPosts.length}</div><div class="profile-stat-label">публикаций</div></div>
-                    <div class="profile-stat"><div class="profile-stat-value">${followersCount}</div><div class="profile-stat-label">подписчиков</div></div>
-                    <div class="profile-stat"><div class="profile-stat-value">${followingCount}</div><div class="profile-stat-label">подписок</div></div>
+                    <div class="profile-stat" onclick="setProfileTab('posts')"><div class="profile-stat-value">${userPosts.length}</div><div class="profile-stat-label">публикаций</div></div>
+                    <div class="profile-stat" onclick="setProfileTab('following')"><div class="profile-stat-value">${followingCount}</div><div class="profile-stat-label">подписок</div></div>
+                    <div class="profile-stat" onclick="setProfileTab('followers')"><div class="profile-stat-value">${followersCount}</div><div class="profile-stat-label">подписчиков</div></div>
                 </div>
                 <div class="profile-actions">`;
             if (isOwnProfile) { 
                 html += `<button class="edit-profile-btn" onclick="openEditModal()">Редактировать профиль</button>`;
-                html += `<button class="view-achievements-btn" onclick="navigate('achievements')">🏆 Достижения</button>`;
+                html += `<button class="view-achievements-btn" onclick="navigate('achievements')"> Достижения</button>`;
                 html += `<button class="logout-btn" onclick="logout()">Выйти</button>`;
             } else { 
                 html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')">${isFollowing ? 'Вы подписаны' : 'Подписаться'}</button>`;
@@ -2160,10 +2174,50 @@
             
             html += `</div>`;
             
-            if (userPosts.length === 0) html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>';
-            else html += userPosts.map(post => renderPostCard(post)).join('');
+            if (currentProfileTab === 'posts') {
+                if (userPosts.length === 0) html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>';
+                else html += userPosts.map(post => renderPostCard(post)).join('');
+            } else if (currentProfileTab === 'following') {
+                html += '<h3 style="margin-bottom: 16px; font-size: 16px;">Подписки</h3>';
+                if (following.length === 0) {
+                    html += '<div class="empty-state"><p>Пока нет подписок</p></div>';
+                } else {
+                    html += following.map(followId => {
+                        const followUser = getUserById(followId);
+                        if (followUser) {
+                            return `<div class="user-card" onclick="navigate('profile', {userId: '${followUser.id}'})">
+                                <div class="user-card-avatar">${followUser.photo ? `<img src="${followUser.photo}">` : followUser.avatar}</div>
+                                <div class="user-card-info"><div class="user-card-name">${followUser.name}</div><div class="user-card-handle">${followUser.username}</div></div>
+                            </div>`;
+                        }
+                        return '';
+                    }).join('');
+                }
+            } else if (currentProfileTab === 'followers') {
+                html += '<h3 style="margin-bottom: 16px; font-size: 16px;">Подписчики</h3>';
+                if (followersCount === 0) {
+                    html += '<div class="empty-state"><p>Пока нет подписчиков</p></div>';
+                } else {
+                    html += (user.followers || []).map(followerId => {
+                        const followerUser = getUserById(followerId);
+                        if (followerUser) {
+                            return `<div class="user-card" onclick="navigate('profile', {userId: '${followerUser.id}'})">
+                                <div class="user-card-avatar">${followerUser.photo ? `<img src="${followerUser.photo}">` : followerUser.avatar}</div>
+                                <div class="user-card-info"><div class="user-card-name">${followerUser.name}</div><div class="user-card-handle">${followerUser.username}</div></div>
+                            </div>`;
+                        }
+                        return '';
+                    }).join('');
+                }
+            }
+            
             container.innerHTML = html;
             setTimeout(attachCarouselListeners, 100);
+        }
+
+        function setProfileTab(tab) {
+            currentProfileTab = tab;
+            renderProfile(document.getElementById('mainContent'));
         }
 
         function openEditModal() {
