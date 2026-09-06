@@ -10,9 +10,9 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
         body.dark-theme { background: #1a1a2e; color: #eaeaea; }
         body.dark-theme .auth-box, body.dark-theme .modal-content, body.dark-theme .post-card, body.dark-theme .profile-header, body.dark-theme .user-card, body.dark-theme .notification-item, body.dark-theme .top-bar, body.dark-theme .mobile-sidebar, body.dark-theme .comment, body.dark-theme .multi-item, body.dark-theme .carousel-track .text-slide, body.dark-theme .challenge-card, body.dark-theme .achievement-card, body.dark-theme .moodboard-card, body.dark-theme .draft-card { background: #16213e; color: #eaeaea; }
-        body.dark-theme .category-chip, body.dark-theme .search-input, body.dark-theme .comment-input, body.dark-theme .caption-input, body.dark-theme .tags-input, body.dark-theme .text-input, body.dark-theme .input-group input, body.dark-theme .input-group textarea { background: #1a1a2e; border-color: #0f3460; color: #eaeaea; }
-        body.dark-theme .post-menu, body.dark-theme .action-dropdown { background: #16213e; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        body.dark-theme .post-menu-item:active, body.dark-theme .action-dropdown-item:active { background: #1a1a2e; }
+        body.dark-theme .category-chip, body.dark-theme .search-input, body.dark-theme .comment-input, body.dark-theme .caption-input, body.dark-theme .tags-input, body.dark-theme .text-input, body.dark-theme .input-group input, body.dark-theme .input-group textarea, body.dark-theme .text-input-large { background: #1a1a2e; border-color: #0f3460; color: #eaeaea; }
+        body.dark-theme .post-menu { background: #16213e; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        body.dark-theme .post-menu-item:active { background: #1a1a2e; }
         body.dark-theme .sidebar-nav-item:hover, body.dark-theme .sidebar-user-item:active { background: #1a1a2e; }
         body.dark-theme .post-header:active, body.dark-theme .user-card:active, body.dark-theme .notification-item:active { background: #1a1a2e; }
         body.dark-theme .comment-reply-to { color: #a5b4fc; }
@@ -37,12 +37,28 @@
         body.dark-theme .carousel-prev-btn:hover, body.dark-theme .carousel-next-btn:hover { background: rgba(255,255,255,0.5); }
         body.dark-theme .challenge-card { background: #16213e; border-color: #312e81; }
         body.dark-theme .achievement-card { background: #1e1b4b; border-color: #4338ca; }
+        body.dark-theme .achievement-card.locked { background: #0f172a; border-color: #1e1b4b; opacity: 0.5; }
+        body.dark-theme .achievement-card.secret { background: #1a1a2e; border-color: #312e81; border-style: dashed; }
         body.dark-theme .moodboard-card { background: #16213e; }
         body.dark-theme .draft-card { background: #16213e; border-color: #312e81; }
         body.dark-theme .create-step { background: #16213e; }
-        body.dark-theme .audio-comment-player { background: #1e1b4b; }
         body.dark-theme .vote-btn { background: #1e1b4b; color: #a5b4fc; }
         body.dark-theme .vote-btn.voted { background: #4338ca; color: white; }
+        body.dark-theme .achievement-tag { background: #1e1b4b; color: #a5b4fc; border-color: #4338ca; }
+        body.dark-theme .achievement-tag.secret { background: #0f172a; color: #64748b; border-color: #312e81; border-style: dashed; }
+        body.dark-theme .search-mode-btn { background: #1a1a2e; color: #eaeaea; border-color: #0f3460; }
+        body.dark-theme .search-mode-btn.active { background: #4338ca; color: white; }
+        body.dark-theme .tag-search-result { background: #16213e; border-color: #312e81; }
+        body.dark-theme .text-input-large { background: #1a1a2e; color: #eaeaea; border-color: #0f3460; }
+        body.dark-theme .text-input-large::placeholder { color: #64748b; }
+        body.dark-theme .profile-achievements-section { border-color: #0f3460; }
+        body.dark-theme .audio-voice-btn { background: #1e1b4b; color: #a5b4fc; }
+        body.dark-theme .audio-voice-btn.playing { background: #4338ca; color: white; }
+        body.dark-theme .comment-input { background: #1a1a2e; border-color: #0f3460; color: #eaeaea; }
+        body.dark-theme .comment-input::placeholder { color: #64748b; }
+        body.dark-theme .attach-image-btn, body.dark-theme .record-audio-btn { color: #a5b4fc; }
+        body.dark-theme .attach-image-btn:hover, body.dark-theme .record-audio-btn:hover { background: #1e1b4b; }
+        body.dark-theme .audio-voice-duration { color: #94a3b8; }
         
         .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
         .auth-modal-overlay.active { display: flex; }
@@ -150,10 +166,10 @@
         .post-author-name { font-weight: 600; font-size: 14px; }
         .post-author-handle { color: #666; font-size: 13px; }
         .post-menu-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #666; }
-        .post-menu, .action-dropdown { position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; }
-        .post-menu.active, .action-dropdown.active { display: block; }
-        .post-menu-item, .action-dropdown-item { padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; }
-        .post-menu-item:active, .action-dropdown-item:active { background: #f0f0f0; }
+        .post-menu { position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; }
+        .post-menu.active { display: block; }
+        .post-menu-item { padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; }
+        .post-menu-item:active { background: #f0f0f0; }
         .post-menu-item.delete { color: #ef4444; }
         
         .carousel { position: relative; width: 100%; background: #f0f0f0; }
@@ -162,7 +178,7 @@
         .carousel-track::-webkit-scrollbar { display: none; }
         .carousel-track > * { flex: 0 0 100%; scroll-snap-align: start; pointer-events: none; }
         .carousel-track img { width: 100%; max-height: 600px; object-fit: cover; display: block; pointer-events: auto; }
-        .carousel-track .text-slide { padding: 24px; background: #f9f9f9; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; color: #333; white-space: pre-wrap; min-height: 300px; }
+        .carousel-track .text-slide { padding: 24px; background: #f9f9f9; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; color: #333; white-space: pre-wrap; word-wrap: break-word; min-height: 300px; }
         .carousel-track .audio-slide { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center; }
         .carousel-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; z-index: 5; }
         .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
@@ -182,7 +198,8 @@
         .post-content { padding: 16px; }
         .post-caption { font-size: 15px; line-height: 1.5; margin-bottom: 12px; }
         .post-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-        .tag { font-size: 12px; color: #667eea; background: #f0f0ff; padding: 4px 10px; border-radius: 12px; font-weight: 500; }
+        .tag { font-size: 12px; color: #667eea; background: #f0f0ff; padding: 4px 10px; border-radius: 12px; font-weight: 500; cursor: pointer; }
+        .tag:active { transform: scale(0.95); }
         .post-actions { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid #f0f0f0; flex-wrap: wrap; }
         .action-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-size: 13px; color: #666; padding: 8px 12px; border-radius: 8px; font-family: inherit; }
         .action-btn:active { transform: scale(0.92); }
@@ -198,7 +215,7 @@
         .comment-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
         .comment-author { font-weight: 600; font-size: 13px; }
         .comment-reply-to { font-size: 12px; color: #667eea; font-weight: 500; }
-        .comment-text { font-size: 14px; color: #333; line-height: 1.4; word-wrap: break-word; }
+        .comment-text { font-size: 14px; color: #333; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap; }
         .comment-image { max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 8px; object-fit: cover; cursor: pointer; }
         .comment-actions { display: flex; gap: 12px; margin-top: 6px; }
         .comment-action-btn { background: none; border: none; color: #666; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; }
@@ -207,21 +224,28 @@
         .comment:hover .comment-delete-btn { display: block; }
         .comment-input-wrapper { display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #eee; align-items: flex-end; }
         .comment-input-container { flex: 1; position: relative; }
-        .comment-input { width: 100%; padding: 10px 40px 10px 14px; border: 1px solid #e0e0e0; border-radius: 20px; font-size: 14px; font-family: inherit; }
+        .comment-input { width: 100%; padding: 12px 90px 12px 16px; border: 1px solid #e0e0e0; border-radius: 24px; font-size: 14px; font-family: inherit; }
         .comment-input:focus { outline: none; border-color: #667eea; }
-        .attach-image-btn, .record-audio-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px; color: #666; }
-        .attach-image-btn { right: 8px; }
-        .record-audio-btn { right: 36px; }
+        .attach-image-btn, .record-audio-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; color: #666; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s; }
+        .attach-image-btn:hover, .record-audio-btn:hover { background: #f0f0f0; }
+        .attach-image-btn { right: 48px; }
+        .record-audio-btn { right: 8px; }
         .record-audio-btn.recording { color: #ef4444; animation: pulse 1s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .comment-image-preview, .audio-comment-preview { display: none; margin-top: 8px; position: relative; }
         .comment-image-preview img { max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover; }
-        .audio-comment-player { display: flex; align-items: center; gap: 8px; background: #f0f0ff; padding: 8px 12px; border-radius: 20px; font-size: 13px; }
         .remove-attachment-btn { position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .comment-submit { background: #667eea; color: white; border: none; padding: 10px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 14px; flex-shrink: 0; }
+        .comment-submit { background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px; flex-shrink: 0; }
         .reply-indicator { display: none; background: #f0f0ff; padding: 6px 12px; border-radius: 8px; font-size: 12px; color: #667eea; margin-bottom: 8px; align-items: center; justify-content: space-between; }
         .reply-indicator.active { display: flex; }
         .cancel-reply { background: none; border: none; color: #667eea; cursor: pointer; font-size: 16px; font-weight: 600; }
+        
+        .audio-voice-btn { width: 36px; height: 36px; border-radius: 50%; background: #f0f0ff; color: #667eea; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; transition: all 0.2s; }
+        .audio-voice-btn:hover { background: #e0e0ff; }
+        .audio-voice-btn.playing { background: #667eea; color: white; animation: pulse-voice 1.5s infinite; }
+        @keyframes pulse-voice { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .audio-voice-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+        .audio-voice-duration { font-size: 12px; color: #666; }
         
         .profile-header { background: white; padding: 30px 20px; border-radius: 16px; margin-bottom: 20px; text-align: center; }
         .profile-avatar-large { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; margin: 0 auto 16px; overflow: hidden; }
@@ -234,21 +258,32 @@
         .profile-stat-value { font-size: 20px; font-weight: 700; }
         .profile-stat-label { font-size: 12px; color: #666; }
         .profile-actions { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-        .edit-profile-btn, .logout-btn, .follow-btn, .unfollow-btn { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
+        .edit-profile-btn, .logout-btn, .follow-btn, .unfollow-btn, .view-achievements-btn { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
         .edit-profile-btn { background: #667eea; color: white; }
         .logout-btn { background: #f0f0f0; color: #333; }
         .follow-btn { background: #667eea; color: white; }
         .unfollow-btn { background: #f0f0f0; color: #333; }
-        .follow-btn:active, .unfollow-btn:active { transform: scale(0.95); }
+        .view-achievements-btn { background: #f0f0ff; color: #667eea; }
+        .follow-btn:active, .unfollow-btn:active, .view-achievements-btn:active { transform: scale(0.95); }
+        
+        .profile-achievements-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee; }
+        .profile-achievements-section h4 { font-size: 14px; margin-bottom: 10px; color: #666; }
+        .profile-achievements-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+        .achievement-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f0ff; color: #667eea; border: 1px solid #e0e0ff; }
+        .achievement-tag.secret { background: #f9f9f9; color: #999; border: 1px dashed #ccc; }
         
         .achievements-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
         .achievements-section h3 { font-size: 16px; margin-bottom: 12px; }
         .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
-        .achievement-card { background: #f9f9f9; border: 2px solid #e0e0e0; border-radius: 12px; padding: 12px; text-align: center; }
+        .achievement-card { background: #f9f9f9; border: 2px solid #e0e0e0; border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
+        .achievement-card:active { transform: scale(0.95); }
+        .achievement-card.selected { border-color: #667eea; background: #f0f0ff; }
         .achievement-icon { font-size: 32px; margin-bottom: 8px; }
         .achievement-name { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
         .achievement-desc { font-size: 10px; color: #666; }
-        .achievement-card.locked { opacity: 0.4; }
+        .achievement-card.locked { opacity: 0.5; }
+        .achievement-card.secret { border-style: dashed; background: #fafafa; }
+        .achievement-card.secret .achievement-icon { font-size: 28px; }
         
         .moodboards-section { margin-top: 20px; }
         .moodboards-section h3 { font-size: 16px; margin-bottom: 12px; }
@@ -287,9 +322,13 @@
         .upload-area.has-media { padding: 0; border-style: solid; }
         .upload-area img { width: 100%; border-radius: 10px; }
         .upload-icon { font-size: 48px; margin-bottom: 12px; }
-        .text-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; font-size: 15px; font-family: 'Georgia', serif; resize: vertical; min-height: 200px; margin-bottom: 16px; line-height: 1.6; }
-        .caption-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; font-size: 15px; resize: vertical; min-height: 100px; margin-bottom: 16px; }
-        .tags-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; font-size: 14px; margin-bottom: 20px; }
+        
+        .text-input-large { width: 100%; min-height: 400px; padding: 20px; border: 2px solid #e0e0e0; border-radius: 16px; font-size: 18px; font-family: 'Georgia', serif; resize: vertical; line-height: 1.8; margin-bottom: 16px; }
+        .text-input-large:focus { outline: none; border-color: #667eea; }
+        .text-input-large::placeholder { color: #999; }
+        
+        .caption-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; font-size: 15px; resize: vertical; min-height: 100px; margin-bottom: 16px; font-family: inherit; }
+        .tags-input { width: 100%; border: 1px solid #e0e0e0; border-radius: 12px; padding: 12px 16px; font-size: 14px; margin-bottom: 20px; font-family: inherit; }
         .submit-btn { width: 100%; background: #667eea; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 8px; }
         .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .draft-btn { width: 100%; background: #f0f0f0; color: #333; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; }
@@ -336,8 +375,17 @@
         .notification-time { font-size: 12px; color: #888; }
         .notification-badge { background: #ef4444; color: white; border-radius: 10px; padding: 2px 8px; font-size: 12px; font-weight: 600; margin-left: 8px; }
         
-        .search-input { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; margin-bottom: 16px; font-family: inherit; }
+        .search-input { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; margin-bottom: 12px; font-family: inherit; }
         .search-input:focus { outline: none; border-color: #667eea; }
+        
+        .search-modes { display: flex; gap: 8px; margin-bottom: 16px; }
+        .search-mode-btn { flex: 1; padding: 10px; border: 1px solid #e0e0e0; border-radius: 10px; background: white; cursor: pointer; font-size: 13px; font-weight: 500; font-family: inherit; }
+        .search-mode-btn.active { background: #667eea; color: white; border-color: #667eea; }
+        
+        .tag-search-result { background: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+        .tag-search-result-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .tag-search-result-tag { font-size: 14px; font-weight: 600; color: #667eea; }
+        .tag-search-result-count { font-size: 12px; color: #666; }
         
         .edit-post-textarea { width: 100%; min-height: 150px; padding: 12px; border: 1px solid #e0e0e0; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; margin-bottom: 16px; }
         .edit-post-textarea:focus { outline: none; border-color: #667eea; }
@@ -409,7 +457,7 @@
             </div>
             <div class="sidebar-nav-item" data-page="challenges" onclick="navigate('challenges'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-                <span>Челленджи</span>
+                <span>Челлендж</span>
             </div>
             <div class="sidebar-nav-item" data-page="following" onclick="navigate('following'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
@@ -431,6 +479,10 @@
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                 <span>Случайный творец</span>
             </div>
+            <div class="sidebar-nav-item" data-page="achievements" onclick="navigate('achievements'); toggleSidebar();">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <span>Достижения</span>
+            </div>
             <div class="sidebar-nav-item" data-page="notifications" onclick="navigate('notifications'); toggleSidebar();">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                 <span>Уведомления</span>
@@ -441,8 +493,10 @@
                 <span id="profileMenuLabel">Профиль</span>
             </div>
             <div class="sidebar-nav-item" data-page="theme" onclick="toggleTheme();">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-                <span>Тема</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" id="theme-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+                <span id="theme-label">Тема</span>
             </div>
             <div class="sidebar-section" id="sidebarFollowing"></div>
         </div>
@@ -465,6 +519,17 @@
         <div class="story-content" id="storyContent"></div>
         <div class="story-nav prev" onclick="prevStory()"></div>
         <div class="story-nav next" onclick="nextStory()"></div>
+    </div>
+
+    <div class="modal" id="textInputModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Текст поста</h2>
+                <button class="close-modal" onclick="closeTextInputModal()">×</button>
+            </div>
+            <textarea class="text-input-large" id="text-input-large" placeholder="Напишите свой текст здесь...&#10;&#10;Строки переносятся автоматически.&#10;Можно писать стихи, прозу, заметки..."></textarea>
+            <button class="auth-btn" onclick="saveTextInput()">Добавить</button>
+        </div>
     </div>
 
     <div class="modal" id="createModal">
@@ -496,7 +561,7 @@
                 </div>
                 <div id="text-section" style="display: none;">
                     <div class="multi-item-list" id="text-list"></div>
-                    <button class="add-item-btn" onclick="addTextItem()">+ Добавить текст</button>
+                    <button class="add-item-btn" onclick="openTextInputModal()">+ Добавить текст</button>
                 </div>
             </div>
             <div id="create-step-2" style="display: none;">
@@ -516,7 +581,7 @@
                 </div>
             </div>
             <div style="display: flex; gap: 8px; margin-top: 16px;">
-                <button class="draft-btn" onclick="saveDraft()" style="flex: 1;"> Черновик</button>
+                <button class="draft-btn" onclick="saveDraft()" style="flex: 1;">💾 Черновик</button>
                 <button class="submit-btn" id="submit-btn" onclick="submitPost()" disabled style="flex: 2; margin-bottom: 0;">Опубликовать</button>
             </div>
         </div>
@@ -548,7 +613,7 @@
                 <button class="close-modal" onclick="closeStoryModal()">×</button>
             </div>
             <div class="story-upload-area" id="story-upload-area" onclick="document.getElementById('story-file-input').click()">
-                <div class="upload-icon">📷</div>
+                <div class="upload-icon"></div>
                 <div class="upload-text">Нажмите, чтобы добавить фото</div>
             </div>
             <input type="file" id="story-file-input" accept="image/*" style="display: none" onchange="handleStoryFileSelect(event)">
@@ -610,55 +675,76 @@
         let currentProfileUserId = null;
         let pendingProfilePhoto = null;
         let searchQuery = '';
+        let searchMode = 'users';
         let currentAudio = null;
         let currentPlayBtn = null;
         let currentTheme = localStorage.getItem('muse_theme') || 'light';
         let editingPostId = null;
-        let pendingAuthAction = null;
         let createStep = 1;
         let collabUser = null;
         let currentMoodboard = null;
+        let playingVoiceId = null;
 
         const challenges = [
-            { week: 1, title: 'Закат за 30 минут', desc: 'Нарисуйте или сфотографируйте закат', tag: '#закат30', category: 'photo' },
-            { week: 1, title: 'Стих о дожде', desc: 'Напишите стихотворение о дожде', tag: '#дождьстих', category: 'text' },
+            { week: 0, title: 'Стих о дожде', desc: 'Напишите стихотворение о дожде', tag: '#дождьстих', category: 'text' },
             { week: 1, title: 'Один аккорд', desc: 'Создайте трек на одном аккорде', tag: '#один_аккорд', category: 'music' },
             { week: 2, title: 'Портрет незнакомца', desc: 'Нарисуйте портрет человека, которого видите впервые', tag: '#портрет', category: 'art' },
-            { week: 2, title: 'Городской ритм', desc: 'Запишите звуки города и сделайте из них трек', tag: '#городской_ритм', category: 'music' },
-            { week: 2, title: 'Микро-рассказ', desc: 'Напишите рассказ ровно в 100 слов', tag: '#микро_рассказ', category: 'text' },
-            { week: 3, title: 'Абстракция эмоций', desc: 'Выразите эмоцию через абстракцию', tag: '#эмоции', category: 'art' },
             { week: 3, title: 'Фото в движении', desc: 'Снимите движение (люди, транспорт, природа)', tag: '#движение', category: 'photo' },
-            { week: 3, title: 'Песня без слов', desc: 'Создайте инструментальный трек', tag: '#без_слов', category: 'music' },
-            { week: 4, title: 'Ночной город', desc: 'Фото или рисунок ночного города', tag: '#ночной_город', category: 'photo' },
-            { week: 4, title: 'Диалог', desc: 'Напишите диалог двух незнакомцев', tag: '#диалог', category: 'text' },
-            { week: 4, title: 'Ремикс классики', desc: 'Переработайте классическое произведение', tag: '#ремикс', category: 'music' }
+            { week: 4, title: 'Микро-рассказ', desc: 'Напишите рассказ ровно в 100 слов', tag: '#микро_рассказ', category: 'text' },
+            { week: 5, title: 'Песня без слов', desc: 'Создайте инструментальный трек', tag: '#без_слов', category: 'music' },
+            { week: 6, title: 'Абстракция эмоций', desc: 'Выразите эмоцию через абстракцию', tag: '#эмоции', category: 'art' },
+            { week: 7, title: 'Ночной город', desc: 'Фото или рисунок ночного города', tag: '#ночной_город', category: 'photo' },
+            { week: 8, title: 'Диалог', desc: 'Напишите диалог двух незнакомцев', tag: '#диалог', category: 'text' },
+            { week: 9, title: 'Ремикс классики', desc: 'Переработайте классическое произведение', tag: '#ремикс', category: 'music' },
+            { week: 10, title: 'Закат за 30 минут', desc: 'Нарисуйте или сфотографируйте закат', tag: '#закат30', category: 'art' },
+            { week: 11, title: 'Уличный портрет', desc: 'Сфотографируйте незнакомца на улице', tag: '#уличный_портрет', category: 'photo' }
         ];
 
         const achievements = [
             { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
             { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
+            { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '🎨', check: (u) => getUserPosts(u.id).length >= 50 },
             { id: 'hundred_posts', name: 'Летописец', desc: '100 публикаций', icon: '📚', check: (u) => getUserPosts(u.id).length >= 100 },
             { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
+            { id: 'fifty_likes', name: 'Востребованный', desc: 'Получите 50 лайков', icon: '💫', check: (u) => getUserTotalLikes(u.id) >= 50 },
             { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
-            { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '👥', check: (u) => (u.followers || []).length >= 10 },
+            { id: 'five_hundred_likes', name: 'Легенда', desc: 'Получите 500 лайков', icon: '👑', check: (u) => getUserTotalLikes(u.id) >= 500 },
+            { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '', check: (u) => (u.followers || []).length >= 10 },
+            { id: 'fifty_followers', name: 'Лидер мнений', desc: '50 подписчиков', icon: '🌟', check: (u) => (u.followers || []).length >= 50 },
             { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '💬', check: (u) => getUserComments(u.name).length >= 1 },
-            { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '🏆', check: (u) => false },
-            { id: 'collab_author', name: 'Соавтор', desc: 'Опубликуйте коллаборацию', icon: '🤝', check: (u) => false }
+            { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '🗨️', check: (u) => getUserComments(u.name).length >= 10 },
+            { id: 'fifty_comments', name: 'Критик', desc: '50 комментариев', icon: '📢', check: (u) => getUserComments(u.name).length >= 50 },
+            { id: 'challenge_participant', name: 'Участник', desc: 'Участвуйте в челлендже', icon: '', check: (u) => false },
+            { id: 'challenge_winner', name: 'Победитель', desc: 'Победите в челлендже', icon: '🥇', check: (u) => false },
+            { id: 'collab_author', name: 'Соавтор', desc: 'Опубликуйте коллаборацию', icon: '🤝', check: (u) => false },
+            { id: 'first_story', name: 'Рассказчик', desc: 'Опубликуйте первую историю', icon: '📖', check: (u) => false },
+            { id: 'moodboard_creator', name: 'Куратор', desc: 'Создайте первую коллекцию', icon: '📌', check: (u) => false },
+            { id: 'week_active', name: 'Неделя подряд', desc: 'Заходите 7 дней подряд', icon: '', check: (u) => false },
+            { id: 'month_active', name: 'Месяц подряд', desc: 'Заходите 30 дней подряд', icon: '💎', check: (u) => false },
+            { id: 'first_draft', name: 'Перфекционист', desc: 'Сохраните первый черновик', icon: '✏️', check: (u) => false },
+            { id: 'ten_drafts', name: 'Редактор', desc: 'Сохраните 10 черновиков', icon: '📋', check: (u) => false },
+            { id: 'photo_author', name: 'Фотограф', desc: 'Опубликуйте 20 фото', icon: '📸', check: (u) => getUserPosts(u.id).filter(p => p.category === 'photo').length >= 20 },
+            { id: 'music_author', name: 'Музыкант', desc: 'Опубликуйте 20 треков', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'music').length >= 20 },
+            { id: 'writer', name: 'Писатель', desc: 'Опубликуйте 20 текстов', icon: '📝', check: (u) => getUserPosts(u.id).filter(p => p.category === 'text').length >= 20 },
+            { id: 'artist', name: 'Художник', desc: 'Опубликуйте 20 работ', icon: '', check: (u) => getUserPosts(u.id).filter(p => p.category === 'art').length >= 20 },
+            { id: 'secret_night', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
+            { id: 'secret_early', name: '???', desc: 'Секретное достижение', icon: '❓', secret: true, check: (u) => false },
+            { id: 'secret_rare', name: '???', desc: 'Секретное достижение', icon: '', secret: true, check: (u) => false }
         ];
 
         const now = Date.now();
         const samplePosts = [
             { id: 1, authorId: 'sample1', author: 'Анна К.', handle: '@anna_art', avatar: 'А', timestamp: now - 7200000, type: 'image', images: ['https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800', 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800'], caption: 'Серия абстракций. Играю с формами и цветом.', tags: ['живопись', 'абстракция'], category: 'art', likes: 42, liked: false, comments: [], anonymous: false },
-            { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', timestamp: now - 18000000, type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро'], category: 'photo', likes: 128, liked: false, comments: [], anonymous: false },
-            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', timestamp: now - 86400000, type: 'text', texts: ['Город просыпался медленно, словно нехотя открывая глаза после долгой ночи. Туман стелился по улицам, обнимая старые фонари, которые ещё горели, несмотря на рассвет.', 'Он шёл по набережной, и каждый шаг отдавался эхом в пустоте утреннего города.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город'], category: 'text', likes: 93, liked: false, comments: [], anonymous: false },
+            { id: 2, authorId: 'sample2', author: 'Максим Д.', handle: '@max_photo', avatar: 'М', timestamp: now - 18000000, type: 'image', images: ['https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800'], caption: 'Утренний кофе и тишина.', tags: ['фото', 'утро', 'кофе'], category: 'photo', likes: 128, liked: false, comments: [], anonymous: false },
+            { id: 3, authorId: 'sample3', author: 'Дмитрий В.', handle: '@dmitry_music', avatar: 'Д', timestamp: now - 86400000, type: 'text', texts: ['Город просыпался медленно,\nсловно нехотя открывая глаза\nпосле долгой ночи.\n\nТуман стелился по улицам,\nобнимая старые фонари,\nкоторые ещё горели,\nнесмотря на рассвет.'], caption: 'Отрывок из нового рассказа.', tags: ['проза', 'город', 'стихи'], category: 'text', likes: 93, liked: false, comments: [], anonymous: false },
             { id: 4, authorId: 'sample4', author: 'Елена С.', handle: '@elena_sings', avatar: 'Е', timestamp: now - 172800000, type: 'audio', audios: ['https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'], audioTitles: ['Утренний этюд', 'Вечерняя мелодия'], caption: 'Две новые демки.', tags: ['музыка', 'инди'], category: 'music', likes: 67, liked: false, comments: [], anonymous: false }
         ];
 
         const sampleUsers = [
-            { id: 'sample1', name: 'Анна К.', username: '@anna_art', avatar: 'А', bio: 'Художник. Пишу абстракции.', photo: null, followers: [], following: [], achievements: [] },
-            { id: 'sample2', name: 'Максим Д.', username: '@max_photo', avatar: 'М', bio: 'Фотограф. Ловлю моменты.', photo: null, followers: [], following: [], achievements: [] },
-            { id: 'sample3', name: 'Дмитрий В.', username: '@dmitry_music', avatar: 'Д', bio: 'Музыкант и писатель.', photo: null, followers: [], following: [], achievements: [] },
-            { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [], achievements: [] }
+            { id: 'sample1', name: 'Анна К.', username: '@anna_art', avatar: 'А', bio: 'Художник. Пишу абстракции.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] },
+            { id: 'sample2', name: 'Максим Д.', username: '@max_photo', avatar: 'М', bio: 'Фотограф. Ловлю моменты.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] },
+            { id: 'sample3', name: 'Дмитрий В.', username: '@dmitry_music', avatar: 'Д', bio: 'Музыкант и писатель.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] },
+            { id: 'sample4', name: 'Елена С.', username: '@elena_sings', avatar: 'Е', bio: 'Пою и пишу песни.', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] }
         ];
 
         window.onload = function() {
@@ -668,6 +754,7 @@
             const savedPage = localStorage.getItem('muse_lastPage');
             if (savedPage) currentPage = savedPage;
             document.getElementById('mainApp').classList.add('active');
+            updateThemeIcon();
             navigate(currentPage);
             updateNotifBadge();
             updateAuthUI();
@@ -677,10 +764,23 @@
             document.getElementById('profileMenuLabel').textContent = currentUser ? 'Профиль' : 'Войти';
         }
 
+        function updateThemeIcon() {
+            const icon = document.getElementById('theme-icon');
+            const label = document.getElementById('theme-label');
+            if (currentTheme === 'dark') {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>';
+                label.textContent = 'Светлая тема';
+            } else {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+                label.textContent = 'Тёмная тема';
+            }
+        }
+
         function toggleTheme() {
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
             document.body.classList.toggle('dark-theme', currentTheme === 'dark');
             localStorage.setItem('muse_theme', currentTheme);
+            updateThemeIcon();
         }
 
         function toggleAuthMode() {
@@ -707,7 +807,7 @@
                 } else { alert('Неверный никнейм или пароль'); }
             } else {
                 if (users.find(u => u.username === username)) { alert('Никнейм занят'); return; }
-                const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [], achievements: [] };
+                const newUser = { id: 'user_' + Date.now(), name, username, password, avatar: name.charAt(0).toUpperCase(), bio: '', photo: null, followers: [], following: [], achievements: [], displayedAchievements: [] };
                 users.push(newUser);
                 saveUsers(users);
                 currentUser = newUser;
@@ -747,11 +847,7 @@
         function getUserComments(userName) {
             const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
             const comments = [];
-            posts.forEach(p => {
-                (p.comments || []).forEach(c => {
-                    if (c.author === userName) comments.push(c);
-                });
-            });
+            posts.forEach(p => { (p.comments || []).forEach(c => { if (c.author === userName) comments.push(c); }); });
             return comments;
         }
 
@@ -776,6 +872,23 @@
             localStorage.setItem('muse_currentUser', JSON.stringify(me));
         }
 
+        function toggleProfileAchievement(achId) {
+            if (!currentUser) return;
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            if (!me.displayedAchievements) me.displayedAchievements = [];
+            const idx = me.displayedAchievements.indexOf(achId);
+            if (idx > -1) { me.displayedAchievements.splice(idx, 1); }
+            else {
+                if (me.displayedAchievements.length >= 5) { alert('Можно выбрать максимум 5 достижений'); return; }
+                me.displayedAchievements.push(achId);
+            }
+            saveUsers(users);
+            currentUser = me;
+            localStorage.setItem('muse_currentUser', JSON.stringify(me));
+            renderProfile(document.getElementById('mainContent'));
+        }
+
         function logout() { 
             currentUser = null;
             localStorage.removeItem('muse_currentUser'); 
@@ -785,7 +898,7 @@
         }
 
         function navigate(page, data) {
-            if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'following' || page === 'drafts' || page === 'moodboards')) {
+            if (!currentUser && (page === 'profile' || page === 'notifications' || page === 'following' || page === 'drafts' || page === 'moodboards' || page === 'achievements')) {
                 if (page === 'profile') { showFullAuth('login'); return; }
             }
             currentPage = page;
@@ -798,12 +911,13 @@
             switch(page) {
                 case 'home': title.textContent = 'Лента'; renderFeed(content); break;
                 case 'popular': title.textContent = 'Популярное'; renderPopular(content); break;
-                case 'challenges': title.textContent = 'Челленджи'; renderChallenges(content); break;
+                case 'challenges': title.textContent = 'Челлендж'; renderChallenges(content); break;
                 case 'following': title.textContent = 'Подписки'; renderFollowing(content); break;
                 case 'moodboards': title.textContent = 'Коллекции'; renderMoodboards(content); break;
                 case 'drafts': title.textContent = 'Черновики'; renderDrafts(content); break;
                 case 'explore': title.textContent = 'Обзор'; renderExplore(content); break;
                 case 'random': title.textContent = 'Случайный творец'; renderRandomCreator(content); break;
+                case 'achievements': title.textContent = 'Достижения'; renderAchievementsPage(content); break;
                 case 'notifications': title.textContent = 'Уведомления'; renderNotifications(content); markNotificationsRead(); break;
                 case 'profile': 
                     if (data && data.userId) {
@@ -847,10 +961,7 @@
         }
 
         function requireAuth() {
-            if (!currentUser) {
-                document.getElementById('authModal').classList.add('active');
-                return false;
-            }
+            if (!currentUser) { document.getElementById('authModal').classList.add('active'); return false; }
             return true;
         }
 
@@ -920,9 +1031,10 @@
             updateNotifBadge();
         }
 
-        function getCurrentWeekChallenges() {
-            const weekNum = Math.floor((Date.now() / 86400000) % challenges.length / 3) + 1;
-            return challenges.filter(c => c.week === ((weekNum - 1) % 4) + 1);
+        function getCurrentWeekChallenge() {
+            const weekIndex = Math.floor(Date.now() / (7 * 86400000));
+            const challengeIndex = weekIndex % challenges.length;
+            return challenges[challengeIndex];
         }
 
         function getAllPosts() {
@@ -933,15 +1045,15 @@
             const allPosts = getAllPosts().sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
             const filtered = currentCategory === 'all' ? allPosts : allPosts.filter(p => p.category === currentCategory);
             const stories = getStories();
-            const currentChallenges = getCurrentWeekChallenges();
+            const currentChallenge = getCurrentWeekChallenge();
 
             let html = '';
-            if (currentChallenges.length > 0) {
-                const ch = currentChallenges[0];
+            if (currentChallenge) {
+                const categoryNames = { text: '✍️ Для писателей', music: '🎵 Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
                 html += `<div class="challenge-banner" onclick="navigate('challenges')">
-                    <h3>🔥 Челлендж недели: ${ch.title}</h3>
-                    <p>${ch.desc}</p>
-                    <span class="challenge-tag">${ch.tag}</span>
+                    <h3>🔥 Челлендж недели: ${currentChallenge.title}</h3>
+                    <p>${currentChallenge.desc}</p>
+                    <span class="challenge-tag">${categoryNames[currentChallenge.category] || ''} • ${currentChallenge.tag}</span>
                 </div>`;
             }
 
@@ -998,19 +1110,19 @@
         }
 
         function renderChallenges(container) {
-            const currentChallenges = getCurrentWeekChallenges();
+            const currentChallenge = getCurrentWeekChallenge();
             const votes = JSON.parse(localStorage.getItem('muse_challenge_votes') || '{}');
             
-            let html = '<div class="info-banner"> Челленджи меняются каждую неделю. Голосуйте за лучшие работы!</div>';
-            html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Текущие челленджи</h2>';
+            let html = '<div class="info-banner">🏆 Новый челлендж каждую неделю. Чередуются: писатели → музыканты → художники → фотографы</div>';
             
-            currentChallenges.forEach((ch, idx) => {
-                const posts = getAllPosts().filter(p => p.tags && p.tags.some(t => t.toLowerCase().includes(ch.tag.replace('#', '').toLowerCase())));
+            if (currentChallenge) {
+                const categoryNames = { text: '✍️ Для писателей', music: ' Для музыкантов', art: '🎨 Для художников', photo: '📷 Для фотографов' };
+                const posts = getAllPosts().filter(p => p.tags && p.tags.some(t => t.toLowerCase().includes(currentChallenge.tag.replace('#', '').toLowerCase())));
                 const topPosts = posts.sort((a, b) => b.likes - a.likes).slice(0, 5);
                 
                 html += `<div class="challenge-card">
-                    <h4>${idx + 1}. ${ch.title} <span style="color: #667eea; font-size: 13px;">${ch.tag}</span></h4>
-                    <div class="challenge-meta">${ch.desc} • ${posts.length} работ</div>`;
+                    <h4>${currentChallenge.title} <span style="color: #667eea; font-size: 13px;">${currentChallenge.tag}</span></h4>
+                    <div class="challenge-meta">${categoryNames[currentChallenge.category]} • ${currentChallenge.desc} • ${posts.length} работ</div>`;
                 
                 if (topPosts.length > 0) {
                     html += '<div class="challenge-votes">';
@@ -1022,10 +1134,10 @@
                     });
                     html += '</div>';
                 } else {
-                    html += '<div style="color: #888; font-size: 13px; margin-top: 8px;">Пока нет работ. Используйте тег ' + ch.tag + ' в посте!</div>';
+                    html += '<div style="color: #888; font-size: 13px; margin-top: 8px;">Пока нет работ. Используйте тег ' + currentChallenge.tag + ' в посте!</div>';
                 }
                 html += '</div>';
-            });
+            }
             
             container.innerHTML = html;
         }
@@ -1033,11 +1145,8 @@
         function voteForPost(postId) {
             if (!requireAuth()) return;
             const votes = JSON.parse(localStorage.getItem('muse_challenge_votes') || '{}');
-            if (votes[postId] === currentUser.id) {
-                delete votes[postId];
-            } else {
-                votes[postId] = currentUser.id;
-            }
+            if (votes[postId] === currentUser.id) { delete votes[postId]; }
+            else { votes[postId] = currentUser.id; }
             localStorage.setItem('muse_challenge_votes', JSON.stringify(votes));
             renderChallenges(document.getElementById('mainContent'));
         }
@@ -1097,7 +1206,7 @@
             const posts = getAllPosts().filter(p => mb.posts.includes(p.id));
             let html = '';
             if (posts.length === 0) {
-                html = '<div class="empty-state"><p>Коллекция пуста. Добавляйте посты через кнопку "Сохранить"</p></div>';
+                html = '<div class="empty-state"><p>Коллекция пуста. Добавляйте посты через меню "📌 В коллекцию"</p></div>';
             } else {
                 html = posts.map(post => renderPostCard(post)).join('');
             }
@@ -1123,7 +1232,7 @@
                 }
                 return;
             }
-            const options = keys.map(k => `${moodboards[k].name} (${moodboards[k].posts.length})`).join('\n');
+            const options = keys.map((k, i) => `${i + 1}. ${moodboards[k].name} (${moodboards[k].posts.length})`).join('\n');
             const choice = prompt(`Выберите коллекцию (введите номер):\n${options}`);
             if (choice && keys[parseInt(choice) - 1]) {
                 const key = keys[parseInt(choice) - 1];
@@ -1131,9 +1240,7 @@
                     moodboards[key].posts.push(postId);
                     localStorage.setItem('muse_moodboards_' + currentUser.id, JSON.stringify(moodboards));
                     alert('Пост добавлен в коллекцию!');
-                } else {
-                    alert('Пост уже в этой коллекции');
-                }
+                } else { alert('Пост уже в этой коллекции'); }
             }
         }
 
@@ -1145,7 +1252,7 @@
                 html += '<div class="empty-state"><h2>Нет черновиков</h2><p>Сохраняйте посты как черновики, чтобы доделать позже</p></div>';
             } else {
                 html += drafts.map((draft, idx) => {
-                    const icon = draft.type === 'image' ? '🖼️' : draft.type === 'audio' ? '🎵' : '️';
+                    const icon = draft.type === 'image' ? '🖼️' : draft.type === 'audio' ? '🎵' : '✍️';
                     const title = draft.caption || 'Без названия';
                     const date = new Date(draft.timestamp).toLocaleDateString('ru-RU');
                     return `<div class="draft-card">
@@ -1166,23 +1273,17 @@
 
         function saveDraft() {
             if (!currentUser) return;
-            if (currentPostType === 'image' && uploadedImages.length === 0 && currentPostType === 'audio' && uploadedAudios.length === 0 && currentPostType === 'text' && uploadedTexts.length === 0) {
+            if ((currentPostType === 'image' && uploadedImages.length === 0) || (currentPostType === 'audio' && uploadedAudios.length === 0) || (currentPostType === 'text' && uploadedTexts.length === 0)) {
                 alert('Добавьте хотя бы один элемент');
                 return;
             }
             const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
             const draft = {
-                id: Date.now(),
-                timestamp: Date.now(),
-                type: currentPostType,
-                images: uploadedImages,
-                audios: uploadedAudios.map(a => a.data),
-                audioTitles: uploadedAudios.map(a => a.title),
-                texts: uploadedTexts,
+                id: Date.now(), timestamp: Date.now(), type: currentPostType,
+                images: uploadedImages, audios: uploadedAudios.map(a => a.data), audioTitles: uploadedAudios.map(a => a.title), texts: uploadedTexts,
                 caption: document.getElementById('caption').value.trim(),
                 tags: document.getElementById('tags').value.trim().split(',').map(t => t.trim()).filter(t => t),
-                collabUser: collabUser,
-                anonymous: document.getElementById('anonymous-feedback').checked
+                collabUser: collabUser, anonymous: document.getElementById('anonymous-feedback').checked
             };
             drafts.unshift(draft);
             localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
@@ -1201,11 +1302,7 @@
                 type: draft.type, caption: draft.caption || '', tags: draft.tags || [],
                 likes: 0, liked: false, comments: [], anonymous: draft.anonymous || false
             };
-            if (draft.collabUser) {
-                newPost.collabAuthor = draft.collabUser.name;
-                newPost.collabAuthorId = draft.collabUser.id;
-                newPost.collabAvatar = draft.collabUser.avatar;
-            }
+            if (draft.collabUser) { newPost.collabAuthor = draft.collabUser.name; newPost.collabAuthorId = draft.collabUser.id; newPost.collabAvatar = draft.collabUser.avatar; }
             if (draft.type === 'image') { newPost.images = draft.images; newPost.category = 'photo'; }
             else if (draft.type === 'audio') { newPost.audios = draft.audios; newPost.audioTitles = draft.audioTitles; newPost.category = 'music'; }
             else { newPost.texts = draft.texts; newPost.category = 'text'; }
@@ -1228,10 +1325,7 @@
 
         function renderRandomCreator(container) {
             const users = getUsers().filter(u => u.id !== currentUser?.id);
-            if (users.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h2>Пока мало пользователей</h2></div>';
-                return;
-            }
+            if (users.length === 0) { container.innerHTML = '<div class="empty-state"><h2>Пока мало пользователей</h2></div>'; return; }
             const randomUser = users[Math.floor(Math.random() * users.length)];
             const userPosts = getAllPosts().filter(p => p.authorId === randomUser.id);
             let html = `<div class="random-creator-card">
@@ -1250,6 +1344,41 @@
             }
             container.innerHTML = html;
             setTimeout(attachCarouselListeners, 100);
+        }
+
+        function renderAchievementsPage(container) {
+            if (!currentUser) { showFullAuth('login'); return; }
+            const users = getUsers();
+            const me = users.find(u => u.id === currentUser.id);
+            const unlocked = me.achievements || [];
+            
+            let html = '<div class="info-banner">🏆 Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
+            html += `<h2 style="margin-bottom: 16px; font-size: 18px;">Достижения (${unlocked.length}/${achievements.length})</h2>`;
+            html += '<div class="achievements-grid">';
+            
+            achievements.forEach(ach => {
+                const isUnlocked = unlocked.includes(ach.id);
+                const isDisplayed = (me.displayedAchievements || []).includes(ach.id);
+                const isSecret = ach.secret;
+                
+                let cardClass = 'achievement-card';
+                if (!isUnlocked) cardClass += ' locked';
+                if (isSecret && !isUnlocked) cardClass += ' secret';
+                if (isDisplayed) cardClass += ' selected';
+                
+                const icon = isSecret && !isUnlocked ? '❓' : ach.icon;
+                const name = isSecret && !isUnlocked ? '???' : ach.name;
+                const desc = isSecret && !isUnlocked ? 'Секретное достижение' : ach.desc;
+                
+                html += `<div class="${cardClass}" onclick="toggleProfileAchievement('${ach.id}')">
+                    <div class="achievement-icon">${icon}</div>
+                    <div class="achievement-name">${name}${isDisplayed ? ' ✓' : ''}</div>
+                    <div class="achievement-desc">${desc}</div>
+                </div>`;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
         }
 
         function attachCarouselListeners() {
@@ -1315,9 +1444,9 @@
             const commentsCount = allComments.length;
             const isOwnPost = currentUser && post.authorId === currentUser.id;
             const captionHtml = post.caption ? `<div class="post-caption">${post.caption}</div>` : '';
-            const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags">${post.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div>` : '';
-            const collabBadge = post.collabAuthor ? `<span class="collab-badge"> с ${post.collabAuthor}</span>` : '';
-            const anonymousBadge = post.anonymous ? `<span class="anonymous-badge"> Анонимный фидбек</span>` : '';
+            const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags">${post.tags.map(t => `<span class="tag" onclick="searchByTag('${t}')">#${t}</span>`).join('')}</div>` : '';
+            const collabBadge = post.collabAuthor ? `<span class="collab-badge">🤝 с ${post.collabAuthor}</span>` : '';
+            const anonymousBadge = post.anonymous ? `<span class="anonymous-badge">🔒 Анонимный фидбек</span>` : '';
 
             return `<div class="post-card">
                 <div class="post-header" onclick="navigate('profile', {userId: '${post.authorId}'})">
@@ -1326,12 +1455,12 @@
                         <div class="post-author-name">${post.author}${collabBadge}</div>
                         <div class="post-author-handle">${post.handle}${anonymousBadge}</div>
                     </div>
-                    ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>` : ''}
+                    <button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})">⋮</button>
                 </div>
                 <div class="post-menu" id="post-menu-${post.id}">
-                    <div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>
+                    ${isOwnPost ? `<div class="post-menu-item" onclick="editPost(${post.id})">Редактировать</div>` : ''}
                     <div class="post-menu-item" onclick="addToMoodboard(${post.id})">📌 В коллекцию</div>
-                    <div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить</div>
+                    ${isOwnPost ? `<div class="post-menu-item delete" onclick="deletePost(${post.id})">Удалить</div>` : ''}
                 </div>
                 ${mediaHtml}
                 <div class="post-content">${captionHtml}${tagsHtml}</div>
@@ -1355,11 +1484,11 @@
                     <div class="comment-input-wrapper">
                         <div class="comment-input-container">
                             <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : `onclick="showFullAuth('login')"`} ${currentUser ? '' : 'readonly'}>
-                            <button class="record-audio-btn" id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})">🎤</button>
-                            <button class="attach-image-btn" onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}"></button>
+                            <button class="attach-image-btn" onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}" title="Прикрепить фото">📷</button>
+                            <button class="record-audio-btn" id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})" title="Записать голос">🎤</button>
                             <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
                             <div class="comment-image-preview" id="comment-image-preview-${post.id}"><img id="comment-image-thumb-${post.id}" src=""><button class="remove-attachment-btn" onclick="removeCommentImage(${post.id})">×</button></div>
-                            <div class="audio-comment-preview" id="audio-comment-preview-${post.id}"><div class="audio-comment-player"><button onclick="playCommentAudio(${post.id})">▶</button><span>Голосовое сообщение</span><button class="remove-attachment-btn" onclick="removeCommentAudio(${post.id})">×</button></div></div>
+                            <div class="audio-comment-preview" id="audio-comment-preview-${post.id}"><div class="audio-voice-wrapper"><button class="audio-voice-btn" id="voice-play-btn-${post.id}" onclick="toggleVoicePlay(${post.id})">▶</button><span class="audio-voice-duration">Голосовое</span><button class="remove-attachment-btn" onclick="removeCommentAudio(${post.id})">×</button></div></div>
                         </div>
                         <button class="comment-submit" onclick="${currentUser ? `addComment(${post.id})` : `showFullAuth('login')`}">Отправить</button>
                     </div>
@@ -1381,7 +1510,7 @@
             if (!post) return;
             document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active'));
             let contentHtml = '';
-            if (post.type === 'text' && post.texts) contentHtml = `<div class="input-group"><label>Текст</label><textarea class="edit-post-textarea" id="edit-text-content">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
+            if (post.type === 'text' && post.texts) contentHtml = `<div class="input-group"><label>Текст</label><textarea class="edit-post-textarea" id="edit-text-content" style="white-space: pre-wrap;">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
             else if (post.type === 'image' && post.images) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Фото (${post.images.length})</label><div style="display: flex; gap: 8px; flex-wrap: wrap;">${post.images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
             else if (post.type === 'audio' && post.audios) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Аудио (${post.audios.length})</label>${(post.audioTitles || []).map(t => `<div style="padding: 8px; background: #f5f5f5; border-radius: 8px; margin-bottom: 4px;"> ${t}</div>`).join('')}</div>`;
             document.getElementById('edit-post-content').innerHTML = contentHtml;
@@ -1437,7 +1566,7 @@
             const authorName = isAnonymous ? 'Аноним' : comment.author;
             const commentImageHtml = comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')">` : '';
             const commentTextHtml = comment.text ? `<div class="comment-text">${comment.text}</div>` : '';
-            const commentAudioHtml = comment.audio ? `<div class="audio-comment-player" style="margin-top: 8px;"><button onclick="playCommentAudioDirect('${comment.audio}')">▶</button><span>Голосовое</span></div>` : '';
+            const commentAudioHtml = comment.audio ? `<div class="audio-voice-wrapper"><button class="audio-voice-btn" id="voice-btn-comment-${comment.id}" onclick="toggleCommentVoicePlay('${comment.id}', '${comment.audio}')">▶</button><span class="audio-voice-duration">Голосовое</span></div>` : '';
             
             let html = `<div class="comment" id="comment-${comment.id}">
                 <div class="comment-avatar">${isAnonymous ? '?' : comment.avatar}</div>
@@ -1459,7 +1588,7 @@
                 const replyAuthorName = replyIsAnonymous ? 'Аноним' : reply.author;
                 const replyImageHtml = reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')">` : '';
                 const replyTextHtml = reply.text ? `<div class="comment-text">${reply.text}</div>` : '';
-                const replyAudioHtml = reply.audio ? `<div class="audio-comment-player" style="margin-top: 8px;"><button onclick="playCommentAudioDirect('${reply.audio}')">▶</button><span>Голосовое</span></div>` : '';
+                const replyAudioHtml = reply.audio ? `<div class="audio-voice-wrapper"><button class="audio-voice-btn" id="voice-btn-comment-${reply.id}" onclick="toggleCommentVoicePlay('${reply.id}', '${reply.audio}')">▶</button><span class="audio-voice-duration">Голосовое</span></div>` : '';
                 html += `<div class="comment reply" id="comment-${reply.id}">
                     <div class="comment-avatar">${replyIsAnonymous ? '?' : reply.avatar}</div>
                     <div class="comment-content">
@@ -1476,6 +1605,94 @@
                 </div>`;
             });
             return html;
+        }
+
+        function toggleCommentVoicePlay(commentId, audioSrc) {
+            const btn = document.getElementById(`voice-btn-comment-${commentId}`);
+            if (!btn) return;
+            
+            if (playingVoiceId === commentId && currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                playingVoiceId = null;
+                btn.textContent = '▶';
+                btn.classList.remove('playing');
+                return;
+            }
+            
+            if (currentAudio) {
+                currentAudio.pause();
+                if (playingVoiceId) {
+                    const oldBtn = document.getElementById(`voice-btn-comment-${playingVoiceId}`);
+                    if (oldBtn) { oldBtn.textContent = '▶'; oldBtn.classList.remove('playing'); }
+                    const newBtn = document.getElementById(`voice-play-btn-${playingVoiceId}`);
+                    if (newBtn) { newBtn.textContent = '▶'; newBtn.classList.remove('playing'); }
+                }
+            }
+            
+            currentAudio = new Audio(audioSrc);
+            playingVoiceId = commentId;
+            btn.textContent = '⏸';
+            btn.classList.add('playing');
+            
+            currentAudio.play().catch(() => {
+                btn.textContent = '▶';
+                btn.classList.remove('playing');
+                currentAudio = null;
+                playingVoiceId = null;
+            });
+            
+            currentAudio.onended = currentAudio.onerror = () => {
+                btn.textContent = '▶';
+                btn.classList.remove('playing');
+                currentAudio = null;
+                playingVoiceId = null;
+            };
+        }
+
+        function toggleVoicePlay(postId) {
+            if (commentAudio) {
+                const btn = document.getElementById(`voice-play-btn-${postId}`);
+                if (!btn) return;
+                
+                if (playingVoiceId === `post-${postId}` && currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                    playingVoiceId = null;
+                    btn.textContent = '▶';
+                    btn.classList.remove('playing');
+                    return;
+                }
+                
+                if (currentAudio) {
+                    currentAudio.pause();
+                    if (playingVoiceId) {
+                        const oldBtn = document.getElementById(`voice-btn-comment-${playingVoiceId.replace('post-', '')}`);
+                        if (oldBtn) { oldBtn.textContent = '▶'; oldBtn.classList.remove('playing'); }
+                        const newBtn = document.getElementById(`voice-play-btn-${playingVoiceId.replace('post-', '')}`);
+                        if (newBtn) { newBtn.textContent = '▶'; newBtn.classList.remove('playing'); }
+                    }
+                }
+                
+                currentAudio = new Audio(commentAudio);
+                playingVoiceId = `post-${postId}`;
+                btn.textContent = '⏸';
+                btn.classList.add('playing');
+                
+                currentAudio.play().catch(() => {
+                    btn.textContent = '▶';
+                    btn.classList.remove('playing');
+                    currentAudio = null;
+                    playingVoiceId = null;
+                });
+                
+                currentAudio.onended = currentAudio.onerror = () => {
+                    btn.textContent = '▶';
+                    btn.classList.remove('playing');
+                    currentAudio = null;
+                    playingVoiceId = null;
+                };
+            }
         }
 
         function deleteComment(postId, commentId) {
@@ -1568,27 +1785,18 @@
                     isRecordingAudio = true;
                     btn.classList.add('recording');
                     btn.textContent = '⏹';
-                } catch (err) {
-                    alert('Не удалось получить доступ к микрофону');
-                }
+                } catch (err) { alert('Не удалось получить доступ к микрофону'); }
             }
-        }
-
-        function playCommentAudioDirect(src) {
-            if (currentAudio && currentAudio.src === src) { currentAudio.pause(); currentAudio = null; return; }
-            if (currentAudio) { currentAudio.pause(); if (currentPlayBtn) currentPlayBtn.textContent = '▶'; }
-            currentAudio = new Audio(src);
-            currentAudio.play();
-            currentAudio.onended = () => { currentAudio = null; };
-        }
-
-        function playCommentAudio(postId) {
-            if (commentAudio) playCommentAudioDirect(commentAudio);
         }
 
         function removeCommentAudio(postId) {
             commentAudio = null;
             document.getElementById(`audio-comment-preview-${postId}`).style.display = 'none';
+            if (playingVoiceId === `post-${postId}` && currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                playingVoiceId = null;
+            }
         }
 
         function addComment(postId) {
@@ -1630,6 +1838,12 @@
         }
 
         function filterCategory(cat) { currentCategory = cat; if (currentPage === 'home') renderFeed(document.getElementById('mainContent')); }
+
+        function searchByTag(tag) {
+            searchQuery = tag;
+            searchMode = 'tags';
+            navigate('explore');
+        }
 
         function sharePost(postId) {
             const post = getAllPosts().find(p => p.id === postId);
@@ -1776,28 +1990,72 @@
         function renderExplore(container) {
             const users = getUsers();
             const following = currentUser ? (getUsers().find(u => u.id === currentUser.id)?.following || []) : [];
-            let html = '<input type="text" class="search-input" id="searchInput" placeholder="Поиск пользователей..." value="' + searchQuery + '" oninput="handleSearch(this.value)">';
-            html += '<div class="info-banner"> Найдите интересных авторов!</div>';
-            html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
-            const displayUsers = users.filter(u => {
-                if (currentUser && u.id === currentUser.id) return false;
-                if (!searchQuery) return true;
-                const q = searchQuery.toLowerCase();
-                return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q) || (u.bio && u.bio.toLowerCase().includes(q));
-            });
-            if (displayUsers.length === 0) html += '<div class="empty-state"><p>Пользователи не найдены</p></div>';
-            else {
-                html += displayUsers.map(user => {
-                    const isFollowing = following.includes(user.id);
-                    return `<div class="user-card" onclick="navigate('profile', {userId: '${user.id}'})">
-                        <div class="user-card-avatar">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
-                        <div class="user-card-info"><div class="user-card-name">${user.name}</div><div class="user-card-handle">${user.username}</div>${user.bio ? `<div class="user-card-bio">${user.bio}</div>` : ''}</div>
-                        <button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="event.stopPropagation(); toggleFollow('${user.id}')">${isFollowing ? 'Отписаться' : 'Подписаться'}</button>
-                    </div>`;
-                }).join('');
+            
+            let html = '<div class="search-modes">';
+            html += `<button class="search-mode-btn ${searchMode === 'users' ? 'active' : ''}" onclick="setSearchMode('users')">👥 Пользователи</button>`;
+            html += `<button class="search-mode-btn ${searchMode === 'tags' ? 'active' : ''}" onclick="setSearchMode('tags')">#️⃣ Теги</button>`;
+            html += '</div>';
+            
+            html += `<input type="text" class="search-input" id="searchInput" placeholder="${searchMode === 'users' ? 'Поиск пользователей...' : 'Поиск по тегам...'}" value="${searchQuery}" oninput="handleSearch(this.value)">`;
+            
+            if (searchMode === 'users') {
+                html += '<div class="info-banner"> Найдите интересных авторов!</div>';
+                html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
+                const displayUsers = users.filter(u => {
+                    if (currentUser && u.id === currentUser.id) return false;
+                    if (!searchQuery) return true;
+                    const q = searchQuery.toLowerCase();
+                    return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q) || (u.bio && u.bio.toLowerCase().includes(q));
+                });
+                if (displayUsers.length === 0) html += '<div class="empty-state"><p>Пользователи не найдены</p></div>';
+                else {
+                    html += displayUsers.map(user => {
+                        const isFollowing = following.includes(user.id);
+                        return `<div class="user-card" onclick="navigate('profile', {userId: '${user.id}'})">
+                            <div class="user-card-avatar">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
+                            <div class="user-card-info"><div class="user-card-name">${user.name}</div><div class="user-card-handle">${user.username}</div>${user.bio ? `<div class="user-card-bio">${user.bio}</div>` : ''}</div>
+                            <button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="event.stopPropagation(); toggleFollow('${user.id}')">${isFollowing ? 'Отписаться' : 'Подписаться'}</button>
+                        </div>`;
+                    }).join('');
+                }
+            } else {
+                html += '<div class="info-banner">#️⃣ Поиск постов по тегам</div>';
+                const allPosts = getAllPosts();
+                const tagMap = {};
+                allPosts.forEach(post => {
+                    (post.tags || []).forEach(tag => {
+                        const tagLower = tag.toLowerCase();
+                        if (!tagMap[tagLower]) tagMap[tagLower] = { tag: tag, posts: [] };
+                        tagMap[tagLower].posts.push(post);
+                    });
+                });
+                
+                let filteredTags = Object.values(tagMap);
+                if (searchQuery) {
+                    const q = searchQuery.toLowerCase().replace(/^#/, '');
+                    filteredTags = filteredTags.filter(t => t.tag.toLowerCase().includes(q));
+                }
+                filteredTags.sort((a, b) => b.posts.length - a.posts.length);
+                
+                if (filteredTags.length === 0) {
+                    html += '<div class="empty-state"><p>Теги не найдены</p></div>';
+                } else {
+                    html += filteredTags.slice(0, 20).map(tm => {
+                        return `<div class="tag-search-result">
+                            <div class="tag-search-result-header">
+                                <span class="tag-search-result-tag">#${tm.tag}</span>
+                                <span class="tag-search-result-count">${tm.posts.length} постов</span>
+                            </div>
+                            ${tm.posts.slice(0, 2).map(post => renderPostCard(post)).join('')}
+                        </div>`;
+                    }).join('');
+                }
             }
             container.innerHTML = html;
+            setTimeout(attachCarouselListeners, 100);
         }
+
+        function setSearchMode(mode) { searchMode = mode; searchQuery = ''; renderExplore(document.getElementById('mainContent')); }
 
         function handleSearch(query) {
             searchQuery = query;
@@ -1818,6 +2076,7 @@
             const followersCount = (user.followers || []).length;
             const followingCount = (user.following || []).length;
             const userAchievements = (user.achievements || []);
+            const displayedAchievements = (user.displayedAchievements || []);
 
             let html = `<div class="profile-header">
                 <div class="profile-avatar-large">${user.photo ? `<img src="${user.photo}">` : user.avatar}</div>
@@ -1830,22 +2089,29 @@
                     <div class="profile-stat"><div class="profile-stat-value">${followingCount}</div><div class="profile-stat-label">подписок</div></div>
                 </div>
                 <div class="profile-actions">`;
-            if (isOwnProfile) { html += `<button class="edit-profile-btn" onclick="openEditModal()">Редактировать профиль</button><button class="logout-btn" onclick="logout()">Выйти</button>`; }
-            else { html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')">${isFollowing ? 'Вы подписаны' : 'Подписаться'}</button>`; }
+            if (isOwnProfile) { 
+                html += `<button class="edit-profile-btn" onclick="openEditModal()">Редактировать профиль</button>`;
+                html += `<button class="view-achievements-btn" onclick="navigate('achievements')">🏆 Достижения</button>`;
+                html += `<button class="logout-btn" onclick="logout()">Выйти</button>`;
+            } else { 
+                html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')">${isFollowing ? 'Вы подписаны' : 'Подписаться'}</button>`;
+            }
             html += `</div>`;
             
-            if (isOwnProfile && userAchievements.length > 0) {
-                html += `<div class="achievements-section"><h3>🏆 Достижения (${userAchievements.length}/${achievements.length})</h3><div class="achievements-grid">`;
-                achievements.forEach(ach => {
-                    const unlocked = userAchievements.includes(ach.id);
-                    html += `<div class="achievement-card ${unlocked ? '' : 'locked'}">
-                        <div class="achievement-icon">${ach.icon}</div>
-                        <div class="achievement-name">${ach.name}</div>
-                        <div class="achievement-desc">${ach.desc}</div>
-                    </div>`;
+            if (displayedAchievements.length > 0) {
+                html += `<div class="profile-achievements-section">
+                    <h4>Достижения</h4>
+                    <div class="profile-achievements-tags">`;
+                displayedAchievements.forEach(achId => {
+                    const ach = achievements.find(a => a.id === achId);
+                    if (ach && userAchievements.includes(achId)) {
+                        const isSecret = ach.secret;
+                        html += `<span class="achievement-tag ${isSecret ? 'secret' : ''}">${isSecret ? '❓' : ach.icon} ${isSecret ? '???' : ach.name}</span>`;
+                    }
                 });
                 html += `</div></div>`;
             }
+            
             html += `</div>`;
             
             if (userPosts.length === 0) html += '<div class="post-card"><p style="color: #666; text-align: center; padding: 20px;">У пользователя пока нет публикаций</p></div>';
@@ -2004,8 +2270,18 @@
 
         function removeAudio(index) { uploadedAudios.splice(index, 1); renderMultiItemList('audio'); updateSubmitButton(); }
 
-        function addTextItem() { const text = prompt('Введите текст:'); if (text && text.trim()) { uploadedTexts.push(text.trim()); renderMultiItemList('text'); updateSubmitButton(); } }
-        function removeText(index) { uploadedTexts.splice(index, 1); renderMultiItemList('text'); updateSubmitButton(); }
+        function openTextInputModal() {
+            document.getElementById('text-input-large').value = '';
+            document.getElementById('textInputModal').classList.add('active');
+        }
+
+        function closeTextInputModal() { document.getElementById('textInputModal').classList.remove('active'); }
+
+        function saveTextInput() {
+            const text = document.getElementById('text-input-large').value.trim();
+            if (text) { uploadedTexts.push(text); renderMultiItemList('text'); updateSubmitButton(); }
+            closeTextInputModal();
+        }
 
         function handleCollabSearch(query) {
             if (!query || query.length < 2) { document.getElementById('collab-suggestions').innerHTML = ''; return; }
@@ -2038,11 +2314,7 @@
                 avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
                 type: currentPostType, caption: caption, tags, likes: 0, liked: false, comments: [], anonymous
             };
-            if (collabUser) {
-                newPost.collabAuthor = collabUser.name;
-                newPost.collabAuthorId = collabUser.id;
-                newPost.collabAvatar = collabUser.avatar;
-            }
+            if (collabUser) { newPost.collabAuthor = collabUser.name; newPost.collabAuthorId = collabUser.id; newPost.collabAvatar = collabUser.avatar; }
             if (currentPostType === 'image') {
                 if (uploadedImages.length === 0) { alert('Добавьте хотя бы одно фото'); return; }
                 newPost.images = uploadedImages; newPost.category = 'photo';
@@ -2068,6 +2340,7 @@
         document.getElementById('storyModal').addEventListener('click', function(e) { if (e.target === this) closeStoryModal(); });
         document.getElementById('authModal').addEventListener('click', function(e) { if (e.target === this) closeAuthModal(); });
         document.getElementById('moodboardModal').addEventListener('click', function(e) { if (e.target === this) closeMoodboardModal(); });
+        document.getElementById('textInputModal').addEventListener('click', function(e) { if (e.target === this) closeTextInputModal(); });
         document.addEventListener('click', function(e) { if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) { document.querySelectorAll('.post-menu').forEach(m => m.classList.remove('active')); } });
     </script>
 </body>
