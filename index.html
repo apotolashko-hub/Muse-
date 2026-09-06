@@ -7,6 +7,26 @@
     <title>Muse — для творческих</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        /* Отключение выделения для UI */
+        button, .category-chip, .filter-btn, .profile-tab, .sidebar-item, .nav-item, 
+        .action-btn, .comment-action-btn, .challenge-banner, .settings-section-card, 
+        .create-type-card, .post-header, .post-menu-btn, .tag {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        
+        /* Разрешение выделения для текста */
+        .post-caption, .comment-text, .text-slide, input, textarea, p {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; min-height: 100vh; overflow-x: hidden; }
         body.theme-light { background: #fafafa; }
         body.theme-dark { background: #1a1a2e; color: #eaeaea; }
@@ -45,10 +65,10 @@
         .menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; }
         .main-content { padding: 20px; max-width: 800px; margin: 0 auto; }
         
-        /* Категории - более четкие */
-        .categories { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+        /* Категории без обрезки теней */
+        .categories { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding: 8px 4px; scrollbar-width: none; }
         .categories::-webkit-scrollbar { display: none; }
-        .category-chip { padding: 12px 22px; border-radius: 24px; background: white; border: 2px solid #e0e0e0; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; color: #555; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .category-chip { padding: 12px 22px; border-radius: 24px; background: white; border: 2px solid #e0e0e0; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; color: #555; transition: all 0.3s; }
         .category-chip:active { transform: scale(0.95); }
         .category-chip.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: transparent; box-shadow: 0 4px 16px rgba(102,126,234,0.4); }
         
@@ -64,8 +84,9 @@
         .post-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative; }
         .post-header { display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer; }
         .post-header:active { background: rgba(102,126,234,0.05); }
-        .post-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer; }
+        .post-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer; position: relative; }
         .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .post-avatar.has-story::after { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; border-radius: 50%; border: 2px solid #667eea; }
         .post-author-info { flex: 1; min-width: 0; }
         .post-author-name { font-weight: 700; font-size: 15px; color: #1a1a1a; }
         .post-author-handle { color: #888; font-size: 13px; font-weight: 500; }
@@ -83,11 +104,6 @@
         .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
         .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: all 0.3s; }
         .carousel-dot.active { background: white; width: 20px; border-radius: 3px; }
-        .carousel-prev-btn, .carousel-next-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10; display: none; align-items: center; justify-content: center; transition: all 0.2s; backdrop-filter: blur(10px); }
-        .carousel-prev-btn:hover, .carousel-next-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.1); }
-        .carousel-prev-btn { left: 12px; }
-        .carousel-next-btn { right: 12px; }
-        @media (min-width: 769px) { .carousel-prev-btn, .carousel-next-btn { display: flex; } }
         
         .post-audio { padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden; }
         .audio-player { display: flex; align-items: center; gap: 12px; color: white; width: 100%; position: relative; z-index: 1; }
@@ -150,7 +166,6 @@
         .audio-voice-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
         .audio-voice-duration { font-size: 12px; opacity: 0.7; }
         
-        /* Profile Stories - только в профиле */
         .profile-stories-section { margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
         .profile-stories-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
         .profile-stories-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
@@ -161,7 +176,6 @@
         .profile-story-item::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%); }
         .profile-story-time { position: absolute; bottom: 8px; left: 8px; color: white; font-size: 11px; font-weight: 600; z-index: 1; }
         
-        /* Sidebar - уменьшенная */
         .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 220px; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 4px 0 40px rgba(0,0,0,0.15); z-index: 2000; padding: 50px 12px 20px; transform: translateX(-100%); transition: transform 0.3s; overflow-y: auto; }
         .sidebar.active { transform: translateX(0); }
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1999; backdrop-filter: blur(4px); }
@@ -189,7 +203,6 @@
         .modal-header h2 { font-size: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; }
         
-        /* Settings - без эмодзи, кликабельные секции */
         .settings-section-card { border-radius: 16px; padding: 16px; margin-bottom: 16px; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(0,0,0,0.08); }
         .settings-section-card:active { transform: scale(0.98); background: rgba(102,126,234,0.05); }
         .settings-section-card-header { display: flex; align-items: center; justify-content: space-between; }
@@ -291,11 +304,16 @@
         .story-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
         .story-gallery-item.selected::after { content: ''; position: absolute; top: 8px; right: 8px; background: #667eea; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
         
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.3); padding: 12px 24px; display: flex; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); }
-        
-        .fab-center { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-size: 32px; cursor: pointer; box-shadow: 0 8px 32px rgba(102,126,234,0.5); transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
-        .fab-center:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 12px 40px rgba(102,126,234,0.6); }
-        .fab-center:active { transform: scale(0.95); }
+        /* Нижняя навигация с 5 кнопками */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.3); padding: 8px 0; display: flex; justify-content: space-around; align-items: center; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 8px 16px; border-radius: 16px; transition: all 0.3s; color: #888; flex: 1; }
+        .nav-item:active { transform: scale(0.95); }
+        .nav-item.active { color: #667eea; }
+        .nav-item svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
+        .nav-item.create-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 50%; width: 56px; height: 56px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(102,126,234,0.4); margin: -20px 0; }
+        .nav-item.create-btn svg { width: 28px; height: 28px; }
+        .nav-item.create-btn span { display: none; }
         
         .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
         .auth-modal-overlay.active { display: flex; }
@@ -343,7 +361,6 @@
         .tag-search-result-tag { font-size: 14px; font-weight: 600; color: #667eea; background: rgba(102,126,234,0.1); padding: 4px 10px; border-radius: 10px; }
         .tag-search-result-count { font-size: 12px; opacity: 0.7; }
         
-        /* Create post type selector - карусель */
         .create-type-carousel { display: flex; gap: 12px; overflow-x: auto; padding: 8px 4px 16px; scrollbar-width: none; margin-bottom: 16px; }
         .create-type-carousel::-webkit-scrollbar { display: none; }
         .create-type-card { min-width: 140px; padding: 20px 16px; border-radius: 20px; border: 2px solid rgba(102,126,234,0.2); background: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.3s; text-align: center; flex-shrink: 0; }
@@ -498,8 +515,28 @@
 
     <div class="main-content" id="mainContent"></div>
     
+    <!-- Нижняя навигация с 5 кнопками -->
     <nav class="bottom-nav">
-        <button class="fab-center" onclick="openVKPostCreation()">+</button>
+        <div class="nav-item active" data-page="home" onclick="navigate('home')">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Лента</span>
+        </div>
+        <div class="nav-item" data-page="explore" onclick="navigate('explore')">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span>Обзор</span>
+        </div>
+        <div class="nav-item create-btn" onclick="openVKPostCreation()">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Создать</span>
+        </div>
+        <div class="nav-item" data-page="notifications" onclick="navigate('notifications')">
+            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>Уведомления</span>
+        </div>
+        <div class="nav-item" data-page="profile" onclick="navigate('profile')">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Профиль</span>
+        </div>
     </nav>
 </div>
 
@@ -646,7 +683,7 @@
 <!-- VK-style Post Creation Page -->
 <div class="vk-post-creation" id="vkPostCreationPage">
     <div class="vk-post-header">
-        <button class="vk-post-close" onclick="closeVKPostCreation()"></button>
+        <button class="vk-post-close" onclick="closeVKPostCreation()">✕</button>
         <div class="vk-post-title">Новый пост</div>
         <button class="vk-post-next" id="vkPostNextBtn" onclick="publishVKPost()" disabled>Далее</button>
     </div>
@@ -654,8 +691,8 @@
     <div class="create-type-carousel" id="createTypeCarousel">
         <div class="create-type-card active" data-type="text" onclick="selectVKPostType('text')">
             <div class="create-type-icon">✍️</div>
-            <div class="create-type-label">Стихотворение</div>
-            <div class="create-type-desc">Текст с переносами</div>
+            <div class="create-type-label">Текст</div>
+            <div class="create-type-desc">Стихи и проза</div>
         </div>
         <div class="create-type-card" data-type="image" onclick="selectVKPostType('image')">
             <div class="create-type-icon">🖼️</div>
@@ -677,6 +714,13 @@
         </div>
     </div>
     <input type="file" id="vkPostFileInput" accept="image/*,audio/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
+    
+    <div style="padding: 20px;">
+        <div class="input-group">
+            <label>Теги (через запятую)</label>
+            <input type="text" id="vkPostTags" placeholder="#тег1, #тег2" style="width: 100%; padding: 12px 16px; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; font-size: 14px; font-family: inherit;">
+        </div>
+    </div>
 </div>
 
 <!-- Draft Save Dialog -->
@@ -770,14 +814,14 @@ const challenges = [
 ];
 
 const achievements = [
-    { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '', check: (u) => getUserPosts(u.id).length >= 1 },
-    { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 10 },
-    { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 50 },
+    { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
+    { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
+    { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '🎨', check: (u) => getUserPosts(u.id).length >= 50 },
     { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
     { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
     { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '👥', check: (u) => (u.followers || []).length >= 10 },
     { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '💬', check: (u) => getUserComments(u.name).length >= 1 },
-    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '️', check: (u) => getUserComments(u.name).length >= 10 }
+    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '🗨️', check: (u) => getUserComments(u.name).length >= 10 }
 ];
 
 const samplePosts = [
@@ -854,6 +898,9 @@ function navigate(page) {
     const title = document.getElementById('pageTitle');
     
     document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.page === page);
+    });
+    document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.toggle('active', item.dataset.page === page);
     });
     
@@ -1029,7 +1076,6 @@ function addNotification(type, fromUser, postId, commentText) {
     notifs.unshift({ id: Date.now(), type, fromUserId: fromUser.id, fromUserName: fromUser.name, fromUserAvatar: fromUser.avatar, fromUserPhoto: fromUser.photo, postId, commentText: commentText || '', time: Date.now(), read: false });
     if (notifs.length > 50) notifs.pop();
     saveNotifications(notifs);
-    updateNotifBadge();
 }
 
 function updateNotifBadge() {
@@ -1041,7 +1087,6 @@ function markNotificationsRead() {
     const notifs = getNotifications();
     notifs.forEach(n => n.read = true);
     saveNotifications(notifs);
-    updateNotifBadge();
 }
 
 function getCurrentWeekChallenge() {
@@ -1130,8 +1175,9 @@ function renderProfile(container) {
     const userStories = getStories().filter(s => s.authorId === userId);
 
     let html = `<div class="profile-header" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 20px;">
-        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 700; box-shadow: 0 8px 32px rgba(102,126,234,0.4); overflow: hidden; cursor: pointer;" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">
+        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 700; box-shadow: 0 8px 32px rgba(102,126,234,0.4); overflow: hidden; cursor: pointer; position: relative;" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">
             ${user.photo ? `<img src="${user.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : user.avatar}
+            ${userStories.length > 0 ? '<div style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 3px solid white;">' + userStories.length + '</div>' : ''}
         </div>
         <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${user.name}</div>
         <div style="font-size: 16px; color: #888; margin-bottom: 24px;">${user.username}</div>
@@ -1160,7 +1206,7 @@ function renderProfile(container) {
     }
     html += `</div>`;
     
-    // Достижения под аватаркой, без отдельного блока
+    // Достижения под аватаркой
     if (displayedAchievements.length > 0) {
         html += `<div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.08);">
             <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">`;
@@ -1175,26 +1221,7 @@ function renderProfile(container) {
     
     html += `</div>`;
     
-    // Stories только в профиле автора
-    if (isOwnProfile) {
-        html += `<div class="profile-stories-section">
-            <div class="profile-stories-header">
-                <div class="profile-stories-title">Истории</div>
-                <div class="profile-stories-count">${userStories.length} историй</div>
-            </div>
-            <div class="profile-stories-grid">`;
-        if (userStories.length === 0) {
-            html += '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: #888;">Нет историй. Создайте через кнопку +</div>';
-        } else {
-            userStories.forEach((story, i) => {
-                html += `<div class="profile-story-item" onclick="openStoryViewer(${i})">
-                    <img src="${story.images ? story.images[0] : ''}">
-                    <div class="profile-story-time">${getTimeAgo(story.time)}</div>
-                </div>`;
-            });
-        }
-        html += `</div></div>`;
-    }
+    // Истории при клике на аватар (убрана плашка)
     
     html += `<div class="profile-tabs">
         <button class="profile-tab ${currentProfileTab === 'posts' ? 'active' : ''}" onclick="setProfileTab('posts', this)">Публикации</button>
@@ -1249,7 +1276,7 @@ function renderDraftsInProfile(container) {
                 </div>
                 <div class="draft-actions">
                     <button class="draft-action-btn preview" onclick="previewDraft(${idx})">👁️</button>
-                    <button class="draft-action-btn publish" onclick="publishDraft(${idx})">📤</button>
+                    <button class="draft-action-btn publish" onclick="publishDraft(${idx})"></button>
                     <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">🗑️</button>
                 </div>
             </div>
@@ -1455,7 +1482,7 @@ function handleNotifClick(notifId) {
     const notifs = getNotifications();
     const notif = notifs.find(n => n.id === notifId);
     if (!notif) return;
-    notif.read = true; saveNotifications(notifs); updateNotifBadge();
+    notif.read = true; saveNotifications(notifs);
     if (notif.postId) { navigate('home'); setTimeout(() => { const s = document.getElementById(`comments-${notif.postId}`); if (s) { s.style.display = 'block'; s.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }, 100); }
 }
 
@@ -1620,6 +1647,7 @@ function openVKPostCreation() {
     vkPostText = '';
     vkPostType = 'text';
     document.getElementById('vkPostTextarea').value = '';
+    document.getElementById('vkPostTags').value = '';
     document.querySelectorAll('.create-type-card').forEach(c => c.classList.remove('active'));
     document.querySelector('.create-type-card[data-type="text"]').classList.add('active');
     renderVKPostGallery();
@@ -1643,12 +1671,14 @@ function cancelVKDraftClose() {
 function saveVKDraft() {
     if (!currentUser) return;
     const text = document.getElementById('vkPostTextarea').value.trim();
+    const tagsStr = document.getElementById('vkPostTags').value.trim();
+    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
     const draft = {
         id: Date.now(), timestamp: Date.now(), type: vkPostType,
         texts: vkPostType === 'text' && text ? [text] : [],
-        images: vkPostType === 'image' ? vkPostImages : [],
+        images: vkPostType === 'image' ? vkPostImages.filter(i => !i.isAudio).map(i => i.data) : [],
         caption: text,
-        tags: [],
+        tags: tags,
         collabUser: null, anonymous: false
     };
     const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
@@ -1747,12 +1777,14 @@ function removeVKPostImage(index) {
 function publishVKPost() {
     if (!currentUser) return;
     const text = document.getElementById('vkPostTextarea').value.trim();
+    const tagsStr = document.getElementById('vkPostTags').value.trim();
+    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
     
     let newPost = {
         id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
         avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
         type: vkPostType,
-        caption: text, tags: [], likes: 0, liked: false, comments: [], anonymous: false
+        caption: text, tags: tags, likes: 0, liked: false, comments: [], anonymous: false
     };
     
     if (vkPostType === 'image' && vkPostImages.length > 0) {
@@ -1799,7 +1831,6 @@ function openSettingsSubpage(name) {
     document.querySelectorAll('.settings-subpage').forEach(p => p.classList.remove('active'));
     document.getElementById(`subpage-${name}`).classList.add('active');
     
-    // Обновить toggle switches
     document.querySelectorAll('.toggle-switch').forEach(el => {
         const settingId = el.id;
         if (userSettings[settingId] !== undefined) {
@@ -1918,20 +1949,7 @@ function attachCarouselListeners() {
         const postId = track.dataset.postId;
         const counter = document.getElementById(`counter-${postId}`);
         const dots = track.parentElement.querySelectorAll('.carousel-dot');
-        if (!track.parentElement.querySelector('.carousel-prev-btn')) {
-            const prevBtn = document.createElement('button');
-            prevBtn.className = 'carousel-prev-btn';
-            prevBtn.innerHTML = '‹';
-            prevBtn.onclick = (e) => { e.stopPropagation(); track.scrollBy({ left: -track.offsetWidth, behavior: 'smooth' }); };
-            prevBtn.style.cssText = 'position: absolute; top: 50%; left: 12px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);';
-            track.parentElement.appendChild(prevBtn);
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'carousel-next-btn';
-            nextBtn.innerHTML = '›';
-            nextBtn.onclick = (e) => { e.stopPropagation(); track.scrollBy({ left: track.offsetWidth, behavior: 'smooth' }); };
-            nextBtn.style.cssText = 'position: absolute; top: 50%; right: 12px; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);';
-            track.parentElement.appendChild(nextBtn);
-        }
+        
         let isDown = false, startX, scrollLeft;
         track.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; });
         track.addEventListener('mouseleave', () => { isDown = false; });
@@ -2414,7 +2432,7 @@ function previewDraft(idx) {
     } else if (draft.type === 'image' && draft.images) {
         contentHtml = `<div style="margin-bottom: 16px;"><div style="display: flex; gap: 8px; flex-wrap: wrap;">${draft.images.map(img => `<img src="${img}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
     } else if (draft.type === 'audio' && draft.audios) {
-        contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;"></span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
+        contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;">🎵</span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
     }
     
     const tagsHtml = draft.tags && draft.tags.length > 0 ? `<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">${draft.tags.map(t => `<span style="font-size: 12px; color: #667eea; background: rgba(102,126,234,0.1); padding: 4px 10px; border-radius: 12px;">#${t}</span>`).join('')}</div>` : '';
