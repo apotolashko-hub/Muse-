@@ -23,8 +23,8 @@
         body.theme-dark .challenge-card, body.theme-dark .achievement-card, body.theme-dark .moodboard-card,
         body.theme-dark .draft-card, body.theme-dark .tag-search-result, body.theme-dark .notification-item,
         body.theme-dark .comment-input, body.theme-dark .caption-input, body.theme-dark .tags-input,
-        body.theme-dark .collab-input, body.dark-theme .search-input, body.theme-dark .text-input-large,
-        body.theme-dark .edit-post-textarea { background: rgba(22, 33, 62, 0.95); color: #eaeaea; }
+        body.theme-dark .collab-input, body.theme-dark .search-input, body.theme-dark .text-input-large,
+        body.theme-dark .edit-post-textarea, body.theme-dark .settings-section-card, body.theme-dark .create-type-card { background: rgba(22, 33, 62, 0.95); color: #eaeaea; }
         
         body:not(.theme-light):not(.theme-dark) .post-card, body:not(.theme-light):not(.theme-dark) .profile-header,
         body:not(.theme-light):not(.theme-dark) .user-card, body:not(.theme-light):not(.theme-dark) .modal-content,
@@ -32,7 +32,8 @@
         body:not(.theme-light):not(.theme-dark) .comment, body:not(.theme-light):not(.theme-dark) .multi-item,
         body:not(.theme-light):not(.theme-dark) .challenge-card, body:not(.theme-light):not(.theme-dark) .achievement-card,
         body:not(.theme-light):not(.theme-dark) .moodboard-card, body:not(.theme-light):not(.theme-dark) .draft-card,
-        body:not(.theme-light):not(.theme-dark) .tag-search-result, body:not(.theme-light):not(.theme-dark) .notification-item {
+        body:not(.theme-light):not(.theme-dark) .tag-search-result, body:not(.theme-light):not(.theme-dark) .notification-item,
+        body:not(.theme-light):not(.theme-dark) .settings-section-card, body:not(.theme-light):not(.theme-dark) .create-type-card {
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
         }
         
@@ -44,25 +45,16 @@
         .menu-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; }
         .main-content { padding: 20px; max-width: 800px; margin: 0 auto; }
         
-        /* Stories */
-        .stories-container { display: flex; gap: 12px; overflow-x: auto; padding: 16px; margin-bottom: 20px; scrollbar-width: none; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; }
-        .stories-container::-webkit-scrollbar { display: none; }
-        .story-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; flex-shrink: 0; position: relative; }
-        .story-ring { width: 72px; height: 72px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%, #f093fb 100%); box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
-        .story-ring.unseen { background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #667eea 100%); }
-        .story-avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid white; object-fit: cover; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 24px; }
-        .story-name { font-size: 11px; color: white; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .add-story { position: relative; }
-        .add-story .plus-icon { position: absolute; bottom: 0; right: 0; width: 24px; height: 24px; background: white; color: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        
-        .feed-filters { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 6px; border-radius: 16px; }
-        .filter-btn { flex: 1; padding: 10px 16px; border-radius: 12px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: transparent; color: white; transition: all 0.3s; }
-        .filter-btn.active { background: white; color: #667eea; box-shadow: 0 4px 15px rgba(255,255,255,0.3); }
-        
-        .categories { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+        /* Категории - более четкие */
+        .categories { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
         .categories::-webkit-scrollbar { display: none; }
-        .category-chip { padding: 10px 20px; border-radius: 20px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3); font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; color: white; transition: all 0.3s; }
-        .category-chip.active { background: white; color: #667eea; border-color: white; box-shadow: 0 4px 15px rgba(255,255,255,0.3); }
+        .category-chip { padding: 12px 22px; border-radius: 24px; background: white; border: 2px solid #e0e0e0; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; color: #555; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .category-chip:active { transform: scale(0.95); }
+        .category-chip.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: transparent; box-shadow: 0 4px 16px rgba(102,126,234,0.4); }
+        
+        .feed-filters { display: flex; gap: 8px; margin-bottom: 20px; }
+        .filter-btn { flex: 1; padding: 10px 16px; border-radius: 12px; border: 2px solid #e0e0e0; font-size: 14px; font-weight: 600; cursor: pointer; background: white; color: #555; transition: all 0.3s; }
+        .filter-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: transparent; box-shadow: 0 4px 16px rgba(102,126,234,0.4); }
         
         .challenge-banner { background: linear-gradient(135deg, rgba(102,126,234,0.9) 0%, rgba(118,75,162,0.9) 100%); backdrop-filter: blur(20px); color: white; padding: 24px; border-radius: 24px; margin-bottom: 24px; cursor: pointer; box-shadow: 0 10px 40px rgba(102,126,234,0.4); position: relative; overflow: hidden; }
         .challenge-banner h3 { font-size: 20px; margin-bottom: 8px; position: relative; z-index: 1; font-weight: 700; }
@@ -158,6 +150,7 @@
         .audio-voice-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
         .audio-voice-duration { font-size: 12px; opacity: 0.7; }
         
+        /* Profile Stories - только в профиле */
         .profile-stories-section { margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
         .profile-stories-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
         .profile-stories-title { font-size: 18px; font-weight: 700; color: #1a1a1a; }
@@ -168,25 +161,26 @@
         .profile-story-item::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%); }
         .profile-story-time { position: absolute; bottom: 8px; left: 8px; color: white; font-size: 11px; font-weight: 600; z-index: 1; }
         
-        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 280px; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 4px 0 40px rgba(0,0,0,0.15); z-index: 2000; padding: 60px 20px 20px; transform: translateX(-100%); transition: transform 0.3s; overflow-y: auto; }
+        /* Sidebar - уменьшенная */
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 220px; background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); box-shadow: 4px 0 40px rgba(0,0,0,0.15); z-index: 2000; padding: 50px 12px 20px; transform: translateX(-100%); transition: transform 0.3s; overflow-y: auto; }
         .sidebar.active { transform: translateX(0); }
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1999; backdrop-filter: blur(4px); }
         .sidebar-overlay.active { display: block; }
-        .sidebar-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 28px; cursor: pointer; color: #667eea; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 12px; transition: background 0.2s; }
+        .sidebar-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; transition: background 0.2s; }
         .sidebar-close:hover { background: rgba(102,126,234,0.1); }
-        .sidebar-logo { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 30px; text-align: center; }
-        .sidebar-menu { display: flex; flex-direction: column; gap: 4px; }
-        .sidebar-item { display: flex; align-items: center; gap: 16px; padding: 14px 16px; border-radius: 16px; cursor: pointer; transition: all 0.2s; font-size: 16px; font-weight: 600; }
+        .sidebar-logo { font-size: 24px; font-weight: 800; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; text-align: center; }
+        .sidebar-menu { display: flex; flex-direction: column; gap: 2px; }
+        .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 14px; font-weight: 500; }
         .sidebar-item:active { background: rgba(102,126,234,0.1); transform: translateX(4px); }
         .sidebar-item.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 4px 15px rgba(102,126,234,0.3); }
-        .sidebar-item svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
-        .sidebar-divider { height: 1px; background: rgba(0,0,0,0.1); margin: 20px 0; }
-        .sidebar-user { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 16px; background: rgba(102,126,234,0.1); margin-bottom: 20px; }
-        .sidebar-user-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; overflow: hidden; }
+        .sidebar-item svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .sidebar-divider { height: 1px; background: rgba(0,0,0,0.1); margin: 12px 0; }
+        .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; background: rgba(102,126,234,0.1); margin-bottom: 12px; }
+        .sidebar-user-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; overflow: hidden; font-size: 14px; }
         .sidebar-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .sidebar-user-info { flex: 1; }
-        .sidebar-user-name { font-weight: 700; font-size: 15px; color: #1a1a1a; }
-        .sidebar-user-handle { font-size: 13px; color: #888; }
+        .sidebar-user-name { font-weight: 600; font-size: 13px; color: #1a1a1a; }
+        .sidebar-user-handle { font-size: 11px; color: #888; }
         
         .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
         .modal.active { display: flex; }
@@ -195,12 +189,18 @@
         .modal-header h2 { font-size: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .close-modal { background: none; border: none; font-size: 24px; cursor: pointer; }
         
-        .settings-section { margin-bottom: 24px; }
-        .settings-section h3 { font-size: 16px; margin-bottom: 12px; opacity: 0.7; }
-        .settings-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-radius: 12px; margin-bottom: 8px; background: rgba(0,0,0,0.03); transition: background 0.2s; }
-        .settings-item:hover { background: rgba(0,0,0,0.05); }
-        .settings-item-label { font-size: 14px; font-weight: 500; }
-        .settings-item-desc { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+        /* Settings - без эмодзи, кликабельные секции */
+        .settings-section-card { border-radius: 16px; padding: 16px; margin-bottom: 16px; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(0,0,0,0.08); }
+        .settings-section-card:active { transform: scale(0.98); background: rgba(102,126,234,0.05); }
+        .settings-section-card-header { display: flex; align-items: center; justify-content: space-between; }
+        .settings-section-card-title { font-size: 16px; font-weight: 600; }
+        .settings-section-card-arrow { color: #888; font-size: 20px; }
+        .settings-section-card-desc { font-size: 13px; color: #888; margin-top: 4px; }
+        
+        .settings-subpage { display: none; }
+        .settings-subpage.active { display: block; }
+        .settings-back-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; margin-right: 12px; }
+        
         .theme-selector { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; }
         .theme-option { padding: 12px; border-radius: 12px; border: 2px solid rgba(0,0,0,0.1); cursor: pointer; text-align: center; font-size: 13px; font-weight: 500; transition: all 0.2s; }
         .theme-option:hover { transform: scale(1.02); }
@@ -213,10 +213,14 @@
         .theme-option-forest { background: linear-gradient(135deg, #134e5e 0%, #71b280 100%); color: #fff; }
         .theme-option-midnight { background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%); color: #fff; }
         .theme-option-rose { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: #fff; }
-        .toggle-switch { position: relative; width: 48px; height: 26px; background: rgba(0,0,0,0.2); border-radius: 13px; cursor: pointer; transition: background 0.2s; }
+        .toggle-switch { position: relative; width: 48px; height: 26px; background: rgba(0,0,0,0.2); border-radius: 13px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
         .toggle-switch.active { background: #667eea; }
         .toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.2s; }
         .toggle-switch.active::after { transform: translateX(22px); }
+        .settings-toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .settings-toggle-item:last-child { border-bottom: none; }
+        .settings-toggle-label { font-size: 15px; font-weight: 500; }
+        .settings-toggle-desc { font-size: 12px; color: #888; margin-top: 2px; }
         
         .photo-viewer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 4000; align-items: center; justify-content: center; }
         .photo-viewer.active { display: flex; }
@@ -285,17 +289,13 @@
         .story-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; background: #000; max-height: 300px; overflow-y: auto; }
         .story-gallery-item { aspect-ratio: 1; background: #333; cursor: pointer; position: relative; overflow: hidden; }
         .story-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-        .story-gallery-item.selected::after { content: '✓'; position: absolute; top: 8px; right: 8px; background: #667eea; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .story-gallery-item.selected::after { content: ''; position: absolute; top: 8px; right: 8px; background: #667eea; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
         
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.3); padding: 12px 24px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 8px 16px; border-radius: 16px; transition: all 0.3s; color: #888; }
-        .nav-item:active { transform: scale(0.95); }
-        .nav-item.active { color: #667eea; background: rgba(102,126,234,0.1); }
-        .nav-item svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
-        .nav-item span { font-size: 11px; font-weight: 600; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.3); padding: 12px 24px; display: flex; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); }
         
-        .fab { position: fixed; bottom: 90px; right: 20px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-size: 32px; cursor: pointer; box-shadow: 0 8px 32px rgba(102,126,234,0.5); z-index: 99; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
-        .fab:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 12px 40px rgba(102,126,234,0.6); }
+        .fab-center { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-size: 32px; cursor: pointer; box-shadow: 0 8px 32px rgba(102,126,234,0.5); transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .fab-center:hover { transform: scale(1.1) rotate(90deg); box-shadow: 0 12px 40px rgba(102,126,234,0.6); }
+        .fab-center:active { transform: scale(0.95); }
         
         .auth-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 5000; align-items: center; justify-content: center; padding: 20px; }
         .auth-modal-overlay.active { display: flex; }
@@ -343,77 +343,47 @@
         .tag-search-result-tag { font-size: 14px; font-weight: 600; color: #667eea; background: rgba(102,126,234,0.1); padding: 4px 10px; border-radius: 10px; }
         .tag-search-result-count { font-size: 12px; opacity: 0.7; }
         
-        .create-steps { display: flex; gap: 8px; margin-bottom: 20px; }
-        .create-step { flex: 1; padding: 12px; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; background: rgba(255,255,255,0.5); }
-        .create-step.active { border-color: #667eea; background: rgba(102,126,234,0.1); color: #667eea; box-shadow: 0 4px 15px rgba(102,126,234,0.2); }
-        .create-step:active { transform: scale(0.95); }
-        .post-type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
-        .type-btn { padding: 16px 12px; border: 2px solid rgba(102,126,234,0.3); border-radius: 16px; background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 500; text-align: center; transition: all 0.2s; }
-        .type-btn:hover { background: rgba(102,126,234,0.1); transform: translateY(-2px); }
-        .type-btn.active { border-color: #667eea; background: rgba(102,126,234,0.1); color: #667eea; box-shadow: 0 4px 15px rgba(102,126,234,0.3); }
-        .type-btn-icon { margin-bottom: 8px; }
-        .type-btn-icon svg { width: 32px; height: 32px; stroke: #667eea; stroke-width: 1.5; fill: none; }
-        .upload-area { border: 2px dashed rgba(102,126,234,0.3); border-radius: 16px; padding: 40px; text-align: center; cursor: pointer; margin-bottom: 20px; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,0.3); transition: all 0.2s; }
-        .upload-area:hover { border-color: #667eea; background: rgba(102,126,234,0.05); }
-        .upload-area.has-media { padding: 0; border-style: solid; border-color: #667eea; }
-        .upload-area img { width: 100%; border-radius: 10px; }
-        .upload-icon { font-size: 48px; margin-bottom: 12px; }
-        .text-input-large { width: 100%; min-height: 400px; padding: 20px; border: 2px solid rgba(102,126,234,0.3); border-radius: 16px; font-size: 18px; font-family: 'Georgia', serif; resize: vertical; line-height: 1.8; margin-bottom: 16px; white-space: pre-line; background: rgba(255,255,255,0.8); transition: all 0.2s; }
-        .text-input-large:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-        .text-input-large::placeholder { color: #999; }
-        .caption-input { width: 100%; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; padding: 16px; font-size: 15px; resize: vertical; min-height: 100px; margin-bottom: 16px; font-family: inherit; background: rgba(255,255,255,0.8); transition: all 0.2s; }
-        .caption-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-        .tags-input { width: 100%; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; padding: 12px 16px; font-size: 14px; margin-bottom: 20px; font-family: inherit; background: rgba(255,255,255,0.8); transition: all 0.2s; }
-        .tags-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-        .submit-btn { width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 8px; box-shadow: 0 4px 15px rgba(102,126,234,0.4); transition: all 0.2s; }
-        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .submit-btn:active { transform: scale(0.98); }
-        .draft-btn { width: 100%; background: rgba(0,0,0,0.05); border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
-        .draft-btn:active { transform: scale(0.98); }
-        .collab-input { width: 100%; padding: 12px 16px; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; font-size: 14px; margin-bottom: 16px; font-family: inherit; background: rgba(255,255,255,0.8); transition: all 0.2s; }
-        .collab-input:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-        .collab-suggestions { max-height: 150px; overflow-y: auto; margin-bottom: 16px; }
-        .collab-suggestion { padding: 10px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
-        .collab-suggestion:active { background: rgba(102,126,234,0.1); }
-        .collab-suggestion-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; }
-        .anonymous-toggle { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(102,126,234,0.05); border-radius: 12px; margin-bottom: 16px; cursor: pointer; border: 1px solid rgba(102,126,234,0.2); }
-        .anonymous-toggle input { width: 20px; height: 20px; }
-        .anonymous-toggle label { font-size: 14px; cursor: pointer; flex: 1; }
-        .multi-item-list { margin-bottom: 16px; }
-        .multi-item { border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.5); }
-        .multi-item-text { flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .multi-item-remove { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(239,68,68,0.3); transition: all 0.2s; }
-        .multi-item-remove:hover { transform: scale(1.1); }
-        .add-item-btn { width: 100%; padding: 12px; border: 2px dashed rgba(102,126,234,0.3); border-radius: 12px; background: rgba(255,255,255,0.5); cursor: pointer; font-size: 14px; color: #667eea; font-weight: 500; margin-bottom: 16px; font-family: inherit; transition: all 0.2s; }
-        .add-item-btn:hover { border-color: #667eea; background: rgba(102,126,234,0.05); }
-        .add-item-btn:active { transform: scale(0.98); }
-        .profile-photo-upload { position: relative; display: inline-block; margin-bottom: 16px; }
-        .profile-photo-upload input { display: none; }
-        .profile-photo-upload label { cursor: pointer; }
-        .profile-photo-upload .change-photo { position: absolute; bottom: 0; right: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; box-shadow: 0 4px 15px rgba(102,126,234,0.4); transition: all 0.2s; }
-        .profile-photo-upload .change-photo:hover { transform: scale(1.1); }
-        .edit-post-textarea { width: 100%; min-height: 150px; padding: 12px; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; margin-bottom: 16px; background: rgba(255,255,255,0.8); transition: all 0.2s; }
-        .edit-post-textarea:focus { outline: none; border-color: #667eea; background: white; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+        /* Create post type selector - карусель */
+        .create-type-carousel { display: flex; gap: 12px; overflow-x: auto; padding: 8px 4px 16px; scrollbar-width: none; margin-bottom: 16px; }
+        .create-type-carousel::-webkit-scrollbar { display: none; }
+        .create-type-card { min-width: 140px; padding: 20px 16px; border-radius: 20px; border: 2px solid rgba(102,126,234,0.2); background: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.3s; text-align: center; flex-shrink: 0; }
+        .create-type-card:active { transform: scale(0.95); }
+        .create-type-card.active { border-color: #667eea; background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); box-shadow: 0 8px 24px rgba(102,126,234,0.3); }
+        .create-type-icon { font-size: 32px; margin-bottom: 8px; }
+        .create-type-label { font-size: 14px; font-weight: 600; color: #333; }
+        .create-type-desc { font-size: 11px; color: #888; margin-top: 4px; }
         
-        .random-creator-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 24px; border-radius: 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(102,126,234,0.4); position: relative; overflow: hidden; }
-        .random-creator-card h3 { font-size: 18px; margin-bottom: 16px; position: relative; z-index: 1; }
-        .random-creator-avatar { width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; overflow: hidden; backdrop-filter: blur(10px); border: 3px solid rgba(255,255,255,0.3); }
-        .random-creator-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .random-creator-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-        .random-creator-handle { font-size: 14px; opacity: 0.9; margin-bottom: 16px; }
-        .random-creator-bio { font-size: 13px; opacity: 0.9; margin-bottom: 16px; }
-        .random-creator-btn { background: white; color: #667eea; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.2s; }
-        .random-creator-btn:active { transform: scale(0.95); }
-        .random-creator-btn.secondary { background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(10px); }
+        .vk-post-creation { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2500; overflow-y: auto; background: #fafafa; }
+        .vk-post-creation.active { display: block; }
+        .vk-post-header { background: white; padding: 16px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .vk-post-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; }
+        .vk-post-title { font-size: 20px; font-weight: 700; }
+        .vk-post-next { background: none; border: none; font-size: 16px; font-weight: 600; cursor: pointer; color: #667eea; }
+        .vk-post-next:disabled { opacity: 0.4; cursor: not-allowed; }
+        .vk-post-textarea { width: 100%; min-height: 200px; padding: 20px; border: none; font-size: 16px; font-family: inherit; resize: none; outline: none; background: transparent; }
+        .vk-post-textarea::placeholder { color: #999; }
+        .vk-post-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; }
+        .vk-post-gallery-item { aspect-ratio: 1; background: #e0e0e0; cursor: pointer; position: relative; overflow: hidden; }
+        .vk-post-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .vk-post-gallery-item.selected::after { content: ''; position: absolute; top: 8px; right: 8px; background: #667eea; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .vk-post-camera { aspect-ratio: 1; background: #f5f5f5; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .vk-post-camera svg { width: 48px; height: 48px; stroke: #999; stroke-width: 1.5; fill: none; }
         
-        .empty-state { text-align: center; padding: 60px 20px; opacity: 0.8; color: white; }
-        .info-banner { background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .draft-save-dialog { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
+        .draft-save-dialog.active { display: flex; }
+        .draft-save-content { background: white; border-radius: 16px; padding: 24px; max-width: 320px; width: 100%; }
+        .draft-save-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+        .draft-save-actions { display: flex; flex-direction: column; gap: 12px; }
+        .draft-save-btn { padding: 14px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .draft-save-btn.save { background: #667eea; color: white; }
+        .draft-save-btn.discard { background: transparent; color: #667eea; }
+        .draft-save-btn.cancel { background: transparent; color: #ef4444; }
         
-        /* VK-style Settings */
-        .vk-settings { background: white; min-height: 100vh; }
-        .vk-settings-header { background: white; padding: 16px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; }
-        .vk-settings-back { background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; }
-        .vk-settings-title { font-size: 22px; font-weight: 700; }
+        .vk-settings { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2500; overflow-y: auto; background: #fafafa; }
+        .vk-settings.active { display: block; }
+        .vk-settings-header { background: white; padding: 16px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .vk-settings-back { background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; margin-right: 12px; }
+        .vk-settings-title { font-size: 20px; font-weight: 700; }
         .vk-settings-profile { display: flex; flex-direction: column; align-items: center; padding: 30px 20px; background: white; border-bottom: 8px solid #f0f0f0; }
         .vk-settings-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; overflow: hidden; margin-bottom: 16px; border: 3px solid white; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         .vk-settings-avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -429,38 +399,11 @@
         .vk-settings-label { font-size: 16px; font-weight: 500; flex: 1; }
         .vk-settings-divider { height: 8px; background: #f0f0f0; }
         
-        /* VK-style Post Creation */
-        .vk-post-creation { background: white; min-height: 100vh; }
-        .vk-post-header { background: white; padding: 16px; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-        .vk-post-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #667eea; }
-        .vk-post-title { font-size: 22px; font-weight: 700; }
-        .vk-post-next { background: none; border: none; font-size: 16px; font-weight: 600; cursor: pointer; color: #667eea; }
-        .vk-post-next:disabled { opacity: 0.4; cursor: not-allowed; }
-        .vk-post-textarea { width: 100%; min-height: 300px; padding: 20px; border: none; font-size: 18px; font-family: inherit; resize: none; outline: none; }
-        .vk-post-textarea::placeholder { color: #999; }
-        .vk-post-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 2px; background: #f0f0f0; max-height: 400px; overflow-y: auto; }
-        .vk-post-gallery-item { aspect-ratio: 1; background: #e0e0e0; cursor: pointer; position: relative; overflow: hidden; }
-        .vk-post-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-        .vk-post-gallery-item.selected::after { content: '✓'; position: absolute; top: 8px; right: 8px; background: #667eea; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; border: 2px solid white; }
-        .vk-post-camera { aspect-ratio: 1; background: #f5f5f5; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .vk-post-camera svg { width: 48px; height: 48px; stroke: #999; stroke-width: 1.5; fill: none; }
-        
-        /* Draft Save Dialog */
-        .draft-save-dialog { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
-        .draft-save-dialog.active { display: flex; }
-        .draft-save-content { background: white; border-radius: 16px; padding: 24px; max-width: 320px; width: 100%; }
-        .draft-save-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-        .draft-save-actions { display: flex; flex-direction: column; gap: 12px; }
-        .draft-save-btn { padding: 14px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; }
-        .draft-save-btn.save { background: #667eea; color: white; }
-        .draft-save-btn.discard { background: transparent; color: #667eea; }
-        .draft-save-btn.cancel { background: transparent; color: #ef4444; }
+        .empty-state { text-align: center; padding: 60px 20px; opacity: 0.8; color: #888; }
+        .info-banner { background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
         @media (max-width: 768px) {
             .main-content { padding: 16px; }
-            .bottom-nav { padding: 8px 16px; }
-            .nav-item { padding: 6px 12px; }
-            .nav-item span { display: none; }
         }
     </style>
 </head>
@@ -500,7 +443,7 @@
         <button class="sidebar-close" onclick="toggleSidebar()">×</button>
         <div class="sidebar-logo">Muse</div>
         
-        <div class="sidebar-user" onclick="navigate('profile')">
+        <div class="sidebar-user" onclick="navigate('profile'); toggleSidebar();">
             <div class="sidebar-user-avatar" id="sidebarUserAvatar">A</div>
             <div class="sidebar-user-info">
                 <div class="sidebar-user-name" id="sidebarUserName">Гость</div>
@@ -509,10 +452,6 @@
         </div>
         
         <div class="sidebar-menu">
-            <div class="sidebar-item active" data-page="profile" onclick="navigate('profile'); toggleSidebar();">
-                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span>Профиль</span>
-            </div>
             <div class="sidebar-item" data-page="home" onclick="navigate('home'); toggleSidebar();">
                 <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 <span>Лента</span>
@@ -531,7 +470,7 @@
             </div>
             <div class="sidebar-item" data-page="random" onclick="navigate('random'); toggleSidebar();">
                 <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9a9 9 0 0 0 9-9m-9 9V3"/></svg>
-                <span>Случайный творец</span>
+                <span>Случайный</span>
             </div>
             <div class="sidebar-item" data-page="notifications" onclick="navigate('notifications'); toggleSidebar();">
                 <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -559,110 +498,175 @@
 
     <div class="main-content" id="mainContent"></div>
     
-    <button class="fab" onclick="openVKPostCreation()">+</button>
-    
     <nav class="bottom-nav">
-        <div class="nav-item active" data-page="home" onclick="navigate('home')">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <span>Лента</span>
-        </div>
-        <div class="nav-item" data-page="explore" onclick="navigate('explore')">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <span>Обзор</span>
-        </div>
-        <div class="nav-item" onclick="openVKPostCreation()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-top: -20px; box-shadow: 0 4px 15px rgba(102,126,234,0.4);">
-            <svg viewBox="0 0 24 24" style="width: 28px; height: 28px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </div>
-        <div class="nav-item" data-page="notifications" onclick="navigate('notifications')">
-            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            <span>Уведомления</span>
-        </div>
-        <div class="nav-item" data-page="profile" onclick="navigate('profile')">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span>Профиль</span>
-        </div>
+        <button class="fab-center" onclick="openVKPostCreation()">+</button>
     </nav>
 </div>
 
 <!-- VK-style Settings Page -->
-<div class="vk-settings" id="vkSettingsPage" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2500; overflow-y: auto;">
+<div class="vk-settings" id="vkSettingsPage">
     <div class="vk-settings-header">
         <button class="vk-settings-back" onclick="closeVKSettings()">←</button>
         <div class="vk-settings-title">Настройки</div>
     </div>
     
-    <div class="vk-settings-profile">
-        <div class="vk-settings-avatar" id="vkSettingsAvatar">A</div>
-        <div class="vk-settings-name" id="vkSettingsName">Гость</div>
-        <div class="vk-settings-phone" id="vkSettingsHandle">@guest</div>
-        <button class="vk-settings-account-btn" onclick="openEditModal()">
-            Управление аккаунтом
-        </button>
+    <div id="settingsMainPage">
+        <div class="vk-settings-profile">
+            <div class="vk-settings-avatar" id="vkSettingsAvatar">A</div>
+            <div class="vk-settings-name" id="vkSettingsName">Гость</div>
+            <div class="vk-settings-phone" id="vkSettingsHandle">@guest</div>
+            <button class="vk-settings-account-btn" onclick="openEditModal()">Управление аккаунтом</button>
+        </div>
+        
+        <div class="vk-settings-section">
+            <div class="vk-settings-item" onclick="openSettingsSubpage('appearance')">
+                <div class="vk-settings-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17 2l-5 5-5-5"/><path d="M12 12v10"/><path d="M8 17l4-5 4 5"/></svg>
+                </div>
+                <div class="vk-settings-label">Внешний вид</div>
+            </div>
+            <div class="vk-settings-item" onclick="openSettingsSubpage('notifications')">
+                <div class="vk-settings-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </div>
+                <div class="vk-settings-label">Уведомления</div>
+            </div>
+            <div class="vk-settings-item" onclick="openSettingsSubpage('privacy')">
+                <div class="vk-settings-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="vk-settings-label">Приватность</div>
+            </div>
+            <div class="vk-settings-item" onclick="openSettingsSubpage('security')">
+                <div class="vk-settings-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div class="vk-settings-label">Безопасность</div>
+            </div>
+        </div>
     </div>
     
-    <div class="vk-settings-section">
-        <div class="vk-settings-item" onclick="openNotificationsSettings()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            </div>
-            <div class="vk-settings-label">Уведомления</div>
+    <!-- Subpages -->
+    <div class="settings-subpage" id="subpage-appearance">
+        <div class="vk-settings-header">
+            <button class="vk-settings-back" onclick="closeSettingsSubpage()">←</button>
+            <div class="vk-settings-title">Внешний вид</div>
         </div>
-        <div class="vk-settings-item" onclick="toggleDND()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+        <div style="padding: 20px;">
+            <div class="settings-section-card">
+                <div class="settings-section-card-title" style="margin-bottom: 12px;">Тема оформления</div>
+                <div class="theme-selector" id="themeSelector">
+                    <div class="theme-option theme-option-light" data-theme="light" onclick="selectTheme('light')">Светлая</div>
+                    <div class="theme-option theme-option-dark" data-theme="dark" onclick="selectTheme('dark')">Тёмная</div>
+                    <div class="theme-option theme-option-purple" data-theme="purple" onclick="selectTheme('purple')">Фиолет</div>
+                    <div class="theme-option theme-option-ocean" data-theme="ocean" onclick="selectTheme('ocean')">Океан</div>
+                    <div class="theme-option theme-option-sunset" data-theme="sunset" onclick="selectTheme('sunset')">Закат</div>
+                    <div class="theme-option theme-option-forest" data-theme="forest" onclick="selectTheme('forest')">Лес</div>
+                    <div class="theme-option theme-option-midnight" data-theme="midnight" onclick="selectTheme('midnight')">Полночь</div>
+                    <div class="theme-option theme-option-rose" data-theme="rose" onclick="selectTheme('rose')">Роза</div>
+                </div>
             </div>
-            <div class="vk-settings-label">Не беспокоить</div>
         </div>
     </div>
     
-    <div class="vk-settings-divider"></div>
+    <div class="settings-subpage" id="subpage-notifications">
+        <div class="vk-settings-header">
+            <button class="vk-settings-back" onclick="closeSettingsSubpage()">←</button>
+            <div class="vk-settings-title">Уведомления</div>
+        </div>
+        <div style="padding: 20px;">
+            <div class="settings-section-card">
+                <div class="settings-toggle-item">
+                    <div>
+                        <div class="settings-toggle-label">Лайки</div>
+                        <div class="settings-toggle-desc">Уведомления о лайках</div>
+                    </div>
+                    <div class="toggle-switch active" id="notif-likes" onclick="toggleSetting('notif-likes')"></div>
+                </div>
+                <div class="settings-toggle-item">
+                    <div>
+                        <div class="settings-toggle-label">Комментарии</div>
+                        <div class="settings-toggle-desc">Уведомления о комментариях</div>
+                    </div>
+                    <div class="toggle-switch active" id="notif-comments" onclick="toggleSetting('notif-comments')"></div>
+                </div>
+                <div class="settings-toggle-item">
+                    <div>
+                        <div class="settings-toggle-label">Подписки</div>
+                        <div class="settings-toggle-desc">Уведомления о новых подписчиках</div>
+                    </div>
+                    <div class="toggle-switch active" id="notif-follows" onclick="toggleSetting('notif-follows')"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <div class="vk-settings-section">
-        <div class="vk-settings-item" onclick="openEditModal()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </div>
-            <div class="vk-settings-label">Аккаунт</div>
+    <div class="settings-subpage" id="subpage-privacy">
+        <div class="vk-settings-header">
+            <button class="vk-settings-back" onclick="closeSettingsSubpage()">←</button>
+            <div class="vk-settings-title">Приватность</div>
         </div>
-        <div class="vk-settings-item" onclick="openAppearanceSettings()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17 2l-5 5-5-5"/><path d="M12 12v10"/><path d="M8 17l4-5 4 5"/></svg>
+        <div style="padding: 20px;">
+            <div class="settings-section-card">
+                <div class="settings-toggle-item">
+                    <div>
+                        <div class="settings-toggle-label">Показывать онлайн статус</div>
+                        <div class="settings-toggle-desc">Другие видят, когда вы в сети</div>
+                    </div>
+                    <div class="toggle-switch active" id="show-online" onclick="toggleSetting('show-online')"></div>
+                </div>
+                <div class="settings-toggle-item">
+                    <div>
+                        <div class="settings-toggle-label">Анонимный фидбек</div>
+                        <div class="settings-toggle-desc">Комментарии к вашим постам анонимны</div>
+                    </div>
+                    <div class="toggle-switch" id="default-anonymous" onclick="toggleSetting('default-anonymous')"></div>
+                </div>
             </div>
-            <div class="vk-settings-label">Внешний вид</div>
         </div>
-        <div class="vk-settings-item" onclick="openBottomMenuSettings()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            </div>
-            <div class="vk-settings-label">Нижнее меню</div>
+    </div>
+    
+    <div class="settings-subpage" id="subpage-security">
+        <div class="vk-settings-header">
+            <button class="vk-settings-back" onclick="closeSettingsSubpage()">←</button>
+            <div class="vk-settings-title">Безопасность</div>
         </div>
-        <div class="vk-settings-item" onclick="openAppSettings()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <div style="padding: 20px;">
+            <div class="settings-section-card" onclick="openChangePassword()" style="cursor: pointer;">
+                <div class="settings-section-card-header">
+                    <div class="settings-section-card-title">Сменить пароль</div>
+                    <div class="settings-section-card-arrow">→</div>
+                </div>
+                <div class="settings-section-card-desc">Изменить пароль от аккаунта</div>
             </div>
-            <div class="vk-settings-label">Приложение</div>
-        </div>
-        <div class="vk-settings-item" onclick="openPrivacySettings()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div class="vk-settings-label">Приватность</div>
-        </div>
-        <div class="vk-settings-item" onclick="openBlacklistSettings()">
-            <div class="vk-settings-icon">
-                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div class="vk-settings-label">Чёрный список</div>
         </div>
     </div>
 </div>
 
 <!-- VK-style Post Creation Page -->
-<div class="vk-post-creation" id="vkPostCreationPage" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2500; overflow-y: auto;">
+<div class="vk-post-creation" id="vkPostCreationPage">
     <div class="vk-post-header">
-        <button class="vk-post-close" onclick="closeVKPostCreation()">✕</button>
+        <button class="vk-post-close" onclick="closeVKPostCreation()"></button>
         <div class="vk-post-title">Новый пост</div>
         <button class="vk-post-next" id="vkPostNextBtn" onclick="publishVKPost()" disabled>Далее</button>
+    </div>
+    
+    <div class="create-type-carousel" id="createTypeCarousel">
+        <div class="create-type-card active" data-type="text" onclick="selectVKPostType('text')">
+            <div class="create-type-icon">✍️</div>
+            <div class="create-type-label">Стихотворение</div>
+            <div class="create-type-desc">Текст с переносами</div>
+        </div>
+        <div class="create-type-card" data-type="image" onclick="selectVKPostType('image')">
+            <div class="create-type-icon">🖼️</div>
+            <div class="create-type-label">Фото</div>
+            <div class="create-type-desc">Изображения</div>
+        </div>
+        <div class="create-type-card" data-type="audio" onclick="selectVKPostType('audio')">
+            <div class="create-type-icon">🎵</div>
+            <div class="create-type-label">Музыка</div>
+            <div class="create-type-desc">Аудио треки</div>
+        </div>
     </div>
     
     <textarea class="vk-post-textarea" id="vkPostTextarea" placeholder="Напишите что-нибудь..." oninput="checkVKPostContent()"></textarea>
@@ -672,7 +676,7 @@
             <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         </div>
     </div>
-    <input type="file" id="vkPostFileInput" accept="image/*" multiple style="display: none" onchange="handleVKPostImages(event)">
+    <input type="file" id="vkPostFileInput" accept="image/*,audio/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
 </div>
 
 <!-- Draft Save Dialog -->
@@ -684,134 +688,6 @@
             <button class="draft-save-btn discard" onclick="discardVKDraft()">Выйти без сохранения</button>
             <button class="draft-save-btn cancel" onclick="cancelVKDraftClose()">Отмена</button>
         </div>
-    </div>
-</div>
-
-<!-- STORY CREATION MODAL -->
-<div class="story-creation-modal" id="storyCreationModal">
-    <div class="story-creation-header">
-        <button class="story-close-btn" onclick="closeStoryCreation()">×</button>
-        <h2>Создать историю</h2>
-        <button class="story-settings-btn">️</button>
-    </div>
-    
-    <div class="story-albums-bar">
-        <div class="story-albums-dropdown" onclick="toggleStoryAlbums()">
-            <span>Альбомы</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div style="font-size: 13px; opacity: 0.8;">До 5 фото</div>
-    </div>
-    
-    <div class="story-canvas" id="storyCanvas">
-        <div class="story-canvas-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Выберите фото</div>
-            <div style="font-size: 13px; opacity: 0.7;">Или сделайте снимок</div>
-        </div>
-    </div>
-    
-    <div class="story-tools">
-        <div class="story-tools-grid">
-            <div class="story-tool" onclick="selectStoryTool('camera')">
-                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                <span>Камера</span>
-            </div>
-            <div class="story-tool" onclick="selectStoryTool('gallery')">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                <span>Галерея</span>
-            </div>
-            <div class="story-tool" onclick="selectStoryTool('text')">
-                <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-                <span>Текст</span>
-            </div>
-            <div class="story-tool" onclick="selectStoryTool('music')">
-                <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                <span>Музыка</span>
-            </div>
-            <div class="story-tool" onclick="selectStoryTool('stickers')">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                <span>Стикеры</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- SETTINGS MODAL -->
-<div class="modal" id="settingsModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Настройки</h2>
-            <button class="close-modal" onclick="closeSettings()">×</button>
-        </div>
-        
-        <div class="settings-section">
-            <h3>🎨 Тема оформления</h3>
-            <div class="theme-selector" id="themeSelector">
-                <div class="theme-option theme-option-light" data-theme="light" onclick="selectTheme('light')">️ Светлая</div>
-                <div class="theme-option theme-option-dark" data-theme="dark" onclick="selectTheme('dark')">🌙 Тёмная</div>
-                <div class="theme-option theme-option-purple" data-theme="purple" onclick="selectTheme('purple')">💜 Фиолет</div>
-                <div class="theme-option theme-option-ocean" data-theme="ocean" onclick="selectTheme('ocean')">🌊 Океан</div>
-                <div class="theme-option theme-option-sunset" data-theme="sunset" onclick="selectTheme('sunset')">🌅 Закат</div>
-                <div class="theme-option theme-option-forest" data-theme="forest" onclick="selectTheme('forest')">🌲 Лес</div>
-                <div class="theme-option theme-option-midnight" data-theme="midnight" onclick="selectTheme('midnight')">🌌 Полночь</div>
-                <div class="theme-option theme-option-rose" data-theme="rose" onclick="selectTheme('rose')">🌹 Роза</div>
-            </div>
-        </div>
-        
-        <div class="settings-section">
-            <h3> Уведомления</h3>
-            <div class="settings-item">
-                <div><div class="settings-item-label">Лайки</div><div class="settings-item-desc">Уведомления о лайках</div></div>
-                <div class="toggle-switch active" id="notif-likes" onclick="toggleSetting('notif-likes')"></div>
-            </div>
-            <div class="settings-item">
-                <div><div class="settings-item-label">Комментарии</div><div class="settings-item-desc">Уведомления о комментариях</div></div>
-                <div class="toggle-switch active" id="notif-comments" onclick="toggleSetting('notif-comments')"></div>
-            </div>
-            <div class="settings-item">
-                <div><div class="settings-item-label">Подписки</div><div class="settings-item-desc">Уведомления о новых подписчиках</div></div>
-                <div class="toggle-switch active" id="notif-follows" onclick="toggleSetting('notif-follows')"></div>
-            </div>
-        </div>
-        
-        <div class="settings-section">
-            <h3>👁️ Приватность</h3>
-            <div class="settings-item">
-                <div><div class="settings-item-label">Показывать онлайн статус</div><div class="settings-item-desc">Другие видят, когда вы в сети</div></div>
-                <div class="toggle-switch active" id="show-online" onclick="toggleSetting('show-online')"></div>
-            </div>
-            <div class="settings-item">
-                <div><div class="settings-item-label">Анонимный фидбек по умолчанию</div><div class="settings-item-desc">Комментарии к вашим постам анонимны</div></div>
-                <div class="toggle-switch" id="default-anonymous" onclick="toggleSetting('default-anonymous')"></div>
-            </div>
-        </div>
-        
-        <div class="settings-section">
-            <h3>🔐 Безопасность</h3>
-            <div class="settings-item" onclick="openChangePassword()" style="cursor: pointer;">
-                <div><div class="settings-item-label">Сменить пароль</div><div class="settings-item-desc">Изменить пароль от аккаунта</div></div>
-                <span>→</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- CHANGE PASSWORD MODAL -->
-<div class="modal" id="changePasswordModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Сменить пароль</h2>
-            <button class="close-modal" onclick="closeChangePassword()">×</button>
-        </div>
-        <div class="input-group"><label>Текущий пароль</label><input type="password" id="currentPassword"></div>
-        <div class="input-group"><label>Новый пароль</label><input type="password" id="newPassword"></div>
-        <div class="input-group"><label>Повторите новый пароль</label><input type="password" id="confirmPassword"></div>
-        <button class="auth-btn" onclick="changePassword()">Сменить пароль</button>
     </div>
 </div>
 
@@ -829,12 +705,10 @@
             <button class="close-modal" onclick="closeEditModal()">×</button>
         </div>
         <div style="text-align: center; margin-bottom: 20px;">
-            <div class="profile-photo-upload">
-                <div class="profile-avatar-large" id="edit-avatar-preview" style="margin: 0 auto; width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; overflow: hidden;"></div>
-                <label for="profile-photo-input">
-                    <div class="change-photo">📷</div>
-                </label>
-                <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhoto(event)">
+            <div class="profile-photo-upload" style="position: relative; display: inline-block;">
+                <div id="edit-avatar-preview" style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; overflow: hidden; margin: 0 auto;"></div>
+                <label for="profile-photo-input" style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; cursor: pointer;">📷</label>
+                <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhoto(event)" style="display: none;">
             </div>
         </div>
         <div class="input-group"><label>Имя</label><input type="text" id="editName"></div>
@@ -844,25 +718,17 @@
     </div>
 </div>
 
-<!-- MOODBOARD MODAL -->
-<div class="modal" id="moodboardModal">
+<!-- CHANGE PASSWORD MODAL -->
+<div class="modal" id="changePasswordModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 id="moodboard-title">Коллекция</h2>
-            <button class="close-modal" onclick="closeMoodboardModal()">×</button>
+            <h2>Сменить пароль</h2>
+            <button class="close-modal" onclick="closeChangePassword()">×</button>
         </div>
-        <div id="moodboard-content"></div>
-    </div>
-</div>
-
-<!-- DRAFT PREVIEW MODAL -->
-<div class="modal" id="draftPreviewModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Просмотр черновика</h2>
-            <button class="close-modal" onclick="closeDraftPreview()">×</button>
-        </div>
-        <div id="draft-preview-content"></div>
+        <div class="input-group"><label>Текущий пароль</label><input type="password" id="currentPassword"></div>
+        <div class="input-group"><label>Новый пароль</label><input type="password" id="newPassword"></div>
+        <div class="input-group"><label>Повторите новый пароль</label><input type="password" id="confirmPassword"></div>
+        <button class="auth-btn" onclick="changePassword()">Сменить пароль</button>
     </div>
 </div>
 
@@ -870,20 +736,12 @@
 let currentUser = null;
 let currentPage = 'home';
 let currentCategory = 'all';
-let currentPostType = 'image';
-let uploadedImages = [];
-let uploadedAudios = [];
-let uploadedTexts = [];
 let replyTo = null;
 let commentImage = null;
 let commentAudio = null;
 let isRecordingAudio = false;
 let mediaRecorder = null;
 let audioChunks = [];
-let storyImage = null;
-let currentStoryUser = 0;
-let currentStoryIndex = 0;
-let storyTimer = null;
 let currentProfileUserId = null;
 let pendingProfilePhoto = null;
 let searchQuery = '';
@@ -892,15 +750,15 @@ let currentAudio = null;
 let currentPlayBtn = null;
 let currentTheme = 'light';
 let editingPostId = null;
-let createStep = 1;
 let collabUser = null;
-let currentMoodboard = null;
 let playingVoiceId = null;
 let currentProfileTab = 'posts';
 let feedFilter = 'all';
 let userSettings = { theme: 'light', 'notif-likes': true, 'notif-comments': true, 'notif-follows': true, 'show-online': true, 'default-anonymous': false };
 let vkPostImages = [];
 let vkPostText = '';
+let vkPostType = 'text';
+let isLoginMode = false;
 
 const challenges = [
     { week: 0, title: 'Песня без слов', desc: 'Создайте инструментальный трек', tag: '#без_слов', category: 'music' },
@@ -912,14 +770,14 @@ const challenges = [
 ];
 
 const achievements = [
-    { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
-    { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
-    { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '🎨', check: (u) => getUserPosts(u.id).length >= 50 },
+    { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '', check: (u) => getUserPosts(u.id).length >= 1 },
+    { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 10 },
+    { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '', check: (u) => getUserPosts(u.id).length >= 50 },
     { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
     { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
     { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '👥', check: (u) => (u.followers || []).length >= 10 },
     { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '💬', check: (u) => getUserComments(u.name).length >= 1 },
-    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '🗨️', check: (u) => getUserComments(u.name).length >= 10 }
+    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '️', check: (u) => getUserComments(u.name).length >= 10 }
 ];
 
 const samplePosts = [
@@ -976,9 +834,10 @@ function updateSidebarUser() {
     if (currentUser) {
         document.getElementById('sidebarUserName').textContent = currentUser.name;
         document.getElementById('sidebarUserHandle').textContent = currentUser.username;
-        document.getElementById('sidebarUserAvatar').textContent = currentUser.avatar;
+        const avatarEl = document.getElementById('sidebarUserAvatar');
+        avatarEl.textContent = currentUser.avatar;
         if (currentUser.photo) {
-            document.getElementById('sidebarUserAvatar').innerHTML = `<img src="${currentUser.photo}">`;
+            avatarEl.innerHTML = `<img src="${currentUser.photo}">`;
         }
     }
 }
@@ -997,9 +856,6 @@ function navigate(page) {
     document.querySelectorAll('.sidebar-item').forEach(item => {
         item.classList.toggle('active', item.dataset.page === page);
     });
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.toggle('active', item.dataset.page === page);
-    });
     
     switch(page) {
         case 'home': title.textContent = 'Лента'; renderFeed(content); break;
@@ -1011,31 +867,9 @@ function navigate(page) {
         case 'achievements': title.textContent = 'Достижения'; renderAchievements(content); break;
         case 'drafts': title.textContent = 'Черновики'; renderDrafts(content); break;
         case 'moodboards': title.textContent = 'Коллекции'; renderMoodboards(content); break;
-        case 'random': title.textContent = 'Случайный творец'; renderRandomCreator(content); break;
+        case 'random': title.textContent = 'Случайный'; renderRandomCreator(content); break;
         case 'following': title.textContent = 'Подписки'; renderFollowing(content); break;
     }
-    updateSidebarFollowing();
-}
-
-function updateSidebarFollowing() {
-    const container = document.getElementById('sidebarFollowing');
-    if (!container) return;
-    if (!currentUser) { container.innerHTML = ''; return; }
-    const users = getUsers();
-    const me = users.find(u => u.id === currentUser.id);
-    const following = me ? me.following || [] : [];
-    if (following.length === 0) { container.innerHTML = ''; return; }
-    let html = '<div class="sidebar-section-title" style="font-size: 12px; color: #888; text-transform: uppercase; padding: 0 16px 8px; font-weight: 600; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">Подписки</div>';
-    following.forEach(userId => {
-        const user = getUserById(userId);
-        if (user) {
-            html += `<div class="sidebar-user-item" onclick="navigate('profile'); toggleSidebar();" style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; cursor: pointer; border-radius: 12px;">
-                <div class="sidebar-user-avatar" style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; overflow: hidden;">${user.photo ? `<img src="${user.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : user.avatar}</div>
-                <div class="sidebar-user-name" style="font-size: 14px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${user.name}</div>
-            </div>`;
-        }
-    });
-    container.innerHTML = html;
 }
 
 function requireAuth() {
@@ -1201,11 +1035,6 @@ function addNotification(type, fromUser, postId, commentText) {
 function updateNotifBadge() {
     const notifs = getNotifications();
     const unread = notifs.filter(n => !n.read).length;
-    const badge = document.getElementById('notifBadge');
-    if (badge) {
-        if (unread > 0) { badge.textContent = unread > 99 ? '99+' : unread; badge.style.display = 'inline'; }
-        else { badge.style.display = 'none'; }
-    }
 }
 
 function markNotificationsRead() {
@@ -1229,16 +1058,6 @@ function renderFeed(container) {
     const currentChallenge = getCurrentWeekChallenge();
     
     let html = `
-        <div class="stories-container" id="storiesContainer">
-            <div class="story-item add-story" onclick="openStoryCreation()">
-                <div class="story-ring">
-                    <div class="story-avatar">${currentUser ? (currentUser.photo ? `<img src="${currentUser.photo}">` : currentUser.avatar) : '?'}</div>
-                </div>
-                <div class="plus-icon">+</div>
-                <div class="story-name">История</div>
-            </div>
-        </div>
-        
         <div class="feed-filters">
             <button class="filter-btn ${feedFilter === 'all' ? 'active' : ''}" onclick="setFeedFilter('all')">Все</button>
             <button class="filter-btn ${feedFilter === 'following' ? 'active' : ''}" onclick="setFeedFilter('following')">Подписки</button>
@@ -1253,9 +1072,9 @@ function renderFeed(container) {
         </div>
         
         <div class="challenge-banner" onclick="navigate('challenges')">
-            <h3>🔥 Челлендж недели: ${currentChallenge.title}</h3>
+            <h3>Челлендж недели: ${currentChallenge.title}</h3>
             <p>${currentChallenge.desc}</p>
-            <span class="challenge-tag">🎵 Для музыкантов • ${currentChallenge.tag}</span>
+            <span class="challenge-tag">Для музыкантов • ${currentChallenge.tag}</span>
         </div>
     `;
     
@@ -1308,9 +1127,10 @@ function renderProfile(container) {
     const displayedAchievements = (user.displayedAchievements || []);
     const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + userId) || '[]');
     const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + userId) || '{}');
+    const userStories = getStories().filter(s => s.authorId === userId);
 
     let html = `<div class="profile-header" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 20px;">
-        <div class="profile-avatar-large" style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 700; box-shadow: 0 8px 32px rgba(102,126,234,0.4); overflow: hidden; cursor: pointer;" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">
+        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 700; box-shadow: 0 8px 32px rgba(102,126,234,0.4); overflow: hidden; cursor: pointer;" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">
             ${user.photo ? `<img src="${user.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : user.avatar}
         </div>
         <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${user.name}</div>
@@ -1331,18 +1151,18 @@ function renderProfile(container) {
             </div>
         </div>
         
-        <div class="profile-actions" style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">`;
+        <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">`;
     if (isOwnProfile) { 
-        html += `<button class="edit-profile-btn" onclick="openEditModal()" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">Редактировать профиль</button>`;
-        html += `<button class="view-achievements-btn" onclick="navigate('achievements')" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3);">🏆 Достижения</button>`;
+        html += `<button onclick="openEditModal()" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">Редактировать профиль</button>`;
+        html += `<button onclick="navigate('achievements')" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3);">Достижения</button>`;
     } else { 
-        html += `<button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="toggleFollow('${userId}')" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: ${isFollowing ? 'rgba(0,0,0,0.05)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; color: ${isFollowing ? '#333' : 'white'};">${isFollowing ? 'Вы подписаны' : 'Подписаться'}</button>`;
+        html += `<button onclick="toggleFollow('${userId}')" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: ${isFollowing ? 'rgba(0,0,0,0.05)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; color: ${isFollowing ? '#333' : 'white'};">${isFollowing ? 'Вы подписаны' : 'Подписаться'}</button>`;
     }
-    html += `</div></div>`;
+    html += `</div>`;
     
+    // Достижения под аватаркой, без отдельного блока
     if (displayedAchievements.length > 0) {
-        html += `<div class="profile-stories-section" style="margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
-            <h4 style="margin-bottom: 12px; font-size: 14px;">Достижения</h4>
+        html += `<div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.08);">
             <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">`;
         displayedAchievements.forEach(achId => {
             const ach = achievements.find(a => a.id === achId);
@@ -1353,10 +1173,33 @@ function renderProfile(container) {
         html += `</div></div>`;
     }
     
-    html += `<div class="profile-tabs" style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 8px;">
-        <button class="profile-tab ${currentProfileTab === 'posts' ? 'active' : ''}" onclick="setProfileTab('posts', this)" style="padding: 10px 20px; border-radius: 20px; background: ${currentProfileTab === 'posts' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.5)'}; color: ${currentProfileTab === 'posts' ? 'white' : 'inherit'}; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; font-size: 14px; font-weight: 500; white-space: nowrap;">Публикации</button>
-        ${isOwnProfile ? `<button class="profile-tab ${currentProfileTab === 'drafts' ? 'active' : ''}" onclick="setProfileTab('drafts', this)" style="padding: 10px 20px; border-radius: 20px; background: ${currentProfileTab === 'drafts' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.5)'}; color: ${currentProfileTab === 'drafts' ? 'white' : 'inherit'}; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; font-size: 14px; font-weight: 500; white-space: nowrap;">Черновики (${drafts.length})</button>` : ''}
-        ${isOwnProfile ? `<button class="profile-tab ${currentProfileTab === 'moodboards' ? 'active' : ''}" onclick="setProfileTab('moodboards', this)" style="padding: 10px 20px; border-radius: 20px; background: ${currentProfileTab === 'moodboards' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.5)'}; color: ${currentProfileTab === 'moodboards' ? 'white' : 'inherit'}; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; font-size: 14px; font-weight: 500; white-space: nowrap;">Коллекции (${Object.keys(moodboards).length})</button>` : ''}
+    html += `</div>`;
+    
+    // Stories только в профиле автора
+    if (isOwnProfile) {
+        html += `<div class="profile-stories-section">
+            <div class="profile-stories-header">
+                <div class="profile-stories-title">Истории</div>
+                <div class="profile-stories-count">${userStories.length} историй</div>
+            </div>
+            <div class="profile-stories-grid">`;
+        if (userStories.length === 0) {
+            html += '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: #888;">Нет историй. Создайте через кнопку +</div>';
+        } else {
+            userStories.forEach((story, i) => {
+                html += `<div class="profile-story-item" onclick="openStoryViewer(${i})">
+                    <img src="${story.images ? story.images[0] : ''}">
+                    <div class="profile-story-time">${getTimeAgo(story.time)}</div>
+                </div>`;
+            });
+        }
+        html += `</div></div>`;
+    }
+    
+    html += `<div class="profile-tabs">
+        <button class="profile-tab ${currentProfileTab === 'posts' ? 'active' : ''}" onclick="setProfileTab('posts', this)">Публикации</button>
+        ${isOwnProfile ? `<button class="profile-tab ${currentProfileTab === 'drafts' ? 'active' : ''}" onclick="setProfileTab('drafts', this)">Черновики (${drafts.length})</button>` : ''}
+        ${isOwnProfile ? `<button class="profile-tab ${currentProfileTab === 'moodboards' ? 'active' : ''}" onclick="setProfileTab('moodboards', this)">Коллекции (${Object.keys(moodboards).length})</button>` : ''}
     </div>
     <div id="profileTabContent"></div>`;
     
@@ -1367,13 +1210,9 @@ function renderProfile(container) {
 function setProfileTab(tab, btn) {
     currentProfileTab = tab;
     document.querySelectorAll('.profile-tab').forEach(t => {
-        t.style.background = 'rgba(255,255,255,0.5)';
-        t.style.color = 'inherit';
+        t.classList.remove('active');
     });
-    if (btn) {
-        btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        btn.style.color = 'white';
-    }
+    if (btn) btn.classList.add('active');
     renderProfileTabContent(tab);
 }
 
@@ -1384,7 +1223,7 @@ function renderProfileTabContent(tab) {
     if (tab === 'posts') {
         const userPosts = getAllPosts().filter(p => p.authorId === (currentProfileUserId || currentUser.id)).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
         if (userPosts.length === 0) {
-            content.innerHTML = '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><p>Пока нет публикаций</p></div>';
+            content.innerHTML = '<div class="empty-state"><p>Пока нет публикаций</p></div>';
         } else {
             content.innerHTML = userPosts.map(post => renderPostCard(post)).join('');
         }
@@ -1399,19 +1238,19 @@ function renderProfileTabContent(tab) {
 function renderDraftsInProfile(container) {
     const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + (currentUser?.id || 'temp')) || '[]');
     if (drafts.length === 0) {
-        container.innerHTML = '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><p>Нет черновиков</p></div>';
+        container.innerHTML = '<div class="empty-state"><p>Нет черновиков</p></div>';
     } else {
         container.innerHTML = drafts.map((draft, idx) => `
-            <div class="draft-card" style="border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);">
-                <div class="draft-icon" style="font-size: 24px;">📝</div>
-                <div class="draft-info" style="flex: 1;">
-                    <div class="draft-title" style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">${draft.caption || 'Без названия'}</div>
-                    <div class="draft-date" style="font-size: 12px; opacity: 0.7;">${new Date(draft.timestamp).toLocaleDateString('ru-RU')}</div>
+            <div class="draft-card">
+                <div class="draft-icon">📝</div>
+                <div class="draft-info">
+                    <div class="draft-title">${draft.caption || 'Без названия'}</div>
+                    <div class="draft-date">${new Date(draft.timestamp).toLocaleDateString('ru-RU')}</div>
                 </div>
-                <div class="draft-actions" style="display: flex; gap: 8px;">
-                    <button class="draft-action-btn preview" onclick="previewDraft(${idx})" style="padding: 6px 12px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3);">👁️</button>
-                    <button class="draft-action-btn publish" onclick="publishDraft(${idx})" style="padding: 6px 12px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">📤</button>
-                    <button class="draft-action-btn delete" onclick="deleteDraft(${idx})" style="padding: 6px 12px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; background: rgba(0,0,0,0.05);">🗑️</button>
+                <div class="draft-actions">
+                    <button class="draft-action-btn preview" onclick="previewDraft(${idx})">👁️</button>
+                    <button class="draft-action-btn publish" onclick="publishDraft(${idx})">📤</button>
+                    <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">🗑️</button>
                 </div>
             </div>
         `).join('');
@@ -1422,12 +1261,12 @@ function renderMoodboardsInProfile(container) {
     const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + (currentUser?.id || 'temp')) || '{}');
     const keys = Object.keys(moodboards);
     if (keys.length === 0) {
-        container.innerHTML = '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><p>Нет коллекций</p></div>';
+        container.innerHTML = '<div class="empty-state"><p>Нет коллекций</p></div>';
     } else {
         container.innerHTML = keys.map(key => `
-            <div class="moodboard-card" onclick="openMoodboard('${key}')" style="border-radius: 16px; padding: 16px; margin-bottom: 12px; cursor: pointer; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);">
-                <div class="moodboard-name" style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">${moodboards[key].name}</div>
-                <div class="moodboard-count" style="font-size: 12px; opacity: 0.7;">${moodboards[key].posts.length} постов</div>
+            <div class="moodboard-card" onclick="openMoodboard('${key}')">
+                <div class="moodboard-name">${moodboards[key].name}</div>
+                <div class="moodboard-count">${moodboards[key].posts.length} постов</div>
             </div>
         `).join('');
     }
@@ -1436,9 +1275,9 @@ function renderMoodboardsInProfile(container) {
 function renderPopular(container) {
     const dayAgo = Date.now() - 86400000;
     const popularPosts = getAllPosts().filter(p => (p.timestamp || 0) >= dayAgo).sort((a, b) => b.likes - a.likes);
-    let html = '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;"> Популярные посты за последние 24 часа</div>';
+    let html = '<div class="info-banner">Популярные посты за последние 24 часа</div>';
     if (popularPosts.length === 0) {
-        html += '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><h2>Пока нет популярных постов</h2></div>';
+        html += '<div class="empty-state"><h2>Пока нет популярных постов</h2></div>';
     } else {
         html += popularPosts.map((post, index) => {
             const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '' : '';
@@ -1456,12 +1295,12 @@ function renderFollowing(container) {
     if (!currentUser) { showFullAuth('login'); return; }
     const me = getUsers().find(u => u.id === currentUser.id);
     const following = me ? me.following || [] : [];
-    let html = '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;">📱 Здесь посты тех, на кого вы подписаны</div>';
+    let html = '<div class="info-banner">Здесь посты тех, на кого вы подписаны</div>';
     if (following.length === 0) {
-        html += '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><h2>Пока нет подписок</h2><p>Перейдите в "Обзор" и подпишитесь на авторов</p></div>';
+        html += '<div class="empty-state"><h2>Пока нет подписок</h2><p>Перейдите в "Обзор" и подпишитесь на авторов</p></div>';
     } else {
         const posts = getAllPosts().filter(p => following.includes(p.authorId)).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-        if (posts.length === 0) html += '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><p>Подписки ещё ничего не опубликовали</p></div>';
+        if (posts.length === 0) html += '<div class="empty-state"><p>Подписки ещё ничего не опубликовали</p></div>';
         else html += posts.map(post => renderPostCard(post)).join('');
     }
     container.innerHTML = html;
@@ -1472,10 +1311,10 @@ function renderChallenges(container) {
     const currentChallenge = getCurrentWeekChallenge();
     const votes = JSON.parse(localStorage.getItem('muse_challenge_votes') || '{}');
     
-    let html = '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;">🏆 Новый челлендж каждую неделю</div>';
+    let html = '<div class="info-banner">Новый челлендж каждую неделю</div>';
     
     if (currentChallenge) {
-        const categoryNames = { text: '✍️ Для писателей', music: '🎵 Для музыкантов', art: '🎨 Для художников', photo: ' Для фотографов' };
+        const categoryNames = { text: 'Для писателей', music: 'Для музыкантов', art: 'Для художников', photo: 'Для фотографов' };
         const posts = getAllPosts().filter(p => p.tags && p.tags.some(t => t.toLowerCase().includes(currentChallenge.tag.replace('#', '').toLowerCase())));
         const topPosts = posts.sort((a, b) => b.likes - a.likes).slice(0, 5);
         
@@ -1487,7 +1326,7 @@ function renderChallenges(container) {
             html += '<div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">';
             topPosts.forEach(post => {
                 const voted = votes[post.id] === currentUser?.id;
-                html += `<button class="vote-btn ${voted ? 'voted' : ''}" onclick="voteForPost(${post.id})" style="padding: 8px 16px; border-radius: 20px; background: ${voted ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(102,126,234,0.1)'}; color: ${voted ? 'white' : '#667eea'}; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; font-size: 13px; font-weight: 500;">
+                html += `<button onclick="voteForPost(${post.id})" style="padding: 8px 16px; border-radius: 20px; background: ${voted ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(102,126,234,0.1)'}; color: ${voted ? 'white' : '#667eea'}; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; font-size: 13px; font-weight: 500;">
                     ${post.author} — ${post.likes} ❤️ ${voted ? '✓' : ''}
                 </button>`;
             });
@@ -1514,15 +1353,15 @@ function renderExplore(container) {
     const users = getUsers();
     const following = currentUser ? (getUsers().find(u => u.id === currentUser.id)?.following || []) : [];
     
-    let html = '<div class="search-modes" style="display: flex; gap: 8px; margin-bottom: 16px;">';
-    html += `<button class="search-mode-btn ${searchMode === 'users' ? 'active' : ''}" onclick="setSearchMode('users')" style="flex: 1; padding: 10px; border: 2px solid rgba(102,126,234,0.3); border-radius: 10px; background: ${searchMode === 'users' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.5)'}; color: ${searchMode === 'users' ? 'white' : 'inherit'}; cursor: pointer; font-size: 13px; font-weight: 500;">👥 Пользователи</button>`;
-    html += `<button class="search-mode-btn ${searchMode === 'tags' ? 'active' : ''}" onclick="setSearchMode('tags')" style="flex: 1; padding: 10px; border: 2px solid rgba(102,126,234,0.3); border-radius: 10px; background: ${searchMode === 'tags' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.5)'}; color: ${searchMode === 'tags' ? 'white' : 'inherit'}; cursor: pointer; font-size: 13px; font-weight: 500;">#️⃣ Теги</button>`;
+    let html = '<div class="search-modes">';
+    html += `<button class="search-mode-btn ${searchMode === 'users' ? 'active' : ''}" onclick="setSearchMode('users')">Пользователи</button>`;
+    html += `<button class="search-mode-btn ${searchMode === 'tags' ? 'active' : ''}" onclick="setSearchMode('tags')">Теги</button>`;
     html += '</div>';
     
-    html += `<input type="text" class="search-input" id="searchInput" placeholder="${searchMode === 'users' ? 'Поиск пользователей...' : 'Поиск по тегам...'}" value="${searchQuery}" oninput="handleSearch(this.value)" style="width: 100%; padding: 12px 16px; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; font-size: 14px; margin-bottom: 12px; font-family: inherit; background: rgba(255,255,255,0.8);">`;
+    html += `<input type="text" class="search-input" id="searchInput" placeholder="${searchMode === 'users' ? 'Поиск пользователей...' : 'Поиск по тегам...'}" value="${searchQuery}" oninput="handleSearch(this.value)">`;
     
     if (searchMode === 'users') {
-        html += '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;"> Найдите интересных авторов!</div>';
+        html += '<div class="info-banner">Найдите интересных авторов!</div>';
         html += '<h2 style="margin-bottom: 16px; font-size: 18px;">Все пользователи</h2>';
         const displayUsers = users.filter(u => {
             if (currentUser && u.id === currentUser.id) return false;
@@ -1530,24 +1369,24 @@ function renderExplore(container) {
             const q = searchQuery.toLowerCase();
             return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q) || (u.bio && u.bio.toLowerCase().includes(q));
         });
-        if (displayUsers.length === 0) html += '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><p>Пользователи не найдены</p></div>';
+        if (displayUsers.length === 0) html += '<div class="empty-state"><p>Пользователи не найдены</p></div>';
         else {
             html += displayUsers.map(user => {
                 const isFollowing = following.includes(user.id);
                 const isOnline = userSettings['show-online'] && user.lastOnline && (Date.now() - user.lastOnline) < 300000;
-                return `<div class="user-card" onclick="navigate('profile')" style="padding: 16px; border-radius: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);">
-                    <div class="user-card-avatar" style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 18px; overflow: hidden; position: relative; box-shadow: 0 4px 15px rgba(102,126,234,0.3);">${user.photo ? `<img src="${user.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : user.avatar}${isOnline ? '<div class="online-indicator" style="width: 10px; height: 10px; border-radius: 50%; background: #4ade80; border: 2px solid white; position: absolute; bottom: 0; right: 0;"></div>' : ''}</div>
-                    <div class="user-card-info" style="flex: 1; min-width: 0;">
-                        <div class="user-card-name" style="font-weight: 600; font-size: 15px;">${user.name}</div>
-                        <div class="user-card-handle" style="font-size: 13px; opacity: 0.7;">${user.username}</div>
-                        ${user.bio ? `<div class="user-card-bio" style="font-size: 12px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0.7;">${user.bio}</div>` : ''}
+                return `<div class="user-card" onclick="navigate('profile')">
+                    <div class="user-card-avatar" style="position: relative;">${user.photo ? `<img src="${user.photo}">` : user.avatar}${isOnline ? '<div class="online-indicator"></div>' : ''}</div>
+                    <div class="user-card-info">
+                        <div class="user-card-name">${user.name}</div>
+                        <div class="user-card-handle">${user.username}</div>
+                        ${user.bio ? `<div class="user-card-bio">${user.bio}</div>` : ''}
                     </div>
-                    <button class="${isFollowing ? 'unfollow-btn' : 'follow-btn'}" onclick="event.stopPropagation(); toggleFollow('${user.id}')" style="padding: 8px 16px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 13px; background: ${isFollowing ? 'rgba(0,0,0,0.05)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; color: ${isFollowing ? '#333' : 'white'};">${isFollowing ? 'Отписаться' : 'Подписаться'}</button>
+                    <button onclick="event.stopPropagation(); toggleFollow('${user.id}')" style="padding: 8px 16px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 13px; background: ${isFollowing ? 'rgba(0,0,0,0.05)' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}; color: ${isFollowing ? '#333' : 'white'};">${isFollowing ? 'Отписаться' : 'Подписаться'}</button>
                 </div>`;
             }).join('');
         }
     } else {
-        html += '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;">#️⃣ Поиск постов по тегам</div>';
+        html += '<div class="info-banner">Поиск постов по тегам</div>';
         const allPosts = getAllPosts();
         const tagMap = {};
         allPosts.forEach(post => {
@@ -1566,13 +1405,13 @@ function renderExplore(container) {
         filteredTags.sort((a, b) => b.posts.length - a.posts.length);
         
         if (filteredTags.length === 0) {
-            html += '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><p>Теги не найдены</p></div>';
+            html += '<div class="empty-state"><p>Теги не найдены</p></div>';
         } else {
             html += filteredTags.slice(0, 20).map(tm => {
-                return `<div class="tag-search-result" style="border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);">
-                    <div class="tag-search-result-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                        <span class="tag-search-result-tag" style="font-size: 14px; font-weight: 600; color: #667eea; background: rgba(102,126,234,0.1); padding: 4px 10px; border-radius: 10px;">#${tm.tag}</span>
-                        <span class="tag-search-result-count" style="font-size: 12px; opacity: 0.7;">${tm.posts.length} постов</span>
+                return `<div class="tag-search-result">
+                    <div class="tag-search-result-header">
+                        <span class="tag-search-result-tag">#${tm.tag}</span>
+                        <span class="tag-search-result-count">${tm.posts.length} постов</span>
                     </div>
                     ${tm.posts.slice(0, 2).map(post => renderPostCard(post)).join('')}
                 </div>`;
@@ -1594,18 +1433,18 @@ function handleSearch(query) {
 function renderNotifications(container) {
     if (!currentUser) { showFullAuth('login'); return; }
     const notifs = getNotifications();
-    if (notifs.length === 0) { container.innerHTML = '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><h2>Нет уведомлений</h2></div>'; return; }
-    let html = '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;">🔔 Ваши уведомления</div>';
+    if (notifs.length === 0) { container.innerHTML = '<div class="empty-state"><h2>Нет уведомлений</h2></div>'; return; }
+    let html = '<div class="info-banner">Ваши уведомления</div>';
     html += notifs.map(notif => {
         let text = '';
         if (notif.type === 'like') text = `<b>${notif.fromUserName}</b> оценил ваш пост`;
         else if (notif.type === 'comment') text = `<b>${notif.fromUserName}</b> прокомментировал: "${notif.commentText.substring(0, 50)}${notif.commentText.length > 50 ? '...' : ''}"`;
         else if (notif.type === 'follow') text = `<b>${notif.fromUserName}</b> подписался на вас`;
-        return `<div class="notification-item ${notif.read ? '' : 'unread'}" onclick="handleNotifClick(${notif.id})" style="padding: 16px; border-radius: 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); ${!notif.read ? 'border-left: 3px solid #667eea;' : ''}">
-            <div class="notification-avatar" style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3);">${notif.fromUserPhoto ? `<img src="${notif.fromUserPhoto}" style="width: 100%; height: 100%; object-fit: cover;">` : notif.fromUserAvatar}</div>
-            <div class="notification-content" style="flex: 1;">
-                <div class="notification-text" style="font-size: 14px; line-height: 1.4; margin-bottom: 4px;">${text}</div>
-                <div class="notification-time" style="font-size: 12px; opacity: 0.7;">${getTimeAgo(notif.time)}</div>
+        return `<div class="notification-item ${notif.read ? '' : 'unread'}" onclick="handleNotifClick(${notif.id})">
+            <div class="notification-avatar">${notif.fromUserPhoto ? `<img src="${notif.fromUserPhoto}">` : notif.fromUserAvatar}</div>
+            <div class="notification-content">
+                <div class="notification-text">${text}</div>
+                <div class="notification-time">${getTimeAgo(notif.time)}</div>
             </div>
         </div>`;
     }).join('');
@@ -1626,9 +1465,9 @@ function renderAchievements(container) {
     const me = users.find(u => u.id === currentUser.id);
     const unlocked = me.achievements || [];
     
-    let html = '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;">🏆 Ваши достижения. Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
+    let html = '<div class="info-banner">Нажмите на достижение, чтобы добавить/убрать его из профиля (макс. 5).</div>';
     html += `<h2 style="margin-bottom: 16px; font-size: 18px;">Достижения (${unlocked.length}/${achievements.length})</h2>`;
-    html += '<div class="achievements-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px;">';
+    html += '<div class="achievements-grid">';
     
     achievements.forEach(ach => {
         const isUnlocked = unlocked.includes(ach.id);
@@ -1644,10 +1483,10 @@ function renderAchievements(container) {
         const name = isSecret && !isUnlocked ? '???' : ach.name;
         const desc = isSecret && !isUnlocked ? 'Секретное достижение' : ach.desc;
         
-        html += `<div class="${cardClass}" onclick="toggleProfileAchievement('${ach.id}')" style="border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; border: 2px solid ${isDisplayed ? '#667eea' : 'rgba(0,0,0,0.1)'}; background: ${isDisplayed ? 'rgba(102,126,234,0.1)' : 'rgba(255,255,255,0.95)'}; opacity: ${!isUnlocked ? '0.4' : '1'};">
-            <div class="achievement-icon" style="font-size: 36px; margin-bottom: 8px;">${icon}</div>
-            <div class="achievement-name" style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">${name}${isDisplayed ? ' ✓' : ''}</div>
-            <div class="achievement-desc" style="font-size: 10px; opacity: 0.7;">${desc}</div>
+        html += `<div class="${cardClass}" onclick="toggleProfileAchievement('${ach.id}')">
+            <div class="achievement-icon">${icon}</div>
+            <div class="achievement-name">${name}${isDisplayed ? ' ✓' : ''}</div>
+            <div class="achievement-desc">${desc}</div>
         </div>`;
     });
     
@@ -1657,18 +1496,18 @@ function renderAchievements(container) {
 
 function renderRandomCreator(container) {
     const users = getUsers().filter(u => u.id !== currentUser?.id);
-    if (users.length === 0) { container.innerHTML = '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><h2>Пока мало пользователей</h2></div>'; return; }
+    if (users.length === 0) { container.innerHTML = '<div class="empty-state"><h2>Пока мало пользователей</h2></div>'; return; }
     const randomUser = users[Math.floor(Math.random() * users.length)];
     const userPosts = getAllPosts().filter(p => p.authorId === randomUser.id);
     let html = `<div class="random-creator-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 24px; border-radius: 24px; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(102,126,234,0.4);">
-        <h3 style="font-size: 18px; margin-bottom: 16px;">🎲 Случайный творец</h3>
-        <div class="random-creator-avatar" style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; overflow: hidden; backdrop-filter: blur(10px); border: 3px solid rgba(255,255,255,0.3);">${randomUser.photo ? `<img src="${randomUser.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : randomUser.avatar}</div>
-        <div class="random-creator-name" style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">${randomUser.name}</div>
-        <div class="random-creator-handle" style="font-size: 14px; opacity: 0.9; margin-bottom: 16px;">${randomUser.username}</div>
-        ${randomUser.bio ? `<div class="random-creator-bio" style="font-size: 13px; opacity: 0.9; margin-bottom: 16px;">${randomUser.bio}</div>` : ''}
+        <h3 style="font-size: 18px; margin-bottom: 16px;">Случайный творец</h3>
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; overflow: hidden; backdrop-filter: blur(10px); border: 3px solid rgba(255,255,255,0.3);">${randomUser.photo ? `<img src="${randomUser.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : randomUser.avatar}</div>
+        <div style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">${randomUser.name}</div>
+        <div style="font-size: 14px; opacity: 0.9; margin-bottom: 16px;">${randomUser.username}</div>
+        ${randomUser.bio ? `<div style="font-size: 13px; opacity: 0.9; margin-bottom: 16px;">${randomUser.bio}</div>` : ''}
         <div style="font-size: 13px; opacity: 0.9; margin-bottom: 16px;">${userPosts.length} публикаций</div>
-        <button class="random-creator-btn" onclick="navigate('profile')" style="background: white; color: #667eea; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">Открыть профиль</button>
-        <button class="random-creator-btn secondary" onclick="renderRandomCreator(document.getElementById('mainContent'))" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; backdrop-filter: blur(10px);">🔄 Другой</button>
+        <button onclick="navigate('profile')" style="background: white; color: #667eea; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">Открыть профиль</button>
+        <button onclick="renderRandomCreator(document.getElementById('mainContent'))" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; backdrop-filter: blur(10px);">Другой</button>
     </div>`;
     if (userPosts.length > 0) {
         html += '<h3 style="margin-bottom: 12px; font-size: 16px;">Последние работы</h3>';
@@ -1681,102 +1520,43 @@ function renderRandomCreator(container) {
 function renderDrafts(container) {
     if (!currentUser) { showFullAuth('login'); return; }
     const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
-    let html = '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;">📝 Ваши черновики (отложенные посты)</div>';
+    let html = '<div class="info-banner">Ваши черновики (отложенные посты)</div>';
     if (drafts.length === 0) {
-        html += '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><h2>Нет черновиков</h2><p>Сохраняйте посты как черновики, чтобы доделать позже</p></div>';
+        html += '<div class="empty-state"><h2>Нет черновиков</h2><p>Сохраняйте посты как черновики, чтобы доделать позже</p></div>';
     } else {
         drafts.forEach((draft, idx) => {
-            const draftAsPost = {
-                id: 'draft_' + draft.id,
-                authorId: currentUser.id,
-                author: currentUser.name,
-                handle: currentUser.username,
-                avatar: currentUser.avatar,
-                photo: currentUser.photo,
-                timestamp: draft.timestamp,
-                type: draft.type,
-                caption: draft.caption || '',
-                tags: draft.tags || [],
-                likes: 0,
-                liked: false,
-                comments: [],
-                anonymous: draft.anonymous || false,
-                isDraft: true,
-                draftIndex: idx,
-                images: draft.images,
-                texts: draft.texts,
-                audios: draft.audios,
-                audioTitles: draft.audioTitles,
-                collabAuthor: draft.collabUser ? draft.collabUser.name : null
-            };
-            html += renderDraftCard(draftAsPost);
+            html += `<div class="draft-card">
+                <div class="draft-icon">📝</div>
+                <div class="draft-info">
+                    <div class="draft-title">${draft.caption || 'Без названия'}</div>
+                    <div class="draft-date">${new Date(draft.timestamp).toLocaleDateString('ru-RU')}</div>
+                </div>
+                <div class="draft-actions">
+                    <button class="draft-action-btn preview" onclick="previewDraft(${idx})">👁️</button>
+                    <button class="draft-action-btn publish" onclick="publishDraft(${idx})">📤</button>
+                    <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">🗑️</button>
+                </div>
+            </div>`;
         });
     }
     container.innerHTML = html;
-    setTimeout(attachCarouselListeners, 100);
-}
-
-function renderDraftCard(draftPost) {
-    let mediaHtml = '';
-    const allItems = draftPost.type === 'image' ? (draftPost.images || []) : draftPost.type === 'text' ? (draftPost.texts || []) : draftPost.type === 'audio' ? (draftPost.audios || []) : [];
-    const totalItems = allItems.length;
-
-    if (totalItems === 1) {
-        if (draftPost.type === 'image') mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;" onerror="this.style.display='none'">`;
-        else if (draftPost.type === 'text') mediaHtml = `<div style="padding: 24px; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; white-space: pre-line;">${allItems[0]}</div>`;
-        else if (draftPost.type === 'audio') {
-            const title = draftPost.audioTitles ? draftPost.audioTitles[0] : 'Аудио трек';
-            mediaHtml = `<div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"><div style="display: flex; align-items: center; gap: 12px; color: white;"><div style="font-size: 24px;">🎵</div><div style="font-weight: 600; font-size: 14px;">${title}</div></div></div>`;
-        }
-    } else if (totalItems > 1) {
-        let slidesHtml = '';
-        if (draftPost.type === 'image') slidesHtml = allItems.map(img => `<img src="${img}" onerror="this.style.display='none'">`).join('');
-        else if (draftPost.type === 'text') slidesHtml = allItems.map(text => `<div style="padding: 24px; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; white-space: pre-line;">${text}</div>`).join('');
-        else if (draftPost.type === 'audio') {
-            const titles = draftPost.audioTitles || [];
-            slidesHtml = allItems.map((audio, i) => `<div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"><div style="display: flex; align-items: center; gap: 12px; color: white;"><div style="font-size: 24px;">🎵</div><div style="font-weight: 600; font-size: 14px;">${titles[i] || `Трек ${i + 1}`}</div></div></div>`).join('');
-        }
-        mediaHtml = `<div class="carousel" style="position: relative; width: 100%;"><div class="carousel-track" data-post-id="${draftPost.id}" style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab;">${slidesHtml}</div><div class="carousel-counter" id="counter-${draftPost.id}" style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; backdrop-filter: blur(10px); z-index: 5;">1/${totalItems}</div><div class="carousel-dots" style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5;">${allItems.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}" style="width: 6px; height: 6px; border-radius: 50%; background: ${i === 0 ? 'white' : 'rgba(255,255,255,0.5)'}; transition: all 0.3s;"></div>`).join('')}</div></div>`;
-    }
-
-    const captionHtml = draftPost.caption ? `<div style="padding: 16px; font-size: 15px; line-height: 1.6; margin-bottom: 12px;">${draftPost.caption}</div>` : '';
-    const tagsHtml = draftPost.tags && draftPost.tags.length > 0 ? `<div style="padding: 0 16px 16px; display: flex; gap: 8px; flex-wrap: wrap;">${draftPost.tags.map(t => `<span style="font-size: 12px; color: #667eea; background: rgba(102,126,234,0.1); padding: 6px 14px; border-radius: 12px; font-weight: 600;">#${t}</span>`).join('')}</div>` : '';
-    const collabBadge = draftPost.collabAuthor ? `<span style="display: inline-flex; align-items: center; gap: 4px; background: rgba(102,126,234,0.2); color: #667eea; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">🤝 с ${draftPost.collabAuthor}</span>` : '';
-    const draftBadge = `<span style="display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">📝 Черновик</span>`;
-
-    return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
-        <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;">
-            <div class="post-avatar" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3);">${draftPost.photo ? `<img src="${draftPost.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : draftPost.avatar}</div>
-            <div class="post-author-info" style="flex: 1; min-width: 0;">
-                <div class="post-author-name" style="font-weight: 700; font-size: 15px;">${draftPost.author}${collabBadge}</div>
-                <div class="post-author-handle" style="color: #888; font-size: 13px; font-weight: 500;">${draftPost.handle} ${draftBadge}</div>
-            </div>
-        </div>
-        ${mediaHtml}
-        ${captionHtml}${tagsHtml}
-        <div style="display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05);">
-            <button class="action-btn" onclick="editDraft(${draftPost.draftIndex})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #666; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">✏️ Редактировать</button>
-            <button class="action-btn" onclick="publishDraft(${draftPost.draftIndex})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #666; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">📤 Опубликовать</button>
-            <button class="action-btn" onclick="deleteDraft(${draftPost.draftIndex})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #ef4444; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">🗑️ Удалить</button>
-        </div>
-    </div>`;
 }
 
 function renderMoodboards(container) {
     if (!currentUser) { showFullAuth('login'); return; }
     const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
-    let html = '<div class="info-banner" style="background: rgba(255,255,255,0.95); padding: 16px; border-radius: 16px; margin-bottom: 20px; text-align: center;">📌 Ваши коллекции вдохновения</div>';
-    html += '<button class="auth-btn" onclick="createNewMoodboard()" style="margin-bottom: 20px; width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(102,126,234,0.4);">+ Новая коллекция</button>';
+    let html = '<div class="info-banner">Ваши коллекции вдохновения</div>';
+    html += '<button onclick="createNewMoodboard()" style="margin-bottom: 20px; width: 100%; padding: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(102,126,234,0.4);">+ Новая коллекция</button>';
     
     const keys = Object.keys(moodboards);
     if (keys.length === 0) {
-        html += '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><h2>Пока нет коллекций</h2><p>Сохраняйте посты в коллекции для вдохновения</p></div>';
+        html += '<div class="empty-state"><h2>Пока нет коллекций</h2><p>Сохраняйте посты в коллекции для вдохновения</p></div>';
     } else {
         keys.forEach(key => {
             const mb = moodboards[key];
-            html += `<div class="moodboard-card" onclick="openMoodboard('${key}')" style="border-radius: 16px; padding: 16px; margin-bottom: 12px; cursor: pointer; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);">
-                <div class="moodboard-name" style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">${mb.name}</div>
-                <div class="moodboard-count" style="font-size: 12px; opacity: 0.7;">${mb.posts.length} постов</div>
+            html += `<div class="moodboard-card" onclick="openMoodboard('${key}')">
+                <div class="moodboard-name">${mb.name}</div>
+                <div class="moodboard-count">${mb.posts.length} постов</div>
             </div>`;
         });
     }
@@ -1793,24 +1573,19 @@ function createNewMoodboard() {
 }
 
 function openMoodboard(key) {
-    currentMoodboard = key;
     const moodboards = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
     const mb = moodboards[key];
     if (!mb) return;
-    document.getElementById('moodboard-title').textContent = mb.name;
     const posts = getAllPosts().filter(p => mb.posts.includes(p.id));
-    let html = '';
+    let html = `<h2 style="margin-bottom: 16px;">${mb.name}</h2>`;
     if (posts.length === 0) {
-        html = '<div class="empty-state" style="text-align: center; padding: 60px 20px; opacity: 0.8;"><p>Коллекция пуста. Добавляйте посты через меню " В коллекцию"</p></div>';
+        html += '<div class="empty-state"><p>Коллекция пуста</p></div>';
     } else {
-        html = posts.map(post => renderPostCard(post)).join('');
+        html += posts.map(post => renderPostCard(post)).join('');
     }
-    document.getElementById('moodboard-content').innerHTML = html;
-    document.getElementById('moodboardModal').classList.add('active');
+    document.getElementById('mainContent').innerHTML = html;
     setTimeout(attachCarouselListeners, 100);
 }
-
-function closeMoodboardModal() { document.getElementById('moodboardModal').classList.remove('active'); currentMoodboard = null; }
 
 function addToMoodboard(postId) {
     if (!requireAuth()) return;
@@ -1843,9 +1618,12 @@ function openVKPostCreation() {
     if (!requireAuth()) return; 
     vkPostImages = [];
     vkPostText = '';
+    vkPostType = 'text';
     document.getElementById('vkPostTextarea').value = '';
+    document.querySelectorAll('.create-type-card').forEach(c => c.classList.remove('active'));
+    document.querySelector('.create-type-card[data-type="text"]').classList.add('active');
     renderVKPostGallery();
-    document.getElementById('vkPostCreationPage').style.display = 'block';
+    document.getElementById('vkPostCreationPage').classList.add('active');
     document.getElementById('vkPostNextBtn').disabled = true;
 }
 
@@ -1854,7 +1632,7 @@ function closeVKPostCreation() {
     if (text || vkPostImages.length > 0) {
         document.getElementById('draftSaveDialog').classList.add('active');
     } else {
-        document.getElementById('vkPostCreationPage').style.display = 'none';
+        document.getElementById('vkPostCreationPage').classList.remove('active');
     }
 }
 
@@ -1866,10 +1644,10 @@ function saveVKDraft() {
     if (!currentUser) return;
     const text = document.getElementById('vkPostTextarea').value.trim();
     const draft = {
-        id: Date.now(), timestamp: Date.now(), type: 'text',
-        texts: text ? [text] : [],
-        images: vkPostImages,
-        caption: '',
+        id: Date.now(), timestamp: Date.now(), type: vkPostType,
+        texts: vkPostType === 'text' && text ? [text] : [],
+        images: vkPostType === 'image' ? vkPostImages : [],
+        caption: text,
         tags: [],
         collabUser: null, anonymous: false
     };
@@ -1877,14 +1655,29 @@ function saveVKDraft() {
     drafts.unshift(draft);
     localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
     document.getElementById('draftSaveDialog').classList.remove('active');
-    document.getElementById('vkPostCreationPage').style.display = 'none';
+    document.getElementById('vkPostCreationPage').classList.remove('active');
     alert('Черновик сохранён!');
     navigate('drafts');
 }
 
 function discardVKDraft() {
     document.getElementById('draftSaveDialog').classList.remove('active');
-    document.getElementById('vkPostCreationPage').style.display = 'none';
+    document.getElementById('vkPostCreationPage').classList.remove('active');
+}
+
+function selectVKPostType(type) {
+    vkPostType = type;
+    document.querySelectorAll('.create-type-card').forEach(c => c.classList.remove('active'));
+    document.querySelector(`.create-type-card[data-type="${type}"]`).classList.add('active');
+    
+    const fileInput = document.getElementById('vkPostFileInput');
+    if (type === 'audio') {
+        fileInput.accept = 'audio/*';
+    } else {
+        fileInput.accept = 'image/*';
+    }
+    
+    checkVKPostContent();
 }
 
 function checkVKPostContent() {
@@ -1892,33 +1685,41 @@ function checkVKPostContent() {
     document.getElementById('vkPostNextBtn').disabled = !(text || vkPostImages.length > 0);
 }
 
-function handleVKPostImages(event) {
+function handleVKPostFiles(event) {
     const files = Array.from(event.target.files);
     if (files.length === 0) return;
     let processed = 0;
     files.forEach(file => {
         const reader = new FileReader();
         reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                const maxSize = 1200;
-                let w = img.width, h = img.height;
-                if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
-                else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
-                canvas.width = w; canvas.height = h;
-                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                vkPostImages.push(canvas.toDataURL('image/jpeg', 0.85));
-                processed++;
-                if (processed === files.length) { 
-                    renderVKPostGallery();
-                    checkVKPostContent();
-                }
-            };
-            img.src = e.target.result;
+            if (vkPostType === 'audio') {
+                vkPostImages.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, ''), isAudio: true });
+            } else {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 1200;
+                    let w = img.width, h = img.height;
+                    if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
+                    else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    vkPostImages.push({ data: canvas.toDataURL('image/jpeg', 0.85), isAudio: false });
+                    processed++;
+                    if (processed === files.length) { 
+                        renderVKPostGallery();
+                        checkVKPostContent();
+                    }
+                };
+                img.src = e.target.result;
+            }
         };
         reader.readAsDataURL(file);
     });
+    if (vkPostType === 'audio') {
+        renderVKPostGallery();
+        checkVKPostContent();
+    }
     event.target.value = '';
 }
 
@@ -1927,10 +1728,12 @@ function renderVKPostGallery() {
     let html = '<div class="vk-post-camera" onclick="document.getElementById(\'vkPostFileInput\').click()">';
     html += '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
     html += '</div>';
-    vkPostImages.forEach((img, i) => {
-        html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})">`;
-        html += `<img src="${img}">`;
-        html += '</div>';
+    vkPostImages.forEach((item, i) => {
+        if (item.isAudio) {
+            html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 12px; text-align: center; padding: 8px;">${item.title}</div>`;
+        } else {
+            html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})"><img src="${item.data}"></div>`;
+        }
     });
     gallery.innerHTML = html;
 }
@@ -1948,14 +1751,18 @@ function publishVKPost() {
     let newPost = {
         id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
         avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
-        type: vkPostImages.length > 0 ? 'image' : 'text',
+        type: vkPostType,
         caption: text, tags: [], likes: 0, liked: false, comments: [], anonymous: false
     };
     
-    if (vkPostImages.length > 0) {
-        newPost.images = vkPostImages;
+    if (vkPostType === 'image' && vkPostImages.length > 0) {
+        newPost.images = vkPostImages.filter(i => !i.isAudio).map(i => i.data);
         newPost.category = 'photo';
-    } else {
+    } else if (vkPostType === 'audio' && vkPostImages.length > 0) {
+        newPost.audios = vkPostImages.filter(i => i.isAudio).map(i => i.data);
+        newPost.audioTitles = vkPostImages.filter(i => i.isAudio).map(i => i.title);
+        newPost.category = 'music';
+    } else if (vkPostType === 'text' && text) {
         newPost.texts = [text];
         newPost.category = 'text';
     }
@@ -1964,7 +1771,7 @@ function publishVKPost() {
     posts.unshift(newPost);
     localStorage.setItem('muse_posts', JSON.stringify(posts));
     checkAchievements();
-    document.getElementById('vkPostCreationPage').style.display = 'none';
+    document.getElementById('vkPostCreationPage').classList.remove('active');
     navigate('home');
 }
 
@@ -1972,99 +1779,27 @@ function openVKSettings() {
     if (currentUser) {
         document.getElementById('vkSettingsName').textContent = currentUser.name;
         document.getElementById('vkSettingsHandle').textContent = currentUser.username;
-        document.getElementById('vkSettingsAvatar').textContent = currentUser.avatar;
+        const avatarEl = document.getElementById('vkSettingsAvatar');
+        avatarEl.textContent = currentUser.avatar;
         if (currentUser.photo) {
-            document.getElementById('vkSettingsAvatar').innerHTML = `<img src="${currentUser.photo}">`;
+            avatarEl.innerHTML = `<img src="${currentUser.photo}">`;
         }
     }
-    document.getElementById('vkSettingsPage').style.display = 'block';
+    document.getElementById('vkSettingsPage').classList.add('active');
+    document.getElementById('settingsMainPage').style.display = 'block';
+    document.querySelectorAll('.settings-subpage').forEach(p => p.classList.remove('active'));
 }
 
 function closeVKSettings() {
-    document.getElementById('vkSettingsPage').style.display = 'none';
+    document.getElementById('vkSettingsPage').classList.remove('active');
 }
 
-function openNotificationsSettings() {
-    closeVKSettings();
-    document.getElementById('settingsModal').classList.add('active');
-}
-
-function toggleDND() {
-    alert('Функция "Не беспокоить" будет добавлена в следующем обновлении');
-}
-
-function openAppearanceSettings() {
-    closeVKSettings();
-    document.getElementById('settingsModal').classList.add('active');
-}
-
-function openBottomMenuSettings() {
-    alert('Настройка нижнего меню будет добавлена в следующем обновлении');
-}
-
-function openAppSettings() {
-    alert('Настройки приложения будут добавлены в следующем обновлении');
-}
-
-function openPrivacySettings() {
-    closeVKSettings();
-    document.getElementById('settingsModal').classList.add('active');
-}
-
-function openBlacklistSettings() {
-    alert('Чёрный список будет добавлен в следующем обновлении');
-}
-
-function openStoryCreation() {
-    if (!requireAuth()) return;
-    document.getElementById('storyCreationModal').classList.add('active');
-}
-
-function closeStoryCreation() {
-    document.getElementById('storyCreationModal').classList.remove('active');
-    storyImage = null;
-    const canvas = document.getElementById('storyCanvas');
-    canvas.innerHTML = `
-        <div class="story-canvas-placeholder" style="text-align: center; color: white; padding: 40px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 80px; height: 80px; margin-bottom: 20px; opacity: 0.6;">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Выберите фото</div>
-            <div style="font-size: 13px; opacity: 0.7;">Или сделайте снимок</div>
-        </div>
-    `;
-}
-
-function selectStoryTool(tool) {
-    document.querySelectorAll('.story-tool').forEach(t => t.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+function openSettingsSubpage(name) {
+    document.getElementById('settingsMainPage').style.display = 'none';
+    document.querySelectorAll('.settings-subpage').forEach(p => p.classList.remove('active'));
+    document.getElementById(`subpage-${name}`).classList.add('active');
     
-    if (tool === 'gallery') {
-        const canvas = document.getElementById('storyCanvas');
-        canvas.innerHTML = `
-            <div class="story-gallery-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; background: #000; max-height: 300px; overflow-y: auto;">
-                ${Array(9).fill(0).map((_, i) => `
-                    <div class="story-gallery-item ${i === 0 ? 'selected' : ''}" onclick="selectStoryPhoto(this)" style="aspect-ratio: 1; background: #333; cursor: pointer; position: relative; overflow: hidden;">
-                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, ${['#667eea', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#fee140', '#30cfd0', '#a8edea', '#fed6e3'][i]} 0%, ${['#764ba2', '#f5576c', '#00f2fe', '#30cfd0', '#7ee8fa', '#eea2a2', '#330867', '#fed6e3', '#fec163'][i]} 100%);"></div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-    }
-}
-
-function selectStoryPhoto(element) {
-    document.querySelectorAll('.story-gallery-item').forEach(item => item.classList.remove('selected'));
-    element.classList.add('selected');
-}
-
-function toggleStoryAlbums() {
-    alert('Выбор альбома');
-}
-
-function openSettings() {
+    // Обновить toggle switches
     document.querySelectorAll('.toggle-switch').forEach(el => {
         const settingId = el.id;
         if (userSettings[settingId] !== undefined) {
@@ -2074,15 +1809,70 @@ function openSettings() {
     document.querySelectorAll('.theme-option').forEach(opt => {
         opt.classList.toggle('active', opt.dataset.theme === userSettings.theme);
     });
-    document.getElementById('settingsModal').classList.add('active');
 }
 
-function closeSettings() {
-    document.getElementById('settingsModal').classList.remove('active');
+function closeSettingsSubpage() {
+    document.getElementById('settingsMainPage').style.display = 'block';
+    document.querySelectorAll('.settings-subpage').forEach(p => p.classList.remove('active'));
+}
+
+function openEditModal() {
+    if (!requireAuth()) return;
+    closeVKSettings();
+    document.getElementById('editName').value = currentUser.name;
+    document.getElementById('editUsername').value = currentUser.username;
+    document.getElementById('editBio').value = currentUser.bio || '';
+    pendingProfilePhoto = currentUser.photo || null;
+    const preview = document.getElementById('edit-avatar-preview');
+    preview.innerHTML = currentUser.photo ? `<img src="${currentUser.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : currentUser.avatar;
+    document.getElementById('editModal').classList.add('active');
+}
+
+function closeEditModal() { document.getElementById('editModal').classList.remove('active'); pendingProfilePhoto = null; }
+
+function handleProfilePhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const maxSize = 400;
+            let w = img.width, h = img.height;
+            if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
+            else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            pendingProfilePhoto = canvas.toDataURL('image/jpeg', 0.9);
+            document.getElementById('edit-avatar-preview').innerHTML = `<img src="${pendingProfilePhoto}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function saveProfile() {
+    if (!currentUser) return;
+    const newName = document.getElementById('editName').value.trim();
+    const newUsername = document.getElementById('editUsername').value.trim().replace(/^@/, '');
+    const newBio = document.getElementById('editBio').value.trim();
+    if (!newName || !newUsername) { alert('Заполните имя и никнейм'); return; }
+    currentUser.name = newName; currentUser.username = newUsername; currentUser.bio = newBio;
+    currentUser.avatar = newName.charAt(0).toUpperCase();
+    if (pendingProfilePhoto) currentUser.photo = pendingProfilePhoto;
+    localStorage.setItem('muse_currentUser', JSON.stringify(currentUser));
+    const users = getUsers();
+    const index = users.findIndex(u => u.id === currentUser.id);
+    if (index !== -1) { users[index] = currentUser; saveUsers(users); }
+    closeEditModal();
+    currentProfileUserId = currentUser.id;
+    updateSidebarUser();
+    renderProfile(document.getElementById('mainContent'));
+    alert('Профиль обновлен!');
 }
 
 function openChangePassword() {
-    closeSettings();
     document.getElementById('changePasswordModal').classList.add('active');
 }
 
@@ -2198,52 +1988,52 @@ function renderPostCard(post) {
     const isOwnPost = currentUser && post.authorId === currentUser.id;
     const captionHtml = post.caption ? `<div class="post-caption" style="padding: 16px; font-size: 15px; line-height: 1.6; margin-bottom: 12px; white-space: pre-line;">${post.caption}</div>` : '';
     const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags" style="padding: 0 16px 16px; display: flex; gap: 8px; flex-wrap: wrap;">${post.tags.map(t => `<span class="tag" onclick="searchByTag('${t}')" style="font-size: 12px; color: #667eea; background: rgba(102,126,234,0.1); padding: 6px 14px; border-radius: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(102,126,234,0.2);">#${t}</span>`).join('')}</div>` : '';
-    const collabBadge = post.collabAuthor ? `<span class="collab-badge" style="display: inline-flex; align-items: center; gap: 4px; background: rgba(102,126,234,0.2); color: #667eea; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">🤝 с ${post.collabAuthor}</span>` : '';
-    const anonymousBadge = post.anonymous ? `<span class="anonymous-badge" style="display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">🔒 Анонимный фидбек</span>` : '';
+    const collabBadge = post.collabAuthor ? `<span style="display: inline-flex; align-items: center; gap: 4px; background: rgba(102,126,234,0.2); color: #667eea; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">🤝 с ${post.collabAuthor}</span>` : '';
+    const anonymousBadge = post.anonymous ? `<span style="display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">Анонимный фидбек</span>` : '';
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
         <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="navigate('profile')">
-            <div class="post-avatar" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer;" onclick="event.stopPropagation(); ${post.photo ? `openPhotoViewer('${post.photo}')` : ''}">${post.photo ? `<img src="${post.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : post.avatar}</div>
-            <div class="post-author-info" style="flex: 1; min-width: 0;">
-                <div class="post-author-name" style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
-                <div class="post-author-handle" style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer;" onclick="event.stopPropagation(); ${post.photo ? `openPhotoViewer('${post.photo}')` : ''}">${post.photo ? `<img src="${post.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : post.avatar}</div>
+            <div style="flex: 1; min-width: 0;">
+                <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
+                <div style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
             </div>
-            ${isOwnPost ? `<button class="post-menu-btn" onclick="event.stopPropagation(); togglePostMenu(${post.id})" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #888;"></button>` : ''}
+            ${isOwnPost ? `<button onclick="event.stopPropagation(); togglePostMenu(${post.id})" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #888;"></button>` : ''}
         </div>
-        <div class="post-menu" id="post-menu-${post.id}" style="position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; backdrop-filter: blur(20px);">
-            ${isOwnPost ? `<div class="post-menu-item" onclick="editPost(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px;">Редактировать</div>` : ''}
-            <div class="post-menu-item" onclick="addToMoodboard(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px;">📌 В коллекцию</div>
-            ${isOwnPost ? `<div class="post-menu-item delete" onclick="deletePost(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; color: #ef4444;">Удалить</div>` : ''}
+        <div id="post-menu-${post.id}" style="position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; backdrop-filter: blur(20px);">
+            ${isOwnPost ? `<div onclick="editPost(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px;">Редактировать</div>` : ''}
+            <div onclick="addToMoodboard(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px;">📌 В коллекцию</div>
+            ${isOwnPost ? `<div onclick="deletePost(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; color: #ef4444;">Удалить</div>` : ''}
         </div>
         ${mediaHtml}
         ${captionHtml}${tagsHtml}
-        <div class="post-actions" style="display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05);">
-            <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: ${post.liked ? '#ef4444' : '#666'}; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
+        <div style="display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05);">
+            <button onclick="toggleLike(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: ${post.liked ? '#ef4444' : '#666'}; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
                 <svg fill="${post.liked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 <span>${post.likes}</span>
             </button>
-            <button class="action-btn" onclick="toggleComments(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #666; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
+            <button onclick="toggleComments(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #666; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                 <span>${commentsCount}</span>
             </button>
-            <button class="action-btn" onclick="sharePost(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #666; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
+            <button onclick="sharePost(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #666; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                 <span>Поделиться</span>
             </button>
         </div>
-        <div class="comments-section" id="comments-${post.id}" style="display: none; padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05);">
+        <div id="comments-${post.id}" style="display: none; padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05);">
             <div id="comments-list-${post.id}">${rootComments.map(c => renderComment(c, post.id, allComments)).join('')}</div>
-            <div class="reply-indicator" id="reply-indicator-${post.id}" style="display: none; background: rgba(102,126,234,0.1); padding: 6px 12px; border-radius: 8px; font-size: 12px; color: #667eea; margin-bottom: 8px; align-items: center; justify-content: space-between;"><span></span><button class="cancel-reply" onclick="cancelReply(${post.id})" style="background: none; border: none; color: #667eea; cursor: pointer; font-size: 16px; font-weight: 600;">×</button></div>
-            <div class="comment-input-wrapper" style="display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.05); align-items: flex-end;">
-                <div class="comment-input-container" style="flex: 1; position: relative;">
-                    <input type="text" class="comment-input" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : `onclick="showFullAuth('login')"`} ${currentUser ? '' : 'readonly'} style="width: 100%; padding: 12px 90px 12px 16px; border: 1px solid rgba(102,126,234,0.3); border-radius: 24px; font-size: 14px; font-family: inherit; background: rgba(255,255,255,0.8);">
-                    <button class="attach-image-btn" onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}" title="Прикрепить фото" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 48px;">📷</button>
-                    <button class="record-audio-btn" id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})" title="Записать голос" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 8px;">🎤</button>
+            <div id="reply-indicator-${post.id}" style="display: none; background: rgba(102,126,234,0.1); padding: 6px 12px; border-radius: 8px; font-size: 12px; color: #667eea; margin-bottom: 8px; align-items: center; justify-content: space-between;"><span></span><button onclick="cancelReply(${post.id})" style="background: none; border: none; color: #667eea; cursor: pointer; font-size: 16px; font-weight: 600;">×</button></div>
+            <div style="display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.05); align-items: flex-end;">
+                <div style="flex: 1; position: relative;">
+                    <input type="text" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : `onclick="showFullAuth('login')"`} ${currentUser ? '' : 'readonly'} style="width: 100%; padding: 12px 90px 12px 16px; border: 1px solid rgba(102,126,234,0.3); border-radius: 24px; font-size: 14px; font-family: inherit; background: rgba(255,255,255,0.8);">
+                    <button onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}" title="Прикрепить фото" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 48px;">📷</button>
+                    <button id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})" title="Записать голос" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 8px;">🎤</button>
                     <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
-                    <div class="comment-image-preview" id="comment-image-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><img id="comment-image-thumb-${post.id}" src="" style="max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover;"><button class="remove-attachment-btn" onclick="removeCommentImage(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div>
-                    <div class="audio-comment-preview" id="audio-comment-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><div class="audio-voice-wrapper" style="display: flex; align-items: center; gap: 10px;"><button class="audio-voice-btn" id="voice-play-btn-${post.id}" onclick="toggleVoicePlay(${post.id})" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span class="audio-voice-duration" style="font-size: 12px; opacity: 0.7;">Голосовое</span><button class="remove-attachment-btn" onclick="removeCommentAudio(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div></div>
+                    <div id="comment-image-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><img id="comment-image-thumb-${post.id}" src="" style="max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover;"><button onclick="removeCommentImage(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div>
+                    <div id="audio-comment-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><div style="display: flex; align-items: center; gap: 10px;"><button id="voice-play-btn-${post.id}" onclick="toggleVoicePlay(${post.id})" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span style="font-size: 12px; opacity: 0.7;">Голосовое</span><button onclick="removeCommentAudio(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div></div>
                 </div>
-                <button class="comment-submit" onclick="${currentUser ? `addComment(${post.id})` : `showFullAuth('login')`}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(102,126,234,0.4);">Отправить</button>
+                <button onclick="${currentUser ? `addComment(${post.id})` : `showFullAuth('login')`}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(102,126,234,0.4);">Отправить</button>
             </div>
         </div>
     </div>`;
@@ -2251,7 +2041,7 @@ function renderPostCard(post) {
 
 function togglePostMenu(postId) {
     const menu = document.getElementById(`post-menu-${postId}`);
-    document.querySelectorAll('.post-menu').forEach(m => { 
+    document.querySelectorAll('[id^="post-menu-"]').forEach(m => { 
         if (m.id !== `post-menu-${postId}`) m.style.display = 'none'; 
     });
     menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
@@ -2263,43 +2053,15 @@ function editPost(postId) {
     const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
     const post = posts.find(p => p.id === postId);
     if (!post) return;
-    document.querySelectorAll('.post-menu').forEach(m => m.style.display = 'none');
-    let contentHtml = '';
-    if (post.type === 'text' && post.texts) contentHtml = `<div class="input-group" style="margin-bottom: 20px;"><label style="display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500;">Текст</label><textarea class="edit-post-textarea" id="edit-text-content" style="width: 100%; min-height: 150px; padding: 12px; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; background: rgba(255,255,255,0.8); white-space: pre-wrap;">${post.texts.join('\n\n---\n\n')}</textarea></div>`;
-    else if (post.type === 'image' && post.images) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Фото (${post.images.length})</label><div style="display: flex; gap: 8px; flex-wrap: wrap;">${post.images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
-    else if (post.type === 'audio' && post.audios) contentHtml = `<div style="margin-bottom: 16px;"><label style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Аудио (${post.audios.length})</label>${(post.audioTitles || []).map(t => `<div style="padding: 8px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 4px;">🎵 ${t}</div>`).join('')}</div>`;
-    document.getElementById('edit-post-content').innerHTML = contentHtml;
-    document.getElementById('edit-caption').value = post.caption || '';
-    document.getElementById('edit-tags').value = (post.tags || []).join(', ');
-    document.getElementById('editPostModal').classList.add('active');
-}
-
-function closeEditPostModal() { document.getElementById('editPostModal').classList.remove('active'); editingPostId = null; }
-
-function saveEditPost() {
-    if (!editingPostId || !currentUser) return;
-    const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-    const post = posts.find(p => p.id === editingPostId);
-    if (!post) return;
-    post.caption = document.getElementById('edit-caption').value.trim();
-    const newTagsStr = document.getElementById('edit-tags').value.trim();
-    post.tags = newTagsStr ? newTagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
-    if (post.type === 'text') {
-        const tc = document.getElementById('edit-text-content');
-        if (tc) { const texts = tc.value.split('\n\n---\n\n').map(t => t.trim()).filter(t => t); if (texts.length > 0) post.texts = texts; }
-    }
-    localStorage.setItem('muse_posts', JSON.stringify(posts));
-    closeEditPostModal();
-    if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
-    else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
-    else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
+    document.querySelectorAll('[id^="post-menu-"]').forEach(m => m.style.display = 'none');
+    alert('Редактирование поста: ' + post.caption);
 }
 
 function deletePost(postId) {
     if (!requireAuth()) return;
     if (!confirm('Удалить пост?')) return;
     localStorage.setItem('muse_posts', JSON.stringify(JSON.parse(localStorage.getItem('muse_posts') || '[]').filter(p => p.id !== postId)));
-    document.querySelectorAll('.post-menu').forEach(m => m.style.display = 'none');
+    document.querySelectorAll('[id^="post-menu-"]').forEach(m => m.style.display = 'none');
     if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
     else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
     else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
@@ -2319,44 +2081,44 @@ function renderComment(comment, postId, allComments) {
     const isOwnComment = currentUser && comment.author === currentUser.name;
     const isAnonymous = comment.anonymous;
     const authorName = isAnonymous ? 'Аноним' : comment.author;
-    const commentImageHtml = comment.image ? `<img src="${comment.image}" class="comment-image" onclick="window.open('${comment.image}', '_blank')" style="max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 8px; object-fit: cover; cursor: pointer;">` : '';
-    const commentTextHtml = comment.text ? `<div class="comment-text" style="font-size: 14px; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap;">${comment.text}</div>` : '';
-    const commentAudioHtml = comment.audio ? `<div class="audio-voice-wrapper" style="display: flex; align-items: center; gap: 10px; margin-top: 8px;"><button class="audio-voice-btn" id="voice-btn-comment-${comment.id}" onclick="toggleCommentVoicePlay('${comment.id}', '${comment.audio}')" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span class="audio-voice-duration" style="font-size: 12px; opacity: 0.7;">Голосовое</span></div>` : '';
+    const commentImageHtml = comment.image ? `<img src="${comment.image}" onclick="window.open('${comment.image}', '_blank')" style="max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 8px; object-fit: cover; cursor: pointer;">` : '';
+    const commentTextHtml = comment.text ? `<div style="font-size: 14px; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap;">${comment.text}</div>` : '';
+    const commentAudioHtml = comment.audio ? `<div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;"><button id="voice-btn-comment-${comment.id}" onclick="toggleCommentVoicePlay('${comment.id}', '${comment.audio}')" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span style="font-size: 12px; opacity: 0.7;">Голосовое</span></div>` : '';
     
-    let html = `<div class="comment" id="comment-${comment.id}" style="display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; position: relative;">
-        <div class="comment-avatar" style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden;">${isAnonymous ? '?' : comment.avatar}</div>
-        <div class="comment-content" style="flex: 1; min-width: 0;">
-            <div class="comment-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
-                <span class="comment-author" style="font-weight: 600; font-size: 13px;">${authorName}${isAnonymous ? ' <span style="font-size: 10px; opacity: 0.7;">(аноним)</span>' : ''}</span>
-                ${comment.replyTo && comment.replyToAuthor ? `<span class="comment-reply-to" style="font-size: 12px; color: #667eea; font-weight: 500;">→ ${comment.replyToAuthor}</span>` : ''}
+    let html = `<div id="comment-${comment.id}" style="display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; position: relative;">
+        <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden;">${isAnonymous ? '?' : comment.avatar}</div>
+        <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
+                <span style="font-weight: 600; font-size: 13px;">${authorName}${isAnonymous ? ' <span style="font-size: 10px; opacity: 0.7;">(аноним)</span>' : ''}</span>
+                ${comment.replyTo && comment.replyToAuthor ? `<span style="font-size: 12px; color: #667eea; font-weight: 500;">→ ${comment.replyToAuthor}</span>` : ''}
             </div>
             ${commentTextHtml}${commentAudioHtml}${commentImageHtml}
-            <div class="comment-actions" style="display: flex; gap: 12px; margin-top: 6px;">
-                <button class="comment-action-btn" onclick="startReply(${postId}, '${authorName.replace(/'/g, "\\'")}', ${comment.id})" style="background: none; border: none; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; opacity: 0.7;">Ответить</button>
+            <div style="display: flex; gap: 12px; margin-top: 6px;">
+                <button onclick="startReply(${postId}, '${authorName.replace(/'/g, "\\'")}', ${comment.id})" style="background: none; border: none; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; opacity: 0.7;">Ответить</button>
             </div>
         </div>
-        ${isOwnComment ? `<button class="comment-delete-btn" onclick="deleteComment(${postId}, ${comment.id})" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer; padding: 4px;">×</button>` : ''}
+        ${isOwnComment ? `<button onclick="deleteComment(${postId}, ${comment.id})" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer; padding: 4px;">×</button>` : ''}
     </div>`;
     replies.forEach(reply => {
         const isOwnReply = currentUser && reply.author === currentUser.name;
         const replyIsAnonymous = reply.anonymous;
         const replyAuthorName = replyIsAnonymous ? 'Аноним' : reply.author;
-        const replyImageHtml = reply.image ? `<img src="${reply.image}" class="comment-image" onclick="window.open('${reply.image}', '_blank')" style="max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 8px; object-fit: cover; cursor: pointer;">` : '';
-        const replyTextHtml = reply.text ? `<div class="comment-text" style="font-size: 14px; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap;">${reply.text}</div>` : '';
-        const replyAudioHtml = reply.audio ? `<div class="audio-voice-wrapper" style="display: flex; align-items: center; gap: 10px; margin-top: 8px;"><button class="audio-voice-btn" id="voice-btn-comment-${reply.id}" onclick="toggleCommentVoicePlay('${reply.id}', '${reply.audio}')" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span class="audio-voice-duration" style="font-size: 12px; opacity: 0.7;">Голосовое</span></div>` : '';
-        html += `<div class="comment reply" id="comment-${reply.id}" style="display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; position: relative; margin-left: 42px; padding-left: 12px; border-left: 2px solid rgba(102,126,234,0.2);">
-            <div class="comment-avatar" style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden;">${replyIsAnonymous ? '?' : reply.avatar}</div>
-            <div class="comment-content" style="flex: 1; min-width: 0;">
-                <div class="comment-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
-                    <span class="comment-author" style="font-weight: 600; font-size: 13px;">${replyAuthorName}${replyIsAnonymous ? ' <span style="font-size: 10px; opacity: 0.7;">(аноним)</span>' : ''}</span>
-                    ${reply.replyToAuthor ? `<span class="comment-reply-to" style="font-size: 12px; color: #667eea; font-weight: 500;">→ ${reply.replyToAuthor}</span>` : ''}
+        const replyImageHtml = reply.image ? `<img src="${reply.image}" onclick="window.open('${reply.image}', '_blank')" style="max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 8px; object-fit: cover; cursor: pointer;">` : '';
+        const replyTextHtml = reply.text ? `<div style="font-size: 14px; line-height: 1.4; word-wrap: break-word; white-space: pre-wrap;">${reply.text}</div>` : '';
+        const replyAudioHtml = reply.audio ? `<div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;"><button id="voice-btn-comment-${reply.id}" onclick="toggleCommentVoicePlay('${reply.id}', '${reply.audio}')" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span style="font-size: 12px; opacity: 0.7;">Голосовое</span></div>` : '';
+        html += `<div id="comment-${reply.id}" style="display: flex; gap: 10px; margin-bottom: 12px; padding: 8px 0; position: relative; margin-left: 42px; padding-left: 12px; border-left: 2px solid rgba(102,126,234,0.2);">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px; flex-shrink: 0; overflow: hidden;">${replyIsAnonymous ? '?' : reply.avatar}</div>
+            <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
+                    <span style="font-weight: 600; font-size: 13px;">${replyAuthorName}${replyIsAnonymous ? ' <span style="font-size: 10px; opacity: 0.7;">(аноним)</span>' : ''}</span>
+                    ${reply.replyToAuthor ? `<span style="font-size: 12px; color: #667eea; font-weight: 500;">→ ${reply.replyToAuthor}</span>` : ''}
                 </div>
                 ${replyTextHtml}${replyAudioHtml}${replyImageHtml}
-                <div class="comment-actions" style="display: flex; gap: 12px; margin-top: 6px;">
-                    <button class="comment-action-btn" onclick="startReply(${postId}, '${replyAuthorName.replace(/'/g, "\\'")}', ${reply.id})" style="background: none; border: none; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; opacity: 0.7;">Ответить</button>
+                <div style="display: flex; gap: 12px; margin-top: 6px;">
+                    <button onclick="startReply(${postId}, '${replyAuthorName.replace(/'/g, "\\'")}', ${reply.id})" style="background: none; border: none; font-size: 12px; cursor: pointer; padding: 2px 0; font-family: inherit; opacity: 0.7;">Ответить</button>
                 </div>
             </div>
-            ${isOwnReply ? `<button class="comment-delete-btn" onclick="deleteComment(${postId}, ${reply.id})" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer; padding: 4px;">×</button>` : ''}
+            ${isOwnReply ? `<button onclick="deleteComment(${postId}, ${reply.id})" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #ef4444; font-size: 16px; cursor: pointer; padding: 4px;">×</button>` : ''}
         </div>`;
     });
     return html;
@@ -2639,97 +2401,6 @@ function toggleFollow(targetUserId) {
     localStorage.setItem('muse_currentUser', JSON.stringify(me));
     checkAchievements();
     renderProfile(document.getElementById('mainContent'));
-    updateSidebarFollowing();
-}
-
-function openEditModal() {
-    if (!requireAuth()) return;
-    document.getElementById('editName').value = currentUser.name;
-    document.getElementById('editUsername').value = currentUser.username;
-    document.getElementById('editBio').value = currentUser.bio || '';
-    pendingProfilePhoto = currentUser.photo || null;
-    const preview = document.getElementById('edit-avatar-preview');
-    preview.innerHTML = currentUser.photo ? `<img src="${currentUser.photo}">` : currentUser.avatar;
-    document.getElementById('editModal').classList.add('active');
-}
-
-function closeEditModal() { document.getElementById('editModal').classList.remove('active'); pendingProfilePhoto = null; }
-
-function handleProfilePhoto(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-            const canvas = document.createElement('canvas');
-            const maxSize = 400;
-            let w = img.width, h = img.height;
-            if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
-            else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
-            canvas.width = w; canvas.height = h;
-            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-            pendingProfilePhoto = canvas.toDataURL('image/jpeg', 0.9);
-            document.getElementById('edit-avatar-preview').innerHTML = `<img src="${pendingProfilePhoto}">`;
-        };
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-}
-
-function saveProfile() {
-    if (!currentUser) return;
-    const newName = document.getElementById('editName').value.trim();
-    const newUsername = document.getElementById('editUsername').value.trim().replace(/^@/, '');
-    const newBio = document.getElementById('editBio').value.trim();
-    if (!newName || !newUsername) { alert('Заполните имя и никнейм'); return; }
-    currentUser.name = newName; currentUser.username = newUsername; currentUser.bio = newBio;
-    currentUser.avatar = newName.charAt(0).toUpperCase();
-    if (pendingProfilePhoto) currentUser.photo = pendingProfilePhoto;
-    localStorage.setItem('muse_currentUser', JSON.stringify(currentUser));
-    const users = getUsers();
-    const index = users.findIndex(u => u.id === currentUser.id);
-    if (index !== -1) { users[index] = currentUser; saveUsers(users); }
-    closeEditModal();
-    currentProfileUserId = currentUser.id;
-    renderProfile(document.getElementById('mainContent'));
-    updateSidebarFollowing();
-    alert('Профиль обновлен!');
-}
-
-function editDraft(idx) {
-    const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
-    const draft = drafts[idx];
-    if (!draft) return;
-    
-    currentPostType = draft.type;
-    uploadedImages = draft.images || [];
-    uploadedAudios = (draft.audios || []).map((a, i) => ({ data: a, title: (draft.audioTitles || [])[i] || 'Аудио' }));
-    uploadedTexts = draft.texts || [];
-    
-    document.getElementById('caption').value = draft.caption || '';
-    document.getElementById('tags').value = (draft.tags || []).join(', ');
-    document.getElementById('anonymous-feedback').checked = draft.anonymous || false;
-    
-    if (draft.collabUser) {
-        collabUser = draft.collabUser;
-        document.getElementById('collab-selected').innerHTML = `<div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(102,126,234,0.1); border-radius: 12px; margin-bottom: 16px;">
-            <div class="collab-suggestion-avatar" style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px;">${collabUser.avatar}</div>
-            <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">${collabUser.name}</div><div style="font-size: 12px; opacity: 0.7;">${collabUser.username}</div></div>
-            <button onclick="collabUser = null; document.getElementById('collab-selected').innerHTML = '';" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
-        </div>`;
-    }
-    
-    drafts.splice(idx, 1);
-    localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
-    
-    document.getElementById('createModal').classList.add('active');
-    setCreateStep(1);
-    selectPostType(draft.type);
-    updateSubmitButton();
-    renderMultiItemList('image');
-    renderMultiItemList('audio');
-    renderMultiItemList('text');
 }
 
 function previewDraft(idx) {
@@ -2743,21 +2414,20 @@ function previewDraft(idx) {
     } else if (draft.type === 'image' && draft.images) {
         contentHtml = `<div style="margin-bottom: 16px;"><div style="display: flex; gap: 8px; flex-wrap: wrap;">${draft.images.map(img => `<img src="${img}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
     } else if (draft.type === 'audio' && draft.audios) {
-        contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;">🎵</span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
+        contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;"></span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
     }
     
     const tagsHtml = draft.tags && draft.tags.length > 0 ? `<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">${draft.tags.map(t => `<span style="font-size: 12px; color: #667eea; background: rgba(102,126,234,0.1); padding: 4px 10px; border-radius: 12px;">#${t}</span>`).join('')}</div>` : '';
     
     document.getElementById('draft-preview-content').innerHTML = `
         <div style="margin-bottom: 16px;">
-            <div style="font-size: 12px; opacity: 0.7; margin-bottom: 4px;">Тип: ${draft.type === 'image' ? '🖼️ Фото' : draft.type === 'audio' ? '🎵 Аудио' : '✍️ Текст'}</div>
+            <div style="font-size: 12px; opacity: 0.7; margin-bottom: 4px;">Тип: ${draft.type === 'image' ? 'Фото' : draft.type === 'audio' ? 'Аудио' : 'Текст'}</div>
             <div style="font-size: 12px; opacity: 0.7; margin-bottom: 12px;">Создан: ${new Date(draft.timestamp).toLocaleString('ru-RU')}</div>
         </div>
         ${contentHtml}
         ${draft.caption ? `<div style="margin-bottom: 12px;"><strong>Описание:</strong> ${draft.caption}</div>` : ''}
         ${tagsHtml}
-        ${draft.anonymous ? '<div style="background: rgba(254,243,199,0.5); color: #92400e; padding: 8px 12px; border-radius: 8px; font-size: 13px;">🔒 Анонимный фидбек включён</div>' : ''}
-        ${draft.collabUser ? `<div style="background: rgba(102,126,234,0.1); padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-top: 8px;">🤝 Коллаборация с ${draft.collabUser.name}</div>` : ''}
+        ${draft.anonymous ? '<div style="background: rgba(254,243,199,0.5); color: #92400e; padding: 8px 12px; border-radius: 8px; font-size: 13px;">Анонимный фидбек включён</div>' : ''}
     `;
     document.getElementById('draftPreviewModal').classList.add('active');
 }
@@ -2777,7 +2447,6 @@ function publishDraft(idx) {
         type: draft.type, caption: draft.caption || '', tags: draft.tags || [],
         likes: 0, liked: false, comments: [], anonymous: draft.anonymous || false
     };
-    if (draft.collabUser) { newPost.collabAuthor = draft.collabUser.name; newPost.collabAuthorId = draft.collabUser.id; newPost.collabAvatar = draft.collabUser.avatar; }
     if (draft.type === 'image') { newPost.images = draft.images; newPost.category = 'photo'; }
     else if (draft.type === 'audio') { newPost.audios = draft.audios; newPost.audioTitles = draft.audioTitles; newPost.category = 'music'; }
     else { newPost.texts = draft.texts; newPost.category = 'text'; }
@@ -2799,194 +2468,13 @@ function deleteDraft(idx) {
     else if (currentPage === 'drafts') renderDrafts(document.getElementById('mainContent'));
 }
 
-function setCreateStep(step) {
-    createStep = step;
-    document.querySelectorAll('.create-step').forEach((s, i) => s.classList.toggle('active', i + 1 === step));
-    document.getElementById('create-step-1').style.display = step === 1 ? 'block' : 'none';
-    document.getElementById('create-step-2').style.display = step === 2 ? 'block' : 'none';
-    document.getElementById('create-step-3').style.display = step === 3 ? 'block' : 'none';
-}
-
-function selectPostType(type) {
-    currentPostType = type;
-    document.querySelectorAll('.type-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.type === type));
-    document.getElementById('image-section').style.display = type === 'image' ? 'block' : 'none';
-    document.getElementById('audio-section').style.display = type === 'audio' ? 'block' : 'none';
-    document.getElementById('text-section').style.display = type === 'text' ? 'block' : 'none';
-    updateSubmitButton();
-}
-
-function updateSubmitButton() {
-    const submitBtn = document.getElementById('submit-btn');
-    if (currentPostType === 'image') submitBtn.disabled = uploadedImages.length === 0;
-    else if (currentPostType === 'audio') submitBtn.disabled = uploadedAudios.length === 0;
-    else if (currentPostType === 'text') submitBtn.disabled = uploadedTexts.length === 0;
-}
-
-function resetForm() {
-    document.getElementById('caption').value = '';
-    document.getElementById('tags').value = '';
-    document.getElementById('collab-input').value = '';
-    document.getElementById('anonymous-feedback').checked = false;
-    document.getElementById('file-input').value = '';
-    document.getElementById('audio-input').value = '';
-    uploadedImages = []; uploadedAudios = []; uploadedTexts = [];
-    collabUser = null;
-    document.getElementById('collab-selected').innerHTML = '';
-    document.getElementById('collab-suggestions').innerHTML = '';
-    renderMultiItemList('image'); renderMultiItemList('audio'); renderMultiItemList('text');
-    selectPostType('image');
-}
-
-function renderMultiItemList(type) {
-    const list = document.getElementById(`${type}-list`);
-    if (type === 'image') list.innerHTML = uploadedImages.map((img, i) => `<div class="multi-item" style="border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.5);"><img src="${img}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"><div class="multi-item-text" style="flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Фото ${i + 1}</div><button class="multi-item-remove" onclick="removeImage(${i})" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">×</button></div>`).join('');
-    else if (type === 'audio') list.innerHTML = uploadedAudios.map((audio, i) => `<div class="multi-item" style="border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.5);"><div style="font-size: 24px;">🎵</div><div class="multi-item-text" style="flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${audio.title || 'Аудио ' + (i + 1)}</div><button class="multi-item-remove" onclick="removeAudio(${i})" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">×</button></div>`).join('');
-    else if (type === 'text') list.innerHTML = uploadedTexts.map((text, i) => `<div class="multi-item" style="border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.5);"><div style="font-size: 24px;">📝</div><div class="multi-item-text" style="flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${text.substring(0, 50)}${text.length > 50 ? '...' : ''}</div><button class="multi-item-remove" onclick="removeText(${i})" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">×</button></div>`).join('');
-}
-
-function handleImageSelect(event) {
-    const files = Array.from(event.target.files);
-    if (files.length === 0) return;
-    let processed = 0;
-    files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                const maxSize = 1200;
-                let w = img.width, h = img.height;
-                if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
-                else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
-                canvas.width = w; canvas.height = h;
-                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                uploadedImages.push(canvas.toDataURL('image/jpeg', 0.85));
-                processed++;
-                if (processed === files.length) { renderMultiItemList('image'); updateSubmitButton(); }
-            };
-            img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    });
-    event.target.value = '';
-}
-
-function removeImage(index) { uploadedImages.splice(index, 1); renderMultiItemList('image'); updateSubmitButton(); }
-
-function handleAudioSelect(event) {
-    const files = Array.from(event.target.files);
-    if (files.length === 0) return;
-    files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            uploadedAudios.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, '') });
-            renderMultiItemList('audio'); updateSubmitButton();
-        };
-        reader.readAsDataURL(file);
-    });
-    event.target.value = '';
-}
-
-function removeAudio(index) { uploadedAudios.splice(index, 1); renderMultiItemList('audio'); updateSubmitButton(); }
-
-function openTextInputModal() {
-    document.getElementById('text-input-large').value = '';
-    document.getElementById('textInputModal').classList.add('active');
-}
-
-function closeTextInputModal() { document.getElementById('textInputModal').classList.remove('active'); }
-
-function saveTextInput() {
-    const text = document.getElementById('text-input-large').value.trim();
-    if (text) { uploadedTexts.push(text); renderMultiItemList('text'); updateSubmitButton(); }
-    closeTextInputModal();
-}
-
-function handleCollabSearch(query) {
-    if (!query || query.length < 2) { document.getElementById('collab-suggestions').innerHTML = ''; return; }
-    const users = getUsers().filter(u => u.id !== currentUser.id && (u.name.toLowerCase().includes(query.toLowerCase()) || u.username.toLowerCase().includes(query.toLowerCase())));
-    document.getElementById('collab-suggestions').innerHTML = users.slice(0, 5).map(u => `<div class="collab-suggestion" onclick="selectCollabUser('${u.id}')" style="padding: 10px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px;">
-        <div class="collab-suggestion-avatar" style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px;">${u.avatar}</div>
-        <div><div style="font-weight: 600; font-size: 14px;">${u.name}</div><div style="font-size: 12px; opacity: 0.7;">${u.username}</div></div>
-    </div>`).join('');
-}
-
-function selectCollabUser(userId) {
-    collabUser = getUserById(userId);
-    document.getElementById('collab-input').value = '';
-    document.getElementById('collab-suggestions').innerHTML = '';
-    document.getElementById('collab-selected').innerHTML = `<div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(102,126,234,0.1); border-radius: 12px; margin-bottom: 16px;">
-        <div class="collab-suggestion-avatar" style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 12px;">${collabUser.avatar}</div>
-        <div style="flex: 1;"><div style="font-weight: 600; font-size: 14px;">${collabUser.name}</div><div style="font-size: 12px; opacity: 0.7;">${collabUser.username}</div></div>
-        <button onclick="collabUser = null; document.getElementById('collab-selected').innerHTML = '';" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
-    </div>`;
-}
-
-function submitPost() {
-    if (!currentUser) return;
-    const caption = document.getElementById('caption').value.trim();
-    const tagsStr = document.getElementById('tags').value.trim();
-    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
-    const anonymous = document.getElementById('anonymous-feedback').checked;
-    let newPost = {
-        id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
-        avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
-        type: currentPostType, caption: caption, tags, likes: 0, liked: false, comments: [], anonymous
-    };
-    if (collabUser) { newPost.collabAuthor = collabUser.name; newPost.collabAuthorId = collabUser.id; newPost.collabAvatar = collabUser.avatar; }
-    if (currentPostType === 'image') {
-        if (uploadedImages.length === 0) { alert('Добавьте хотя бы одно фото'); return; }
-        newPost.images = uploadedImages; newPost.category = 'photo';
-    } else if (currentPostType === 'audio') {
-        if (uploadedAudios.length === 0) { alert('Добавьте хотя бы одно аудио'); return; }
-        newPost.audios = uploadedAudios.map(a => a.data); newPost.audioTitles = uploadedAudios.map(a => a.title); newPost.category = 'music';
-    } else {
-        if (uploadedTexts.length === 0) { alert('Добавьте хотя бы один текст'); return; }
-        newPost.texts = uploadedTexts; newPost.category = 'text';
-    }
-    const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-    posts.unshift(newPost);
-    localStorage.setItem('muse_posts', JSON.stringify(posts));
-    checkAchievements();
-    closeCreateModal();
-    navigate('home');
-}
-
-function saveDraft() {
-    if (!currentUser) return;
-    if ((currentPostType === 'image' && uploadedImages.length === 0) || (currentPostType === 'audio' && uploadedAudios.length === 0) || (currentPostType === 'text' && uploadedTexts.length === 0)) {
-        alert('Добавьте хотя бы один элемент');
-        return;
-    }
-    const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
-    const draft = {
-        id: Date.now(), timestamp: Date.now(), type: currentPostType,
-        images: uploadedImages, audios: uploadedAudios.map(a => a.data), audioTitles: uploadedAudios.map(a => a.title), texts: uploadedTexts,
-        caption: document.getElementById('caption').value.trim(),
-        tags: document.getElementById('tags').value.trim().split(',').map(t => t.trim()).filter(t => t),
-        collabUser: collabUser, anonymous: document.getElementById('anonymous-feedback').checked
-    };
-    drafts.unshift(draft);
-    localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
-    closeCreateModal();
-    alert('Черновик сохранён!');
-    navigate('drafts');
-}
-
-document.getElementById('caption').addEventListener('input', updateSubmitButton);
-document.getElementById('createModal').addEventListener('click', function(e) { if (e.target === this) closeCreateModal(); });
-document.getElementById('editPostModal').addEventListener('click', function(e) { if (e.target === this) closeEditPostModal(); });
+document.getElementById('vkPostCreationPage').addEventListener('click', function(e) { if (e.target === this) closeVKPostCreation(); });
+document.getElementById('draftSaveDialog').addEventListener('click', function(e) { if (e.target === this) cancelVKDraftClose(); });
 document.getElementById('editModal').addEventListener('click', function(e) { if (e.target === this) closeEditModal(); });
-document.getElementById('storyCreationModal').addEventListener('click', function(e) { if (e.target === this) closeStoryCreation(); });
-document.getElementById('authModal').addEventListener('click', function(e) { if (e.target === this) closeAuthModal(); });
-document.getElementById('moodboardModal').addEventListener('click', function(e) { if (e.target === this) closeMoodboardModal(); });
-document.getElementById('textInputModal').addEventListener('click', function(e) { if (e.target === this) closeTextInputModal(); });
-document.getElementById('draftPreviewModal').addEventListener('click', function(e) { if (e.target === this) closeDraftPreview(); });
-document.getElementById('settingsModal').addEventListener('click', function(e) { if (e.target === this) closeSettings(); });
 document.getElementById('changePasswordModal').addEventListener('click', function(e) { if (e.target === this) closeChangePassword(); });
 document.getElementById('photoViewer').addEventListener('click', function(e) { if (e.target === this) closePhotoViewer(); });
-document.addEventListener('click', function(e) { if (!e.target.closest('.post-menu-btn') && !e.target.closest('.post-menu')) { document.querySelectorAll('.post-menu').forEach(m => m.style.display = 'none'); } });
+document.getElementById('draftPreviewModal').addEventListener('click', function(e) { if (e.target === this) closeDraftPreview(); });
+document.addEventListener('click', function(e) { if (!e.target.closest('[onclick*="togglePostMenu"]') && !e.target.closest('[id^="post-menu-"]')) { document.querySelectorAll('[id^="post-menu-"]').forEach(m => m.style.display = 'none'); } });
 </script>
 
 </body>
