@@ -422,7 +422,59 @@
         @media (max-width: 768px) {
             .main-content { padding: 16px; }
         }
-    </style>
+    
+/* ===== Muse Refactor Layer ===== */
+:root{
+  --muse-accent:#6d5dfc;--muse-accent-2:#8b5cf6;--muse-text:#171725;--muse-muted:#73738a;
+  --muse-surface:rgba(255,255,255,.86);--muse-border:rgba(30,30,60,.09);--muse-shadow:0 18px 55px rgba(32,24,80,.10);
+  --muse-radius:20px;--muse-sidebar:264px;--muse-max:1180px;
+}
+html{scroll-behavior:smooth}body{background:#f6f6fb!important;color:var(--muse-text)}
+body.theme-light{background:#f6f6fb!important}body.theme-dark{background:#0d1020!important;color:#eef0ff}
+body.theme-purple,body.theme-ocean,body.theme-sunset,body.theme-forest,body.theme-midnight,body.theme-rose{background:#f6f6fb!important}
+.app.active{padding-bottom:24px;min-height:100vh}
+.top-bar{height:72px;padding:0 28px;border-bottom:1px solid var(--muse-border);background:rgba(246,246,251,.82)!important;box-shadow:none;position:sticky}
+.top-bar h1{font-size:20px;letter-spacing:-.02em}.menu-btn{font-size:0;width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--muse-border);position:relative}
+.menu-btn:before{content:'';font-size:20px;line-height:1}
+.main-content{max-width:var(--muse-max);padding:28px 28px 80px;margin:0 auto}
+.sidebar{width:var(--muse-sidebar);padding:22px 14px 20px;transform:translateX(0);border-right:1px solid var(--muse-border);box-shadow:none;background:rgba(255,255,255,.88)!important}
+.sidebar-close{display:none}.sidebar-logo{text-align:left;padding:4px 12px;font-size:28px;margin-bottom:18px}
+.sidebar-user{margin:0 4px 18px;padding:12px;border:1px solid var(--muse-border);background:rgba(109,93,252,.07);cursor:pointer}
+.sidebar-menu{gap:5px}.sidebar-item{min-height:44px;padding:11px 12px;border-radius:13px;font-size:14px}.sidebar-item:before,.sidebar-item:after,.sidebar-menu li:before,.sidebar-menu li:after{content:none!important;display:none!important}
+.sidebar-item.active{background:linear-gradient(135deg,var(--muse-accent),var(--muse-accent-2));box-shadow:0 8px 22px rgba(109,93,252,.22)}
+.sidebar-divider{margin:10px 6px}.sidebar-item svg{width:19px;height:19px}
+#mainApp>.top-bar,#mainApp>.main-content{margin-left:var(--muse-sidebar)}
+.bottom-nav{display:none}
+.categories{gap:8px;margin-bottom:14px;padding:4px 0}.category-chip{padding:9px 15px;border-radius:13px;border:1px solid var(--muse-border);background:#fff;font-size:13px}.category-chip.active{box-shadow:0 7px 18px rgba(109,93,252,.18)}
+.feed-filters{max-width:420px;margin-bottom:18px}.filter-btn{padding:9px 14px;border:1px solid var(--muse-border);background:#fff;border-radius:12px}
+.post-card,.profile-header,.user-card,.challenge-card,.achievement-card,.moodboard-card,.draft-card,.notification-item,.settings-section-card{border:1px solid var(--muse-border)!important;box-shadow:var(--muse-shadow)!important;border-radius:22px!important}
+.post-card{overflow:hidden;margin-bottom:18px}.post-header{padding:15px 17px!important}.post-header:hover{background:rgba(109,93,252,.035)}
+.post-caption{padding:14px 17px!important}.post-tags{padding:0 17px 15px!important}.post-card>div[style*="border-top"]{border-color:var(--muse-border)!important}
+.challenge-banner{border-radius:22px;margin-bottom:18px;box-shadow:var(--muse-shadow)}
+.create-type-carousel{gap:10px;padding:8px 2px 14px}.create-type-card{min-width:118px;padding:15px 12px;border-radius:16px;border:1px solid var(--muse-border);box-shadow:none}.create-type-card.active{border-color:rgba(109,93,252,.5);box-shadow:0 10px 24px rgba(109,93,252,.14)}
+.create-type-icon{font-size:0;height:28px;margin-bottom:8px}.create-type-icon svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8}.create-type-label{font-size:13px}.create-type-desc{font-size:10px}
+.vk-post-creation{background:rgba(8,9,20,.58);backdrop-filter:blur(10px)}.vk-post-creation.active{display:flex;align-items:center;justify-content:center;padding:22px}
+.vk-post-creation .vk-post-header,.vk-post-creation .create-type-carousel,.vk-post-creation .vk-post-textarea,.vk-post-creation .vk-post-gallery,.vk-post-creation>div:last-child{width:min(760px,100%);margin-left:auto;margin-right:auto}
+.vk-post-creation .vk-post-header{border-radius:20px 20px 0 0}.vk-post-creation .vk-post-textarea{border-radius:0 0 18px 18px;min-height:180px}
+.vk-post-creation .create-type-carousel{background:rgba(255,255,255,.94);padding:18px 18px 8px}.vk-post-creation .vk-post-gallery{background:rgba(255,255,255,.94);padding:0 18px 18px}.vk-post-creation>div:last-child{background:rgba(255,255,255,.94);border-radius:0 0 20px 20px}
+.create-subcategory-bar{display:flex;gap:7px;flex-wrap:wrap;width:min(760px,100%);padding:0 18px 14px;background:rgba(255,255,255,.94)}.subcategory-chip{border:1px solid rgba(109,93,252,.16);background:rgba(109,93,252,.05);color:#5d50d8;border-radius:999px;padding:7px 11px;font:600 11px inherit;cursor:pointer}.subcategory-chip.active{background:#6d5dfc;color:#fff;border-color:#6d5dfc}.subcategory-chip:focus-visible{outline:2px solid #6d5dfc;outline-offset:2px}body.theme-dark .create-subcategory-bar{background:rgba(17,20,38,.96)}body.theme-dark .subcategory-chip{color:#bdb8ff;background:rgba(109,93,252,.13)}body.theme-dark .subcategory-chip.active{color:#fff}
+/* creation button */
+.create-btn{width:54px!important;height:54px!important;border-radius:50%!important;background:linear-gradient(135deg,var(--muse-accent),var(--muse-accent-2))!important;color:#fff!important;box-shadow:0 10px 28px rgba(109,93,252,.3);display:flex!important;align-items:center;justify-content:center}
+.create-btn span{display:none}.create-btn svg{width:25px;height:25px}
+/* studio */
+.studio-hero{padding:24px;border-radius:24px;background:linear-gradient(135deg,#17172b,#30265f);color:#fff;box-shadow:0 20px 50px rgba(35,25,85,.25);margin-bottom:18px}.studio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.studio-stat{padding:18px;border:1px solid var(--muse-border);border-radius:18px;background:rgba(255,255,255,.75)}.studio-stat strong{display:block;font-size:24px}.studio-stat span{font-size:12px;color:var(--muse-muted)}.studio-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.studio-action{padding:16px;border-radius:16px;border:1px solid var(--muse-border);background:#fff;text-align:left;cursor:pointer;font:inherit}.studio-action b{display:block;margin-bottom:5px}.studio-action span{font-size:12px;color:var(--muse-muted)}
+/* buttons / icons */
+button{font-family:inherit}.svg-icon{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}.icon-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px}
+/* no list markers / dots */
+.sidebar ul,.sidebar ol,.sidebar-menu,.sidebar-menu>*{list-style:none!important}.sidebar-menu>*::marker{content:''}
+body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!important;color:#eef0ff}body.theme-dark #mainApp{color:#eef0ff}body.theme-dark .studio-stat,body.theme-dark .studio-action{background:rgba(22,25,47,.9);color:#eef0ff}
+@media(min-width:769px){.sidebar-overlay{display:none!important}.main-content{min-height:calc(100vh - 72px)}}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);width:min(86vw,320px)}.sidebar.active{transform:translateX(0)}.sidebar-close{display:flex}.sidebar-logo{text-align:center}
+  #mainApp>.top-bar,#mainApp>.main-content{margin-left:0}.top-bar{height:64px;padding:0 14px}.main-content{padding:18px 12px 92px}.bottom-nav{display:flex}.app.active{padding-bottom:0}.studio-grid{grid-template-columns:repeat(2,1fr)}.studio-actions{grid-template-columns:1fr}.studio-hero{padding:20px}
+}
+
+</style>
 </head>
 <body class="theme-light">
 
@@ -457,10 +509,10 @@
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     
     <div class="sidebar" id="sidebar">
-        <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+        <button class="sidebar-close" onclick="toggleSidebar()"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         <div class="sidebar-logo">Muse</div>
         
-        <div class="sidebar-user" onclick="navigate('profile'); toggleSidebar();">
+        <div class="sidebar-user" onclick="openProfile(currentUser.id); toggleSidebar();">
             <div class="sidebar-user-avatar" id="sidebarUserAvatar">A</div>
             <div class="sidebar-user-info">
                 <div class="sidebar-user-name" id="sidebarUserName">Гость</div>
@@ -494,6 +546,10 @@
                 <span>Уведомления</span>
             </div>
             
+            <div class="sidebar-item" data-page="studio" onclick="navigate('studio'); toggleSidebar();">
+                <svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M7 16l3-4 3 2 4-6"/></svg>
+                <span>Muse Studio</span>
+            </div>
             <div class="sidebar-divider"></div>
             
             <div class="sidebar-item" data-page="settings" onclick="openVKSettings(); toggleSidebar();">
@@ -508,7 +564,7 @@
     </div>
 
     <div class="top-bar">
-        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <button class="menu-btn" onclick="toggleSidebar()"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         <h1 id="pageTitle">Лента</h1>
         <div style="width: 40px;"></div>
     </div>
@@ -533,7 +589,7 @@
             <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             <span>Уведомления</span>
         </div>
-        <div class="nav-item" data-page="profile" onclick="navigate('profile')">
+        <div class="nav-item" data-page="profile" onclick="openProfile(currentUser.id)">
             <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>Профиль</span>
         </div>
@@ -683,28 +739,21 @@
 <!-- VK-style Post Creation Page -->
 <div class="vk-post-creation" id="vkPostCreationPage">
     <div class="vk-post-header">
-        <button class="vk-post-close" onclick="closeVKPostCreation()">✕</button>
+        <button class="vk-post-close" onclick="closeVKPostCreation()"></button>
         <div class="vk-post-title">Новый пост</div>
         <button class="vk-post-next" id="vkPostNextBtn" onclick="publishVKPost()" disabled>Далее</button>
     </div>
     
     <div class="create-type-carousel" id="createTypeCarousel">
-        <div class="create-type-card active" data-type="text" onclick="selectVKPostType('text')">
-            <div class="create-type-icon">✍️</div>
-            <div class="create-type-label">Текст</div>
-            <div class="create-type-desc">Стихи и проза</div>
-        </div>
-        <div class="create-type-card" data-type="image" onclick="selectVKPostType('image')">
-            <div class="create-type-icon">🖼️</div>
-            <div class="create-type-label">Фото</div>
-            <div class="create-type-desc">Изображения</div>
-        </div>
-        <div class="create-type-card" data-type="audio" onclick="selectVKPostType('audio')">
-            <div class="create-type-icon">🎵</div>
-            <div class="create-type-label">Музыка</div>
-            <div class="create-type-desc">Аудио треки</div>
-        </div>
+        <div class="create-type-card active" data-type="text" onclick="selectVKPostType('text')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h12M4 18h8"/></svg></div><div class="create-type-label">Текст</div><div class="create-type-desc">Стихи и проза</div></div>
+        <div class="create-type-card" data-type="image" onclick="selectVKPostType('image')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg></div><div class="create-type-label">Фото</div><div class="create-type-desc">Снимки и серии</div></div>
+        <div class="create-type-card" data-type="art" onclick="selectVKPostType('art')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a2 2 0 0 0 1.8-2.8l-.4-.8a2 2 0 0 1 1.8-2.9H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="10" r="1"/><circle cx="11" cy="7" r="1"/><circle cx="15.5" cy="8" r="1"/></svg></div><div class="create-type-label">Арт</div><div class="create-type-desc">Иллюстрации</div></div>
+        <div class="create-type-card" data-type="audio" onclick="selectVKPostType('audio')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div><div class="create-type-label">Музыка</div><div class="create-type-desc">Треки и звук</div></div>
+        <div class="create-type-card" data-type="video" onclick="selectVKPostType('video')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></div><div class="create-type-label">Видео</div><div class="create-type-desc">Клипы и ролики</div></div>
+        <div class="create-type-card" data-type="design" onclick="selectVKPostType('design')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 15l5-5 3 3 3-4 5 6"/></svg></div><div class="create-type-label">Дизайн</div><div class="create-type-desc">Макеты и идеи</div></div>
+        <div class="create-type-card" data-type="history" onclick="selectVKPostType('history')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg></div><div class="create-type-label">История</div><div class="create-type-desc">Истории и заметки</div></div>
     </div>
+    <div id="createSubcategoryBar" class="create-subcategory-bar"></div>
     
     <textarea class="vk-post-textarea" id="vkPostTextarea" placeholder="Напишите что-нибудь..." oninput="checkVKPostContent()"></textarea>
     
@@ -713,7 +762,7 @@
             <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         </div>
     </div>
-    <input type="file" id="vkPostFileInput" accept="image/*,audio/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
+    <input type="file" id="vkPostFileInput" accept="image/*,audio/*,video/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
     
     <div style="padding: 20px;">
         <div class="input-group">
@@ -751,7 +800,7 @@
         <div style="text-align: center; margin-bottom: 20px;">
             <div class="profile-photo-upload" style="position: relative; display: inline-block;">
                 <div id="edit-avatar-preview" style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; overflow: hidden; margin: 0 auto;"></div>
-                <label for="profile-photo-input" style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; cursor: pointer;">📷</label>
+                <label for="profile-photo-input" style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; cursor: pointer;"></label>
                 <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhoto(event)" style="display: none;">
             </div>
         </div>
@@ -787,6 +836,7 @@ let isRecordingAudio = false;
 let mediaRecorder = null;
 let audioChunks = [];
 let currentProfileUserId = null;
+let vkPostSubcategory = '';
 let pendingProfilePhoto = null;
 let searchQuery = '';
 let searchMode = 'users';
@@ -814,14 +864,14 @@ const challenges = [
 ];
 
 const achievements = [
-    { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '🎯', check: (u) => getUserPosts(u.id).length >= 1 },
-    { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '📝', check: (u) => getUserPosts(u.id).length >= 10 },
-    { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '🎨', check: (u) => getUserPosts(u.id).length >= 50 },
-    { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '❤️', check: (u) => getUserTotalLikes(u.id) >= 10 },
-    { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '⭐', check: (u) => getUserTotalLikes(u.id) >= 100 },
-    { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '👥', check: (u) => (u.followers || []).length >= 10 },
-    { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '💬', check: (u) => getUserComments(u.name).length >= 1 },
-    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '🗨️', check: (u) => getUserComments(u.name).length >= 10 }
+    { id: 'first_post', name: 'Первый шаг', desc: 'Опубликуйте первый пост', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v4M12 18v4M2 12h4M18 12h4\"/></svg>', check: (u) => getUserPosts(u.id).length >= 1 },
+    { id: 'ten_posts', name: 'Активист', desc: '10 публикаций', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M5 4h14v16H5z\"/><path d=\"M8 9h8M8 13h6\"/></svg>', check: (u) => getUserPosts(u.id).length >= 10 },
+    { id: 'fifty_posts', name: 'Творец', desc: '50 публикаций', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M12 3a9 9 0 0 0 0 18h1.5a2 2 0 0 0 1.7-3l-.3-.6a2 2 0 0 1 1.8-2.9H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3z\"/></svg>', check: (u) => getUserPosts(u.id).length >= 50 },
+    { id: 'ten_likes', name: 'Популярный', desc: 'Получите 10 лайков', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M20.8 8.6c0 5.5-8.8 10.4-8.8 10.4S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6a4.6 4.6 0 0 1 8.8 2.6z\"/></svg>', check: (u) => getUserTotalLikes(u.id) >= 10 },
+    { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z\"/></svg>', check: (u) => getUserTotalLikes(u.id) >= 100 },
+    { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><circle cx=\"9\" cy=\"8\" r=\"3\"/><path d=\"M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5\"/><path d=\"M16 5a3 3 0 0 1 0 6M17 15c2.2.6 3.5 2.1 3.5 5\"/></svg>', check: (u) => (u.followers || []).length >= 10 },
+    { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M4 5h16v11H8l-4 4z\"/><path d=\"M8 9h8M8 12h5\"/></svg>', check: (u) => getUserComments(u.name).length >= 1 },
+    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M4 5h16v11H8l-4 4z\"/></svg>', check: (u) => getUserComments(u.name).length >= 10 }
 ];
 
 const samplePosts = [
@@ -835,6 +885,7 @@ const sampleUsers = [
 ];
 
 window.onload = function() {
+    ensureSamplePosts();
     const saved = localStorage.getItem('muse_currentUser');
     if (saved) {
         currentUser = JSON.parse(saved);
@@ -887,12 +938,16 @@ function updateSidebarUser() {
 }
 
 function toggleSidebar() {
+    if (window.matchMedia && window.matchMedia('(min-width: 769px)').matches) return;
     document.getElementById('sidebar').classList.toggle('active');
     document.getElementById('sidebarOverlay').classList.toggle('active');
 }
 
-function navigate(page) {
+function openProfile(userId) { currentProfileUserId = userId || currentUser?.id || null; navigate('profile'); }
+
+function navigate(page, writeHash = true) {
     currentPage = page;
+    if (writeHash) { try { history.replaceState(null, '', '#/' + page); } catch(e) {} }
     localStorage.setItem('muse_lastPage', page);
     const content = document.getElementById('mainContent');
     const title = document.getElementById('pageTitle');
@@ -906,6 +961,7 @@ function navigate(page) {
     
     switch(page) {
         case 'home': title.textContent = 'Лента'; renderFeed(content); break;
+        case 'studio': title.textContent = 'Muse Studio'; renderStudio(content); break;
         case 'profile': title.textContent = 'Профиль'; renderProfile(content); break;
         case 'popular': title.textContent = 'Популярное'; renderPopular(content); break;
         case 'challenges': title.textContent = 'Челлендж'; renderChallenges(content); break;
@@ -990,7 +1046,7 @@ function saveUsers(users) {
 }
 
 function getUserById(id) { return getUsers().find(u => u.id === id); }
-function getUserPosts(userId) { const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]'); return posts.filter(p => p.authorId === userId); }
+function getUserPosts(userId) { return getAllPosts().filter(p => p.authorId === userId); }
 function getUserTotalLikes(userId) { const posts = getUserPosts(userId); return posts.reduce((sum, p) => sum + (p.likes || 0), 0); }
 function getUserComments(userName) { const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]'); const comments = []; posts.forEach(p => { (p.comments || []).forEach(c => { if (c.author === userName) comments.push(c); }); }); return comments; }
 
@@ -1008,7 +1064,7 @@ function checkAchievements() {
     });
     if (newAchievements.length > 0) {
         const names = newAchievements.map(a => `${a.icon} ${a.name}`).join(', ');
-        setTimeout(() => alert(`🎉 Новые достижения: ${names}!`), 500);
+        setTimeout(() => alert(` Новые достижения: ${names}!`), 500);
     }
     saveUsers(users);
     currentUser = me;
@@ -1067,15 +1123,17 @@ function saveNotifications(notifs) {
     localStorage.setItem('muse_notifications_' + currentUser.id, JSON.stringify(notifs));
 }
 
-function addNotification(type, fromUser, postId, commentText) {
-    if (!currentUser || fromUser.id === currentUser.id) return;
-    if (type === 'like' && !userSettings['notif-likes']) return;
-    if (type === 'comment' && !userSettings['notif-comments']) return;
-    if (type === 'follow' && !userSettings['notif-follows']) return;
-    const notifs = getNotifications();
+function addNotification(type, fromUser, postId, commentText, recipientId) {
+    if (!fromUser || !recipientId || fromUser.id === recipientId) return;
+    const settings = JSON.parse(localStorage.getItem('muse_settings_' + recipientId) || '{}');
+    if (type === 'like' && settings['notif-likes'] === false) return;
+    if (type === 'comment' && settings['notif-comments'] === false) return;
+    if (type === 'follow' && settings['notif-follows'] === false) return;
+    const key = 'muse_notifications_' + recipientId;
+    const notifs = JSON.parse(localStorage.getItem(key) || '[]');
     notifs.unshift({ id: Date.now(), type, fromUserId: fromUser.id, fromUserName: fromUser.name, fromUserAvatar: fromUser.avatar, fromUserPhoto: fromUser.photo, postId, commentText: commentText || '', time: Date.now(), read: false });
-    if (notifs.length > 50) notifs.pop();
-    saveNotifications(notifs);
+    localStorage.setItem(key, JSON.stringify(notifs.slice(0,50)));
+    if (recipientId === currentUser?.id) updateNotifBadge();
 }
 
 function updateNotifBadge() {
@@ -1095,9 +1153,8 @@ function getCurrentWeekChallenge() {
     return challenges[challengeIndex];
 }
 
-function getAllPosts() {
-    return [...JSON.parse(localStorage.getItem('muse_posts') || '[]'), ...samplePosts];
-}
+function ensureSamplePosts() { const stored = JSON.parse(localStorage.getItem('muse_posts') || '[]'); const ids = new Set(stored.map(p => String(p.id))); let changed = false; samplePosts.forEach(p => { if (!ids.has(String(p.id))) { stored.push({...p, likedBy: []}); changed = true; } }); if (changed) localStorage.setItem('muse_posts', JSON.stringify(stored)); }
+function getAllPosts() { return JSON.parse(localStorage.getItem('muse_posts') || '[]'); }
 
 function renderFeed(container) {
     const currentChallenge = getCurrentWeekChallenge();
@@ -1269,15 +1326,15 @@ function renderDraftsInProfile(container) {
     } else {
         container.innerHTML = drafts.map((draft, idx) => `
             <div class="draft-card">
-                <div class="draft-icon">📝</div>
+                <div class="draft-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h6"/></svg></div>
                 <div class="draft-info">
                     <div class="draft-title">${draft.caption || 'Без названия'}</div>
                     <div class="draft-date">${new Date(draft.timestamp).toLocaleDateString('ru-RU')}</div>
                 </div>
                 <div class="draft-actions">
-                    <button class="draft-action-btn preview" onclick="previewDraft(${idx})">👁️</button>
+                    <button class="draft-action-btn preview" onclick="previewDraft(${idx})"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button>
                     <button class="draft-action-btn publish" onclick="publishDraft(${idx})"></button>
-                    <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">🗑️</button>
+                    <button class="draft-action-btn delete" onclick="deleteDraft(${idx})"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
                 </div>
             </div>
         `).join('');
@@ -1307,7 +1364,7 @@ function renderPopular(container) {
         html += '<div class="empty-state"><h2>Пока нет популярных постов</h2></div>';
     } else {
         html += popularPosts.map((post, index) => {
-            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '' : '';
+            const medal = index < 3 ? String(index + 1) : '';
             return `<div style="position: relative;">
                 ${medal ? `<div style="position: absolute; top: 12px; left: 12px; font-size: 24px; z-index: 10;">${medal}</div>` : ''}
                 ${renderPostCard(post)}
@@ -1354,7 +1411,7 @@ function renderChallenges(container) {
             topPosts.forEach(post => {
                 const voted = votes[post.id] === currentUser?.id;
                 html += `<button onclick="voteForPost(${post.id})" style="padding: 8px 16px; border-radius: 20px; background: ${voted ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(102,126,234,0.1)'}; color: ${voted ? 'white' : '#667eea'}; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; font-size: 13px; font-weight: 500;">
-                    ${post.author} — ${post.likes} ❤️ ${voted ? '✓' : ''}
+                    ${post.author} — ${post.likes} ️ ${voted ? '' : ''}
                 </button>`;
             });
             html += '</div>';
@@ -1401,7 +1458,7 @@ function renderExplore(container) {
             html += displayUsers.map(user => {
                 const isFollowing = following.includes(user.id);
                 const isOnline = userSettings['show-online'] && user.lastOnline && (Date.now() - user.lastOnline) < 300000;
-                return `<div class="user-card" onclick="navigate('profile')">
+                return `<div class="user-card" onclick="openProfile('${user.id}')">
                     <div class="user-card-avatar" style="position: relative;">${user.photo ? `<img src="${user.photo}">` : user.avatar}${isOnline ? '<div class="online-indicator"></div>' : ''}</div>
                     <div class="user-card-info">
                         <div class="user-card-name">${user.name}</div>
@@ -1486,6 +1543,19 @@ function handleNotifClick(notifId) {
     if (notif.postId) { navigate('home'); setTimeout(() => { const s = document.getElementById(`comments-${notif.postId}`); if (s) { s.style.display = 'block'; s.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }, 100); }
 }
 
+function renderStudio(container) {
+    if (!currentUser) { showFullAuth('login'); return; }
+    const posts = getUserPosts(currentUser.id);
+    const likes = posts.reduce((sum,p)=>sum+(p.likes||0),0);
+    const comments = posts.reduce((sum,p)=>sum+((p.comments||[]).length),0);
+    const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+    const collections = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
+    const followers = (getUserById(currentUser.id)?.followers || []).length;
+    container.innerHTML = `<div class="studio-hero"><div style="font-size:12px;opacity:.72;margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase">Creator dashboard</div><h2 style="margin:0 0 8px;font-size:28px">Muse Studio</h2><p style="margin:0;opacity:.78;line-height:1.55">Место, где видно развитие твоего творчества и всё, что сейчас находится в работе.</p></div>
+    <div class="studio-grid"><div class="studio-stat"><strong>${posts.length}</strong><span>публикаций</span></div><div class="studio-stat"><strong>${likes}</strong><span>лайков</span></div><div class="studio-stat"><strong>${comments}</strong><span>комментариев</span></div><div class="studio-stat"><strong>${followers}</strong><span>подписчиков</span></div></div>
+    <div class="studio-actions"><button class="studio-action" onclick="openVKPostCreation()"><b>Создать работу</b><span>Текст, фото, арт, музыка, видео и другое</span></button><button class="studio-action" onclick="navigate('drafts')"><b>Черновики · ${drafts.length}</b><span>Продолжить незаконченные публикации</span></button><button class="studio-action" onclick="navigate('moodboards')"><b>Коллекции · ${Object.keys(collections).length}</b><span>Собранные идеи и вдохновение</span></button></div>`;
+}
+
 function renderAchievements(container) {
     if (!currentUser) { showFullAuth('login'); return; }
     const users = getUsers();
@@ -1506,13 +1576,13 @@ function renderAchievements(container) {
         if (isSecret && !isUnlocked) cardClass += ' secret';
         if (isDisplayed) cardClass += ' selected';
         
-        const icon = isSecret && !isUnlocked ? '❓' : ach.icon;
+        const icon = isSecret && !isUnlocked ? '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.5 9a2.5 2.5 0 1 1 4.3 1.8c-1.1 1.1-1.8 1.5-1.8 3\"/><circle cx=\"12\" cy=\"17\" r=\".8\"/></svg>' : ach.icon;
         const name = isSecret && !isUnlocked ? '???' : ach.name;
         const desc = isSecret && !isUnlocked ? 'Секретное достижение' : ach.desc;
         
         html += `<div class="${cardClass}" onclick="toggleProfileAchievement('${ach.id}')">
             <div class="achievement-icon">${icon}</div>
-            <div class="achievement-name">${name}${isDisplayed ? ' ✓' : ''}</div>
+            <div class="achievement-name">${name}</div>
             <div class="achievement-desc">${desc}</div>
         </div>`;
     });
@@ -1533,7 +1603,7 @@ function renderRandomCreator(container) {
         <div style="font-size: 14px; opacity: 0.9; margin-bottom: 16px;">${randomUser.username}</div>
         ${randomUser.bio ? `<div style="font-size: 13px; opacity: 0.9; margin-bottom: 16px;">${randomUser.bio}</div>` : ''}
         <div style="font-size: 13px; opacity: 0.9; margin-bottom: 16px;">${userPosts.length} публикаций</div>
-        <button onclick="navigate('profile')" style="background: white; color: #667eea; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">Открыть профиль</button>
+        <button onclick="openProfile('${randomUser.id}')" style="background: white; color: #667eea; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">Открыть профиль</button>
         <button onclick="renderRandomCreator(document.getElementById('mainContent'))" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 4px; backdrop-filter: blur(10px);">Другой</button>
     </div>`;
     if (userPosts.length > 0) {
@@ -1553,15 +1623,15 @@ function renderDrafts(container) {
     } else {
         drafts.forEach((draft, idx) => {
             html += `<div class="draft-card">
-                <div class="draft-icon">📝</div>
+                <div class="draft-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h6"/></svg></div>
                 <div class="draft-info">
                     <div class="draft-title">${draft.caption || 'Без названия'}</div>
                     <div class="draft-date">${new Date(draft.timestamp).toLocaleDateString('ru-RU')}</div>
                 </div>
                 <div class="draft-actions">
-                    <button class="draft-action-btn preview" onclick="previewDraft(${idx})">👁️</button>
-                    <button class="draft-action-btn publish" onclick="publishDraft(${idx})">📤</button>
-                    <button class="draft-action-btn delete" onclick="deleteDraft(${idx})">🗑️</button>
+                    <button class="draft-action-btn preview" onclick="previewDraft(${idx})"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/></svg></button>
+                    <button class="draft-action-btn publish" onclick="publishDraft(${idx})"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 13v6h14v-6"/></svg></button>
+                    <button class="draft-action-btn delete" onclick="deleteDraft(${idx})"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
                 </div>
             </div>`;
         });
@@ -1641,23 +1711,37 @@ function addToMoodboard(postId) {
     }
 }
 
+function renderPostSubcategories() {
+    const bar = document.getElementById('createSubcategoryBar');
+    if (!bar) return;
+    const map = {
+      text:['Поэзия','Проза','Рассказ','Эссе'], image:['Портрет','Пейзаж','Уличное фото','Предметная съёмка'], art:['Живопись','Иллюстрация','Цифровое искусство','Скетч'], audio:['Песня','Инструментал','Электроника','Подкаст'], video:['Клип','Влог','Анимация','Короткометражка'], design:['Графика','UI/UX','Брендинг','Типографика'], history:['Личная история','Воспоминание','Документальная заметка','Хроника']
+    };
+    const items = map[vkPostType] || [];
+    if (!items.length) { bar.innerHTML=''; return; }
+    if (!items.includes(vkPostSubcategory)) vkPostSubcategory = items[0];
+    bar.innerHTML = items.map(x => `<button type="button" class="subcategory-chip ${x===vkPostSubcategory?'active':''}" onclick="vkPostSubcategory='${x.replace(/'/g,"\'")}'; renderPostSubcategories()">${x}</button>`).join('');
+}
+
 function openVKPostCreation() { 
     if (!requireAuth()) return; 
     vkPostImages = [];
     vkPostText = '';
     vkPostType = 'text';
+    vkPostSubcategory = 'Поэзия';
     document.getElementById('vkPostTextarea').value = '';
     document.getElementById('vkPostTags').value = '';
     document.querySelectorAll('.create-type-card').forEach(c => c.classList.remove('active'));
     document.querySelector('.create-type-card[data-type="text"]').classList.add('active');
     renderVKPostGallery();
+    renderPostSubcategories();
     document.getElementById('vkPostCreationPage').classList.add('active');
     document.getElementById('vkPostNextBtn').disabled = true;
 }
 
 function closeVKPostCreation() {
     const text = document.getElementById('vkPostTextarea').value.trim();
-    if (text || vkPostImages.length > 0) {
+    if (text || vkPostImages.length > 0 || document.getElementById('vkPostTags').value.trim()) {
         document.getElementById('draftSaveDialog').classList.add('active');
     } else {
         document.getElementById('vkPostCreationPage').classList.remove('active');
@@ -1676,9 +1760,12 @@ function saveVKDraft() {
     const draft = {
         id: Date.now(), timestamp: Date.now(), type: vkPostType,
         texts: vkPostType === 'text' && text ? [text] : [],
-        images: vkPostType === 'image' ? vkPostImages.filter(i => !i.isAudio).map(i => i.data) : [],
+        images: ['image','art','design'].includes(vkPostType) ? vkPostImages.filter(i => !i.isAudio && !i.isVideo).map(i => i.data) : [],
+        videos: vkPostType === 'video' ? vkPostImages.filter(i => i.isVideo).map(i => i.data) : [],
+        audios: vkPostType === 'audio' ? vkPostImages.filter(i => i.isAudio).map(i => i.data) : [],
+        audioTitles: vkPostType === 'audio' ? vkPostImages.filter(i => i.isAudio).map(i => i.title) : [],
         caption: text,
-        tags: tags,
+        tags: tags, subcategory: vkPostSubcategory,
         collabUser: null, anonymous: false
     };
     const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
@@ -1698,15 +1785,12 @@ function discardVKDraft() {
 function selectVKPostType(type) {
     vkPostType = type;
     document.querySelectorAll('.create-type-card').forEach(c => c.classList.remove('active'));
-    document.querySelector(`.create-type-card[data-type="${type}"]`).classList.add('active');
-    
+    const selected = document.querySelector(`.create-type-card[data-type="${type}"]`);
+    if (selected) selected.classList.add('active');
+    const defaults={text:'Поэзия',image:'Портрет',art:'Живопись',audio:'Песня',video:'Клип',design:'Графика',history:'Личная история'}; vkPostSubcategory=defaults[type]||''; renderPostSubcategories();
     const fileInput = document.getElementById('vkPostFileInput');
-    if (type === 'audio') {
-        fileInput.accept = 'audio/*';
-    } else {
-        fileInput.accept = 'image/*';
-    }
-    
+    const accept = type === 'audio' ? 'audio/*' : type === 'video' ? 'video/*' : (type === 'text' || type === 'history') ? 'image/*' : 'image/*';
+    fileInput.accept = accept;
     checkVKPostContent();
 }
 
@@ -1724,6 +1808,10 @@ function handleVKPostFiles(event) {
         reader.onload = function(e) {
             if (vkPostType === 'audio') {
                 vkPostImages.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, ''), isAudio: true });
+                processed++;
+            } else if (vkPostType === 'video') {
+                vkPostImages.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, ''), isVideo: true });
+                processed++;
             } else {
                 const img = new Image();
                 img.onload = function() {
@@ -1761,6 +1849,8 @@ function renderVKPostGallery() {
     vkPostImages.forEach((item, i) => {
         if (item.isAudio) {
             html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 12px; text-align: center; padding: 8px;">${item.title}</div>`;
+        } else if (item.isVideo) {
+            html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.12);color:#6d5dfc;font-size:12px;"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>&nbsp;Видео</div>`;
         } else {
             html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})"><img src="${item.data}"></div>`;
         }
@@ -1784,19 +1874,22 @@ function publishVKPost() {
         id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
         avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
         type: vkPostType,
-        caption: text, tags: tags, likes: 0, liked: false, comments: [], anonymous: false
+        caption: text, tags: tags, subcategory: vkPostSubcategory, likes: 0, likedBy: [], comments: [], anonymous: false
     };
     
-    if (vkPostType === 'image' && vkPostImages.length > 0) {
-        newPost.images = vkPostImages.filter(i => !i.isAudio).map(i => i.data);
-        newPost.category = 'photo';
+    if ((vkPostType === 'image' || vkPostType === 'art' || vkPostType === 'design') && vkPostImages.length > 0) {
+        newPost.images = vkPostImages.filter(i => !i.isAudio && !i.isVideo).map(i => i.data);
+        newPost.category = vkPostType === 'image' ? 'photo' : vkPostType;
+    } else if (vkPostType === 'video' && vkPostImages.length > 0) {
+        newPost.videos = vkPostImages.filter(i => i.isVideo).map(i => i.data);
+        newPost.category = 'video';
     } else if (vkPostType === 'audio' && vkPostImages.length > 0) {
         newPost.audios = vkPostImages.filter(i => i.isAudio).map(i => i.data);
         newPost.audioTitles = vkPostImages.filter(i => i.isAudio).map(i => i.title);
         newPost.category = 'music';
-    } else if (vkPostType === 'text' && text) {
+    } else if ((vkPostType === 'text' || vkPostType === 'history') && text) {
         newPost.texts = [text];
-        newPost.category = 'text';
+        newPost.category = vkPostType === 'history' ? 'history' : 'text';
     }
     
     const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
@@ -1979,20 +2072,24 @@ function getTimeAgo(timestamp) {
 
 function renderPostCard(post) {
     let mediaHtml = '';
-    const allItems = post.type === 'image' ? (post.images || []) : post.type === 'text' ? (post.texts || []) : post.type === 'audio' ? (post.audios || []) : [];
+    const allItems = post.type === 'image' || post.category === 'photo' || post.category === 'art' || post.category === 'design' ? (post.images || []) : post.type === 'video' || post.category === 'video' ? (post.videos || []) : post.type === 'text' || post.category === 'text' || post.category === 'history' ? (post.texts || []) : post.type === 'audio' || post.category === 'music' ? (post.audios || []) : [];
+    const likedBy = Array.isArray(post.likedBy) ? post.likedBy : [];
+    const viewerLiked = !!(currentUser && likedBy.includes(currentUser.id));
     const totalItems = allItems.length;
 
     if (totalItems === 1) {
-        if (post.type === 'image') mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;" onerror="this.style.display='none'">`;
-        else if (post.type === 'text') mediaHtml = `<div class="text-slide" style="padding: 24px; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; white-space: pre-line;">${allItems[0]}</div>`;
+        if (post.type === 'image' || ['photo','art','design'].includes(post.category)) mediaHtml = `<img src="${allItems[0]}" style="width:100%;max-height:600px;object-fit:cover;display:block;" onerror="this.style.display='none'">`;
+        else if (post.type === 'text' || post.category === 'history' || post.category === 'text') mediaHtml = `<div class="text-slide" style="padding: 24px; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; white-space: pre-line;">${allItems[0]}</div>`;
+        else if (post.type === 'video' || post.category === 'video') { const v=allItems[0]; mediaHtml = `<div class="video-slide" style="background:#090b16;display:flex;align-items:center;justify-content:center;min-height:240px"><video controls playsinline preload="metadata" style="width:100%;max-height:600px"><source src="${v}"></video></div>`; }
         else if (post.type === 'audio') {
             const title = post.audioTitles ? post.audioTitles[0] : 'Аудио трек';
             mediaHtml = `<div class="audio-slide" style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center;"><div class="audio-player" style="display: flex; align-items: center; gap: 12px; color: white; width: 100%;"><button class="play-btn" onclick="playAudio(this, '${allItems[0]}')" style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; backdrop-filter: blur(10px);">▶</button><div class="audio-title" style="font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</div></div></div>`;
         }
     } else if (totalItems > 1) {
         let slidesHtml = '';
-        if (post.type === 'image') slidesHtml = allItems.map(img => `<img src="${img}" onerror="this.style.display='none'" style="width: 100%; max-height: 600px; object-fit: cover; display: block;">`).join('');
-        else if (post.type === 'text') slidesHtml = allItems.map(text => `<div class="text-slide" style="padding: 24px; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; white-space: pre-line;">${text}</div>`).join('');
+        if (post.type === 'image' || ['photo','art','design'].includes(post.category)) slidesHtml = allItems.map(img => `<img src="${img}" onerror="this.style.display='none'" style="width: 100%; max-height: 600px; object-fit: cover; display: block;">`).join('');
+        else if (post.type === 'text' || post.category === 'history' || post.category === 'text') slidesHtml = allItems.map(text => `<div class="text-slide" style="padding: 24px; font-family: 'Georgia', serif; font-size: 16px; line-height: 1.8; white-space: pre-line;">${text}</div>`).join('');
+        else if (post.type === 'video' || post.category === 'video') slidesHtml = allItems.map(v => `<div class="video-slide" style="background:#090b16;display:flex;align-items:center;justify-content:center;min-height:240px"><video controls playsinline preload="metadata" style="width:100%;max-height:600px"><source src="${v}"></video></div>`).join('');
         else if (post.type === 'audio') {
             const titles = post.audioTitles || [];
             slidesHtml = allItems.map((audio, i) => `<div class="audio-slide" style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center;"><div class="audio-player" style="display: flex; align-items: center; gap: 12px; color: white; width: 100%;"><button class="play-btn" onclick="playAudio(this, '${audio}')" style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; backdrop-filter: blur(10px);">▶</button><div class="audio-title" style="font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${titles[i] || `Трек ${i + 1}`}</div></div></div>`).join('');
@@ -2004,13 +2101,15 @@ function renderPostCard(post) {
     const rootComments = allComments.filter(c => !c.replyTo);
     const commentsCount = allComments.length;
     const isOwnPost = currentUser && post.authorId === currentUser.id;
+    const mediaCategory = post.category || post.type;
     const captionHtml = post.caption ? `<div class="post-caption" style="padding: 16px; font-size: 15px; line-height: 1.6; margin-bottom: 12px; white-space: pre-line;">${post.caption}</div>` : '';
+    const subcategoryHtml = post.subcategory ? `<div style="padding:0 17px 12px;color:#777;font-size:11px;font-weight:600;letter-spacing:.02em">${post.subcategory}</div>` : '';
     const tagsHtml = post.tags && post.tags.length > 0 ? `<div class="post-tags" style="padding: 0 16px 16px; display: flex; gap: 8px; flex-wrap: wrap;">${post.tags.map(t => `<span class="tag" onclick="searchByTag('${t}')" style="font-size: 12px; color: #667eea; background: rgba(102,126,234,0.1); padding: 6px 14px; border-radius: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(102,126,234,0.2);">#${t}</span>`).join('')}</div>` : '';
-    const collabBadge = post.collabAuthor ? `<span style="display: inline-flex; align-items: center; gap: 4px; background: rgba(102,126,234,0.2); color: #667eea; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">🤝 с ${post.collabAuthor}</span>` : '';
+    const collabBadge = post.collabAuthor ? `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(102,126,234,.12);color:#667eea;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-left:8px;"><svg class="svg-icon" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20c0-3 2-5 5-5s5 2 5 5M11 20c0-3 2-5 5-5s5 2 5 5"/></svg> с ${post.collabAuthor}</span>` : '';
     const anonymousBadge = post.anonymous ? `<span style="display: inline-flex; align-items: center; gap: 4px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 8px;">Анонимный фидбек</span>` : '';
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
-        <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="navigate('profile')">
+        <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="openProfile('${post.authorId}')">
             <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer;" onclick="event.stopPropagation(); ${post.photo ? `openPhotoViewer('${post.photo}')` : ''}">${post.photo ? `<img src="${post.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : post.avatar}</div>
             <div style="flex: 1; min-width: 0;">
                 <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
@@ -2020,14 +2119,14 @@ function renderPostCard(post) {
         </div>
         <div id="post-menu-${post.id}" style="position: absolute; top: 16px; right: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 50; display: none; min-width: 160px; backdrop-filter: blur(20px);">
             ${isOwnPost ? `<div onclick="editPost(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px;">Редактировать</div>` : ''}
-            <div onclick="addToMoodboard(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px;">📌 В коллекцию</div>
+            <div onclick="addToMoodboard(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px;"> В коллекцию</div>
             ${isOwnPost ? `<div onclick="deletePost(${post.id})" style="padding: 12px 16px; cursor: pointer; font-size: 14px; border-radius: 12px; color: #ef4444;">Удалить</div>` : ''}
         </div>
         ${mediaHtml}
-        ${captionHtml}${tagsHtml}
+        ${captionHtml}${subcategoryHtml}${tagsHtml}
         <div style="display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid rgba(0,0,0,0.05);">
-            <button onclick="toggleLike(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: ${post.liked ? '#ef4444' : '#666'}; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
-                <svg fill="${post.liked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            <button onclick="toggleLike(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: ${viewerLiked ? '#ef4444' : '#666'}; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
+                <svg fill="${viewerLiked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 <span>${post.likes}</span>
             </button>
             <button onclick="toggleComments(${post.id})" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-size: 14px; color: #666; padding: 8px 12px; border-radius: 12px; font-family: inherit; font-weight: 600;">
@@ -2045,8 +2144,8 @@ function renderPostCard(post) {
             <div style="display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.05); align-items: flex-end;">
                 <div style="flex: 1; position: relative;">
                     <input type="text" id="comment-input-${post.id}" placeholder="${currentUser ? 'Написать комментарий...' : 'Войдите, чтобы комментировать'}" ${currentUser ? '' : `onclick="showFullAuth('login')"`} ${currentUser ? '' : 'readonly'} style="width: 100%; padding: 12px 90px 12px 16px; border: 1px solid rgba(102,126,234,0.3); border-radius: 24px; font-size: 14px; font-family: inherit; background: rgba(255,255,255,0.8);">
-                    <button onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}" title="Прикрепить фото" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 48px;">📷</button>
-                    <button id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})" title="Записать голос" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 8px;">🎤</button>
+                    <button onclick="${currentUser ? `document.getElementById('comment-file-${post.id}').click()` : `showFullAuth('login')`}" title="Прикрепить фото" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 48px;"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg></button>
+                    <button id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})" title="Записать голос" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 8px;"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg></button>
                     <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
                     <div id="comment-image-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><img id="comment-image-thumb-${post.id}" src="" style="max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover;"><button onclick="removeCommentImage(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div>
                     <div id="audio-comment-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><div style="display: flex; align-items: center; gap: 10px;"><button id="voice-play-btn-${post.id}" onclick="toggleVoicePlay(${post.id})" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span style="font-size: 12px; opacity: 0.7;">Голосовое</span><button onclick="removeCommentAudio(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div></div>
@@ -2299,7 +2398,7 @@ async function toggleAudioRecording(postId) {
         mediaRecorder.stop();
         isRecordingAudio = false;
         btn.classList.remove('recording');
-        btn.textContent = '🎤';
+        btn.textContent = '';
     } else {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -2319,7 +2418,7 @@ async function toggleAudioRecording(postId) {
             mediaRecorder.start();
             isRecordingAudio = true;
             btn.classList.add('recording');
-            btn.textContent = '⏹';
+            btn.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1"/></svg>';
         } catch (err) { alert('Не удалось получить доступ к микрофону'); }
     }
 }
@@ -2360,7 +2459,7 @@ function addComment(postId) {
         p.comments.push(comment);
         localStorage.setItem('muse_posts', JSON.stringify(posts));
         const postAuthor = getUserById(p.authorId);
-        if (postAuthor) addNotification('comment', currentUser, postId, text);
+        if (postAuthor) addNotification('comment', currentUser, postId, text, postAuthor.id);
     }
     input.value = '';
     removeCommentImage(postId);
@@ -2389,20 +2488,17 @@ function sharePost(postId) {
 function toggleLike(postId) {
     if (!requireAuth()) return;
     const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-    const post = posts.find(p => p.id === postId);
-    if (post) {
-        post.liked = !post.liked;
-        post.likes += post.liked ? 1 : -1;
-        localStorage.setItem('muse_posts', JSON.stringify(posts));
-        if (post.liked) { const postAuthor = getUserById(post.authorId); if (postAuthor) addNotification('like', currentUser, postId, ''); }
-        checkAchievements();
-        if (currentPage === 'home') renderFeed(document.getElementById('mainContent'));
-        else if (currentPage === 'popular') renderPopular(document.getElementById('mainContent'));
-        else if (currentPage === 'following') renderFollowing(document.getElementById('mainContent'));
-        else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
-    }
+    const post = posts.find(p => String(p.id) === String(postId));
+    if (!post) return;
+    post.likedBy = Array.isArray(post.likedBy) ? post.likedBy : [];
+    const idx = post.likedBy.indexOf(currentUser.id);
+    if (idx >= 0) { post.likedBy.splice(idx, 1); post.likes = Math.max(0, (post.likes || 0) - 1); }
+    else { post.likedBy.push(currentUser.id); post.likes = (post.likes || 0) + 1; const author = getUserById(post.authorId); if (author && author.id !== currentUser.id) addNotification('like', currentUser, post.id, '', author.id); }
+    localStorage.setItem('muse_posts', JSON.stringify(posts));
+    checkAchievements();
+    const c = document.getElementById('mainContent');
+    if (currentPage === 'home') renderFeed(c); else if (currentPage === 'popular') renderPopular(c); else if (currentPage === 'following') renderFollowing(c); else if (currentPage === 'profile') renderProfile(c);
 }
-
 function toggleFollow(targetUserId) {
     if (!requireAuth()) return;
     const users = getUsers();
@@ -2413,7 +2509,7 @@ function toggleFollow(targetUserId) {
     if (!target.followers) target.followers = [];
     const isFollowing = me.following.includes(targetUserId);
     if (isFollowing) { me.following = me.following.filter(id => id !== targetUserId); target.followers = target.followers.filter(id => id !== currentUser.id); }
-    else { me.following.push(targetUserId); target.followers.push(currentUser.id); addNotification('follow', currentUser, null, ''); }
+    else { me.following.push(targetUserId); target.followers.push(currentUser.id); addNotification('follow', currentUser, null, '', target.id); }
     saveUsers(users);
     currentUser = me;
     localStorage.setItem('muse_currentUser', JSON.stringify(me));
@@ -2432,7 +2528,7 @@ function previewDraft(idx) {
     } else if (draft.type === 'image' && draft.images) {
         contentHtml = `<div style="margin-bottom: 16px;"><div style="display: flex; gap: 8px; flex-wrap: wrap;">${draft.images.map(img => `<img src="${img}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">`).join('')}</div></div>`;
     } else if (draft.type === 'audio' && draft.audios) {
-        contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;">🎵</span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
+        contentHtml = `<div style="margin-bottom: 16px;">${(draft.audioTitles || []).map((t, i) => `<div style="padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px;"><span style="font-size: 24px;"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><span>${t || 'Аудио ' + (i + 1)}</span></div>`).join('')}</div>`;
     }
     
     const tagsHtml = draft.tags && draft.tags.length > 0 ? `<div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">${draft.tags.map(t => `<span style="font-size: 12px; color: #667eea; background: rgba(102,126,234,0.1); padding: 4px 10px; border-radius: 12px;">#${t}</span>`).join('')}</div>` : '';
@@ -2495,5 +2591,17 @@ document.getElementById('draftPreviewModal').addEventListener('click', function(
 document.addEventListener('click', function(e) { if (!e.target.closest('[onclick*="togglePostMenu"]') && !e.target.closest('[id^="post-menu-"]')) { document.querySelectorAll('[id^="post-menu-"]').forEach(m => m.style.display = 'none'); } });
 </script>
 
+<script>
+// GitHub Pages friendly route restoration
+(function(){
+  function bootRoute(){
+    if(!currentUser) return;
+    const page=(location.hash||'').replace(/^#\//,'');
+    if(page && ['home','studio','profile','popular','challenges','explore','notifications','achievements','drafts','moodboards','random','following'].includes(page)) navigate(page,false);
+  }
+  window.addEventListener('hashchange',bootRoute);
+  window.addEventListener('load',function(){setTimeout(bootRoute,0);});
+})();
+</script>
 </body>
 </html>
