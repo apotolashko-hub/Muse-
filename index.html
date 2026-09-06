@@ -430,8 +430,14 @@
   --muse-radius:20px;--muse-sidebar:264px;--muse-max:1180px;
 }
 html{scroll-behavior:smooth}body{background:#f6f6fb!important;color:var(--muse-text)}
-body.theme-light{background:#f6f6fb!important}body.theme-dark{background:#0d1020!important;color:#eef0ff}
-body.theme-purple{background:linear-gradient(135deg,#667eea,#764ba2)!important;--muse-accent:#667eea;--muse-accent-2:#764ba2}body.theme-ocean{background:linear-gradient(135deg,#2193b0,#6dd5ed)!important;--muse-accent:#2193b0;--muse-accent-2:#0ea5e9}body.theme-sunset{background:linear-gradient(135deg,#ee9ca7,#ffdde1)!important;--muse-accent:#e8798b;--muse-accent-2:#f59e9e}body.theme-forest{background:linear-gradient(135deg,#134e5e,#71b280)!important;--muse-accent:#2f855a;--muse-accent-2:#71b280}body.theme-midnight{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)!important;--muse-accent:#7c6cff;--muse-accent-2:#a78bfa}body.theme-rose{background:linear-gradient(135deg,#ff6b6b,#ee5a6f)!important;--muse-accent:#ef476f;--muse-accent-2:#ff6b6b}
+body.theme-light{background:#f6f6fb!important;--muse-accent:#6d5dfc;--muse-accent-2:#8b5cf6;--muse-text:#171725;--muse-muted:#73738a;--muse-surface:rgba(255,255,255,.94);--muse-border:rgba(30,30,60,.09);--muse-on-accent:#fff}
+body.theme-dark{background:#0d1020!important;color:#eef0ff;--muse-accent:#7c83ff;--muse-accent-2:#a78bfa;--muse-text:#eef0ff;--muse-muted:#9ca3b8;--muse-surface:rgba(22,25,47,.96);--muse-border:rgba(255,255,255,.10);--muse-on-accent:#fff}
+body.theme-purple{background:linear-gradient(135deg,#667eea,#764ba2)!important;--muse-accent:#667eea;--muse-accent-2:#764ba2;--muse-text:#20213b;--muse-muted:#65677f;--muse-surface:rgba(255,255,255,.92);--muse-border:rgba(90,70,160,.16);--muse-on-accent:#fff}
+body.theme-ocean{background:linear-gradient(135deg,#087f8c,#54c6df)!important;--muse-accent:#087f8c;--muse-accent-2:#169fd3;--muse-text:#12313a;--muse-muted:#58727a;--muse-surface:rgba(246,253,255,.93);--muse-border:rgba(8,127,140,.16);--muse-on-accent:#fff}
+body.theme-sunset{background:linear-gradient(135deg,#e78b9a,#ffd5bb)!important;--muse-accent:#d96578;--muse-accent-2:#ee8a63;--muse-text:#392329;--muse-muted:#80666c;--muse-surface:rgba(255,250,247,.94);--muse-border:rgba(180,90,100,.16);--muse-on-accent:#fff}
+body.theme-forest{background:linear-gradient(135deg,#134e5e,#71b280)!important;--muse-accent:#277b57;--muse-accent-2:#4fa56d;--muse-text:#183026;--muse-muted:#5d7469;--muse-surface:rgba(247,253,249,.94);--muse-border:rgba(39,123,87,.16);--muse-on-accent:#fff}
+body.theme-midnight{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)!important;--muse-accent:#8b7cff;--muse-accent-2:#b29cff;--muse-text:#f2f1ff;--muse-muted:#aaa7c4;--muse-surface:rgba(20,19,43,.96);--muse-border:rgba(190,180,255,.12);--muse-on-accent:#fff}
+body.theme-rose{background:linear-gradient(135deg,#ff6b6b,#ee5a6f)!important;--muse-accent:#e74368;--muse-accent-2:#ff6b81;--muse-text:#381c25;--muse-muted:#80606a;--muse-surface:rgba(255,248,250,.94);--muse-border:rgba(220,70,100,.16);--muse-on-accent:#fff}
 .app.active{padding-bottom:24px;min-height:100vh}
 .top-bar{height:72px;padding:0 28px;border-bottom:1px solid var(--muse-border);background:rgba(246,246,251,.82)!important;box-shadow:none;position:sticky}
 .top-bar h1{font-size:20px;letter-spacing:-.02em}.menu-btn{font-size:0;width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--muse-border);position:relative}
@@ -474,6 +480,15 @@ body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!
   #mainApp>.top-bar,#mainApp>.main-content{margin-left:0}.top-bar{height:64px;padding:0 14px}.main-content{padding:18px 12px 92px}.bottom-nav{display:flex}.app.active{padding-bottom:0}.studio-grid{grid-template-columns:repeat(2,1fr)}.studio-actions{grid-template-columns:1fr}.studio-hero{padding:20px}
 }
 
+
+/* ===== Theme polish ===== */
+body:not(.theme-light):not(.theme-dark) .top-bar,body:not(.theme-light):not(.theme-dark) .sidebar{background:var(--muse-surface)!important}
+body.theme-dark .post-card,body.theme-dark .profile-header,body.theme-dark .user-card,body.theme-dark .challenge-card,body.theme-dark .achievement-card,body.theme-dark .moodboard-card,body.theme-dark .draft-card,body.theme-dark .notification-item,body.theme-dark .settings-section-card,body.theme-midnight .post-card,body.theme-midnight .profile-header,body.theme-midnight .user-card,body.theme-midnight .challenge-card,body.theme-midnight .achievement-card,body.theme-midnight .moodboard-card,body.theme-midnight .draft-card,body.theme-midnight .notification-item,body.theme-midnight .settings-section-card{background:var(--muse-surface)!important;color:var(--muse-text)!important;border-color:var(--muse-border)!important}
+body.theme-purple .post-card,body.theme-ocean .post-card,body.theme-sunset .post-card,body.theme-forest .post-card,body.theme-rose .post-card{background:var(--muse-surface)!important;color:var(--muse-text)!important}
+body.theme-dark .post-caption,body.theme-midnight .post-caption{color:var(--muse-text)}
+body.theme-dark .post-card [style*="color: #666"],body.theme-midnight .post-card [style*="color: #666"]{color:var(--muse-muted)!important}
+body.theme-dark .post-card [style*="color: #888"],body.theme-midnight .post-card [style*="color: #888"]{color:var(--muse-muted)!important}
+.theme-option.active{border-color:var(--muse-accent)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--muse-accent) 18%,transparent)!important}
 
 /* ===== Refactored content creation UI ===== */
 .vk-post-creation.active{display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
@@ -2244,7 +2259,7 @@ function renderPostCard(post) {
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
         <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="openProfile('${post.authorId}')">
-            <div class="${hasActiveStories(post.authorId)?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;" onclick="event.stopPropagation();${hasActiveStories(post.authorId)?`openStories('${post.authorId}')`:(post.photo?`openPhotoViewer('${post.photo}')`:'')}">${post.photo?`<img src="${post.photo}">`:`<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-weight:700;">${post.avatar}</span>`}</div>
+            ${(()=>{const author=getUserById(post.authorId)||{};const avatarPhoto=author.photo||null;const avatarLetter=author.avatar||post.avatar||'М';const story=hasActiveStories(post.authorId);return `<div class="${story?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;border-radius:50%;overflow:visible;cursor:pointer;" onclick="event.stopPropagation();${story?`openStories('${post.authorId}')`:(avatarPhoto?`openPhotoViewer('${avatarPhoto}')`:'')}">${avatarPhoto?`<img src="${avatarPhoto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">`:`<span style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(135deg,var(--muse-accent),var(--muse-accent-2));color:#fff;font-weight:700;">${avatarLetter}</span>`}</div>`;})()}
             <div style="flex: 1; min-width: 0;">
                 <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
                 <div style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
