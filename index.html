@@ -431,7 +431,7 @@
 }
 html{scroll-behavior:smooth}body{background:#f6f6fb!important;color:var(--muse-text)}
 body.theme-light{background:#f6f6fb!important}body.theme-dark{background:#0d1020!important;color:#eef0ff}
-body.theme-purple,body.theme-ocean,body.theme-sunset,body.theme-forest,body.theme-midnight,body.theme-rose{background:#f6f6fb!important}
+body.theme-purple{background:linear-gradient(135deg,#667eea,#764ba2)!important;--muse-accent:#667eea;--muse-accent-2:#764ba2}body.theme-ocean{background:linear-gradient(135deg,#2193b0,#6dd5ed)!important;--muse-accent:#2193b0;--muse-accent-2:#0ea5e9}body.theme-sunset{background:linear-gradient(135deg,#ee9ca7,#ffdde1)!important;--muse-accent:#e8798b;--muse-accent-2:#f59e9e}body.theme-forest{background:linear-gradient(135deg,#134e5e,#71b280)!important;--muse-accent:#2f855a;--muse-accent-2:#71b280}body.theme-midnight{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e)!important;--muse-accent:#7c6cff;--muse-accent-2:#a78bfa}body.theme-rose{background:linear-gradient(135deg,#ff6b6b,#ee5a6f)!important;--muse-accent:#ef476f;--muse-accent-2:#ff6b6b}
 .app.active{padding-bottom:24px;min-height:100vh}
 .top-bar{height:72px;padding:0 28px;border-bottom:1px solid var(--muse-border);background:rgba(246,246,251,.82)!important;box-shadow:none;position:sticky}
 .top-bar h1{font-size:20px;letter-spacing:-.02em}.menu-btn{font-size:0;width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--muse-border);position:relative}
@@ -500,6 +500,11 @@ body.theme-dark .vk-post-sheet .vk-post-header{background:rgba(20,23,42,.96)}
  .vk-post-sheet .vk-post-header{border-radius:0}
  .vk-post-sheet .create-type-carousel{padding-left:14px;padding-right:14px}
 }
+
+.music-record-btn{width:92px;height:92px;border:1px dashed rgba(109,93,252,.45);border-radius:14px;background:rgba(109,93,252,.06);color:#6d5dfc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;font:600 10px inherit;padding:8px}.music-record-btn svg{width:27px;height:27px;stroke:currentColor;fill:none;stroke-width:1.8}.music-record-btn.recording{background:rgba(239,68,68,.10);border-color:#ef4444;color:#ef4444;animation:pulse-rec 1s infinite}.music-record-status{width:100%;flex-basis:100%;font-size:12px;color:#ef4444;font-weight:600;padding:2px 0 0}.comment-record-status{display:none;align-items:center;gap:8px;margin:6px 0 0;padding:7px 10px;border-radius:10px;background:rgba(239,68,68,.08);color:#dc2626;font-size:12px;font-weight:700}.comment-record-status.active{display:flex}.comment-record-dot{width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse-rec 1s infinite}.comment-record-time{font-variant-numeric:tabular-nums}.comment-record-label{flex:1}.audio-post-native{width:100%;margin-top:4px}.audio-post-native::-webkit-media-controls-panel{background:rgba(255,255,255,.92)}
+body.theme-dark .music-record-btn{background:rgba(109,93,252,.12);color:#bdb8ff;border-color:rgba(167,139,250,.45)}
+body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca5a5}
+
 /* Circular creation action: do not let flex:1 stretch it into a pill */
 .bottom-nav .nav-item.create-btn{flex:0 0 58px!important;width:58px!important;height:58px!important;min-width:58px!important;max-width:58px!important;padding:0!important;margin:-18px 0 0!important;border-radius:50%!important;aspect-ratio:1/1;position:relative;z-index:2}
 .bottom-nav .nav-item.create-btn svg{width:26px!important;height:26px!important}
@@ -515,6 +520,8 @@ body.theme-dark .vk-post-sheet .vk-post-header{background:rgba(20,23,42,.96)}
 .desktop-create-fab:active{transform:scale(.94)}
 .desktop-create-fab svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
 @media(max-width:700px){.desktop-create-fab{display:none}}
+
+.muse-story-ring{position:relative;border-radius:50%;padding:3px;background:linear-gradient(135deg,#ff4d8d,#7c5cff,#28c7fa);display:inline-flex;box-sizing:border-box}.muse-story-ring>span,.muse-story-ring>img{display:flex;width:100%;height:100%;border-radius:50%;border:3px solid var(--muse-surface,#fff);box-sizing:border-box;overflow:hidden;align-items:center;justify-content:center}.muse-story-ring>img{object-fit:cover}.story-picker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:min(520px,90%);margin:auto;color:white;text-align:center}.story-picker-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.story-picker-btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:12px 16px;cursor:pointer;font:inherit}.story-picker-btn.primary{background:#667eea;border-color:#667eea}.story-viewer{display:none;position:fixed;inset:0;background:#050507;z-index:5000;align-items:center;justify-content:center}.story-viewer.active{display:flex}.story-viewer-content{position:relative;width:min(480px,100vw);height:min(850px,100vh);background:#111;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center}.story-viewer-content img,.story-viewer-content video{width:100%;height:100%;object-fit:contain;background:#000}.story-viewer-content audio{width:calc(100% - 36px)}.story-viewer-close{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:24px;cursor:pointer}.story-viewer-meta{position:absolute;top:16px;left:16px;z-index:5;color:#fff;background:rgba(0,0,0,.45);padding:8px 12px;border-radius:14px;font-size:13px}.story-progress{position:absolute;top:8px;left:10px;right:10px;height:3px;background:rgba(255,255,255,.25);z-index:6;border-radius:4px;overflow:hidden}.story-progress i{display:block;height:100%;width:100%;background:#fff;transform-origin:left}
 </style>
 </head>
 <body class="theme-light">
@@ -810,6 +817,7 @@ body.theme-dark .vk-post-sheet .vk-post-header{background:rgba(20,23,42,.96)}
         </div>
     </div>
     <input type="file" id="vkPostFileInput" accept="image/*,audio/*,video/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
+    <input type="file" id="storyFileInput" accept="image/*,video/*,audio/*" style="display:none" onchange="handleStoryFile(event)">
     
     <div class="vk-post-meta" style="padding: 20px;">
         <div class="input-group">
@@ -883,6 +891,15 @@ let commentAudio = null;
 let isRecordingAudio = false;
 let mediaRecorder = null;
 let audioChunks = [];
+let recordingPostId = null;
+let recordingStartedAt = 0;
+let recordingTimer = null;
+let commentAudioPostId = null;
+let musicRecorder = null;
+let musicAudioChunks = [];
+let isRecordingMusic = false;
+let musicRecordingStartedAt = 0;
+let musicRecordingTimer = null;
 let currentProfileUserId = null;
 let vkPostSubcategory = '';
 let pendingProfilePhoto = null;
@@ -901,6 +918,10 @@ let vkPostImages = [];
 let vkPostText = '';
 let vkPostType = 'text';
 let isLoginMode = false;
+let storyDraft = null;
+let storyViewerStories = [];
+let storyViewerIndex = 0;
+let storyViewerTimer = null;
 
 const challenges = [
     { week: 0, title: 'Песня без слов', desc: 'Создайте инструментальный трек', tag: '#без_слов', category: 'music' },
@@ -948,7 +969,12 @@ window.onload = function() {
 };
 
 function applyTheme(theme) {
-    document.body.className = 'theme-' + theme;
+    const allowed = ['light','dark','purple','ocean','sunset','forest','midnight','rose'];
+    if (!allowed.includes(theme)) theme = 'light';
+    document.body.classList.remove(...allowed.map(t => 'theme-' + t));
+    document.body.classList.add('theme-' + theme);
+    document.documentElement.dataset.museTheme = theme;
+    userSettings = userSettings || {};
     userSettings.theme = theme;
     saveUserSettings();
     document.querySelectorAll('.theme-option').forEach(opt => {
@@ -1155,11 +1181,18 @@ function getCommentsForPost(postId) {
 function getStories() {
     const saved = JSON.parse(localStorage.getItem('muse_stories') || '[]');
     const now = Date.now();
-    const dayAgo = now - 86400000;
-    const freshStories = saved.filter(s => s.time > dayAgo);
-    if (saved.length !== freshStories.length) localStorage.setItem('muse_stories', JSON.stringify(freshStories));
-    return freshStories;
+    const fresh = saved.filter(s => (s.createdAt || s.time || 0) > now - 86400000);
+    if (fresh.length !== saved.length) localStorage.setItem('muse_stories', JSON.stringify(fresh));
+    return fresh;
 }
+function hasActiveStories(userId){ return getStories().some(s=>s.authorId===userId); }
+function getUserStories(userId){ return getStories().filter(s=>s.authorId===userId).sort((a,b)=>(a.createdAt||a.time)-(b.createdAt||b.time)); }
+function openStories(userId){ const stories=getUserStories(userId); if(!stories.length)return; storyViewerStories=stories;storyViewerIndex=0; if(!document.getElementById('storyViewer')) document.body.insertAdjacentHTML('beforeend',`<div id="storyViewer" class="story-viewer" onclick="if(event.target===this)closeStoryViewer()"><div class="story-viewer-content"><div class="story-progress"><i id="storyProgressBar"></i></div><div class="story-viewer-meta" id="storyViewerMeta"></div><button class="story-viewer-close" onclick="closeStoryViewer()">×</button><div id="storyViewerMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div></div>`); document.getElementById('storyViewer').classList.add('active');renderCurrentStory(); }
+function renderCurrentStory(){ const story=storyViewerStories[storyViewerIndex];if(!story)return closeStoryViewer();const user=getUserById(story.authorId)||{name:story.author||'Автор'};document.getElementById('storyViewerMeta').textContent=user.name;const m=document.getElementById('storyViewerMedia');if(story.type==='video')m.innerHTML=`<video src="${story.data}" autoplay playsinline controls></video>`;else if(story.type==='audio')m.innerHTML=`<audio src="${story.data}" controls autoplay></audio>`;else m.innerHTML=`<img src="${story.data}" alt="История">`;const b=document.getElementById('storyProgressBar');b.style.transition='none';b.style.transform='scaleX(0)';setTimeout(()=>{b.style.transition='transform 5s linear';b.style.transform='scaleX(1)'},30);clearTimeout(storyViewerTimer);storyViewerTimer=setTimeout(()=>{storyViewerIndex++;storyViewerIndex<storyViewerStories.length?renderCurrentStory():closeStoryViewer()},5000); }
+function closeStoryViewer(){clearTimeout(storyViewerTimer);storyViewerTimer=null;const v=document.getElementById('storyViewer');if(v)v.classList.remove('active');const m=document.getElementById('storyViewerMedia');if(m)m.innerHTML='';}
+function openStoryFilePicker(){document.getElementById('storyFileInput')?.click();}
+function handleStoryFile(event){const file=event.target.files[0];if(!file||!currentUser)return;const type=file.type.startsWith('video/')?'video':file.type.startsWith('audio/')?'audio':file.type.startsWith('image/')?'image':null;if(!type){alert('Можно добавить только фото, короткое видео или аудио.');return}const r=new FileReader();r.onload=e=>{storyDraft={type,data:e.target.result,title:file.name};updateVKCreationUI()};r.readAsDataURL(file);event.target.value='';}
+function publishStory(){if(!currentUser||!storyDraft)return;const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,avatar:currentUser.avatar,photo:currentUser.photo||null,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;document.getElementById('vkPostCreationPage').classList.remove('active');navigate('home');}
 
 function getNotifications() {
     if (!currentUser) return [];
@@ -1280,10 +1313,7 @@ function renderProfile(container) {
     const userStories = getStories().filter(s => s.authorId === userId);
 
     let html = `<div class="profile-header" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 20px;">
-        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 700; box-shadow: 0 8px 32px rgba(102,126,234,0.4); overflow: hidden; cursor: pointer; position: relative;" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">
-            ${user.photo ? `<img src="${user.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : user.avatar}
-            ${userStories.length > 0 ? '<div style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 3px solid white;">' + userStories.length + '</div>' : ''}
-        </div>
+        <div class="${userStories.length ? 'muse-story-ring' : ''}" style="width:120px;height:120px;margin:0 auto 20px;" onclick="${userStories.length ? `openStories('${userId}')` : (user.photo ? `openPhotoViewer('${user.photo}')` : '')}">${user.photo ? `<img src="${user.photo}">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:48px;font-weight:700;">${user.avatar}</span>`}</div>
         <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${user.name}</div>
         <div style="font-size: 16px; color: #888; margin-bottom: 24px;">${user.username}</div>
         
@@ -1790,6 +1820,11 @@ function updateVKCreationUI() {
     if (!textarea || !gallery || !input) return;
 
     const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
+    if(vkPostType==='history'){
+      textarea.style.display='none'; input.style.display='none'; gallery.style.display='flex';
+      gallery.innerHTML=`<div class="story-picker"><div style="font-size:18px;font-weight:700">Новая история</div><div style="opacity:.75;font-size:13px">Фото, короткое видео или аудио. История живёт 24 часа и не попадает в ленту.</div><div class="story-picker-actions"><button type="button" class="story-picker-btn primary" onclick="openStoryFilePicker()">Выбрать файл</button>${storyDraft?`<button type="button" class="story-picker-btn" onclick="publishStory()">Опубликовать</button>`:''}</div>${storyDraft?`<div style="font-size:12px;opacity:.7">Выбрано: ${storyDraft.title||storyDraft.type}</div>`:''}</div>`; if(hint)hint.textContent='История автоматически исчезнет через 24 часа.'; return;
+    }
+    textarea.style.display='block';
     const config = {
       text:    {placeholder:'Напишите стих, рассказ или эссе...', hint:'Текстовая публикация. Добавьте заголовок в самом тексте, если он нужен.'},
       history: {placeholder:'Расскажите свою историю...', hint:'Личная история, воспоминание или хроника.'},
@@ -1826,6 +1861,7 @@ function openVKPostCreation() {
 }
 
 function closeVKPostCreation() {
+    if (isRecordingMusic && musicRecorder) { try { musicRecorder.stop(); } catch(e){} isRecordingMusic=false; clearInterval(musicRecordingTimer); }
     const text = document.getElementById('vkPostTextarea').value.trim();
     if (text || vkPostImages.length > 0 || document.getElementById('vkPostTags').value.trim()) {
         document.getElementById('draftSaveDialog').classList.add('active');
@@ -1866,6 +1902,7 @@ function discardVKDraft() {
 }
 
 function selectVKPostType(type) {
+    storyDraft=null;
     const allowed = ['text','image','art','audio','video','design','history'];
     if (!allowed.includes(type)) return;
     vkPostType = type;
@@ -1881,7 +1918,7 @@ function selectVKPostType(type) {
 function checkVKPostContent() {
     const text = document.getElementById('vkPostTextarea')?.value.trim() || '';
     const hasMedia = vkPostImages.length > 0;
-    const textOnly = ['text','history'].includes(vkPostType);
+    const textOnly = ['text'].includes(vkPostType);
     const valid = textOnly ? !!text : hasMedia;
     const btn = document.getElementById('vkPostNextBtn');
     if (btn) btn.disabled = !valid;
@@ -1933,6 +1970,7 @@ function renderVKPostGallery() {
     const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
     if (!mediaType) { gallery.innerHTML=''; gallery.style.display='none'; return; }
     let html = '<div class="vk-post-camera" onclick="document.getElementById(\'vkPostFileInput\').click()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>';
+    if (vkPostType === 'audio') html += '<button type="button" id="musicRecordBtn" class="music-record-btn" onclick="toggleMusicRecording()"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg><span>Записать голос</span></button><div id="music-record-status" class="music-record-status"></div>';
     vkPostImages.forEach((item,i)=>{
         if(item.isAudio) html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" title="Нажмите, чтобы удалить" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.1);color:#6d5dfc;font-size:11px;text-align:center;padding:8px;box-sizing:border-box">${item.title}</div>`;
         else if(item.isVideo) html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" title="Нажмите, чтобы удалить" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.1);color:#6d5dfc;font-size:11px;text-align:center;padding:8px;box-sizing:border-box"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>&nbsp;Видео</div>`;
@@ -1948,12 +1986,27 @@ function removeVKPostImage(index) {
     checkVKPostContent();
 }
 
+async function toggleMusicRecording() {
+    if (!currentUser) return;
+    const btn=document.getElementById('musicRecordBtn'), status=document.getElementById('music-record-status'); if(!btn)return;
+    if(isRecordingMusic){ if(musicRecorder&&musicRecorder.state!=='inactive')musicRecorder.stop(); isRecordingMusic=false; clearInterval(musicRecordingTimer); musicRecordingTimer=null; btn.classList.remove('recording'); btn.innerHTML='<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg><span>Записать голос</span>'; if(status)status.textContent=''; return; }
+    try{
+        if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder)throw new Error('unsupported');
+        const stream=await navigator.mediaDevices.getUserMedia({audio:true}); musicAudioChunks=[]; musicRecordingStartedAt=Date.now(); musicRecorder=new MediaRecorder(stream);
+        musicRecorder.ondataavailable=e=>{if(e.data&&e.data.size)musicAudioChunks.push(e.data);};
+        musicRecorder.onstop=()=>{const blob=new Blob(musicAudioChunks,{type:musicAudioChunks[0]?.type||'audio/webm'});const reader=new FileReader();reader.onload=e=>{vkPostImages.push({data:e.target.result,title:'Голосовая запись',isAudio:true});renderVKPostGallery();checkVKPostContent();};reader.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop());};
+        musicRecorder.start(250);isRecordingMusic=true;btn.classList.add('recording');btn.innerHTML='<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1"/></svg><span>Остановить</span>';
+        clearInterval(musicRecordingTimer);musicRecordingTimer=setInterval(()=>{if(status){const sec=Math.floor((Date.now()-musicRecordingStartedAt)/1000);status.textContent=`Запись ${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;}},250);
+    }catch(e){alert('Не удалось получить доступ к микрофону. Разрешите микрофон для сайта и повторите попытку.');}
+}
+
 function publishVKPost() {
     if (!currentUser) return;
     const text = document.getElementById('vkPostTextarea').value.trim();
     const tagsStr = document.getElementById('vkPostTags').value.trim();
     const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
-    const textOnly = ['text','history'].includes(vkPostType);
+    if(vkPostType==='history'){publishStory();return;}
+    const textOnly = ['text'].includes(vkPostType);
     if (textOnly && !text) return;
     if (!textOnly && !vkPostImages.length) return;
 
@@ -2164,7 +2217,7 @@ function renderPostCard(post) {
         else if (post.type === 'video' || post.category === 'video') { const v=allItems[0]; mediaHtml = `<div class="video-slide" style="background:#090b16;display:flex;align-items:center;justify-content:center;min-height:240px"><video controls playsinline preload="metadata" style="width:100%;max-height:600px"><source src="${v}"></video></div>`; }
         else if (post.type === 'audio') {
             const title = post.audioTitles ? post.audioTitles[0] : 'Аудио трек';
-            mediaHtml = `<div class="audio-slide" style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center;"><div class="audio-player" style="display: flex; align-items: center; gap: 12px; color: white; width: 100%;"><button class="play-btn" onclick="playAudio(this, '${allItems[0]}')" style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; backdrop-filter: blur(10px);">▶</button><div class="audio-title" style="font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${title}</div></div></div>`;
+            mediaHtml = `<div class="audio-slide" style="padding:20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:10px;"><div style="font-weight:700;color:#fff;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${title}</div><audio class="audio-post-native" controls preload="metadata" src="${allItems[0]}"></audio></div>`;
         }
     } else if (totalItems > 1) {
         let slidesHtml = '';
@@ -2173,7 +2226,7 @@ function renderPostCard(post) {
         else if (post.type === 'video' || post.category === 'video') slidesHtml = allItems.map(v => `<div class="video-slide" style="background:#090b16;display:flex;align-items:center;justify-content:center;min-height:240px"><video controls playsinline preload="metadata" style="width:100%;max-height:600px"><source src="${v}"></video></div>`).join('');
         else if (post.type === 'audio') {
             const titles = post.audioTitles || [];
-            slidesHtml = allItems.map((audio, i) => `<div class="audio-slide" style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 120px; display: flex; align-items: center;"><div class="audio-player" style="display: flex; align-items: center; gap: 12px; color: white; width: 100%;"><button class="play-btn" onclick="playAudio(this, '${audio}')" style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; backdrop-filter: blur(10px);">▶</button><div class="audio-title" style="font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${titles[i] || `Трек ${i + 1}`}</div></div></div>`).join('');
+            slidesHtml = allItems.map((audio, i) => `<div class="audio-slide" style="padding:20px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:10px;"><div style="font-weight:700;color:#fff;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${titles[i] || `Трек ${i + 1}`}</div><audio class="audio-post-native" controls preload="metadata" src="${audio}"></audio></div>`).join('');
         }
         mediaHtml = `<div class="carousel" style="position: relative; width: 100%;"><div class="carousel-track" data-post-id="${post.id}" style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab;">${slidesHtml}</div><div class="carousel-counter" id="counter-${post.id}" style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 6px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; backdrop-filter: blur(10px); z-index: 5;">1/${totalItems}</div><div class="carousel-dots" style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5;">${allItems.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}" style="width: 6px; height: 6px; border-radius: 50%; background: ${i === 0 ? 'white' : 'rgba(255,255,255,0.5)'}; transition: all 0.3s;"></div>`).join('')}</div></div>`;
     }
@@ -2191,7 +2244,7 @@ function renderPostCard(post) {
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
         <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="openProfile('${post.authorId}')">
-            <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer;" onclick="event.stopPropagation(); ${post.photo ? `openPhotoViewer('${post.photo}')` : ''}">${post.photo ? `<img src="${post.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : post.avatar}</div>
+            <div class="${hasActiveStories(post.authorId)?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;" onclick="event.stopPropagation();${hasActiveStories(post.authorId)?`openStories('${post.authorId}')`:(post.photo?`openPhotoViewer('${post.photo}')`:'')}">${post.photo?`<img src="${post.photo}">`:`<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-weight:700;">${post.avatar}</span>`}</div>
             <div style="flex: 1; min-width: 0;">
                 <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
                 <div style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
@@ -2229,6 +2282,7 @@ function renderPostCard(post) {
                     <button id="record-btn-${post.id}" onclick="toggleAudioRecording(${post.id})" title="Записать голос" style="position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 18px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; right: 8px;"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg></button>
                     <input type="file" id="comment-file-${post.id}" accept="image/*" style="display: none" onchange="handleCommentImage(event, ${post.id})">
                     <div id="comment-image-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><img id="comment-image-thumb-${post.id}" src="" style="max-width: 100px; max-height: 100px; border-radius: 8px; object-fit: cover;"><button onclick="removeCommentImage(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div>
+                    <div id="record-status-${post.id}" class="comment-record-status"><span class="comment-record-dot"></span><span class="comment-record-label">Идёт запись</span><span id="record-time-${post.id}" class="comment-record-time">00:00</span></div>
                     <div id="audio-comment-preview-${post.id}" style="display: none; margin-top: 8px; position: relative;"><div style="display: flex; align-items: center; gap: 10px;"><button id="voice-play-btn-${post.id}" onclick="toggleVoicePlay(${post.id})" style="width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.1); color: #667eea; border: 1px solid rgba(102,126,234,0.3); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</button><span style="font-size: 12px; opacity: 0.7;">Голосовое</span><button onclick="removeCommentAudio(${post.id})" style="position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;">×</button></div></div>
                 </div>
                 <button onclick="${currentUser ? `addComment(${post.id})` : `showFullAuth('login')`}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 24px; font-weight: 600; cursor: pointer; font-size: 14px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(102,126,234,0.4);">Отправить</button>
@@ -2266,12 +2320,11 @@ function deletePost(postId) {
 }
 
 function playAudio(btn, src) {
-    if (currentPlayBtn === btn && currentAudio) { currentAudio.pause(); btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; return; }
-    if (currentAudio) { currentAudio.pause(); currentAudio = null; if (currentPlayBtn) currentPlayBtn.textContent = '▶'; }
-    currentAudio = new Audio(src); currentPlayBtn = btn;
-    currentAudio.play().catch(() => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; });
-    btn.textContent = '⏸';
-    currentAudio.onended = currentAudio.onerror = () => { btn.textContent = '▶'; currentAudio = null; currentPlayBtn = null; };
+    if (currentPlayBtn === btn && currentAudio) { currentAudio.pause(); currentAudio.currentTime=0; btn.textContent='▶'; currentAudio=null; currentPlayBtn=null; return; }
+    if(currentAudio){currentAudio.pause();if(currentPlayBtn)currentPlayBtn.textContent='▶';}
+    currentAudio=new Audio(); currentPlayBtn=btn; currentAudio.preload='auto'; currentAudio.src=src;
+    currentAudio.onplay=()=>btn.textContent='⏸'; currentAudio.onended=currentAudio.onerror=()=>{btn.textContent='▶';currentAudio=null;currentPlayBtn=null;};
+    currentAudio.play().catch(()=>{btn.textContent='▶';currentAudio=null;currentPlayBtn=null;});
 }
 
 function renderComment(comment, postId, allComments) {
@@ -2366,48 +2419,12 @@ function toggleCommentVoicePlay(commentId, audioSrc) {
 }
 
 function toggleVoicePlay(postId) {
-    if (commentAudio) {
-        const btn = document.getElementById(`voice-play-btn-${postId}`);
-        if (!btn) return;
-        
-        if (playingVoiceId === `post-${postId}` && currentAudio) {
-            currentAudio.pause();
-            currentAudio = null;
-            playingVoiceId = null;
-            btn.textContent = '▶';
-            btn.classList.remove('playing');
-            return;
-        }
-        
-        if (currentAudio) {
-            currentAudio.pause();
-            if (playingVoiceId) {
-                const oldBtn = document.getElementById(`voice-btn-comment-${playingVoiceId.replace('post-', '')}`);
-                if (oldBtn) { oldBtn.textContent = '▶'; oldBtn.classList.remove('playing'); }
-                const newBtn = document.getElementById(`voice-play-btn-${playingVoiceId.replace('post-', '')}`);
-                if (newBtn) { newBtn.textContent = '▶'; newBtn.classList.remove('playing'); }
-            }
-        }
-        
-        currentAudio = new Audio(commentAudio);
-        playingVoiceId = `post-${postId}`;
-        btn.textContent = '⏸';
-        btn.classList.add('playing');
-        
-        currentAudio.play().catch(() => {
-            btn.textContent = '▶';
-            btn.classList.remove('playing');
-            currentAudio = null;
-            playingVoiceId = null;
-        });
-        
-        currentAudio.onended = currentAudio.onerror = () => {
-            btn.textContent = '▶';
-            btn.classList.remove('playing');
-            currentAudio = null;
-            playingVoiceId = null;
-        };
-    }
+    if (!commentAudio || commentAudioPostId !== postId) return;
+    const btn = document.getElementById(`voice-play-btn-${postId}`); if (!btn) return;
+    if (playingVoiceId === `post-${postId}` && currentAudio) { currentAudio.pause(); currentAudio.currentTime=0; currentAudio=null; playingVoiceId=null; btn.textContent='▶'; btn.classList.remove('playing'); return; }
+    if(currentAudio) currentAudio.pause(); currentAudio=new Audio(commentAudio); playingVoiceId=`post-${postId}`; btn.textContent='⏸'; btn.classList.add('playing');
+    currentAudio.play().catch(()=>{btn.textContent='▶';btn.classList.remove('playing');currentAudio=null;playingVoiceId=null;});
+    currentAudio.onended=currentAudio.onerror=()=>{btn.textContent='▶';btn.classList.remove('playing');currentAudio=null;playingVoiceId=null;};
 }
 
 function deleteComment(postId, commentId) {
@@ -2475,37 +2492,40 @@ function removeCommentImage(postId) {
 async function toggleAudioRecording(postId) {
     if (!requireAuth()) return;
     const btn = document.getElementById(`record-btn-${postId}`);
+    const status = document.getElementById(`record-status-${postId}`);
+    const timeEl = document.getElementById(`record-time-${postId}`);
+    if (!btn) return;
     if (isRecordingAudio) {
-        mediaRecorder.stop();
-        isRecordingAudio = false;
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+        isRecordingAudio = false; recordingPostId = null;
+        clearInterval(recordingTimer); recordingTimer = null;
         btn.classList.remove('recording');
-        btn.textContent = '';
-    } else {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
-            audioChunks = [];
-            mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    commentAudio = e.target.result;
-                    document.getElementById(`audio-comment-preview-${postId}`).style.display = 'block';
-                };
-                reader.readAsDataURL(audioBlob);
-                stream.getTracks().forEach(t => t.stop());
-            };
-            mediaRecorder.start();
-            isRecordingAudio = true;
-            btn.classList.add('recording');
-            btn.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1"/></svg>';
-        } catch (err) { alert('Не удалось получить доступ к микрофону'); }
+        btn.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>';
+        if (status) status.classList.remove('active');
+        return;
     }
+    try {
+        if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) throw new Error('unsupported');
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recordingPostId = postId; recordingStartedAt = Date.now();
+        mediaRecorder = new MediaRecorder(stream); audioChunks = [];
+        mediaRecorder.ondataavailable = e => { if (e.data && e.data.size) audioChunks.push(e.data); };
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: audioChunks[0]?.type || 'audio/webm' });
+            const reader = new FileReader();
+            reader.onload = e => { commentAudio = e.target.result; commentAudioPostId = postId; const preview=document.getElementById(`audio-comment-preview-${postId}`); if(preview) preview.style.display='block'; };
+            reader.readAsDataURL(audioBlob); stream.getTracks().forEach(t => t.stop());
+        };
+        mediaRecorder.start(250); isRecordingAudio = true; btn.classList.add('recording');
+        btn.innerHTML = '<svg class="svg-icon" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1"/></svg>';
+        if(status) status.classList.add('active'); if(timeEl) timeEl.textContent='00:00';
+        clearInterval(recordingTimer); recordingTimer=setInterval(()=>{if(timeEl){const sec=Math.floor((Date.now()-recordingStartedAt)/1000);timeEl.textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;}},250);
+    } catch(err) { alert('Не удалось получить доступ к микрофону. Разрешите микрофон для сайта и повторите попытку.'); }
 }
 
 function removeCommentAudio(postId) {
     commentAudio = null;
+    commentAudioPostId = null;
     document.getElementById(`audio-comment-preview-${postId}`).style.display = 'none';
     if (playingVoiceId === `post-${postId}` && currentAudio) {
         currentAudio.pause();
