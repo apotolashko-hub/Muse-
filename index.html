@@ -474,6 +474,47 @@ body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!
   #mainApp>.top-bar,#mainApp>.main-content{margin-left:0}.top-bar{height:64px;padding:0 14px}.main-content{padding:18px 12px 92px}.bottom-nav{display:flex}.app.active{padding-bottom:0}.studio-grid{grid-template-columns:repeat(2,1fr)}.studio-actions{grid-template-columns:1fr}.studio-hero{padding:20px}
 }
 
+
+/* ===== Refactored content creation UI ===== */
+.vk-post-creation.active{display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}
+.vk-post-sheet{width:min(780px,100%);max-height:calc(100vh - 36px);overflow:auto;background:var(--muse-surface,#fff);border:1px solid var(--muse-border,#e8e8ef);border-radius:26px;box-shadow:0 28px 90px rgba(22,18,45,.28);display:flex;flex-direction:column;overflow-x:hidden}
+.vk-post-sheet .vk-post-header{width:100%;margin:0;position:sticky;top:0;z-index:4;border-radius:26px 26px 0 0;padding:15px 18px;background:rgba(255,255,255,.96);backdrop-filter:blur(18px)}
+.vk-post-sheet .create-type-carousel{width:100%;margin:0;padding:14px 18px 10px;background:transparent;flex:none}
+.vk-post-sheet .create-subcategory-bar{width:100%;margin:0;padding:0 18px 14px;background:transparent;flex:none}
+.vk-post-sheet .vk-post-textarea{width:100%;margin:0;min-height:170px;padding:18px 20px;border:0;border-top:1px solid var(--muse-border,#e8e8ef);background:transparent;resize:vertical;box-sizing:border-box}
+.vk-post-sheet .vk-post-gallery{width:100%;margin:0;padding:12px 18px 18px;background:transparent;box-sizing:border-box;display:flex;gap:10px;flex-wrap:wrap}
+.vk-post-sheet .vk-post-gallery:empty{display:none}
+.vk-post-sheet .vk-post-gallery-item{width:92px;height:92px;border-radius:14px;overflow:hidden;border:1px solid var(--muse-border,#e8e8ef);position:relative;cursor:pointer}
+.vk-post-sheet .vk-post-gallery-item img{width:100%;height:100%;object-fit:cover}
+.vk-post-sheet .vk-post-camera{width:92px;height:92px;border-radius:14px;border:1px dashed rgba(109,93,252,.45);background:rgba(109,93,252,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muse-accent,#6d5dfc)}
+.vk-post-sheet .vk-post-camera svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8}
+.vk-post-sheet .vk-post-meta{padding:0 18px 18px!important;margin:0!important;background:transparent!important;border-radius:0!important}
+.vk-post-sheet .vk-post-meta .input-group{margin:0}
+.vk-post-sheet .vk-post-meta input{box-sizing:border-box}
+.vk-post-sheet .creation-hint{padding:0 20px 10px;color:var(--muse-muted,#85879a);font-size:12px;line-height:1.45}
+body.theme-dark .vk-post-sheet{background:#14172a;border-color:rgba(255,255,255,.08)}
+body.theme-dark .vk-post-sheet .vk-post-header{background:rgba(20,23,42,.96)}
+@media(max-width:700px){
+ .vk-post-creation.active{padding:0}
+ .vk-post-sheet{width:100%;height:100%;max-height:none;border-radius:0;border:0}
+ .vk-post-sheet .vk-post-header{border-radius:0}
+ .vk-post-sheet .create-type-carousel{padding-left:14px;padding-right:14px}
+}
+/* Circular creation action: do not let flex:1 stretch it into a pill */
+.bottom-nav .nav-item.create-btn{flex:0 0 58px!important;width:58px!important;height:58px!important;min-width:58px!important;max-width:58px!important;padding:0!important;margin:-18px 0 0!important;border-radius:50%!important;aspect-ratio:1/1;position:relative;z-index:2}
+.bottom-nav .nav-item.create-btn svg{width:26px!important;height:26px!important}
+
+/* Creation controls: clean, circular and consistent */
+.vk-post-close{width:38px!important;height:38px!important;border-radius:12px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;color:var(--muse-muted,#73758a)!important;background:transparent!important}
+.vk-post-close:hover{background:rgba(109,93,252,.08)!important;color:var(--muse-accent,#6d5dfc)!important}
+.vk-post-close svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+.vk-post-next{padding:9px 15px!important;border-radius:11px!important;background:var(--muse-accent,#6d5dfc)!important;color:#fff!important}
+.vk-post-next:disabled{background:rgba(109,93,252,.18)!important;color:rgba(109,93,252,.65)!important}
+.desktop-create-fab{position:fixed;right:28px;bottom:28px;width:62px;height:62px;border:0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--muse-accent,#6d5dfc),var(--muse-accent-2,#8b5cf6));color:#fff;box-shadow:0 14px 34px rgba(109,93,252,.34);cursor:pointer;z-index:1200;transition:transform .2s ease,box-shadow .2s ease}
+.desktop-create-fab:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(109,93,252,.42)}
+.desktop-create-fab:active{transform:scale(.94)}
+.desktop-create-fab svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+@media(max-width:700px){.desktop-create-fab{display:none}}
 </style>
 </head>
 <body class="theme-light">
@@ -570,6 +611,10 @@ body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!
     </div>
 
     <div class="main-content" id="mainContent"></div>
+
+    <button class="desktop-create-fab" type="button" aria-label="Создать публикацию" onclick="openVKPostCreation()">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
     
     <!-- Нижняя навигация с 5 кнопками -->
     <nav class="bottom-nav">
@@ -738,10 +783,11 @@ body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!
 
 <!-- VK-style Post Creation Page -->
 <div class="vk-post-creation" id="vkPostCreationPage">
+  <div class="vk-post-sheet">
     <div class="vk-post-header">
-        <button class="vk-post-close" onclick="closeVKPostCreation()"></button>
+        <button class="vk-post-close" aria-label="Закрыть" onclick="closeVKPostCreation()"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         <div class="vk-post-title">Новый пост</div>
-        <button class="vk-post-next" id="vkPostNextBtn" onclick="publishVKPost()" disabled>Далее</button>
+        <button class="vk-post-next" id="vkPostNextBtn" onclick="publishVKPost()" disabled>Опубликовать</button>
     </div>
     
     <div class="create-type-carousel" id="createTypeCarousel">
@@ -756,6 +802,7 @@ body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!
     <div id="createSubcategoryBar" class="create-subcategory-bar"></div>
     
     <textarea class="vk-post-textarea" id="vkPostTextarea" placeholder="Напишите что-нибудь..." oninput="checkVKPostContent()"></textarea>
+    <div class="creation-hint" id="creationHint"></div>
     
     <div class="vk-post-gallery" id="vkPostGallery">
         <div class="vk-post-camera" onclick="document.getElementById('vkPostFileInput').click()">
@@ -764,12 +811,13 @@ body.theme-dark .sidebar,body.theme-dark .top-bar{background:rgba(17,20,38,.94)!
     </div>
     <input type="file" id="vkPostFileInput" accept="image/*,audio/*,video/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
     
-    <div style="padding: 20px;">
+    <div class="vk-post-meta" style="padding: 20px;">
         <div class="input-group">
             <label>Теги (через запятую)</label>
             <input type="text" id="vkPostTags" placeholder="#тег1, #тег2" style="width: 100%; padding: 12px 16px; border: 2px solid rgba(102,126,234,0.3); border-radius: 12px; font-size: 14px; font-family: inherit;">
         </div>
     </div>
+  </div>
 </div>
 
 <!-- Draft Save Dialog -->
@@ -1715,26 +1763,64 @@ function renderPostSubcategories() {
     const bar = document.getElementById('createSubcategoryBar');
     if (!bar) return;
     const map = {
-      text:['Поэзия','Проза','Рассказ','Эссе'], image:['Портрет','Пейзаж','Уличное фото','Предметная съёмка'], art:['Живопись','Иллюстрация','Цифровое искусство','Скетч'], audio:['Песня','Инструментал','Электроника','Подкаст'], video:['Клип','Влог','Анимация','Короткометражка'], design:['Графика','UI/UX','Брендинг','Типографика'], history:['Личная история','Воспоминание','Документальная заметка','Хроника']
+      text:['Поэзия','Проза','Рассказ','Эссе'],
+      image:['Портрет','Пейзаж','Уличное фото','Предметная съёмка'],
+      art:['Живопись','Иллюстрация','Цифровое искусство','Скетч'],
+      audio:['Песня','Инструментал','Электроника','Подкаст'],
+      video:['Клип','Влог','Анимация','Короткометражка'],
+      design:['Графика','UI/UX','Брендинг','Типографика'],
+      history:['Личная история','Воспоминание','Документальная заметка','Хроника']
     };
     const items = map[vkPostType] || [];
     if (!items.length) { bar.innerHTML=''; return; }
     if (!items.includes(vkPostSubcategory)) vkPostSubcategory = items[0];
-    bar.innerHTML = items.map(x => `<button type="button" class="subcategory-chip ${x===vkPostSubcategory?'active':''}" onclick="vkPostSubcategory='${x.replace(/'/g,"\'")}'; renderPostSubcategories()">${x}</button>`).join('');
+    bar.innerHTML = items.map(x => `<button type="button" class="subcategory-chip ${x===vkPostSubcategory?'active':''}" data-subcategory="${x.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" onclick="selectVKPostSubcategory(this.dataset.subcategory)">${x}</button>`).join('');
 }
 
-function openVKPostCreation() { 
-    if (!requireAuth()) return; 
+function selectVKPostSubcategory(value) {
+    vkPostSubcategory = value || '';
+    renderPostSubcategories();
+}
+
+function updateVKCreationUI() {
+    const textarea = document.getElementById('vkPostTextarea');
+    const gallery = document.getElementById('vkPostGallery');
+    const input = document.getElementById('vkPostFileInput');
+    const hint = document.getElementById('creationHint');
+    if (!textarea || !gallery || !input) return;
+
+    const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
+    const config = {
+      text:    {placeholder:'Напишите стих, рассказ или эссе...', hint:'Текстовая публикация. Добавьте заголовок в самом тексте, если он нужен.'},
+      history: {placeholder:'Расскажите свою историю...', hint:'Личная история, воспоминание или хроника.'},
+      image:   {placeholder:'Добавьте подпись к серии фотографий...', hint:'Можно выбрать несколько изображений.'},
+      art:     {placeholder:'Расскажите об этой работе...', hint:'Загрузите одну или несколько иллюстраций.'},
+      audio:   {placeholder:'Расскажите о треке...', hint:'Выберите один или несколько аудиофайлов.'},
+      video:   {placeholder:'Добавьте описание видео...', hint:'Выберите один или несколько видеофайлов.'},
+      design:  {placeholder:'Расскажите о макете или концепции...', hint:'Загрузите изображения дизайна.'}
+    }[vkPostType] || {placeholder:'Напишите что-нибудь...', hint:''};
+
+    textarea.placeholder = config.placeholder;
+    if (hint) hint.textContent = config.hint;
+    gallery.style.display = mediaType ? 'flex' : 'none';
+    input.style.display = 'none';
+    input.accept = vkPostType === 'audio' ? 'audio/*' : vkPostType === 'video' ? 'video/*' : 'image/*';
+}
+
+function openVKPostCreation() {
+    if (!requireAuth()) return;
     vkPostImages = [];
     vkPostText = '';
     vkPostType = 'text';
     vkPostSubcategory = 'Поэзия';
-    document.getElementById('vkPostTextarea').value = '';
-    document.getElementById('vkPostTags').value = '';
-    document.querySelectorAll('.create-type-card').forEach(c => c.classList.remove('active'));
-    document.querySelector('.create-type-card[data-type="text"]').classList.add('active');
-    renderVKPostGallery();
+    const textarea = document.getElementById('vkPostTextarea');
+    const tags = document.getElementById('vkPostTags');
+    if (textarea) textarea.value = '';
+    if (tags) tags.value = '';
+    document.querySelectorAll('.create-type-card').forEach(c => c.classList.toggle('active', c.dataset.type === 'text'));
     renderPostSubcategories();
+    renderVKPostGallery();
+    updateVKCreationUI();
     document.getElementById('vkPostCreationPage').classList.add('active');
     document.getElementById('vkPostNextBtn').disabled = true;
 }
@@ -1756,24 +1842,21 @@ function saveVKDraft() {
     if (!currentUser) return;
     const text = document.getElementById('vkPostTextarea').value.trim();
     const tagsStr = document.getElementById('vkPostTags').value.trim();
-    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
+    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
     const draft = {
         id: Date.now(), timestamp: Date.now(), type: vkPostType,
-        texts: vkPostType === 'text' && text ? [text] : [],
+        texts: ['text','history'].includes(vkPostType) && text ? [text] : [],
         images: ['image','art','design'].includes(vkPostType) ? vkPostImages.filter(i => !i.isAudio && !i.isVideo).map(i => i.data) : [],
         videos: vkPostType === 'video' ? vkPostImages.filter(i => i.isVideo).map(i => i.data) : [],
         audios: vkPostType === 'audio' ? vkPostImages.filter(i => i.isAudio).map(i => i.data) : [],
         audioTitles: vkPostType === 'audio' ? vkPostImages.filter(i => i.isAudio).map(i => i.title) : [],
-        caption: text,
-        tags: tags, subcategory: vkPostSubcategory,
-        collabUser: null, anonymous: false
+        caption: text, tags, subcategory: vkPostSubcategory, collabUser: null, anonymous: false
     };
     const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
     drafts.unshift(draft);
     localStorage.setItem('muse_drafts_' + currentUser.id, JSON.stringify(drafts));
     document.getElementById('draftSaveDialog').classList.remove('active');
     document.getElementById('vkPostCreationPage').classList.remove('active');
-    alert('Черновик сохранён!');
     navigate('drafts');
 }
 
@@ -1783,83 +1866,84 @@ function discardVKDraft() {
 }
 
 function selectVKPostType(type) {
+    const allowed = ['text','image','art','audio','video','design','history'];
+    if (!allowed.includes(type)) return;
     vkPostType = type;
-    document.querySelectorAll('.create-type-card').forEach(c => c.classList.remove('active'));
-    const selected = document.querySelector(`.create-type-card[data-type="${type}"]`);
-    if (selected) selected.classList.add('active');
-    const defaults={text:'Поэзия',image:'Портрет',art:'Живопись',audio:'Песня',video:'Клип',design:'Графика',history:'Личная история'}; vkPostSubcategory=defaults[type]||''; renderPostSubcategories();
-    const fileInput = document.getElementById('vkPostFileInput');
-    const accept = type === 'audio' ? 'audio/*' : type === 'video' ? 'video/*' : (type === 'text' || type === 'history') ? 'image/*' : 'image/*';
-    fileInput.accept = accept;
+    document.querySelectorAll('.create-type-card').forEach(c => c.classList.toggle('active', c.dataset.type === type));
+    const defaults={text:'Поэзия',image:'Портрет',art:'Живопись',audio:'Песня',video:'Клип',design:'Графика',history:'Личная история'};
+    vkPostSubcategory=defaults[type]||'';
+    renderPostSubcategories();
+    updateVKCreationUI();
+    renderVKPostGallery();
     checkVKPostContent();
 }
 
 function checkVKPostContent() {
-    const text = document.getElementById('vkPostTextarea').value.trim();
-    document.getElementById('vkPostNextBtn').disabled = !(text || vkPostImages.length > 0);
+    const text = document.getElementById('vkPostTextarea')?.value.trim() || '';
+    const hasMedia = vkPostImages.length > 0;
+    const textOnly = ['text','history'].includes(vkPostType);
+    const valid = textOnly ? !!text : hasMedia;
+    const btn = document.getElementById('vkPostNextBtn');
+    if (btn) btn.disabled = !valid;
 }
 
 function handleVKPostFiles(event) {
-    const files = Array.from(event.target.files);
-    if (files.length === 0) return;
+    const files = Array.from(event.target.files || []);
+    if (!files.length) return;
+    const expected = vkPostType;
     let processed = 0;
+    const finish = () => { processed++; if (processed === files.length) { renderVKPostGallery(); checkVKPostContent(); } };
+
     files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            if (vkPostType === 'audio') {
-                vkPostImages.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, ''), isAudio: true });
-                processed++;
-            } else if (vkPostType === 'video') {
-                vkPostImages.push({ data: e.target.result, title: file.name.replace(/\.[^/.]+$/, ''), isVideo: true });
-                processed++;
-            } else {
+        if (expected === 'audio') {
+            const reader = new FileReader();
+            reader.onload = e => { vkPostImages.push({data:e.target.result,title:file.name.replace(/\.[^/.]+$/,''),isAudio:true}); finish(); };
+            reader.readAsDataURL(file);
+        } else if (expected === 'video') {
+            const reader = new FileReader();
+            reader.onload = e => { vkPostImages.push({data:e.target.result,title:file.name.replace(/\.[^/.]+$/,''),isVideo:true}); finish(); };
+            reader.readAsDataURL(file);
+        } else {
+            const reader = new FileReader();
+            reader.onload = e => {
                 const img = new Image();
-                img.onload = function() {
+                img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const maxSize = 1200;
-                    let w = img.width, h = img.height;
-                    if (w > h && w > maxSize) { h = (h * maxSize) / w; w = maxSize; }
-                    else if (h > maxSize) { w = (w * maxSize) / h; h = maxSize; }
-                    canvas.width = w; canvas.height = h;
-                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                    vkPostImages.push({ data: canvas.toDataURL('image/jpeg', 0.85), isAudio: false });
-                    processed++;
-                    if (processed === files.length) { 
-                        renderVKPostGallery();
-                        checkVKPostContent();
-                    }
+                    const maxSize = 1600;
+                    let w=img.width,h=img.height;
+                    if (w>h && w>maxSize) { h=h*maxSize/w; w=maxSize; }
+                    else if (h>maxSize) { w=w*maxSize/h; h=maxSize; }
+                    canvas.width=Math.round(w); canvas.height=Math.round(h);
+                    canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+                    vkPostImages.push({data:canvas.toDataURL('image/jpeg',0.86),isAudio:false});
+                    finish();
                 };
-                img.src = e.target.result;
-            }
-        };
-        reader.readAsDataURL(file);
+                img.onerror = finish;
+                img.src=e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     });
-    if (vkPostType === 'audio') {
-        renderVKPostGallery();
-        checkVKPostContent();
-    }
-    event.target.value = '';
+    event.target.value='';
 }
 
 function renderVKPostGallery() {
     const gallery = document.getElementById('vkPostGallery');
-    let html = '<div class="vk-post-camera" onclick="document.getElementById(\'vkPostFileInput\').click()">';
-    html += '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
-    html += '</div>';
-    vkPostImages.forEach((item, i) => {
-        if (item.isAudio) {
-            html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-size: 12px; text-align: center; padding: 8px;">${item.title}</div>`;
-        } else if (item.isVideo) {
-            html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.12);color:#6d5dfc;font-size:12px;"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>&nbsp;Видео</div>`;
-        } else {
-            html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})"><img src="${item.data}"></div>`;
-        }
+    if (!gallery) return;
+    const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
+    if (!mediaType) { gallery.innerHTML=''; gallery.style.display='none'; return; }
+    let html = '<div class="vk-post-camera" onclick="document.getElementById(\'vkPostFileInput\').click()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>';
+    vkPostImages.forEach((item,i)=>{
+        if(item.isAudio) html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" title="Нажмите, чтобы удалить" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.1);color:#6d5dfc;font-size:11px;text-align:center;padding:8px;box-sizing:border-box">${item.title}</div>`;
+        else if(item.isVideo) html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" title="Нажмите, чтобы удалить" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.1);color:#6d5dfc;font-size:11px;text-align:center;padding:8px;box-sizing:border-box"><svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>&nbsp;Видео</div>`;
+        else html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" title="Нажмите, чтобы удалить"><img src="${item.data}" alt="Предпросмотр"></div>`;
     });
-    gallery.innerHTML = html;
+    gallery.innerHTML=html;
+    gallery.style.display='flex';
 }
 
 function removeVKPostImage(index) {
-    vkPostImages.splice(index, 1);
+    vkPostImages.splice(index,1);
     renderVKPostGallery();
     checkVKPostContent();
 }
@@ -1868,35 +1952,32 @@ function publishVKPost() {
     if (!currentUser) return;
     const text = document.getElementById('vkPostTextarea').value.trim();
     const tagsStr = document.getElementById('vkPostTags').value.trim();
-    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(t => t) : [];
-    
+    const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
+    const textOnly = ['text','history'].includes(vkPostType);
+    if (textOnly && !text) return;
+    if (!textOnly && !vkPostImages.length) return;
+
     let newPost = {
         id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username,
         avatar: currentUser.avatar, photo: currentUser.photo || null, timestamp: Date.now(),
-        type: vkPostType,
-        caption: text, tags: tags, subcategory: vkPostSubcategory, likes: 0, likedBy: [], comments: [], anonymous: false
+        type: vkPostType, caption: text, tags, subcategory: vkPostSubcategory, likes: 0, likedBy: [], comments: [], anonymous: false
     };
-    
-    if ((vkPostType === 'image' || vkPostType === 'art' || vkPostType === 'design') && vkPostImages.length > 0) {
-        newPost.images = vkPostImages.filter(i => !i.isAudio && !i.isVideo).map(i => i.data);
+    if (['image','art','design'].includes(vkPostType)) {
+        newPost.images = vkPostImages.filter(i=>!i.isAudio&&!i.isVideo).map(i=>i.data);
         newPost.category = vkPostType === 'image' ? 'photo' : vkPostType;
-    } else if (vkPostType === 'video' && vkPostImages.length > 0) {
-        newPost.videos = vkPostImages.filter(i => i.isVideo).map(i => i.data);
-        newPost.category = 'video';
-    } else if (vkPostType === 'audio' && vkPostImages.length > 0) {
-        newPost.audios = vkPostImages.filter(i => i.isAudio).map(i => i.data);
-        newPost.audioTitles = vkPostImages.filter(i => i.isAudio).map(i => i.title);
-        newPost.category = 'music';
-    } else if ((vkPostType === 'text' || vkPostType === 'history') && text) {
-        newPost.texts = [text];
-        newPost.category = vkPostType === 'history' ? 'history' : 'text';
+    } else if (vkPostType === 'video') {
+        newPost.videos = vkPostImages.filter(i=>i.isVideo).map(i=>i.data); newPost.category='video';
+    } else if (vkPostType === 'audio') {
+        newPost.audios = vkPostImages.filter(i=>i.isAudio).map(i=>i.data);
+        newPost.audioTitles = vkPostImages.filter(i=>i.isAudio).map(i=>i.title); newPost.category='music';
+    } else {
+        newPost.texts=[text]; newPost.category=vkPostType === 'history' ? 'history' : 'text';
     }
-    
-    const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
-    posts.unshift(newPost);
-    localStorage.setItem('muse_posts', JSON.stringify(posts));
-    checkAchievements();
+    const posts=JSON.parse(localStorage.getItem('muse_posts')||'[]');
+    posts.unshift(newPost); localStorage.setItem('muse_posts',JSON.stringify(posts));
+    vkPostImages=[];
     document.getElementById('vkPostCreationPage').classList.remove('active');
+    checkAchievements();
     navigate('home');
 }
 
