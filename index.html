@@ -540,6 +540,21 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
   .bottom-nav .nav-item.create-btn:active{transform:translate(-50%,-50%) scale(.94)!important}
   .bottom-nav{padding-top:8px!important;padding-bottom:8px!important;min-height:66px;box-sizing:border-box}
 }
+
+/* Final fixes: author avatar must stay inside its 44px circle; media picker must be visible. */
+.post-author-avatar{width:44px!important;height:44px!important;flex:0 0 44px!important;min-width:44px!important;min-height:44px!important;overflow:hidden!important;border-radius:50%!important;position:relative!important;box-sizing:border-box!important;}
+.post-author-avatar>img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important;border-radius:50%!important;}
+.post-author-avatar>span{display:flex!important;width:100%!important;height:100%!important;align-items:center!important;justify-content:center!important;border-radius:50%!important;box-sizing:border-box!important;}
+.vk-post-camera{width:92px!important;height:92px!important;min-width:92px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;}
+.vk-post-camera span{line-height:1.15;text-align:center;}
+@media(max-width:768px){
+ .bottom-nav{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 64px minmax(0,1fr) minmax(0,1fr)!important;gap:2px!important;align-items:center!important;justify-content:initial!important;padding:6px 6px!important;min-height:70px!important;height:70px!important;}
+ .bottom-nav .nav-item:not(.create-btn){grid-column:auto!important;grid-row:1!important;flex:none!important;width:auto!important;min-width:0!important;padding:6px 2px!important;gap:2px!important;}
+ .bottom-nav .nav-item svg{width:21px!important;height:21px!important;flex:none!important;}
+ .bottom-nav .nav-item span{font-size:9px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important;}
+ .bottom-nav .create-btn{position:static!important;grid-column:3!important;grid-row:1!important;justify-self:center!important;align-self:center!important;transform:none!important;width:54px!important;height:54px!important;min-width:54px!important;max-width:54px!important;margin:0!important;padding:0!important;}
+ .bottom-nav .create-btn:active{transform:scale(.94)!important;}
+}
 </style>
 </head>
 <body class="theme-light">
@@ -833,6 +848,7 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
         <div class="vk-post-camera" onclick="openPostCamera()">
             <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         </div>
+    <div class="vk-post-camera" onclick="openPostFilePicker()"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M7 15l3-3 2 2 3-4 3 5"/></svg><span style="font-size:10px;margin-top:5px;">Галерея / файл</span></div>
     </div>
     <input type="file" id="vkPostFileInput" accept="image/*,audio/*,video/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
     <input type="file" id="storyFileInput" accept="image/*,video/*,audio/*" style="display:none" onchange="handleStoryFile(event)">
@@ -2023,14 +2039,15 @@ function handleVKPostFiles(event) {
     event.target.value='';
 }
 
-function openPostCamera(){ if(vkPostType==='video') document.getElementById('cameraVideoInput')?.click(); else document.getElementById('cameraPhotoInput')?.click(); }
+function openPostCamera(){ if(vkPostType==='audio') document.getElementById('vkPostFileInput')?.click(); else if(vkPostType==='video') document.getElementById('cameraVideoInput')?.click(); else document.getElementById('cameraPhotoInput')?.click(); }
+function openPostFilePicker(){ document.getElementById('vkPostFileInput')?.click(); }
 
 function renderVKPostGallery() {
     const gallery = document.getElementById('vkPostGallery');
     if (!gallery) return;
     const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
     if (!mediaType) { gallery.innerHTML=''; gallery.style.display='none'; return; }
-    let html = '<div class="vk-post-camera" onclick="openPostCamera()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>';
+    let html = '<div class="vk-post-camera" onclick="openPostCamera()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span style="font-size:10px;margin-top:5px;">Камера</span></div><div class="vk-post-camera" onclick="openPostFilePicker()"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M7 15l3-3 2 2 3-4 3 5"/></svg><span style="font-size:10px;margin-top:5px;">Галерея / файл</span></div>';
     if (vkPostType === 'audio') html += '<button type="button" id="musicRecordBtn" class="music-record-btn" onclick="toggleMusicRecording()"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg><span>Записать голос</span></button><div id="music-record-status" class="music-record-status"></div>';
     vkPostImages.forEach((item,i)=>{
         if(item.isAudio) html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" title="Нажмите, чтобы удалить" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.1);color:#6d5dfc;font-size:11px;text-align:center;padding:8px;box-sizing:border-box">${item.title}</div>`;
@@ -2322,7 +2339,7 @@ function renderPostCard(post) {
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
         <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="openProfile('${post.authorId}')">
-            <div class="${hasActiveStories(post.authorId)?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;" onclick="event.stopPropagation();${hasActiveStories(post.authorId)?`openStories('${post.authorId}')`:''}">${(getUserById(post.authorId)?.photo) ? `<img src="${getUserById(post.authorId).photo}" alt="">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-weight:700;">${(getUserById(post.authorId)?.avatar || post.avatar || '?')}</span>`}</div>
+            <div class="post-author-avatar ${hasActiveStories(post.authorId)?'muse-story-ring':''}" style="width:44px;height:44px;flex:0 0 44px;" onclick="event.stopPropagation();${hasActiveStories(post.authorId)?`openStories('${post.authorId}')`:''}">${(getUserById(post.authorId)?.photo) ? `<img src="${getUserById(post.authorId).photo}" alt="">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-weight:700;">${(getUserById(post.authorId)?.avatar || post.avatar || '?')}</span>`}</div>
             <div style="flex: 1; min-width: 0;">
                 <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
                 <div style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
