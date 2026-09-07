@@ -520,6 +520,10 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
 .desktop-create-fab:active{transform:scale(.94)}
 .desktop-create-fab svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
 @media(max-width:700px){.desktop-create-fab{display:none}}
+
+.muse-story-ring{position:relative;border-radius:50%;padding:3px;background:linear-gradient(135deg,#ff4d8d,#7c5cff,#28c7fa);display:inline-flex;box-sizing:border-box}.muse-story-ring>span,.muse-story-ring>img{display:flex;width:100%;height:100%;border-radius:50%;border:3px solid var(--muse-surface,#fff);box-sizing:border-box;overflow:hidden;align-items:center;justify-content:center}.muse-story-ring>img{object-fit:cover}.story-picker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:min(520px,90%);margin:auto;color:white;text-align:center}.story-picker-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.story-picker-btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:12px 16px;cursor:pointer;font:inherit}.story-picker-btn.primary{background:#667eea;border-color:#667eea}.story-viewer{display:none;position:fixed;inset:0;background:#050507;z-index:5000;align-items:center;justify-content:center}.story-viewer.active{display:flex}.story-viewer-content{position:relative;width:min(480px,100vw);height:min(850px,100vh);background:#111;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center}.story-viewer-content img,.story-viewer-content video{width:100%;height:100%;object-fit:contain;background:#000}.story-viewer-content audio{width:calc(100% - 36px)}.story-viewer-close{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:24px;cursor:pointer}.story-viewer-meta{position:absolute;top:16px;left:16px;z-index:5;color:#fff;background:rgba(0,0,0,.45);padding:8px 12px;border-radius:14px;font-size:13px}.story-progress{position:absolute;top:8px;left:10px;right:10px;height:3px;background:rgba(255,255,255,.25);z-index:6;border-radius:4px;overflow:hidden}.story-progress i{display:block;height:100%;width:100%;background:#fff;transform-origin:left}
+
+.story-reaction-bar{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:center;gap:8px;z-index:7}.story-reaction{border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.48);backdrop-filter:blur(12px);color:#fff;border-radius:20px;padding:7px 10px;cursor:pointer}.story-reaction.active{background:rgba(109,93,252,.9);border-color:rgba(255,255,255,.5)}.story-reaction small{margin-left:4px;opacity:.85}.inspiration-card{margin-bottom:18px;padding:18px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(109,93,252,.13),rgba(40,199,250,.10));border:1px solid rgba(109,93,252,.18)}
 </style>
 </head>
 <body class="theme-light">
@@ -810,11 +814,14 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
     <div class="creation-hint" id="creationHint"></div>
     
     <div class="vk-post-gallery" id="vkPostGallery">
-        <div class="vk-post-camera" onclick="document.getElementById('vkPostFileInput').click()">
+        <div class="vk-post-camera" onclick="openPostCamera()">
             <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         </div>
     </div>
     <input type="file" id="vkPostFileInput" accept="image/*,audio/*,video/*" multiple style="display: none" onchange="handleVKPostFiles(event)">
+    <input type="file" id="storyFileInput" accept="image/*,video/*,audio/*" style="display:none" onchange="handleStoryFile(event)">
+    <input type="file" id="cameraPhotoInput" accept="image/*" capture="environment" style="display:none" onchange="handleCameraCapture(event,'photo')">
+    <input type="file" id="cameraVideoInput" accept="video/*" capture="environment" style="display:none" onchange="handleCameraCapture(event,'video')">
     
     <div class="vk-post-meta" style="padding: 20px;">
         <div class="input-group">
@@ -915,6 +922,16 @@ let vkPostImages = [];
 let vkPostText = '';
 let vkPostType = 'text';
 let isLoginMode = false;
+let storyDraft = null;
+let storyViewerStories = [];
+let storyViewerIndex = 0;
+let storyViewerTimer = null;
+let storyMediaRecorder = null;
+let storyRecordingType = null;
+let storyMediaChunks = [];
+let storyRecordingStream = null;
+let storyRecordingTimer = null;
+let storyRecordingStartedAt = 0;
 
 const challenges = [
     { week: 0, title: 'Песня без слов', desc: 'Создайте инструментальный трек', tag: '#без_слов', category: 'music' },
@@ -933,7 +950,19 @@ const achievements = [
     { id: 'hundred_likes', name: 'Звезда', desc: 'Получите 100 лайков', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z\"/></svg>', check: (u) => getUserTotalLikes(u.id) >= 100 },
     { id: 'ten_followers', name: 'Влиятельный', desc: '10 подписчиков', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><circle cx=\"9\" cy=\"8\" r=\"3\"/><path d=\"M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5\"/><path d=\"M16 5a3 3 0 0 1 0 6M17 15c2.2.6 3.5 2.1 3.5 5\"/></svg>', check: (u) => (u.followers || []).length >= 10 },
     { id: 'first_comment', name: 'Комментатор', desc: 'Напишите первый комментарий', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M4 5h16v11H8l-4 4z\"/><path d=\"M8 9h8M8 12h5\"/></svg>', check: (u) => getUserComments(u.name).length >= 1 },
-    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M4 5h16v11H8l-4 4z\"/></svg>', check: (u) => getUserComments(u.name).length >= 10 }
+    { id: 'ten_comments', name: 'Собеседник', desc: '10 комментариев', icon: '<svg class=\"svg-icon\" viewBox=\"0 0 24 24\"><path d=\"M4 5h16v11H8l-4 4z\"/></svg>', check: (u) => getUserComments(u.name).length >= 10 },
+    { id:'five_posts', name:'Разогрев', desc:'5 публикаций', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h6"/></svg>', check:u=>getUserPosts(u.id).length>=5 },
+    { id:'first_story', name:'Первый кадр', desc:'Опубликуйте первую историю', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>', check:u=>getStories().some(s=>s.authorId===u.id) },
+    { id:'three_stories', name:'На связи', desc:'Опубликуйте 3 истории', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>', check:u=>getStories().filter(s=>s.authorId===u.id).length>=3 },
+    { id:'first_audio', name:'Голос автора', desc:'Опубликуйте аудио', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/></svg>', check:u=>getUserPosts(u.id).some(p=>p.category==='music'||p.type==='audio') },
+    { id:'first_video', name:'В движении', desc:'Опубликуйте видео', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>', check:u=>getUserPosts(u.id).some(p=>p.category==='video'||p.type==='video') },
+    { id:'twenty_likes', name:'Эхо', desc:'Получите 20 лайков', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 10.4-8.8 10.4S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6a4.6 4.6 0 0 1 8.8 2.6z"/></svg>', check:u=>getUserTotalLikes(u.id)>=20 },
+    { id:'five_followers', name:'Первые зрители', desc:'5 подписчиков', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/></svg>', check:u=>(u.followers||[]).length>=5 },
+    { id:'twenty_comments', name:'Диалог', desc:'20 комментариев', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>', check:u=>getUserComments(u.name).length>=20 },
+    { id:'ten_days', name:'Ритм', desc:'10 публикаций за всё время', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>', check:u=>getUserPosts(u.id).length>=10 },
+    { id:'secret_night', name:'Полуночник', desc:'Секретное достижение', secret:true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 15.5A8 8 0 0 1 8.5 4 8 8 0 1 0 20 15.5z"/></svg>', check:u=>{const h=new Date().getHours();return h>=0&&h<5&&getUserPosts(u.id).length>=1;} },
+    { id:'secret_story_trio', name:'Трижды в историю', desc:'Секретное достижение', secret:true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg>', check:u=>getStories().filter(s=>s.authorId===u.id).length>=10 },
+    { id:'secret_perfection', name:'Безмолвный мастер', desc:'Секретное достижение', secret:true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3z"/></svg>', check:u=>getUserPosts(u.id).length>=25&&getUserTotalLikes(u.id)>=50 }
 ];
 
 const samplePosts = [
@@ -1140,6 +1169,8 @@ function checkAchievements() {
 
 function toggleProfileAchievement(achId) {
     if (!currentUser) return;
+    const meNow = getUsers().find(u => u.id === currentUser.id);
+    if (!meNow || !(meNow.achievements || []).includes(achId)) return;
     const users = getUsers();
     const me = users.find(u => u.id === currentUser.id);
     if (!me.displayedAchievements) me.displayedAchievements = [];
@@ -1174,12 +1205,65 @@ function getCommentsForPost(postId) {
 function getStories() {
     const saved = JSON.parse(localStorage.getItem('muse_stories') || '[]');
     const now = Date.now();
-    const dayAgo = now - 86400000;
-    const freshStories = saved.filter(s => s.time > dayAgo);
-    if (saved.length !== freshStories.length) localStorage.setItem('muse_stories', JSON.stringify(freshStories));
-    return freshStories;
+    const fresh = saved.filter(s => (s.createdAt || s.time || 0) > now - 86400000);
+    if (fresh.length !== saved.length) localStorage.setItem('muse_stories', JSON.stringify(fresh));
+    return fresh;
 }
-
+function hasActiveStories(userId){ return getStories().some(s=>s.authorId===userId); }
+function getUserStories(userId){ return getStories().filter(s=>s.authorId===userId).sort((a,b)=>(a.createdAt||a.time)-(b.createdAt||b.time)); }
+function getStoryReactions(){ return JSON.parse(localStorage.getItem('muse_story_reactions') || '{}'); }
+function toggleStoryReaction(reaction){
+    if(!currentUser) { showFullAuth('login'); return; }
+    const story=storyViewerStories[storyViewerIndex]; if(!story)return;
+    const all=getStoryReactions(); const mine=all[story.id]?.[currentUser.id];
+    if(mine===reaction){ delete all[story.id][currentUser.id]; } else { all[story.id]=all[story.id]||{}; all[story.id][currentUser.id]=reaction; const author=getUserById(story.authorId); if(author&&author.id!==currentUser.id) addNotification('story_reaction',currentUser,null,reaction,author.id); }
+    localStorage.setItem('muse_story_reactions',JSON.stringify(all)); renderCurrentStory();
+}
+function getStoryReactionCounts(storyId){ const r=getStoryReactions()[storyId]||{}; return Object.values(r).reduce((a,x)=>(a[x]=(a[x]||0)+1,a),{}); }
+function openStories(userId){ const stories=getUserStories(userId); if(!stories.length)return; storyViewerStories=stories;storyViewerIndex=0; if(!document.getElementById('storyViewer')) document.body.insertAdjacentHTML('beforeend',`<div id="storyViewer" class="story-viewer" onclick="if(event.target===this)closeStoryViewer()"><div class="story-viewer-content"><div class="story-progress"><i id="storyProgressBar"></i></div><div class="story-viewer-meta" id="storyViewerMeta"></div><button class="story-viewer-close" onclick="closeStoryViewer()">×</button><div id="storyViewerMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div><div id="storyReactionBar" class="story-reaction-bar"></div></div></div>`); document.getElementById('storyViewer').classList.add('active');renderCurrentStory(); }
+function renderCurrentStory(){ const story=storyViewerStories[storyViewerIndex];if(!story)return closeStoryViewer();const user=getUserById(story.authorId)||{name:story.author||'Автор'};document.getElementById('storyViewerMeta').textContent=user.name;const m=document.getElementById('storyViewerMedia');if(story.type==='video')m.innerHTML=`<video src="${story.data}" autoplay playsinline controls></video>`;else if(story.type==='audio')m.innerHTML=`<audio src="${story.data}" controls autoplay></audio>`;else m.innerHTML=`<img src="${story.data}" alt="История">`;const counts=getStoryReactionCounts(story.id);const mine=currentUser?(getStoryReactions()[story.id]||{})[currentUser.id]:null;const rb=document.getElementById('storyReactionBar');if(rb)rb.innerHTML=['Нравится','Вау','Огонь','Аплодисменты'].map(x=>`<button class="story-reaction ${mine===x?'active':''}" onclick="event.stopPropagation();toggleStoryReaction('${x}')">${x}<small>${counts[x]||0}</small></button>`).join('');const b=document.getElementById('storyProgressBar');b.style.transition='none';b.style.transform='scaleX(0)';clearTimeout(storyViewerTimer);let duration=5000;if(story.type==='video'){const v=m.querySelector('video');if(v){v.onended=()=>advanceStory();duration=30000;}}else if(story.type==='audio'){const a=m.querySelector('audio');if(a){a.onended=()=>advanceStory();duration=30000;}}setTimeout(()=>{b.style.transition=`transform ${duration/1000}s linear`;b.style.transform='scaleX(1)'},30);storyViewerTimer=setTimeout(()=>advanceStory(),duration); }
+function advanceStory(){clearTimeout(storyViewerTimer);storyViewerTimer=null;storyViewerIndex++;storyViewerIndex<storyViewerStories.length?renderCurrentStory():closeStoryViewer();}
+function closeStoryViewer(){clearTimeout(storyViewerTimer);storyViewerTimer=null;const v=document.getElementById('storyViewer');if(v)v.classList.remove('active');const m=document.getElementById('storyViewerMedia');if(m)m.innerHTML='';}
+function openStoryFilePicker(){document.getElementById('storyFileInput')?.click();}
+function openStoryCamera(kind){
+    if(kind==='photo') document.getElementById('cameraPhotoInput')?.click();
+    else if(kind==='video') document.getElementById('cameraVideoInput')?.click();
+}
+function handleCameraCapture(event, kind){
+    const file=event.target.files[0]; if(!file)return;
+    const r=new FileReader(); r.onload=e=>{
+        if(vkPostType==='history') { storyDraft={type:kind,data:e.target.result,title:kind==='photo'?'Снимок с камеры':'Видео с камеры'}; updateVKCreationUI(); }
+        else { vkPostImages.push({data:e.target.result,title:kind==='photo'?'Снимок с камеры':'Видео с камеры',isVideo:kind==='video'}); renderVKPostGallery(); checkVKPostContent(); }
+    }; r.readAsDataURL(file); event.target.value='';
+}
+function handleStoryFile(event){const file=event.target.files[0];if(!file||!currentUser)return;const type=file.type.startsWith('video/')?'video':file.type.startsWith('audio/')?'audio':file.type.startsWith('image/')?'image':null;if(!type){alert('Можно добавить только фото, короткое видео или аудио.');return}if(file.size>8*1024*1024){alert('Файл истории слишком большой. Выберите файл до 8 МБ.');event.target.value='';return}const r=new FileReader();r.onload=e=>{storyDraft={type,data:e.target.result,title:file.name};updateVKCreationUI()};r.readAsDataURL(file);event.target.value='';}
+async function startStoryVideoRecording(){
+    if(storyMediaRecorder)return;
+    if(!navigator.mediaDevices?.getUserMedia){alert('Камера недоступна в этом браузере.');return;}
+    try{
+        const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:true});
+        storyRecordingStream=stream; storyMediaChunks=[]; storyRecordingStartedAt=Date.now(); storyRecordingType='video';
+        storyMediaRecorder=new MediaRecorder(stream);
+        storyMediaRecorder.ondataavailable=e=>{if(e.data?.size)storyMediaChunks.push(e.data)};
+        storyMediaRecorder.onstop=()=>{const blob=new Blob(storyMediaChunks,{type:storyMediaChunks[0]?.type||'video/webm'});const r=new FileReader();r.onload=e=>{storyDraft={type:'video',data:e.target.result,title:'Видео с камеры'};updateVKCreationUI()};r.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop());storyRecordingStream=null;storyMediaRecorder=null;storyRecordingType=null;clearInterval(storyRecordingTimer);storyRecordingTimer=null;};
+        storyMediaRecorder.start(250); updateVKCreationUI();
+        setTimeout(()=>{if(storyMediaRecorder) stopStoryVideoRecording();},30000);
+        storyRecordingTimer=setInterval(()=>updateVKCreationUI(),500);
+    }catch(e){alert('Не удалось открыть камеру и микрофон. Разрешите доступ для сайта.');if(storyRecordingStream)storyRecordingStream.getTracks().forEach(t=>t.stop());storyRecordingStream=null;storyMediaRecorder=null;storyRecordingType=null;}
+}
+function stopStoryVideoRecording(){if(storyMediaRecorder&&storyMediaRecorder.state!=='inactive')storyMediaRecorder.stop();}
+async function toggleStoryAudioRecording(){
+    if(storyMediaRecorder){ if(storyRecordingType==='audio') stopStoryVideoRecording(); return; }
+    if(!navigator.mediaDevices?.getUserMedia){alert('Микрофон недоступен в этом браузере.');return;}
+    try{
+        const stream=await navigator.mediaDevices.getUserMedia({audio:true}); storyRecordingStream=stream;storyMediaChunks=[];storyRecordingStartedAt=Date.now();
+        storyMediaRecorder=new MediaRecorder(stream);
+        storyMediaRecorder.ondataavailable=e=>{if(e.data?.size)storyMediaChunks.push(e.data)};
+        storyMediaRecorder.onstop=()=>{const blob=new Blob(storyMediaChunks,{type:storyMediaChunks[0]?.type||'audio/webm'});const r=new FileReader();r.onload=e=>{storyDraft={type:'audio',data:e.target.result,title:'Аудио с микрофона'};updateVKCreationUI()};r.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop());storyRecordingStream=null;storyMediaRecorder=null;storyRecordingType=null;clearInterval(storyRecordingTimer);storyRecordingTimer=null;};
+        storyMediaRecorder.start(250);updateVKCreationUI();setTimeout(()=>{if(storyMediaRecorder) stopStoryVideoRecording();},30000);storyRecordingTimer=setInterval(()=>updateVKCreationUI(),500);
+    }catch(e){alert('Не удалось получить доступ к микрофону. Разрешите микрофон для сайта.');storyMediaRecorder=null;}
+}
+function publishStory(){if(!currentUser||!storyDraft)return;const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,avatar:currentUser.avatar,photo:currentUser.photo||null,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;checkAchievements();document.getElementById('vkPostCreationPage').classList.remove('active');navigate('home');}
 function getNotifications() {
     if (!currentUser) return [];
     return JSON.parse(localStorage.getItem('muse_notifications_' + currentUser.id) || '[]');
@@ -1223,6 +1307,7 @@ function getCurrentWeekChallenge() {
 function ensureSamplePosts() { const stored = JSON.parse(localStorage.getItem('muse_posts') || '[]'); const ids = new Set(stored.map(p => String(p.id))); let changed = false; samplePosts.forEach(p => { if (!ids.has(String(p.id))) { stored.push({...p, likedBy: []}); changed = true; } }); if (changed) localStorage.setItem('muse_posts', JSON.stringify(stored)); }
 function getAllPosts() { return JSON.parse(localStorage.getItem('muse_posts') || '[]'); }
 
+function getInspirationOfDay(){ const prompts=['Сделай работу из одного цвета.','Опиши сегодняшний день пятью предложениями.','Создай то, что обычно откладываешь.','Покажи процесс, а не только результат.','Возьми случайное слово и преврати его в работу.','Сделай что-то за 15 минут и не редактируй.','Расскажи историю через один кадр.']; return prompts[Math.floor(Date.now()/86400000)%prompts.length]; }
 function renderFeed(container) {
     const currentChallenge = getCurrentWeekChallenge();
     
@@ -1245,6 +1330,7 @@ function renderFeed(container) {
             <p>${currentChallenge.desc}</p>
             <span class="challenge-tag">Для музыкантов • ${currentChallenge.tag}</span>
         </div>
+        <div class="inspiration-card"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.65;margin-bottom:6px">Вдохновение дня</div><div style="font-size:16px;font-weight:700">${getInspirationOfDay()}</div></div>
     `;
     
     const allPosts = getAllPosts().sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
@@ -1299,10 +1385,7 @@ function renderProfile(container) {
     const userStories = getStories().filter(s => s.authorId === userId);
 
     let html = `<div class="profile-header" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 20px;">
-        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 700; box-shadow: 0 8px 32px rgba(102,126,234,0.4); overflow: hidden; cursor: pointer; position: relative;" onclick="${user.photo ? `openPhotoViewer('${user.photo}')` : ''}">
-            ${user.photo ? `<img src="${user.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : user.avatar}
-            ${userStories.length > 0 ? '<div style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; border: 3px solid white;">' + userStories.length + '</div>' : ''}
-        </div>
+        <div class="${userStories.length ? 'muse-story-ring' : ''}" style="width:120px;height:120px;margin:0 auto 20px;" onclick="${userStories.length ? `openStories('${userId}')` : ''}">${user.photo ? `<img src="${user.photo}">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:48px;font-weight:700;">${user.avatar}</span>`}</div>
         <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${user.name}</div>
         <div style="font-size: 16px; color: #888; margin-bottom: 24px;">${user.username}</div>
         
@@ -1591,6 +1674,7 @@ function renderNotifications(container) {
         if (notif.type === 'like') text = `<b>${notif.fromUserName}</b> оценил ваш пост`;
         else if (notif.type === 'comment') text = `<b>${notif.fromUserName}</b> прокомментировал: "${notif.commentText.substring(0, 50)}${notif.commentText.length > 50 ? '...' : ''}"`;
         else if (notif.type === 'follow') text = `<b>${notif.fromUserName}</b> подписался на вас`;
+        else if (notif.type === 'story_reaction') text = `<b>${notif.fromUserName}</b> отреагировал на вашу историю: ${notif.commentText || 'реакция'}`;
         return `<div class="notification-item ${notif.read ? '' : 'unread'}" onclick="handleNotifClick(${notif.id})">
             <div class="notification-avatar">${notif.fromUserPhoto ? `<img src="${notif.fromUserPhoto}">` : notif.fromUserAvatar}</div>
             <div class="notification-content">
@@ -1809,6 +1893,11 @@ function updateVKCreationUI() {
     if (!textarea || !gallery || !input) return;
 
     const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
+    if(vkPostType==='history'){
+      textarea.style.display='none'; input.style.display='none'; gallery.style.display='flex';
+      gallery.innerHTML=`<div class="story-picker"><div style="font-size:18px;font-weight:700">Новая история</div><div style="opacity:.75;font-size:13px">Фото, короткое видео или аудио. История живёт 24 часа и не попадает в ленту.</div><div class="story-picker-actions"><button type="button" class="story-picker-btn primary" onclick="openStoryCamera('photo')">Снять фото</button><button type="button" class="story-picker-btn" onclick="${storyMediaRecorder?(storyRecordingType==='video'?'stopStoryVideoRecording()':''): 'startStoryVideoRecording()'}">${storyMediaRecorder?(storyRecordingType==='video'?'Остановить видео':'Видео недоступно во время записи'):'Снять видео'}</button><button type="button" class="story-picker-btn" onclick="toggleStoryAudioRecording()">${storyMediaRecorder?(storyRecordingType==='audio'?'Остановить запись':'Аудио недоступно во время записи'):'Записать аудио'}</button><button type="button" class="story-picker-btn" onclick="openStoryFilePicker()">Выбрать файл</button>${storyDraft?`<button type="button" class="story-picker-btn" onclick="publishStory()">Опубликовать</button>`:''}</div>${storyMediaRecorder?`<div style="font-size:12px;color:#e53935;font-weight:700">Идёт запись ${Math.floor((Date.now()-storyRecordingStartedAt)/1000)} с</div>`:''}${storyDraft?`<div style="font-size:12px;opacity:.7">Выбрано: ${storyDraft.title||storyDraft.type}</div>`:''}</div>`; if(hint)hint.textContent='История автоматически исчезнет через 24 часа.'; return;
+    }
+    textarea.style.display='block';
     const config = {
       text:    {placeholder:'Напишите стих, рассказ или эссе...', hint:'Текстовая публикация. Добавьте заголовок в самом тексте, если он нужен.'},
       history: {placeholder:'Расскажите свою историю...', hint:'Личная история, воспоминание или хроника.'},
@@ -1886,6 +1975,7 @@ function discardVKDraft() {
 }
 
 function selectVKPostType(type) {
+    storyDraft=null;
     const allowed = ['text','image','art','audio','video','design','history'];
     if (!allowed.includes(type)) return;
     vkPostType = type;
@@ -1901,7 +1991,7 @@ function selectVKPostType(type) {
 function checkVKPostContent() {
     const text = document.getElementById('vkPostTextarea')?.value.trim() || '';
     const hasMedia = vkPostImages.length > 0;
-    const textOnly = ['text','history'].includes(vkPostType);
+    const textOnly = ['text'].includes(vkPostType);
     const valid = textOnly ? !!text : hasMedia;
     const btn = document.getElementById('vkPostNextBtn');
     if (btn) btn.disabled = !valid;
@@ -1947,12 +2037,14 @@ function handleVKPostFiles(event) {
     event.target.value='';
 }
 
+function openPostCamera(){ if(vkPostType==='audio'){document.getElementById('vkPostFileInput')?.click();return;} if(vkPostType==='video') document.getElementById('cameraVideoInput')?.click(); else document.getElementById('cameraPhotoInput')?.click(); }
+
 function renderVKPostGallery() {
     const gallery = document.getElementById('vkPostGallery');
     if (!gallery) return;
     const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
     if (!mediaType) { gallery.innerHTML=''; gallery.style.display='none'; return; }
-    let html = '<div class="vk-post-camera" onclick="document.getElementById(\'vkPostFileInput\').click()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>';
+    let html = '<div class="vk-post-camera" onclick="openPostCamera()"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>';
     if (vkPostType === 'audio') html += '<button type="button" id="musicRecordBtn" class="music-record-btn" onclick="toggleMusicRecording()"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg><span>Записать голос</span></button><div id="music-record-status" class="music-record-status"></div>';
     vkPostImages.forEach((item,i)=>{
         if(item.isAudio) html += `<div class="vk-post-gallery-item selected" onclick="removeVKPostImage(${i})" title="Нажмите, чтобы удалить" style="display:flex;align-items:center;justify-content:center;background:rgba(109,93,252,.1);color:#6d5dfc;font-size:11px;text-align:center;padding:8px;box-sizing:border-box">${item.title}</div>`;
@@ -1988,7 +2080,8 @@ function publishVKPost() {
     const text = document.getElementById('vkPostTextarea').value.trim();
     const tagsStr = document.getElementById('vkPostTags').value.trim();
     const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
-    const textOnly = ['text','history'].includes(vkPostType);
+    if(vkPostType==='history'){publishStory();return;}
+    const textOnly = ['text'].includes(vkPostType);
     if (textOnly && !text) return;
     if (!textOnly && !vkPostImages.length) return;
 
@@ -2187,6 +2280,15 @@ function getTimeAgo(timestamp) {
 }
 
 function renderPostCard(post) {
+    // Автор публикации всегда берётся из актуального профиля.
+    // Старые поля post.photo/post.avatar могли содержать снимок профиля,
+    // сохранённый в момент создания публикации, из-за чего чужая/текущая
+    // аватарка могла появляться в ленте и на странице автора.
+    const postAuthor = getUserById(post.authorId) || {};
+    const authorName = post.author || postAuthor.name || 'Автор';
+    const authorHandle = post.handle || postAuthor.handle || '';
+    const authorPhoto = (typeof postAuthor.photo === 'string' && postAuthor.photo.trim()) ? postAuthor.photo : null;
+    const authorInitial = (postAuthor.name || authorName || '?').charAt(0).toUpperCase();
     let mediaHtml = '';
     const allItems = post.type === 'image' || post.category === 'photo' || post.category === 'art' || post.category === 'design' ? (post.images || []) : post.type === 'video' || post.category === 'video' ? (post.videos || []) : post.type === 'text' || post.category === 'text' || post.category === 'history' ? (post.texts || []) : post.type === 'audio' || post.category === 'music' ? (post.audios || []) : [];
     const likedBy = Array.isArray(post.likedBy) ? post.likedBy : [];
@@ -2226,10 +2328,10 @@ function renderPostCard(post) {
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
         <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="openProfile('${post.authorId}')">
-            <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(102,126,234,0.3); cursor: pointer;" onclick="event.stopPropagation(); ${post.photo ? `openPhotoViewer('${post.photo}')` : ''}">${post.photo ? `<img src="${post.photo}" style="width: 100%; height: 100%; object-fit: cover;">` : post.avatar}</div>
+            <div class="${hasActiveStories(post.authorId)?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;" onclick="event.stopPropagation();${hasActiveStories(post.authorId)?`openStories('${post.authorId}')`:''}">${authorPhoto?`<img src="${authorPhoto}" alt="">`:`<span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-weight:700;">${authorInitial}</span>`}</div>
             <div style="flex: 1; min-width: 0;">
-                <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
-                <div style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
+                <div style="font-weight: 700; font-size: 15px;">${authorName}${collabBadge}</div>
+                <div style="color: #888; font-size: 13px; font-weight: 500;">${authorHandle}${anonymousBadge}</div>
             </div>
             ${isOwnPost ? `<button onclick="event.stopPropagation(); togglePostMenu(${post.id})" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #888;"></button>` : ''}
         </div>
