@@ -548,13 +548,35 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
 .vk-post-camera{width:92px!important;height:92px!important;min-width:92px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;}
 .vk-post-camera span{line-height:1.15;text-align:center;}
 @media(max-width:768px){
- .bottom-nav{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 64px minmax(0,1fr) minmax(0,1fr)!important;gap:2px!important;align-items:center!important;justify-content:initial!important;padding:6px 6px!important;min-height:70px!important;height:70px!important;}
- .bottom-nav .nav-item:not(.create-btn){grid-column:auto!important;grid-row:1!important;flex:none!important;width:auto!important;min-width:0!important;padding:6px 2px!important;gap:2px!important;}
- .bottom-nav .nav-item svg{width:21px!important;height:21px!important;flex:none!important;}
- .bottom-nav .nav-item span{font-size:9px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important;}
- .bottom-nav .create-btn{position:static!important;grid-column:3!important;grid-row:1!important;justify-self:center!important;align-self:center!important;transform:none!important;width:54px!important;height:54px!important;min-width:54px!important;max-width:54px!important;margin:0!important;padding:0!important;}
+ .bottom-nav{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:0!important;align-items:center!important;justify-content:stretch!important;padding:5px 4px!important;min-height:72px!important;height:72px!important;box-sizing:border-box!important;}
+ .bottom-nav .nav-item{grid-row:1!important;min-width:0!important;width:100%!important;max-width:none!important;flex:none!important;padding:5px 1px!important;gap:2px!important;box-sizing:border-box!important;}
+ .bottom-nav .nav-item:nth-child(1){grid-column:1!important;}
+ .bottom-nav .nav-item:nth-child(2){grid-column:2!important;}
+ .bottom-nav .nav-item.create-btn{grid-column:3!important;position:static!important;justify-self:center!important;align-self:center!important;transform:none!important;width:54px!important;height:54px!important;min-width:54px!important;max-width:54px!important;margin:0!important;padding:0!important;}
+ .bottom-nav .nav-item:nth-child(4){grid-column:4!important;}
+ .bottom-nav .nav-item:nth-child(5){grid-column:5!important;}
+ .bottom-nav .nav-item svg{width:20px!important;height:20px!important;flex:none!important;}
+ .bottom-nav .nav-item span{display:block!important;font-size:8.5px!important;line-height:1!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important;}
+ .bottom-nav .create-btn span{display:none!important;}
  .bottom-nav .create-btn:active{transform:scale(.94)!important;}
 }
+
+/* Story creation controls must remain visible on the light post sheet. */
+.story-picker{color:var(--muse-text,#1b1b24)!important;padding:24px 8px;box-sizing:border-box;}
+.story-picker-actions{width:100%;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important;}
+.story-picker-btn{min-height:48px!important;border:1px solid var(--muse-border,#dedee8)!important;background:var(--muse-surface-2,#f5f4fa)!important;color:var(--muse-text,#1b1b24)!important;font-weight:650!important;}
+.story-picker-btn.primary{background:var(--muse-accent,#6d5dfc)!important;color:#fff!important;border-color:var(--muse-accent,#6d5dfc)!important;}
+body.theme-dark .story-picker{color:#f2f3ff!important;}
+body.theme-dark .story-picker-btn{background:#22263d!important;color:#f2f3ff!important;border-color:rgba(255,255,255,.12)!important;}
+body.theme-dark .story-picker-btn.primary{background:#6d5dfc!important;color:#fff!important;}
+@media(max-width:480px){.story-picker-actions{grid-template-columns:1fr!important;}.story-picker-btn{width:100%!important;}}
+
+/* Never allow a profile avatar image to become a full-size image in the feed. */
+#mainContent .post-author-avatar{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;min-height:44px!important;max-height:44px!important;overflow:hidden!important;}
+#mainContent .post-author-avatar img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important;}
+#mainContent .post-card{overflow:hidden!important;}
+
+.story-draft-preview{width:min(340px,100%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;opacity:.9}.story-draft-preview img,.story-draft-preview video{max-width:100%;max-height:260px;border-radius:14px;object-fit:contain}.story-draft-preview audio{width:100%;}
 </style>
 </head>
 <body class="theme-light">
@@ -1007,6 +1029,7 @@ window.onload = function() {
             applyTheme(userSettings.theme);
         }
     }
+    sanitizeStoredPosts();
     navigate('home');
 };
 
@@ -1268,7 +1291,7 @@ async function toggleStoryAudioRecording(){
         storyMediaRecorder.start(250);updateVKCreationUI();storyRecordingTimer=setInterval(()=>updateVKCreationUI(),500);
     }catch(e){alert('Не удалось получить доступ к микрофону. Разрешите микрофон для сайта.');storyMediaRecorder=null;}
 }
-function publishStory(){if(!currentUser||!storyDraft)return;const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,avatar:currentUser.avatar,photo:currentUser.photo||null,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;document.getElementById('vkPostCreationPage').classList.remove('active');navigate('home');}
+function publishStory(){if(!currentUser||!storyDraft)return;const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,avatar:currentUser.avatar,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;document.getElementById('vkPostCreationPage').classList.remove('active');navigate('home');}
 function getNotifications() {
     if (!currentUser) return [];
     return JSON.parse(localStorage.getItem('muse_notifications_' + currentUser.id) || '[]');
@@ -1897,7 +1920,7 @@ function updateVKCreationUI() {
     const mediaType = ['image','art','audio','video','design'].includes(vkPostType);
     if(vkPostType==='history'){
       textarea.style.display='none'; input.style.display='none'; gallery.style.display='flex';
-      gallery.innerHTML=`<div class="story-picker"><div style="font-size:18px;font-weight:700">Новая история</div><div style="opacity:.75;font-size:13px">Фото, короткое видео или аудио. История живёт 24 часа и не попадает в ленту.</div><div class="story-picker-actions"><button type="button" class="story-picker-btn primary" onclick="openStoryCamera('photo')">Снять фото</button><button type="button" class="story-picker-btn" onclick="storyMediaRecorder?stopStoryVideoRecording():startStoryVideoRecording()">${storyMediaRecorder?'Остановить видео':'Снять видео'}</button><button type="button" class="story-picker-btn" onclick="toggleStoryAudioRecording()">${storyMediaRecorder?'Остановить запись':'Записать аудио'}</button><button type="button" class="story-picker-btn" onclick="openStoryFilePicker()">Выбрать файл</button>${storyDraft?`<button type="button" class="story-picker-btn" onclick="publishStory()">Опубликовать</button>`:''}</div>${storyMediaRecorder?`<div style="font-size:12px;color:#e53935;font-weight:700">Идёт запись ${Math.floor((Date.now()-storyRecordingStartedAt)/1000)} с</div>`:''}${storyDraft?`<div style="font-size:12px;opacity:.7">Выбрано: ${storyDraft.title||storyDraft.type}</div>`:''}</div>`; if(hint)hint.textContent='История автоматически исчезнет через 24 часа.'; return;
+      gallery.innerHTML=`<div class="story-picker"><div style="font-size:18px;font-weight:700">Новая история</div><div style="opacity:.75;font-size:13px">Фото, короткое видео или аудио. История живёт 24 часа и не попадает в ленту.</div><div class="story-picker-actions"><button type="button" class="story-picker-btn primary" onclick="openStoryCamera('photo')">Снять фото</button><button type="button" class="story-picker-btn" onclick="storyMediaRecorder?stopStoryVideoRecording():startStoryVideoRecording()">${storyMediaRecorder?'Остановить видео':'Снять видео'}</button><button type="button" class="story-picker-btn" onclick="toggleStoryAudioRecording()">${storyMediaRecorder?'Остановить запись':'Записать аудио'}</button><button type="button" class="story-picker-btn" onclick="openStoryFilePicker()">Выбрать файл</button>${storyDraft?`<button type="button" class="story-picker-btn" onclick="publishStory()">Опубликовать</button>`:''}</div>${storyMediaRecorder?`<div style="font-size:12px;color:#e53935;font-weight:700">Идёт запись ${Math.floor((Date.now()-storyRecordingStartedAt)/1000)} с</div>`:''}${storyDraft?`<div class="story-draft-preview">${storyDraft.type==='image'?`<img src="${storyDraft.data}" alt="Предпросмотр">`:storyDraft.type==='video'?`<video src="${storyDraft.data}" controls playsinline></video>`:`<audio src="${storyDraft.data}" controls></audio>`}<div>${storyDraft.title||storyDraft.type}</div></div>`:''}</div>`; if(hint)hint.textContent='История автоматически исчезнет через 24 часа.'; return;
     }
     textarea.style.display='block';
     const config = {
@@ -2105,7 +2128,9 @@ function publishVKPost() {
         newPost.texts=[text]; newPost.category=vkPostType === 'history' ? 'history' : 'text';
     }
     const posts=JSON.parse(localStorage.getItem('muse_posts')||'[]');
-    posts.unshift(newPost); localStorage.setItem('muse_posts',JSON.stringify(posts));
+    posts.unshift(newPost);
+    try{ localStorage.setItem('muse_posts',JSON.stringify(posts)); }
+    catch(e){ alert('Не удалось сохранить публикацию. Возможно, хранилище браузера переполнено. Удалите старые черновики или публикации и попробуйте снова.'); return; }
     vkPostImages=[];
     document.getElementById('vkPostCreationPage').classList.remove('active');
     checkAchievements();
@@ -2286,16 +2311,24 @@ function getTimeAgo(timestamp) {
 
 function cleanLegacyPostAvatar(post){
     if(!post) return post;
-    const author = getUserById(post.authorId);
-    const profilePhoto = author && author.photo;
-    if(profilePhoto){
-        if(Array.isArray(post.images)) post.images = post.images.filter(x => x !== profilePhoto);
-        if(Array.isArray(post.videos)) post.videos = post.videos.filter(x => x !== profilePhoto);
-        if(post.photo === profilePhoto) delete post.photo;
-    } else if(post.photo){
-        delete post.photo;
-    }
+    const users=getUsers();
+    const profilePhotos=new Set(users.map(u=>u&&u.photo).filter(Boolean));
+    const author=getUserById(post.authorId);
+    if(author?.photo) profilePhotos.add(author.photo);
+    ['images','videos','audios'].forEach(key=>{
+        if(Array.isArray(post[key])) post[key]=post[key].filter(x=>!profilePhotos.has(x));
+    });
+    delete post.photo;
+    delete post.avatarPhoto;
     return post;
+}
+function sanitizeStoredPosts(){
+    try{
+        const posts=JSON.parse(localStorage.getItem('muse_posts')||'[]');
+        let changed=false;
+        const cleaned=posts.map(p=>{const before=JSON.stringify(p);const c=cleanLegacyPostAvatar({...p});if(JSON.stringify(c)!==before)changed=true;return c;});
+        if(changed)localStorage.setItem('muse_posts',JSON.stringify(cleaned));
+    }catch(e){}
 }
 
 function renderPostCard(post) {
