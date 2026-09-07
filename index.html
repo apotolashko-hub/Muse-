@@ -3520,5 +3520,239 @@ dailyHtml +
 
 })();
 </script>
+    <style>
+/* --- Фикс обрезки теней чипов категорий --- */
+.categories { padding: 10px 18px 16px !important; margin-left: -14px !important; margin-right: -14px !important; }
+
+/* --- Фикс иконок в поле комментария --- */
+.comment-input-container { position: relative !important; min-height: 46px; }
+.comment-input-container input[type="text"] { padding-right: 84px !important; }
+.comment-input-container button[title="Прикрепить фото"],
+.comment-input-container button[title="Записать голос"] {
+position: absolute !important; top: 8px !important; transform: none !important;
+width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+border-radius: 50% !important;
+}
+.comment-input-container button[title="Прикрепить фото"] { right: 44px !important; }
+.comment-input-container button[title="Записать голос"] { right: 8px !important; }
+.comment-record-status { margin: 4px 0 0 !important; }
+#audio-comment-preview- { display: none; }
+
+/* --- Компактные тайлы пикера --- */
+.cp-grid.subs { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+.cp-tile { padding: 14px 10px !important; border-radius: 18px !important; }
+.cp-tile-icon { width: 44px !important; height: 44px !important; border-radius: 13px !important; }
+.cp-tile-icon svg { width: 20px !important; height: 20px !important; }
+.cp-tile-name { font-size: 13px !important; }
+.cp-tile-hint { font-size: 9px !important; }
+.cp-grid { gap: 10px !important; }
+.cp-inner { width: min(400px, 92vw) !important; }
+
+/* --- Хедер редактора: аккуратные кнопки --- */
+.vk-post-sheet .vk-post-header { padding: 12px 14px !important; gap: 8px; }
+.vk-post-sheet .vk-post-header .vk-post-title { font-size: 16px !important; flex: 1; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vk-post-sheet .vk-post-close { width: 34px !important; height: 34px !important; border-radius: 10px !important; flex-shrink: 0; background: rgba(109,93,252,.08) !important; }
+.vk-post-sheet .vk-post-next { padding: 8px 14px !important; font-size: 13px !important; border-radius: 10px !important; flex-shrink: 0; }
+.vk-post-sheet .creation-back-btn { font-size: 11px !important; padding: 6px 8px !important; flex-shrink: 0; }
+
+/* --- Ярче фон-паттерн --- */
+body.theme-light { --muse-bg-grad: linear-gradient(160deg,#eceefb 0%,#e0dcf5 40%,#e9e6fa 70%,#f0edfd 100%); }
+body.theme-purple { --muse-bg-grad: linear-gradient(160deg,#7c68e8 0%,#9d8bf2 35%,#b3a4f7 65%,#8a76ea 100%); }
+body.theme-ocean { --muse-bg-grad: linear-gradient(160deg,#2e9cbb 0%,#56bdd4 40%,#7ed3e6 70%,#3ba8c6 100%); }
+body.theme-sunset { --muse-bg-grad: linear-gradient(160deg,#eb8fa0 0%,#f4b8c1 40%,#fbd5da 70%,#efa1ad 100%); }
+body.theme-forest { --muse-bg-grad: linear-gradient(160deg,#1e5c4a 0%,#3a8567 40%,#5cae8c 70%,#2f7a5e 100%); }
+body.theme-midnight { --muse-bg-grad: linear-gradient(160deg,#0c0a26 0%,#221e58 40%,#37326e 70%,#181440 100%); }
+body.theme-rose { --muse-bg-grad: linear-gradient(160deg,#e85568 0%,#f3798a 40%,#f9a1ac 70%,#ee5f72 100%); }
+body.theme-dark { --muse-bg-grad: linear-gradient(160deg,#0e1122 0%,#1a2038 40%,#242b48 70%,#141830 100%); }
+
+/* --- Тайл задания дня --- */
+.dt-detail { position: fixed; inset: 0; z-index: 5800; display: none; align-items: center; justify-content: center; background: rgba(10,10,25,.5); backdrop-filter: blur(12px); }
+.dt-detail.open { display: flex; }
+.dt-detail-card { background: var(--muse-surface); border: 1px solid var(--muse-border); border-radius: 26px; padding: 28px 24px; width: min(380px, 88vw); box-shadow: 0 24px 80px rgba(20,15,60,.35); animation: cpIn .3s cubic-bezier(.2,.9,.3,1.15) both; text-align: center; }
+.dt-detail-cat { font-size: 11px; font-weight: 800; color: var(--muse-accent); background: rgba(109,93,252,.1); padding: 5px 14px; border-radius: 10px; display: inline-block; margin-bottom: 14px; letter-spacing: .05em; text-transform: uppercase; }
+.dt-detail-text { font-size: 17px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; color: var(--muse-text); }
+.dt-detail-desc { font-size: 13px; color: var(--muse-muted); line-height: 1.5; margin-bottom: 20px; }
+.dt-detail-btns { display: flex; flex-direction: column; gap: 10px; }
+.dt-create-btn { background: linear-gradient(135deg, var(--muse-accent), var(--muse-accent-2)); color: #fff; border: none; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 8px 24px rgba(109,93,252,.3); }
+.dt-create-btn:active { transform: scale(.97); }
+.dt-close-btn { background: none; border: none; color: var(--muse-muted); padding: 8px; font-size: 13px; cursor: pointer; font-family: inherit; }
+</style>
+<script>
+(function() {
+'use strict';
+
+/* ===== 1. Профиль: fallback если юзер не найден в muse_users ===== */
+window.renderProfile = function(container) {
+if (!currentUser) { showFullAuth('login'); return; }
+const userId = currentProfileUserId || currentUser.id;
+let user = getUserById(userId);
+if (!user && currentUser && userId === currentUser.id) user = currentUser;
+if (!user && currentUser && String(userId) === String(currentUser.id)) user = currentUser;
+if (!user) { container.innerHTML = '<div class="empty-state"><p>Профиль недоступен</p></div>'; return; }
+const isOwnProfile = String(userId) === String(currentUser.id);
+const me = getUsers().find(u => u.id === currentUser.id) || currentUser;
+const following = me.following || [];
+const isFollowing = following.includes(userId);
+const userPosts = getAllPosts().filter(p => p.authorId === userId).sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+const followersCount = (user.followers || []).length;
+const followingCount = (user.following || []).length;
+const userAchievements = (user.achievements || []);
+const displayedAchievements = (user.displayedAchievements || []);
+const drafts = isOwnProfile ? JSON.parse(localStorage.getItem('muse_drafts_' + userId) || '[]') : [];
+const moodboards = isOwnProfile ? JSON.parse(localStorage.getItem('muse_moodboards_' + userId) || '{}') : {};
+const userStories = getStories().filter(s => s.authorId === userId);
+
+let html = '<div class="profile-header" style="border-radius: 24px; padding: 40px 20px; text-align: center; margin-bottom: 20px;">' +
+'<div style="display:flex;justify-content:center;margin-bottom:20px;">' +
+'<div class="' + (userStories.length ? 'muse-story-ring' : 'muse-profile-avatar') + '" style="width:120px;height:120px;' + (userStories.length ? 'cursor:pointer;' : '') + '" ' + (userStories.length ? 'onclick="openStories(\'' + userId + '\')"' : '') + '>' +
+(user.photo ? '<img src="' + user.photo + '" alt="">' : '<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:48px;font-weight:700;">' + escHtml(user.avatar || '?') + '</span>') +
+'</div></div>' +
+'<div style="font-size: 28px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, var(--muse-accent), var(--muse-accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">' + escHtml(user.name) + '</div>' +
+'<div style="font-size: 16px; color: var(--muse-muted); margin-bottom: 24px;">' + escHtml(user.username || '') + '</div>' +
+'<div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 24px;">' +
+'<div style="text-align: center;"><div style="font-size: 24px; font-weight: 700; color: var(--muse-accent);">' + userPosts.length + '</div><div style="font-size: 13px; color: var(--muse-muted);">публикаций</div></div>' +
+'<div style="text-align: center;"><div style="font-size: 24px; font-weight: 700; color: var(--muse-accent);">' + followingCount + '</div><div style="font-size: 13px; color: var(--muse-muted);">подписок</div></div>' +
+'<div style="text-align: center;"><div style="font-size: 24px; font-weight: 700; color: var(--muse-accent);">' + followersCount + '</div><div style="font-size: 13px; color: var(--muse-muted);">подписчиков</div></div>' +
+'</div><div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">';
+
+if (isOwnProfile) {
+html += '<button onclick="openEditModal()" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: linear-gradient(135deg, var(--muse-accent), var(--muse-accent-2)); color: white;">Редактировать</button>';
+html += '<button onclick="navigate(\'achievements\')" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: rgba(109,93,252,.1); color: var(--muse-accent); border: 1px solid rgba(109,93,252,.3);">Достижения</button>';
+} else {
+html += '<button onclick="toggleFollow(\'' + userId + '\')" style="padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; background: ' + (isFollowing ? 'rgba(0,0,0,0.05)' : 'linear-gradient(135deg, var(--muse-accent), var(--muse-accent-2))') + '; color: ' + (isFollowing ? 'var(--muse-text)' : 'white') + ';">' + (isFollowing ? 'Вы подписаны' : 'Подписаться') + '</button>';
+}
+html += '</div>';
+
+if (displayedAchievements.length > 0) {
+html += '<div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--muse-border);"><div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">';
+displayedAchievements.forEach(achId => {
+const ach = achievements.find(a => a.id === achId);
+if (ach && userAchievements.includes(achId)) {
+html += '<span style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: rgba(109,93,252,.1); color: var(--muse-accent); border: 1px solid rgba(109,93,252,.3);">' + ach.icon + ' ' + escHtml(ach.name) + '</span>';
+}
+});
+html += '</div></div>';
+}
+html += '</div><div class="profile-tabs">' +
+'<button class="profile-tab ' + (currentProfileTab === 'posts' ? 'active' : '') + '" onclick="setProfileTab(\'posts\', this)">Публикации</button>' +
+(isOwnProfile ? '<button class="profile-tab ' + (currentProfileTab === 'drafts' ? 'active' : '') + '" onclick="setProfileTab(\'drafts\', this)">Черновики (' + drafts.length + ')</button>' : '') +
+(isOwnProfile ? '<button class="profile-tab ' + (currentProfileTab === 'moodboards' ? 'active' : '') + '" onclick="setProfileTab(\'moodboards\', this)">Коллекции (' + Object.keys(moodboards).length + ')</button>' : '') +
+'</div><div id="profileTabContent"></div>';
+
+container.innerHTML = html;
+renderProfileTabContent('posts');
+};
+
+/* ===== 2. Истории: надёжный viewer ===== */
+window.openStories = async function(userId) {
+try {
+const stories = getUserStories(userId);
+if (!stories.length) return;
+storyViewerStories = stories;
+storyViewerIndex = 0;
+let v = document.getElementById('storyViewer');
+if (!v) {
+document.body.insertAdjacentHTML('beforeend', '<div id="storyViewer" class="story-viewer"><div class="story-viewer-content"><div class="story-progress"><i id="storyProgressBar"></i></div><div class="story-viewer-meta" id="storyViewerMeta"></div><button class="story-viewer-close" onclick="closeStoryViewer()">×</button><div id="storyViewerMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div></div>');
+v = document.getElementById('storyViewer');
+}
+v.classList.add('active');
+document.getElementById('storyViewerMedia').innerHTML = '<div style="color:#fff;font-size:14px;opacity:.7;">Загрузка…</div>';
+await renderCurrentStory();
+} catch (e) {
+console.error('openStories error:', e);
+let v = document.getElementById('storyViewer');
+if (!v) {
+document.body.insertAdjacentHTML('beforeend', '<div id="storyViewer" class="story-viewer"><div class="story-viewer-content"><button class="story-viewer-close" onclick="closeStoryViewer()">×</button><div id="storyViewerMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div></div>');
+v = document.getElementById('storyViewer');
+}
+v.classList.add('active');
+document.getElementById('storyViewerMedia').innerHTML = '<div style="color:#fff;font-size:15px;">История недоступна</div>';
+}
+};
+
+/* ===== 3. Ежедневные задания: интерактивные ===== */
+const DT_DETAILS = {
+text: 'Опубликуйте текстовую работу в этой категории — и задание выполнится автоматически.',
+image: 'Сделайте и опубликуйте фотографию — задание засчитается при публикации.',
+art: 'Создайте художественную работу и поделитесь ею с сообществом.',
+audio: 'Запишите или создайте музыкальную работу и опубликуйте её.',
+video: 'Снимите короткое видео и поделитесь им.',
+design: 'Создайте дизайн-работу и покажите её сообществу.'
+};
+
+const EXTRA_TASKS = {
+text: ['Опишите запах лета', 'Стихотворение из 4 строк', 'Дневниковая запись', 'Диалог двух предметов', 'Опишите вкус детства', 'Сказка на 10 предложений', 'Письмо незнакомцу', 'Один день наоборот'],
+image: ['Фото отражения', 'Двойная экспозиция (монтаж)', 'Минимализм: 3 объекта', 'Фото руки', 'Силуэт на закате', 'Текстура крупным планом', 'Фото животного', 'Один цвет в кадре'],
+art: ['Нарисуйте свой день', 'Эмоция без лица', 'Город будущего', 'Пейзаж из сна', 'Существо из 5 кругов', 'Рисунок не глядя на бумагу', 'Ваша суперсила', 'Мир вверх ногами'],
+audio: ['Мелодия из 5 нот', 'Звук воды', 'Мини-подкаст на 30 сек', 'Песня о погоде', 'Бит из подручных звуков', 'Колыбельная', 'Звук твоего настроения', 'Ритм сердца'],
+video: ['Секунда счастья', 'Путь от дома до улицы', 'Один предмет — 5 ракурсов', 'Видео-письмо другу', 'Смена сезонов за 10 сек', 'Утро за 15 секунд', 'Как звучит город', 'Таймлапс заката'],
+design: ['Аватар для соцсетей', 'Обложка любимого альбома', 'Схема своего дня', 'Постер для фильма о себе', 'Иконка приложения мечты', 'Упаковка для идеи', 'Открытка из будущего', 'Логотип вымышленного бренда']
+};
+
+/* Добавляем задания в пулы */
+if (typeof DAILY_TASKS !== 'undefined') {
+Object.keys(EXTRA_TASKS).forEach(cat => {
+if (DAILY_TASKS[cat]) DAILY_TASKS[cat].push(...EXTRA_TASKS[cat]);
+});
+}
+
+window.showTaskDetail = function(taskIndex) {
+const daily = getDailyTasks();
+const task = daily.tasks[taskIndex];
+if (!task) return;
+const done = isDailyTaskDone(task);
+let d = document.getElementById('dtDetail');
+if (!d) {
+document.body.insertAdjacentHTML('beforeend', '<div class="dt-detail" id="dtDetail"><div class="dt-detail-card"><div class="dt-detail-cat" id="dtDetailCat"></div><div class="dt-detail-text" id="dtDetailText"></div><div class="dt-detail-desc" id="dtDetailDesc"></div><div class="dt-detail-btns"><button class="dt-create-btn" id="dtCreateBtn">🎨 Творить</button><button class="dt-close-btn" onclick="closeTaskDetail()">Закрыть</button></div></div></div>');
+d = document.getElementById('dtDetail');
+d.addEventListener('click', function(e) { if (e.target === d) closeTaskDetail(); });
+}
+document.getElementById('dtDetailCat').textContent = (DT_LABELS[task.cat] || task.cat) + (done ? ' · выполнено ✅' : '');
+document.getElementById('dtDetailText').textContent = task.text;
+document.getElementById('dtDetailDesc').textContent = DT_DETAILS[task.cat] || 'Опубликуйте работу в этой категории.';
+const btn = document.getElementById('dtCreateBtn');
+btn.textContent = done ? '✅ Уже выполнено — творить ещё' : '🎨 Творить';
+btn.onclick = function() { closeTaskDetail(); startTaskCreation(task.cat); };
+d.classList.add('open');
+};
+window.closeTaskDetail = function() { const d = document.getElementById('dtDetail'); if (d) d.classList.remove('open'); };
+
+function startTaskCreation(cat) {
+if (!requireAuth()) return;
+const map = { text: 'text', image: 'image', art: 'art', audio: 'audio', video: 'video', design: 'design' };
+const type = map[cat] || 'text';
+const subs = (typeof CP_SUBS !== 'undefined' && CP_SUBS[type]) ? CP_SUBS[type] : ['Другое'];
+const sub = subs[0] || '';
+if (typeof openPostEditor === 'function') {
+openPostEditor(type, sub, { title: 'Задание: ' + (DT_LABELS[cat] || cat) });
+} else {
+openVKPostCreation();
+}
+}
+
+/* Обновляем renderStudio с кликабельными заданиями */
+window.renderStudio = function(container) {
+if (!currentUser) { showFullAuth('login'); return; }
+const posts = getUserPosts(currentUser.id);
+const likes = posts.reduce((sum, p) => sum + (p.likes || 0), 0);
+const comments = posts.reduce((sum, p) => sum + ((p.comments || []).length), 0);
+const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+const collections = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
+const followers = (getUserById(currentUser.id)?.followers || currentUser?.followers || []).length;
+const daily = getDailyTasks();
+let dailyHtml = '<div class="daily-tasks"><div class="dt-header"><div class="dt-title">☀️ Задания дня</div><div class="dt-date">' + daily.date + '</div></div>';
+daily.tasks.forEach((t, i) => {
+const done = isDailyTaskDone(t);
+dailyHtml += '<div class="dt-item' + (done ? ' dt-done' : '') + '" style="cursor:pointer" onclick="showTaskDetail(' + i + ')"><span class="dt-cat">' + (DT_LABELS[t.cat] || t.cat) + '</span><span class="dt-text">' + escHtml(t.text) + '</span><span class="dt-check">' + (done ? '✅' : '›') + '</span></div>';
+});
+dailyHtml += '<div style="font-size:11px;color:var(--muse-muted);margin-top:10px;">Нажмите на задание, чтобы увидеть детали и начать творить. Новые задания — каждый день!</div></div>';
+container.innerHTML = '<div class="studio-hero"><div style="font-size:12px;opacity:.72;margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase">Creator dashboard</div><h2 style="margin:0 0 8px;font-size:28px">Muse Studio</h2><p style="margin:0;opacity:.78;line-height:1.55">Место, где видно развитие твоего творчества и всё, что сейчас в работе.</p></div>' +
+'<div class="studio-grid"><div class="studio-stat"><strong>' + posts.length + '</strong><span>публикаций</span></div><div class="studio-stat"><strong>' + likes + '</strong><span>лайков</span></div><div class="studio-stat"><strong>' + comments + '</strong><span>комментариев</span></div><div class="studio-stat"><strong>' + followers + '</strong><span>подписчиков</span></div></div>' +
+dailyHtml +
+'<div class="studio-actions"><button class="studio-action" onclick="openVKPostCreation()"><b>Создать работу</b><span>Текст, фото, арт, музыка, видео и другое</span></button><button class="studio-action" onclick="navigate(\'drafts\')"><b>Черновики · ' + drafts.length + '</b><span>Продолжить незаконченные публикации</span></button><button class="studio-action" onclick="navigate(\'moodboards\')"><b>Коллекции · ' + Object.keys(collections).length + '</b><span>Собранные идеи и вдохновение</span></button></div>';
+};
+
+})();
+</script>
 </body>
 </html>
