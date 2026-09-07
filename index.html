@@ -577,6 +577,33 @@ body.theme-dark .story-picker-btn.primary{background:#6d5dfc!important;color:#ff
 #mainContent .post-card{overflow:hidden!important;}
 
 .story-draft-preview{width:min(340px,100%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;opacity:.9}.story-draft-preview img,.story-draft-preview video{max-width:100%;max-height:260px;border-radius:14px;object-fit:contain}.story-draft-preview audio{width:100%;}
+
+/* ===== FINAL MUSE FIX: profile avatar and dedicated stories composer ===== */
+.profile-header .muse-profile-avatar,
+.profile-header .profile-main-avatar,
+.profile-header > div:first-child .muse-story-ring,
+.profile-header .muse-story-ring{width:120px!important;height:120px!important;min-width:120px!important;min-height:120px!important;max-width:120px!important;max-height:120px!important;border-radius:50%!important;overflow:hidden!important;display:inline-flex!important;flex:0 0 120px!important;box-sizing:border-box!important}
+.profile-header .muse-story-ring>img,.profile-header .muse-profile-avatar>img,.profile-header .profile-main-avatar>img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important;border-radius:50%!important;display:block!important}
+#edit-avatar-preview{width:100px!important;height:100px!important;min-width:100px!important;max-width:100px!important;border-radius:50%!important;overflow:hidden!important}
+#edit-avatar-preview img{width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important;border-radius:50%!important;display:block!important}
+#photoViewerImg{max-width:min(92vw,720px)!important;max-height:88vh!important;width:auto!important;height:auto!important;object-fit:contain!important;border-radius:50%!important}
+.post-author-avatar,.post-author-avatar>img{width:44px!important;height:44px!important;max-width:44px!important;max-height:44px!important;border-radius:50%!important;object-fit:cover!important;overflow:hidden!important}
+.bottom-nav{display:grid!important;grid-template-columns:1fr 1fr 64px 1fr 1fr!important;align-items:center!important;justify-items:center!important;gap:0!important;padding:6px 6px!important;min-height:72px!important;height:72px!important;box-sizing:border-box!important}
+.bottom-nav .nav-item{width:100%!important;min-width:0!important;max-width:none!important;flex:none!important;box-sizing:border-box!important;padding:4px 2px!important;gap:3px!important;overflow:hidden!important}
+.bottom-nav .nav-item.create-btn{grid-column:3!important;grid-row:1!important;width:54px!important;height:54px!important;min-width:54px!important;max-width:54px!important;padding:0!important;margin:0!important;justify-self:center!important;align-self:center!important;position:static!important;transform:none!important;border-radius:50%!important}
+.bottom-nav .nav-item:not(.create-btn) svg{width:20px!important;height:20px!important}
+.bottom-nav .nav-item:not(.create-btn) span{font-size:9px!important;line-height:1!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
+@media(max-width:390px){.bottom-nav{grid-template-columns:1fr 1fr 58px 1fr 1fr!important;padding-left:2px!important;padding-right:2px!important}.bottom-nav .nav-item.create-btn{width:50px!important;height:50px!important;min-width:50px!important;max-width:50px!important}.bottom-nav .nav-item:not(.create-btn) span{font-size:8px!important}.bottom-nav .nav-item:not(.create-btn) svg{width:19px!important;height:19px!important}}
+.story-composer{position:fixed;inset:0;z-index:6500;background:#07080d;display:none;align-items:center;justify-content:center;padding:18px;box-sizing:border-box}
+.story-composer.active{display:flex}
+.story-composer-card{width:min(760px,100%);height:min(820px,100%);background:#fff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 100px rgba(0,0,0,.45)}
+.story-composer-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #e7e7ee;flex:0 0 auto}.story-composer-head h2{margin:0;font-size:18px}.story-composer-close{border:0;background:none;font-size:26px;cursor:pointer}
+.story-composer-preview{flex:1;min-height:0;background:#090a10;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}.story-composer-preview img,.story-composer-preview video{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}.story-composer-preview audio{width:min(90%,520px)}
+.story-composer-empty{color:#fff;text-align:center;padding:30px}.story-composer-empty strong{display:block;font-size:20px;margin-bottom:8px}.story-composer-empty span{opacity:.7;font-size:13px}
+.story-composer-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px;border-top:1px solid #e7e7ee;background:#fff}.story-composer-actions button{min-height:52px;border:1px solid #ddddea;border-radius:13px;background:#f7f7fb;color:#222;font:600 12px inherit;cursor:pointer}.story-composer-actions button.primary{background:#6d5dfc;border-color:#6d5dfc;color:#fff}.story-composer-status{text-align:center;font-size:12px;color:#d92d20;min-height:18px;padding:0 12px 8px;font-weight:700}
+@media(max-width:600px){.story-composer{padding:0}.story-composer-card{width:100%;height:100%;border-radius:0}.story-composer-actions{grid-template-columns:repeat(2,1fr)}}
+body.theme-dark .story-composer-card{background:#14172a;color:#f4f5ff}body.theme-dark .story-composer-actions{background:#14172a;border-color:#292d46}body.theme-dark .story-composer-actions button{background:#20243a;color:#f4f5ff;border-color:#343952}
+
 </style>
 </head>
 <body class="theme-light">
@@ -859,7 +886,7 @@ body.theme-dark .story-picker-btn.primary{background:#6d5dfc!important;color:#ff
         <div class="create-type-card" data-type="audio" onclick="selectVKPostType('audio')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div><div class="create-type-label">Музыка</div><div class="create-type-desc">Треки и звук</div></div>
         <div class="create-type-card" data-type="video" onclick="selectVKPostType('video')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></div><div class="create-type-label">Видео</div><div class="create-type-desc">Клипы и ролики</div></div>
         <div class="create-type-card" data-type="design" onclick="selectVKPostType('design')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 15l5-5 3 3 3-4 5 6"/></svg></div><div class="create-type-label">Дизайн</div><div class="create-type-desc">Макеты и идеи</div></div>
-        <div class="create-type-card" data-type="history" onclick="selectVKPostType('history')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg></div><div class="create-type-label">История</div><div class="create-type-desc">Истории и заметки</div></div>
+        <div class="create-type-card" data-type="history" onclick="openStoryComposer()"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg></div><div class="create-type-label">История</div><div class="create-type-desc">Истории и заметки</div></div>
     </div>
     <div id="createSubcategoryBar" class="create-subcategory-bar"></div>
     
@@ -902,6 +929,23 @@ body.theme-dark .story-picker-btn.primary{background:#6d5dfc!important;color:#ff
 <div class="photo-viewer" id="photoViewer">
     <button class="photo-viewer-close" onclick="closePhotoViewer()">×</button>
     <img id="photoViewerImg" src="" alt="">
+</div>
+
+
+<!-- DEDICATED STORY COMPOSER -->
+<div class="story-composer" id="storyComposer">
+  <div class="story-composer-card">
+    <div class="story-composer-head"><h2>Новая история</h2><button class="story-composer-close" type="button" onclick="closeStoryComposer()">×</button></div>
+    <div class="story-composer-preview" id="storyComposerPreview"><div class="story-composer-empty"><strong>Создайте историю</strong><span>Фото, короткое видео или аудио. История живёт 24 часа и отображается только в профиле автора.</span></div></div>
+    <div class="story-composer-status" id="storyComposerStatus"></div>
+    <div class="story-composer-actions">
+      <button type="button" class="primary" onclick="takeStoryPhoto()">Снять фото</button>
+      <button type="button" onclick="toggleDedicatedStoryVideo()" id="storyVideoBtn">Снять видео</button>
+      <button type="button" onclick="toggleDedicatedStoryAudio()" id="storyAudioBtn">Записать аудио</button>
+      <button type="button" onclick="chooseStoryMedia()">Галерея / файл</button>
+      <button type="button" class="primary" style="grid-column:1/-1" onclick="publishDedicatedStory()" id="storyPublishBtn" disabled>Опубликовать историю</button>
+    </div>
+  </div>
 </div>
 
 <!-- EDIT PROFILE MODAL -->
@@ -1292,6 +1336,26 @@ async function toggleStoryAudioRecording(){
     }catch(e){alert('Не удалось получить доступ к микрофону. Разрешите микрофон для сайта.');storyMediaRecorder=null;}
 }
 function publishStory(){if(!currentUser||!storyDraft)return;const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,avatar:currentUser.avatar,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;document.getElementById('vkPostCreationPage').classList.remove('active');navigate('home');}
+
+let dedicatedStoryRecorder=null,dedicatedStoryStream=null,dedicatedStoryChunks=[],dedicatedStoryKind=null;
+function ensureStoryComposer(){
+  if(!document.getElementById('dedicatedStoryPhotoInput')){
+    document.body.insertAdjacentHTML('beforeend',`<input id="dedicatedStoryPhotoInput" type="file" accept="image/*" capture="environment" style="display:none"><input id="dedicatedStoryGalleryInput" type="file" accept="image/*,video/*,audio/*" style="display:none">`);
+    document.getElementById('dedicatedStoryPhotoInput').onchange=e=>handleDedicatedStoryFile(e,'photo');
+    document.getElementById('dedicatedStoryGalleryInput').onchange=e=>handleDedicatedStoryFile(e,'gallery');
+  }
+}
+function openStoryComposer(){if(!requireAuth())return;ensureStoryComposer();storyDraft=null;dedicatedStoryKind=null;document.getElementById('storyComposer').classList.add('active');renderDedicatedStoryPreview();}
+function closeStoryComposer(){if(dedicatedStoryRecorder){try{dedicatedStoryRecorder.stop()}catch(e){};dedicatedStoryRecorder=null}if(dedicatedStoryStream){dedicatedStoryStream.getTracks().forEach(t=>t.stop());dedicatedStoryStream=null}document.getElementById('storyComposer').classList.remove('active');}
+function renderDedicatedStoryPreview(){const p=document.getElementById('storyComposerPreview'),status=document.getElementById('storyComposerStatus'),pub=document.getElementById('storyPublishBtn');if(!p)return;if(storyDraft){p.innerHTML=storyDraft.type==='image'?`<img src="${storyDraft.data}" alt="История">`:storyDraft.type==='video'?`<video src="${storyDraft.data}" controls playsinline></video>`:`<audio src="${storyDraft.data}" controls></audio>`;}else p.innerHTML='<div class="story-composer-empty"><strong>Создайте историю</strong><span>Выберите действие ниже.</span></div>';if(status)status.textContent=dedicatedStoryRecorder?'Идёт запись…':'';if(pub)pub.disabled=!storyDraft||!!dedicatedStoryRecorder;}
+function takeStoryPhoto(){ensureStoryComposer();document.getElementById('dedicatedStoryPhotoInput').click();}
+function chooseStoryMedia(){ensureStoryComposer();document.getElementById('dedicatedStoryGalleryInput').click();}
+function handleDedicatedStoryFile(e,source){const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;if(f.size>8*1024*1024){alert('Файл истории должен быть не больше 8 МБ.');return}const type=f.type.startsWith('video/')?'video':f.type.startsWith('audio/')?'audio':'image';const r=new FileReader();r.onload=ev=>{storyDraft={type,data:ev.target.result,title:f.name};renderDedicatedStoryPreview()};r.readAsDataURL(f);}
+async function toggleDedicatedStoryVideo(){if(dedicatedStoryRecorder){stopDedicatedStoryRecorder();return}try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:true});dedicatedStoryStream=stream;dedicatedStoryChunks=[];dedicatedStoryKind='video';dedicatedStoryRecorder=new MediaRecorder(stream);dedicatedStoryRecorder.ondataavailable=e=>{if(e.data&&e.data.size)dedicatedStoryChunks.push(e.data)};dedicatedStoryRecorder.onstop=()=>{const blob=new Blob(dedicatedStoryChunks,{type:dedicatedStoryChunks[0]?.type||'video/webm'});const r=new FileReader();r.onload=e=>{storyDraft={type:'video',data:e.target.result,title:'Видео с камеры'};dedicatedStoryRecorder=null;dedicatedStoryStream=null;renderDedicatedStoryPreview()};r.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop())};dedicatedStoryRecorder.start(200);renderDedicatedStoryPreview();document.getElementById('storyVideoBtn').textContent='Остановить видео';}catch(e){alert('Камера недоступна. Разрешите доступ к камере и микрофону для сайта.');}}
+function stopDedicatedStoryRecorder(){if(dedicatedStoryRecorder&&dedicatedStoryRecorder.state!=='inactive')dedicatedStoryRecorder.stop();document.getElementById('storyVideoBtn').textContent='Снять видео';document.getElementById('storyAudioBtn').textContent='Записать аудио';}
+async function toggleDedicatedStoryAudio(){if(dedicatedStoryRecorder){stopDedicatedStoryRecorder();return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});dedicatedStoryStream=stream;dedicatedStoryChunks=[];dedicatedStoryKind='audio';dedicatedStoryRecorder=new MediaRecorder(stream);dedicatedStoryRecorder.ondataavailable=e=>{if(e.data&&e.data.size)dedicatedStoryChunks.push(e.data)};dedicatedStoryRecorder.onstop=()=>{const blob=new Blob(dedicatedStoryChunks,{type:dedicatedStoryChunks[0]?.type||'audio/webm'});const r=new FileReader();r.onload=e=>{storyDraft={type:'audio',data:e.target.result,title:'Аудио с микрофона'};dedicatedStoryRecorder=null;dedicatedStoryStream=null;renderDedicatedStoryPreview()};r.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop())};dedicatedStoryRecorder.start(200);document.getElementById('storyAudioBtn').textContent='Остановить запись';renderDedicatedStoryPreview();}catch(e){alert('Микрофон недоступен. Разрешите доступ к микрофону для сайта.');}}
+function publishDedicatedStory(){if(!currentUser||!storyDraft||dedicatedStoryRecorder)return;try{const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;closeStoryComposer();navigate('profile');}catch(e){alert('Не удалось сохранить историю. Возможно, файл слишком большой для локального хранилища.');}}
+
 function getNotifications() {
     if (!currentUser) return [];
     return JSON.parse(localStorage.getItem('muse_notifications_' + currentUser.id) || '[]');
@@ -1411,7 +1475,7 @@ function renderProfile(container) {
     const userStories = getStories().filter(s => s.authorId === userId);
 
     let html = `<div class="profile-header" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 20px;">
-        <div class="${userStories.length ? 'muse-story-ring' : ''}" style="width:120px;height:120px;margin:0 auto 20px;" onclick="${userStories.length ? `openStories('${userId}')` : ''}">${user.photo ? `<img src="${user.photo}">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:48px;font-weight:700;">${user.avatar}</span>`}</div>
+        <div class="${userStories.length ? 'muse-story-ring' : 'muse-profile-avatar'}" style="width:120px;height:120px;margin:0 auto 20px;" onclick="${userStories.length ? `openStories('${userId}')` : ''}">${user.photo ? `<img src="${user.photo}" alt="">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:48px;font-weight:700;">${user.avatar}</span>`}</div>
         <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${user.name}</div>
         <div style="font-size: 16px; color: #888; margin-bottom: 24px;">${user.username}</div>
         
