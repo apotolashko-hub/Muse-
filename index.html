@@ -521,13 +521,25 @@ body.theme-dark .comment-record-status{background:rgba(239,68,68,.12);color:#fca
 .desktop-create-fab svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
 @media(max-width:700px){.desktop-create-fab{display:none}}
 
-/* Muse avatar isolation: profile photos must never become page/card backgrounds. */
-html,body,#mainApp,#mainContent,.main-content,.app{background-image:none !important;}
-.post-card,.post-card *{background-image:initial;}
-.post-card{background-image:none !important;}
-.post-avatar,.muse-story-ring,.user-card-avatar,.notification-avatar{background-image:none;}
-.post-avatar img{display:block;width:100%;height:100%;object-fit:cover;background:none !important;}
 .muse-story-ring{position:relative;border-radius:50%;padding:3px;background:linear-gradient(135deg,#ff4d8d,#7c5cff,#28c7fa);display:inline-flex;box-sizing:border-box}.muse-story-ring>span,.muse-story-ring>img{display:flex;width:100%;height:100%;border-radius:50%;border:3px solid var(--muse-surface,#fff);box-sizing:border-box;overflow:hidden;align-items:center;justify-content:center}.muse-story-ring>img{object-fit:cover}.story-picker{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:min(520px,90%);margin:auto;color:white;text-align:center}.story-picker-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.story-picker-btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;border-radius:14px;padding:12px 16px;cursor:pointer;font:inherit}.story-picker-btn.primary{background:#667eea;border-color:#667eea}.story-viewer{display:none;position:fixed;inset:0;background:#050507;z-index:5000;align-items:center;justify-content:center}.story-viewer.active{display:flex}.story-viewer-content{position:relative;width:min(480px,100vw);height:min(850px,100vh);background:#111;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center}.story-viewer-content img,.story-viewer-content video{width:100%;height:100%;object-fit:contain;background:#000}.story-viewer-content audio{width:calc(100% - 36px)}.story-viewer-close{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border:0;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:24px;cursor:pointer}.story-viewer-meta{position:absolute;top:16px;left:16px;z-index:5;color:#fff;background:rgba(0,0,0,.45);padding:8px 12px;border-radius:14px;font-size:13px}.story-progress{position:absolute;top:8px;left:10px;right:10px;height:3px;background:rgba(255,255,255,.25);z-index:6;border-radius:4px;overflow:hidden}.story-progress i{display:block;height:100%;width:100%;background:#fff;transform-origin:left}
+
+/* ===== Avatar isolation + profile avatar control ===== */
+.avatar-change-button svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.avatar-change-button{position:absolute;bottom:46px;right:-2px;background:#6d5dfc;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;border:3px solid #fff;cursor:pointer;box-sizing:border-box}
+.profile-photo-upload{padding-bottom:48px}
+/* A profile photo must never become a post/card background. */
+.post-card{background-image:none!important}
+.post-card::before,.post-card::after{background-image:none!important}
+.post-card img{background-image:none!important}
+/* Keep feed surfaces opaque enough that an old leaked image cannot show through. */
+.post-card,.post-card .post-header,.post-card .post-caption,.post-card .post-tags{isolation:isolate}
+.bottom-nav{position:fixed!important}
+@media(max-width:768px){
+  .bottom-nav{justify-content:space-between!important;padding-left:8px!important;padding-right:8px!important;}
+  .bottom-nav .nav-item:not(.create-btn){flex:1 1 25%!important;min-width:0!important;}
+  .bottom-nav .nav-item.create-btn{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;margin:0!important;}
+  .bottom-nav .nav-item.create-btn:active{transform:translate(-50%,-50%) scale(.94)!important}
+  .bottom-nav{padding-top:8px!important;padding-bottom:8px!important;min-height:66px;box-sizing:border-box}
+}
 </style>
 </head>
 <body class="theme-light">
@@ -864,8 +876,9 @@ html,body,#mainApp,#mainContent,.main-content,.app{background-image:none !import
         <div style="text-align: center; margin-bottom: 20px;">
             <div class="profile-photo-upload" style="position: relative; display: inline-block;">
                 <div id="edit-avatar-preview" style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: 700; overflow: hidden; margin: 0 auto;"></div>
-                <label for="profile-photo-input" style="position: absolute; bottom: 0; right: 0; background: #667eea; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; border: 3px solid white; cursor: pointer;"></label>
+                <label for="profile-photo-input" class="avatar-change-button" title="Изменить аватар" aria-label="Изменить аватар"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/></svg></label>
                 <input type="file" id="profile-photo-input" accept="image/*" onchange="handleProfilePhoto(event)" style="display: none;">
+                <button type="button" onclick="document.getElementById('profile-photo-input').click()" style="margin-top:12px;padding:8px 14px;border:1px solid rgba(109,93,252,.22);background:rgba(109,93,252,.08);color:#5d50d8;border-radius:10px;font:600 12px inherit;cursor:pointer;">Изменить аватар</button>
             </div>
         </div>
         <div class="input-group"><label>Имя</label><input type="text" id="editName"></div>
@@ -2156,7 +2169,9 @@ function handleProfilePhoto(event) {
         img.src = e.target.result;
     };
     reader.readAsDataURL(file);
+    event.target.value = '';
 }
+
 
 function saveProfile() {
     if (!currentUser) return;
@@ -2252,7 +2267,22 @@ function getTimeAgo(timestamp) {
     return Math.floor(seconds / 86400) + ' дн назад';
 }
 
+function cleanLegacyPostAvatar(post){
+    if(!post) return post;
+    const author = getUserById(post.authorId);
+    const profilePhoto = author && author.photo;
+    if(profilePhoto){
+        if(Array.isArray(post.images)) post.images = post.images.filter(x => x !== profilePhoto);
+        if(Array.isArray(post.videos)) post.videos = post.videos.filter(x => x !== profilePhoto);
+        if(post.photo === profilePhoto) delete post.photo;
+    } else if(post.photo){
+        delete post.photo;
+    }
+    return post;
+}
+
 function renderPostCard(post) {
+    post = cleanLegacyPostAvatar(post);
     let mediaHtml = '';
     const allItems = post.type === 'image' || post.category === 'photo' || post.category === 'art' || post.category === 'design' ? (post.images || []) : post.type === 'video' || post.category === 'video' ? (post.videos || []) : post.type === 'text' || post.category === 'text' || post.category === 'history' ? (post.texts || []) : post.type === 'audio' || post.category === 'music' ? (post.audios || []) : [];
     const likedBy = Array.isArray(post.likedBy) ? post.likedBy : [];
@@ -2283,11 +2313,6 @@ function renderPostCard(post) {
     const rootComments = allComments.filter(c => !c.replyTo);
     const commentsCount = allComments.length;
     const isOwnPost = currentUser && post.authorId === currentUser.id;
-    const postAuthor = getUserById(post.authorId) || {};
-    const resolvedAuthorName = postAuthor.name || post.author || 'Автор';
-    const resolvedAuthorHandle = postAuthor.username || post.handle || '';
-    const resolvedAuthorPhoto = (typeof postAuthor.photo === 'string' && postAuthor.photo.trim()) ? postAuthor.photo : '';
-    const resolvedAuthorAvatar = postAuthor.avatar || (resolvedAuthorName.charAt(0).toUpperCase());
     const mediaCategory = post.category || post.type;
     const captionHtml = post.caption ? `<div class="post-caption" style="padding: 16px; font-size: 15px; line-height: 1.6; margin-bottom: 12px; white-space: pre-line;">${post.caption}</div>` : '';
     const subcategoryHtml = post.subcategory ? `<div style="padding:0 17px 12px;color:#777;font-size:11px;font-weight:600;letter-spacing:.02em">${post.subcategory}</div>` : '';
@@ -2297,10 +2322,10 @@ function renderPostCard(post) {
 
     return `<div class="post-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 24px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); position: relative;">
         <div class="post-header" style="display: flex; align-items: center; gap: 12px; padding: 16px; cursor: pointer;" onclick="openProfile('${post.authorId}')">
-            <div class="${hasActiveStories(post.authorId)?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;" onclick="event.stopPropagation();${hasActiveStories(post.authorId)?`openStories('${post.authorId}')`:''}">${resolvedAuthorPhoto?`<img src="${resolvedAuthorPhoto}" alt="">`:`<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-weight:700;">${resolvedAuthorAvatar}</span>`}</div>
+            <div class="${hasActiveStories(post.authorId)?'muse-story-ring':''}" style="width:44px;height:44px;flex-shrink:0;" onclick="event.stopPropagation();${hasActiveStories(post.authorId)?`openStories('${post.authorId}')`:''}">${(getUserById(post.authorId)?.photo) ? `<img src="${getUserById(post.authorId).photo}" alt="">` : `<span style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-weight:700;">${(getUserById(post.authorId)?.avatar || post.avatar || '?')}</span>`}</div>
             <div style="flex: 1; min-width: 0;">
-                <div style="font-weight: 700; font-size: 15px;">${resolvedAuthorName}${collabBadge}</div>
-                <div style="color: #888; font-size: 13px; font-weight: 500;">${resolvedAuthorHandle}${anonymousBadge}</div>
+                <div style="font-weight: 700; font-size: 15px;">${post.author}${collabBadge}</div>
+                <div style="color: #888; font-size: 13px; font-weight: 500;">${post.handle}${anonymousBadge}</div>
             </div>
             ${isOwnPost ? `<button onclick="event.stopPropagation(); togglePostMenu(${post.id})" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #888;"></button>` : ''}
         </div>
