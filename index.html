@@ -4418,5 +4418,253 @@ achievements.push(
 
 })();
 </script>
+    <style>
+/* ===== ПЛАВНОСТЬ v2 ===== */
+
+/* 1. Приветствие — маленькое, деликатное */
+.feed-greeting { font-size: 14px !important; font-weight: 600 !important; color: var(--muse-muted) !important; font-family: inherit !important; background: none !important; -webkit-text-fill-color: initial !important; margin-bottom: 4px !important; }
+.feed-greeting-sub { font-size: 11px !important; color: var(--muse-muted); opacity: .6; }
+
+/* 2. Обложка профиля — тонкая полоса, не блок */
+.profile-cover { height: 36px !important; margin: -40px -20px 12px !important; border-radius: 22px 22px 0 0 !important; opacity: .6; }
+.profile-cover::after { height: 36px !important; }
+
+/* 3. Стаггер — мягче */
+.post-card { opacity: 0; transform: translateY(8px); }
+.post-card.post-visible { opacity: 1; transform: none; transition: opacity .25s ease, transform .3s ease; }
+
+/* 4. Посты растворяются под шапкой */
+.top-bar::after {
+content: '';
+position: absolute;
+top: 100%;
+left: 0;
+right: 0;
+height: 28px;
+background: linear-gradient(to bottom, var(--muse-nav-bg), transparent);
+pointer-events: none;
+z-index: 1;
+}
+
+/* 5. Убираем резкие анимации */
+.page-enter { animation: none !important; }
+.post-bounce { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+/* 6. Общие плавные переходы */
+button, .nav-item, .sidebar-item, .category-chip, .filter-btn,
+.profile-tab, .subcategory-chip, .create-type-card, .cp-tile,
+.action-btn, .tag, .draft-action-btn, .studio-action {
+transition: transform .15s ease, background .2s ease, color .2s ease, opacity .2s ease, box-shadow .2s ease;
+}
+
+/* 7. Муза дня — тише */
+.muse-banner { padding: 14px 20px !important; margin-bottom: 14px !important; }
+.muse-banner-quote { font-size: 14px !important; }
+.muse-banner::before { font-size: 80px !important; }
+
+/* 8. Комментарии — плавное раскрытие */
+.comments-anim { overflow: hidden; transition: max-height .3s ease, opacity .25s ease; }
+
+/* 9. Меню поста — плавно */
+[id^="post-menu-"] { transition: opacity .15s ease, transform .15s ease; opacity: 0; transform: translateY(-4px); }
+[id^="post-menu-"][style*="block"] { opacity: 1; transform: none; }
+</style>
+<script>
+(function() {
+'use strict';
+
+/* ===== ЛАЙК: без перерисовки — обновление на месте ===== */
+window.toggleLike = function(postId) {
+if (!requireAuth()) return;
+const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+const post = posts.find(p => String(p.id) === String(postId));
+if (!post) return;
+post.likedBy = Array.isArray(post.likedBy) ? post.likedBy : [];
+const idx = post.likedBy.indexOf(currentUser.id);
+const card = document.getElementById('post-card-' + postId);
+const btn = card ? card.querySelector('button[onclick*="toggleLike"]') : null;
+const svg = btn ? btn.querySelector('svg') : null;
+const span = btn ? btn.querySelector('span') : null;
+
+if (idx >= 0) {
+/* Снятие лайка */
+post.likedBy.splice(idx, 1);
+post.likes = Math.max(0, (post.likes || 0) - 1);
+localStorage.setItem('muse_posts', JSON.stringify(posts));
+if (btn) { btn.style.color = 'var(--muse-muted)'; }
+if (svg) { svg.setAttribute('fill', 'none'); }
+if (span) { span.textContent = post.likes; }
+} else {
+/* Постановка лайка */
+post.likedBy.push(currentUser.id);
+post.likes = (post.likes || 0) + 1;
+localStorage.setItem('muse_posts', JSON.stringify(posts));
+const author = getUserById(post.authorId);
+if (author && author.id !== currentUser.id) addNotification('like', currentUser, post.id, '', author.id);
+checkAchievements();
+if (btn) { btn.style.color = '#ef4444'; }
+if (svg) { svg.setAttribute('fill', 'currentColor'); }
+if (span) { span.textContent = post.likes; }
+/* Искра */
+if (btn) {
+const SPARKS = ['🔥', '💜', '✨', '🧠', '🎶'];
+const LABELS = { '🔥': 'Зажгло!', '💜': 'Тронуло', '✨': 'Красиво', '🧠': 'Гениально', '🎶': 'Мелодично' };
+const spark = SPARKS[Math.floor(Math.random() * SPARKS.length)];
+const el = document.createElement('span');
+el.className = 'spark-fly';
+el.textContent = spark;
+btn.style.position = 'relative';
+btn.appendChild(el);
+setTimeout(() => el.remove(), 1000);
+btn.classList.remove('like-btn-popped');
+void btn.offsetWidth;
+btn.classList.add('like-btn-popped');
+if (typeof museToast === 'function') museToast(LABELS[spark] || 'Отметка', spark);
+}
+}
+/* НИКАКОЙ ПЕРЕРИСОВКИ — пост остаётся на месте */
+};
+
+/* ===== КОММЕНТАРИИ: плавное раскрытие ===== */
+window.toggleComments = function(postId) {
+const s = document.getElementById('comments-' + postId);
+if (!s) return;
+if (s.style.display === 'none' || !s.style.display) {
+s.style.display = 'block';
+s.style.opacity = '0';
+s.style.maxHeight = '0px';
+s.style.overflow = 'hidden';
+s.classList.add('comments-anim');
+requestAnimationFrame(() => {
+requestAnimationFrame(() => {
+s.style.opacity = '1';
+s.style.maxHeight = (s.scrollHeight + 20) + 'px';
+setTimeout(() => { s.style.maxHeight = ''; s.style.overflow = ''; s.style.transition = ''; }, 350);
+});
+});
+} else {
+s.style.transition = 'opacity .2s ease, max-height .25s ease';
+s.style.opacity = '0';
+s.style.maxHeight = '0px';
+s.style.overflow = 'hidden';
+setTimeout(() => { s.style.display = 'none'; s.style.opacity = ''; s.style.maxHeight = ''; s.style.overflow = ''; s.style.transition = ''; }, 250);
+}
+};
+
+/* ===== Меню поста: плавно ===== */
+const _origMenu = window.togglePostMenu;
+if (_origMenu) {
+window.togglePostMenu = function(postId) {
+document.querySelectorAll('[id^="post-menu-"]').forEach(m => { if (m.id !== 'post-menu-' + postId) { m.style.display = 'none'; } });
+const menu = document.getElementById('post-menu-' + postId);
+if (menu) {
+if (menu.style.display === 'block') {
+menu.style.opacity = '0';
+setTimeout(() => { menu.style.display = 'none'; }, 150);
+} else {
+menu.style.display = 'block';
+requestAnimationFrame(() => requestAnimationFrame(() => { menu.style.opacity = '1'; }));
+}
+}
+};
+}
+
+/* ===== НАВИГАЦИЯ: без дёргания ===== */
+const _origNav = window.navigate;
+if (_origNav) {
+window.navigate = function(page, writeHash) {
+const c = document.getElementById('mainContent');
+if (c) { c.style.opacity = '0'; c.style.transition = 'opacity .12s ease'; }
+_origNav(page, writeHash);
+setTimeout(() => { if (c) { c.style.opacity = '1'; } }, 60);
+};
+}
+
+/* ===== СТАГГЕР: мягкий ===== */
+window.attachCarouselListeners = function() {
+document.querySelectorAll('.carousel-track').forEach(track => {
+if (track.dataset.listenersAttached) return;
+track.dataset.listenersAttached = 'true';
+const postId = track.dataset.postId;
+const counter = document.getElementById('counter-' + postId);
+const dots = track.parentElement.querySelectorAll('.carousel-dot');
+const updateCarousel = () => {
+const index = Math.round(track.scrollLeft / track.offsetWidth);
+if (counter) counter.textContent = (index + 1) + '/' + track.children.length;
+dots.forEach((dot, i) => {
+dot.style.background = i === index ? 'white' : 'rgba(255,255,255,0.5)';
+dot.style.width = i === index ? '20px' : '6px';
+dot.style.borderRadius = i === index ? '3px' : '50%';
+});
+};
+track.addEventListener('scroll', updateCarousel);
+updateCarousel();
+});
+/* Мягкий стаггер */
+if (!window._staggerObs) {
+window._staggerObs = new IntersectionObserver(entries => {
+entries.forEach(e => {
+if (e.isIntersecting) {
+e.target.style.transition = 'opacity .25s ease, transform .3s ease';
+e.target.style.opacity = '1';
+e.target.style.transform = 'none';
+window._staggerObs.unobserve(e.target);
+}
+});
+}, { threshold: 0.03 });
+}
+document.querySelectorAll('.post-card').forEach(c => {
+if (c.style.opacity !== '1') window._staggerObs.observe(c);
+});
+/* Читать далее */
+document.querySelectorAll('.text-slide').forEach(s => {
+if (s.scrollHeight > 280 && !s.querySelector('.text-expand-btn')) {
+s.style.maxHeight = '240px';
+s.style.overflow = 'hidden';
+s.style.transition = 'max-height .35s ease';
+s.style.position = 'relative';
+const fade = document.createElement('div');
+fade.style.cssText = 'position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--muse-surface));pointer-events:none;';
+s.appendChild(fade);
+const btn = document.createElement('button');
+btn.className = 'text-expand-btn';
+btn.textContent = '📖 Читать далее';
+btn.style.cssText = 'display:block;margin:10px auto 0;padding:8px 22px;border:1px solid rgba(109,93,252,.25);background:rgba(109,93,252,.06);color:var(--muse-accent);border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;';
+btn.onclick = function(e) {
+e.stopPropagation();
+s.style.maxHeight = s.scrollHeight + 'px';
+btn.remove();
+setTimeout(() => { fade.remove(); s.style.maxHeight = ''; s.style.overflow = ''; }, 380);
+};
+s.appendChild(btn);
+}
+});
+};
+
+/* ===== Публикация: мягкий вход нового поста ===== */
+const _origPub = window.publishVKPost;
+if (_origPub) {
+window.publishVKPost = function() {
+const before = getAllPosts().length;
+_origPub();
+if (getAllPosts().length > before) {
+setTimeout(() => {
+const first = document.querySelector('.post-card');
+if (first) {
+first.style.opacity = '0';
+first.style.transform = 'translateY(16px) scale(.98)';
+first.style.transition = 'opacity .35s ease, transform .4s cubic-bezier(.2,.8,.3,1)';
+requestAnimationFrame(() => requestAnimationFrame(() => {
+first.style.opacity = '1';
+first.style.transform = 'none';
+}));
+}
+}, 100);
+}
+};
+};
+
+})();
+</script>
 </body>
 </html>
