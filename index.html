@@ -604,6 +604,8 @@ body.theme-dark .story-picker-btn.primary{background:#6d5dfc!important;color:#ff
 @media(max-width:600px){.story-composer{padding:0}.story-composer-card{width:100%;height:100%;border-radius:0}.story-composer-actions{grid-template-columns:repeat(2,1fr)}}
 body.theme-dark .story-composer-card{background:#14172a;color:#f4f5ff}body.theme-dark .story-composer-actions{background:#14172a;border-color:#292d46}body.theme-dark .story-composer-actions button{background:#20243a;color:#f4f5ff;border-color:#343952}
 
+
+.create-stage{transition:.18s ease}.creation-editor-stage{display:none;flex-direction:column}.vk-post-sheet.editor-mode .create-type-carousel,.vk-post-sheet.editor-mode .create-subcategory-bar{display:none!important}.vk-post-sheet.category-mode .creation-editor-stage,.vk-post-sheet.category-mode .vk-post-gallery,.vk-post-sheet.category-mode .vk-post-meta,.vk-post-sheet.category-mode .creation-hint{display:none!important}.vk-post-sheet.subcategory-mode .create-type-carousel,.vk-post-sheet.subcategory-mode .creation-editor-stage,.vk-post-sheet.subcategory-mode .vk-post-gallery,.vk-post-sheet.subcategory-mode .vk-post-meta,.vk-post-sheet.subcategory-mode .creation-hint{display:none!important}.vk-post-sheet.editor-mode .creation-editor-stage{display:flex}.vk-post-sheet.editor-mode .vk-post-gallery,.vk-post-sheet.editor-mode .vk-post-meta,.vk-post-sheet.editor-mode .creation-hint{display:block!important}.vk-post-sheet.editor-mode .vk-post-gallery{display:flex!important}.creation-back-btn{border:0;background:transparent;cursor:pointer;color:var(--muse-accent,#6d5dfc);font-weight:700;font-size:12px;margin-right:auto;padding:7px 9px}
 </style>
 </head>
 <body class="theme-light">
@@ -875,25 +877,25 @@ body.theme-dark .story-composer-card{background:#14172a;color:#f4f5ff}body.theme
   <div class="vk-post-sheet">
     <div class="vk-post-header">
         <button class="vk-post-close" aria-label="Закрыть" onclick="closeVKPostCreation()"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-        <div class="vk-post-title">Новый пост</div>
+        <div class="vk-post-title" id="vkPostTitle">Новый пост</div>
         <button class="vk-post-next" id="vkPostNextBtn" onclick="publishVKPost()" disabled>Опубликовать</button>
     </div>
     
-    <div class="create-type-carousel" id="createTypeCarousel">
+    <div class="create-type-carousel create-stage" id="createTypeCarousel">
         <div class="create-type-card active" data-type="text" onclick="selectVKPostType('text')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h12M4 18h8"/></svg></div><div class="create-type-label">Текст</div><div class="create-type-desc">Стихи и проза</div></div>
         <div class="create-type-card" data-type="image" onclick="selectVKPostType('image')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg></div><div class="create-type-label">Фото</div><div class="create-type-desc">Снимки и серии</div></div>
         <div class="create-type-card" data-type="art" onclick="selectVKPostType('art')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a2 2 0 0 0 1.8-2.8l-.4-.8a2 2 0 0 1 1.8-2.9H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="10" r="1"/><circle cx="11" cy="7" r="1"/><circle cx="15.5" cy="8" r="1"/></svg></div><div class="create-type-label">Арт</div><div class="create-type-desc">Иллюстрации</div></div>
         <div class="create-type-card" data-type="audio" onclick="selectVKPostType('audio')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></div><div class="create-type-label">Музыка</div><div class="create-type-desc">Треки и звук</div></div>
         <div class="create-type-card" data-type="video" onclick="selectVKPostType('video')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></div><div class="create-type-label">Видео</div><div class="create-type-desc">Клипы и ролики</div></div>
         <div class="create-type-card" data-type="design" onclick="selectVKPostType('design')"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 15l5-5 3 3 3-4 5 6"/></svg></div><div class="create-type-label">Дизайн</div><div class="create-type-desc">Макеты и идеи</div></div>
-        <div class="create-type-card" data-type="history" onclick="openStoryComposer()"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg></div><div class="create-type-label">История</div><div class="create-type-desc">Истории и заметки</div></div>
+        <div class="create-type-card" data-type="history" onclick="openStoryComposer();closeVKPostCreation()"><div class="create-type-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg></div><div class="create-type-label">История</div><div class="create-type-desc">Истории и заметки</div></div>
     </div>
-    <div id="createSubcategoryBar" class="create-subcategory-bar"></div>
+    <div id="createSubcategoryBar" class="create-subcategory-bar create-stage"></div>
     
-    <textarea class="vk-post-textarea" id="vkPostTextarea" placeholder="Напишите что-нибудь..." oninput="checkVKPostContent()"></textarea>
+    <div id="creationEditorStage" class="creation-editor-stage"><textarea class="vk-post-textarea" id="vkPostTextarea" placeholder="Напишите что-нибудь..." oninput="checkVKPostContent()"></textarea>
     <div class="creation-hint" id="creationHint"></div>
     
-    <div class="vk-post-gallery" id="vkPostGallery">
+    </div><div class="vk-post-gallery" id="vkPostGallery">
         <div class="vk-post-camera" onclick="openPostCamera()">
             <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         </div>
@@ -1287,6 +1289,12 @@ function getCommentsForPost(postId) {
     return [];
 }
 
+const MUSE_MEDIA_DB='muse_media_db_v2';
+function openMuseMediaDB(){return new Promise((resolve,reject)=>{if(!window.indexedDB)return reject(new Error('IndexedDB недоступен'));const r=indexedDB.open(MUSE_MEDIA_DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('media'))r.result.createObjectStore('media')};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+function dataUrlToBlob(data){const m=String(data||'').match(/^data:([^;,]+)?(?:;base64)?,(.*)$/);if(!m)return null;try{const mime=m[1]||'application/octet-stream';const bin=atob(m[2]);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime});}catch(e){return null;}}
+async function saveMuseMedia(data,type){const blob=data instanceof Blob?data:dataUrlToBlob(data);if(!blob)throw new Error('Некорректный медиафайл');const id='media_'+Date.now()+'_'+Math.random().toString(36).slice(2);const db=await openMuseMediaDB();await new Promise((res,rej)=>{const tx=db.transaction('media','readwrite');tx.objectStore('media').put({blob,type:type||blob.type},id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});return 'idb:'+id;}
+async function getMuseMedia(ref){if(!String(ref||'').startsWith('idb:'))return ref;const db=await openMuseMediaDB();const id=String(ref).slice(4);return await new Promise((res,rej)=>{const tx=db.transaction('media','readonly');const q=tx.objectStore('media').get(id);q.onsuccess=()=>{const v=q.result;res(v?URL.createObjectURL(v.blob):null)};q.onerror=()=>rej(q.error)});}
+async function deleteMuseMedia(ref){if(!String(ref||'').startsWith('idb:'))return;try{const db=await openMuseMediaDB();const id=String(ref).slice(4);await new Promise((res,rej)=>{const tx=db.transaction('media','readwrite');tx.objectStore('media').delete(id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});}catch(e){}}
 function getStories() {
     const saved = JSON.parse(localStorage.getItem('muse_stories') || '[]');
     const now = Date.now();
@@ -1296,8 +1304,9 @@ function getStories() {
 }
 function hasActiveStories(userId){ return getStories().some(s=>s.authorId===userId); }
 function getUserStories(userId){ return getStories().filter(s=>s.authorId===userId).sort((a,b)=>(a.createdAt||a.time)-(b.createdAt||b.time)); }
-function openStories(userId){ const stories=getUserStories(userId); if(!stories.length)return; storyViewerStories=stories;storyViewerIndex=0; if(!document.getElementById('storyViewer')) document.body.insertAdjacentHTML('beforeend',`<div id="storyViewer" class="story-viewer" onclick="if(event.target===this)closeStoryViewer()"><div class="story-viewer-content"><div class="story-progress"><i id="storyProgressBar"></i></div><div class="story-viewer-meta" id="storyViewerMeta"></div><button class="story-viewer-close" onclick="closeStoryViewer()">×</button><div id="storyViewerMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div></div>`); document.getElementById('storyViewer').classList.add('active');renderCurrentStory(); }
-function renderCurrentStory(){ const story=storyViewerStories[storyViewerIndex];if(!story)return closeStoryViewer();const user=getUserById(story.authorId)||{name:story.author||'Автор'};document.getElementById('storyViewerMeta').textContent=user.name;const m=document.getElementById('storyViewerMedia');if(story.type==='video')m.innerHTML=`<video src="${story.data}" autoplay playsinline controls></video>`;else if(story.type==='audio')m.innerHTML=`<audio src="${story.data}" controls autoplay></audio>`;else m.innerHTML=`<img src="${story.data}" alt="История">`;const b=document.getElementById('storyProgressBar');b.style.transition='none';b.style.transform='scaleX(0)';setTimeout(()=>{b.style.transition='transform 5s linear';b.style.transform='scaleX(1)'},30);clearTimeout(storyViewerTimer);storyViewerTimer=setTimeout(()=>{storyViewerIndex++;storyViewerIndex<storyViewerStories.length?renderCurrentStory():closeStoryViewer()},5000); }
+async function openStories(userId){const stories=getUserStories(userId);if(!stories.length)return;storyViewerStories=stories;storyViewerIndex=0;if(!document.getElementById('storyViewer'))document.body.insertAdjacentHTML('beforeend',`<div id="storyViewer" class="story-viewer" onclick="if(event.target===this)closeStoryViewer()"><div class="story-viewer-content"><div class="story-progress"><i id="storyProgressBar"></i></div><div class="story-viewer-meta" id="storyViewerMeta"></div><button class="story-viewer-close" onclick="closeStoryViewer()">×</button><div id="storyViewerMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div></div>`);document.getElementById('storyViewer').classList.add('active');await renderCurrentStory();}
+async function renderCurrentStory(){const story=storyViewerStories[storyViewerIndex];if(!story)return closeStoryViewer();const user=getUserById(story.authorId)||{name:story.author||'Автор'};document.getElementById('storyViewerMeta').textContent=user.name;const m=document.getElementById('storyViewerMedia');const src=await getMuseMedia(story.data);if(!src){m.innerHTML='<div style="color:#fff">История недоступна</div>';return;}if(story.type==='video')m.innerHTML=`<video src="${src}" autoplay playsinline controls></video>`;else if(story.type==='audio')m.innerHTML=`<audio src="${src}" controls autoplay></audio>`;else m.innerHTML=`<img src="${src}" alt="История">`;const media=m.firstElementChild;const duration=story.type==='image'?5000:30000;const b=document.getElementById('storyProgressBar');b.style.transition='none';b.style.transform='scaleX(0)';setTimeout(()=>{b.style.transition=`transform ${duration/1000}s linear`;b.style.transform='scaleX(1)'},30);clearTimeout(storyViewerTimer);if(media&&(story.type==='video'||story.type==='audio'))media.onended=()=>advanceStory();storyViewerTimer=setTimeout(()=>advanceStory(),duration);}
+function advanceStory(){clearTimeout(storyViewerTimer);storyViewerIndex++;if(storyViewerIndex<storyViewerStories.length)renderCurrentStory();else closeStoryViewer();}
 function closeStoryViewer(){clearTimeout(storyViewerTimer);storyViewerTimer=null;const v=document.getElementById('storyViewer');if(v)v.classList.remove('active');const m=document.getElementById('storyViewerMedia');if(m)m.innerHTML='';}
 function openStoryFilePicker(){document.getElementById('storyFileInput')?.click();}
 function openStoryCamera(kind){
@@ -1350,11 +1359,11 @@ function closeStoryComposer(){if(dedicatedStoryRecorder){try{dedicatedStoryRecor
 function renderDedicatedStoryPreview(){const p=document.getElementById('storyComposerPreview'),status=document.getElementById('storyComposerStatus'),pub=document.getElementById('storyPublishBtn');if(!p)return;if(storyDraft){p.innerHTML=storyDraft.type==='image'?`<img src="${storyDraft.data}" alt="История">`:storyDraft.type==='video'?`<video src="${storyDraft.data}" controls playsinline></video>`:`<audio src="${storyDraft.data}" controls></audio>`;}else p.innerHTML='<div class="story-composer-empty"><strong>Создайте историю</strong><span>Выберите действие ниже.</span></div>';if(status)status.textContent=dedicatedStoryRecorder?'Идёт запись…':'';if(pub)pub.disabled=!storyDraft||!!dedicatedStoryRecorder;}
 function takeStoryPhoto(){ensureStoryComposer();document.getElementById('dedicatedStoryPhotoInput').click();}
 function chooseStoryMedia(){ensureStoryComposer();document.getElementById('dedicatedStoryGalleryInput').click();}
-function handleDedicatedStoryFile(e,source){const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;if(f.size>8*1024*1024){alert('Файл истории должен быть не больше 8 МБ.');return}const type=f.type.startsWith('video/')?'video':f.type.startsWith('audio/')?'audio':'image';const r=new FileReader();r.onload=ev=>{storyDraft={type,data:ev.target.result,title:f.name};renderDedicatedStoryPreview()};r.readAsDataURL(f);}
+function handleDedicatedStoryFile(e,source){const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const type=f.type.startsWith('video/')?'video':f.type.startsWith('audio/')?'audio':f.type.startsWith('image/')?'image':null;if(!type){alert('Выберите фото, видео или аудио.');return}if(type==='image'){const r=new FileReader();r.onload=ev=>{const img=new Image();img.onload=()=>{const max=1800;let w=img.width,h=img.height;if(Math.max(w,h)>max){const k=max/Math.max(w,h);w=Math.round(w*k);h=Math.round(h*k)}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);storyDraft={type:'image',data:c.toDataURL('image/jpeg',0.82),title:f.name};renderDedicatedStoryPreview()};img.src=ev.target.result};r.readAsDataURL(f);}else{const r=new FileReader();r.onload=ev=>{storyDraft={type,data:ev.target.result,title:f.name};renderDedicatedStoryPreview()};r.readAsDataURL(f);}}
 async function toggleDedicatedStoryVideo(){if(dedicatedStoryRecorder){stopDedicatedStoryRecorder();return}try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:true});dedicatedStoryStream=stream;dedicatedStoryChunks=[];dedicatedStoryKind='video';dedicatedStoryRecorder=new MediaRecorder(stream);dedicatedStoryRecorder.ondataavailable=e=>{if(e.data&&e.data.size)dedicatedStoryChunks.push(e.data)};dedicatedStoryRecorder.onstop=()=>{const blob=new Blob(dedicatedStoryChunks,{type:dedicatedStoryChunks[0]?.type||'video/webm'});const r=new FileReader();r.onload=e=>{storyDraft={type:'video',data:e.target.result,title:'Видео с камеры'};dedicatedStoryRecorder=null;dedicatedStoryStream=null;renderDedicatedStoryPreview()};r.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop())};dedicatedStoryRecorder.start(200);renderDedicatedStoryPreview();document.getElementById('storyVideoBtn').textContent='Остановить видео';}catch(e){alert('Камера недоступна. Разрешите доступ к камере и микрофону для сайта.');}}
 function stopDedicatedStoryRecorder(){if(dedicatedStoryRecorder&&dedicatedStoryRecorder.state!=='inactive')dedicatedStoryRecorder.stop();document.getElementById('storyVideoBtn').textContent='Снять видео';document.getElementById('storyAudioBtn').textContent='Записать аудио';}
 async function toggleDedicatedStoryAudio(){if(dedicatedStoryRecorder){stopDedicatedStoryRecorder();return}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});dedicatedStoryStream=stream;dedicatedStoryChunks=[];dedicatedStoryKind='audio';dedicatedStoryRecorder=new MediaRecorder(stream);dedicatedStoryRecorder.ondataavailable=e=>{if(e.data&&e.data.size)dedicatedStoryChunks.push(e.data)};dedicatedStoryRecorder.onstop=()=>{const blob=new Blob(dedicatedStoryChunks,{type:dedicatedStoryChunks[0]?.type||'audio/webm'});const r=new FileReader();r.onload=e=>{storyDraft={type:'audio',data:e.target.result,title:'Аудио с микрофона'};dedicatedStoryRecorder=null;dedicatedStoryStream=null;renderDedicatedStoryPreview()};r.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop())};dedicatedStoryRecorder.start(200);document.getElementById('storyAudioBtn').textContent='Остановить запись';renderDedicatedStoryPreview();}catch(e){alert('Микрофон недоступен. Разрешите доступ к микрофону для сайта.');}}
-function publishDedicatedStory(){if(!currentUser||!storyDraft||dedicatedStoryRecorder)return;try{const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,type:storyDraft.type,data:storyDraft.data,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;closeStoryComposer();navigate('profile');}catch(e){alert('Не удалось сохранить историю. Возможно, файл слишком большой для локального хранилища.');}}
+async function publishDedicatedStory(){if(!currentUser||!storyDraft||dedicatedStoryRecorder)return;try{const ref=await saveMuseMedia(storyDraft.data,storyDraft.type);const stories=getStories();stories.push({id:'story_'+Date.now(),authorId:currentUser.id,author:currentUser.name,type:storyDraft.type,data:ref,createdAt:Date.now(),title:storyDraft.title||''});localStorage.setItem('muse_stories',JSON.stringify(stories));storyDraft=null;closeStoryComposer();navigate('profile');checkAchievements();}catch(e){alert('Не удалось сохранить историю. Проверьте доступность хранилища браузера.');}}
 
 function getNotifications() {
     if (!currentUser) return [];
@@ -1969,10 +1978,7 @@ function renderPostSubcategories() {
     bar.innerHTML = items.map(x => `<button type="button" class="subcategory-chip ${x===vkPostSubcategory?'active':''}" data-subcategory="${x.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" onclick="selectVKPostSubcategory(this.dataset.subcategory)">${x}</button>`).join('');
 }
 
-function selectVKPostSubcategory(value) {
-    vkPostSubcategory = value || '';
-    renderPostSubcategories();
-}
+function selectVKPostSubcategory(value) { vkPostSubcategory=value||''; const sheet=document.querySelector('.vk-post-sheet'); if(sheet){sheet.classList.remove('subcategory-mode');sheet.classList.add('editor-mode');} renderPostSubcategories(); updateVKCreationUI(); renderVKPostGallery(); checkVKPostContent(); const title=document.getElementById('vkPostTitle');if(title)title.textContent=vkPostSubcategory; }
 
 function updateVKCreationUI() {
     const textarea = document.getElementById('vkPostTextarea');
@@ -2018,6 +2024,7 @@ function openVKPostCreation() {
     renderPostSubcategories();
     renderVKPostGallery();
     updateVKCreationUI();
+    const sheet=document.querySelector('.vk-post-sheet'); if(sheet){sheet.classList.remove('subcategory-mode','editor-mode');sheet.classList.add('category-mode');}
     document.getElementById('vkPostCreationPage').classList.add('active');
     document.getElementById('vkPostNextBtn').disabled = true;
 }
@@ -2063,11 +2070,11 @@ function discardVKDraft() {
     document.getElementById('vkPostCreationPage').classList.remove('active');
 }
 
-function selectVKPostType(type) {
-    storyDraft=null;
+function selectVKPostType(type) { storyDraft=null;
     const allowed = ['text','image','art','audio','video','design','history'];
     if (!allowed.includes(type)) return;
     vkPostType = type;
+    const sheet=document.querySelector('.vk-post-sheet'); if(sheet){sheet.classList.remove('category-mode','editor-mode');sheet.classList.add('subcategory-mode');}
     document.querySelectorAll('.create-type-card').forEach(c => c.classList.toggle('active', c.dataset.type === type));
     const defaults={text:'Поэзия',image:'Портрет',art:'Живопись',audio:'Песня',video:'Клип',design:'Графика',history:'Личная история'};
     vkPostSubcategory=defaults[type]||'';
