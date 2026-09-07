@@ -3176,5 +3176,349 @@ window.addEventListener('hashchange', bootRoute);
 window.addEventListener('load', function() { setTimeout(bootRoute, 0); });
 })();
 </script>
+    <style>
+/* ===== ПАТЧ v2 ===== */
+/* Профиль: непрозрачный фон + центрирование аватара */
+.profile-header { background: var(--muse-surface) !important; border: 1px solid var(--muse-border) !important; box-shadow: var(--muse-shadow) !important; }
+.profile-header .muse-profile-avatar, .profile-header .muse-story-ring { display: flex !important; margin: 0 auto 20px !important; }
+/* Гарантия тем для всех поверхностей */
+.post-card, .profile-header, .user-card, .notification-item, .draft-card, .moodboard-card, .info-banner, .settings-section-card, .tag-search-result, .challenge-card, .achievement-card, .auth-box, .auth-modal { background: var(--muse-surface) !important; color: var(--muse-text); border: 1px solid var(--muse-border); }
+/* Мягче фон */
+body.theme-light { --muse-bg-grad: linear-gradient(165deg,#f1f2fa 0%,#eae7f6 55%,#f2f0fb 100%); --muse-bg-base:#f2f3fa; }
+body.theme-purple { --muse-bg-grad: linear-gradient(165deg,#8f7cf0 0%,#ab99f7 55%,#9481ee 100%); --muse-bg-base:#9481ee; }
+body.theme-ocean { --muse-bg-grad: linear-gradient(165deg,#4db0c8 0%,#82d4e4 55%,#5ab9cf 100%); --muse-bg-base:#5ab9cf; }
+body.theme-sunset { --muse-bg-grad: linear-gradient(165deg,#f0a5b0 0%,#f9ced4 55%,#f2b3bc 100%); --muse-bg-base:#f2b3bc; }
+body.theme-forest { --muse-bg-grad: linear-gradient(165deg,#47836b 0%,#79b596 55%,#548f75 100%); --muse-bg-base:#548f75; }
+body.theme-midnight { --muse-bg-grad: linear-gradient(165deg,#181548 0%,#312d6e 55%,#201d54 100%); --muse-bg-base:#201d54; }
+body.theme-rose { --muse-bg-grad: linear-gradient(165deg,#ef7d8e 0%,#f8a8b4 55%,#f0909c 100%); --muse-bg-base:#f0909c; }
+body.theme-dark { --muse-bg-grad: linear-gradient(165deg,#141830 0%,#1e2440 55%,#161a34 100%); --muse-bg-base:#161a34; }
+/* Навигация-островок */
+@media (max-width: 768px) {
+.bottom-nav { left: 14px !important; right: 14px !important; bottom: 14px !important; border-radius: 26px !important; box-shadow: 0 12px 40px rgba(20,15,60,.3) !important; min-height: 64px !important; height: auto !important; padding: 8px 10px !important; }
+.main-content { padding-bottom: 110px !important; }
+}
+/* Пикер создания */
+.create-picker { position: fixed; inset: 0; z-index: 6000; display: none; align-items: center; justify-content: center; background: rgba(10,10,25,.5); backdrop-filter: blur(14px); }
+.create-picker.open { display: flex; }
+.cp-inner { display: flex; flex-direction: column; align-items: center; width: min(440px, 90vw); }
+.cp-title { color: #fff; font-size: 21px; font-weight: 800; margin-bottom: 4px; text-shadow: 0 2px 10px rgba(0,0,0,.3); }
+.cp-subtitle { color: rgba(255,255,255,.65); font-size: 12px; margin-bottom: 20px; }
+.cp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; }
+.cp-grid.subs { grid-template-columns: repeat(3, 1fr); }
+.cp-tile { background: var(--muse-surface); border: 1px solid var(--muse-border); border-radius: 22px; padding: 20px 14px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: transform .18s, box-shadow .18s; animation: cpIn .34s cubic-bezier(.2,.9,.3,1.2) both; }
+.cp-grid .cp-tile:nth-child(1) { animation-delay: .03s; } .cp-grid .cp-tile:nth-child(2) { animation-delay: .07s; }
+.cp-grid .cp-tile:nth-child(3) { animation-delay: .11s; } .cp-grid .cp-tile:nth-child(4) { animation-delay: .15s; }
+.cp-grid .cp-tile:nth-child(5) { animation-delay: .19s; } .cp-grid .cp-tile:nth-child(6) { animation-delay: .23s; }
+.cp-grid .cp-tile:nth-child(7) { animation-delay: .27s; } .cp-grid .cp-tile:nth-child(8) { animation-delay: .31s; }
+@keyframes cpIn { from { opacity: 0; transform: translateY(52px) scale(.82); } to { opacity: 1; transform: none; } }
+.cp-grid.leaving .cp-tile { animation: cpOut .18s ease both; }
+@keyframes cpOut { to { opacity: 0; transform: translateY(-28px) scale(.88); } }
+.cp-tile:active { transform: scale(.94); }
+.cp-tile-icon { width: 54px; height: 54px; border-radius: 17px; background: linear-gradient(135deg, rgba(109,93,252,.14), rgba(139,92,246,.2)); display: flex; align-items: center; justify-content: center; color: var(--muse-accent); }
+.cp-tile-icon svg { width: 25px; height: 25px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+.cp-tile-name { font-weight: 700; font-size: 14px; color: var(--muse-text); }
+.cp-tile-hint { font-size: 10px; color: var(--muse-muted); }
+.cp-close { position: absolute; top: 18px; right: 18px; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,.16); border: none; color: #fff; font-size: 20px; cursor: pointer; z-index: 5; }
+.cp-back { background: rgba(255,255,255,.16); color: #fff; border: none; border-radius: 12px; padding: 9px 16px; font-weight: 600; font-size: 13px; cursor: pointer; margin-bottom: 16px; font-family: inherit; }
+/* Задания дня */
+.daily-tasks { background: var(--muse-surface); border: 1px solid var(--muse-border); border-radius: 22px; padding: 20px; margin-top: 18px; box-shadow: var(--muse-shadow); }
+.dt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.dt-title { font-weight: 800; font-size: 16px; }
+.dt-date { font-size: 12px; color: var(--muse-muted); }
+.dt-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--muse-border); }
+.dt-item:last-child { border-bottom: none; }
+.dt-cat { font-size: 10px; font-weight: 700; color: var(--muse-accent); background: rgba(109,93,252,.1); padding: 3px 8px; border-radius: 8px; white-space: nowrap; min-width: 48px; text-align: center; }
+.dt-text { flex: 1; font-size: 13px; }
+.dt-check { font-size: 16px; }
+.dt-done { opacity: .45; text-decoration: line-through; }
+</style>
+<script>
+/* ===== ПАТЧ v2: JS ===== */
+(function() {
+'use strict';
+
+/* --- Пикер создания --- */
+const CP_ICONS = {
+text:'<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h12M4 18h8"/></svg>',
+image:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>',
+art:'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a2 2 0 0 0 1.8-2.8l-.4-.8a2 2 0 0 1 1.8-2.9H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="10" r="1"/><circle cx="11" cy="7" r="1"/></svg>',
+audio:'<svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
+video:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>',
+design:'<svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 15l5-5 3 3 3-4 5 6"/></svg>',
+history:'<svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg>'
+};
+const CP_CATS = [
+{ id:'text', name:'Текст', hint:'Стихи и проза' },
+{ id:'image', name:'Изображение', hint:'Фото и серии' },
+{ id:'art', name:'Арт', hint:'Иллюстрации' },
+{ id:'audio', name:'Музыка', hint:'Треки и звук' },
+{ id:'video', name:'Видео', hint:'Клипы и ролики' },
+{ id:'design', name:'Дизайн', hint:'Макеты и идеи' },
+{ id:'history', name:'История', hint:'Живёт 24 часа' }
+];
+const CP_SUBS = {
+text:['Поэзия','Проза','Рассказ','Эссе'],
+image:['Портрет','Пейзаж','Уличное','Предметное'],
+art:['Живопись','Иллюстрация','Цифровое','Скетч'],
+audio:['Песня','Инструментал','Электроника','Подкаст'],
+video:['Клип','Влог','Анимация','Короткометражка'],
+design:['Графика','UI/UX','Брендинг','Типографика']
+};
+let cpStep = 'cats';
+
+function ensurePicker() {
+if (document.getElementById('createPicker')) return;
+document.body.insertAdjacentHTML('beforeend', '<div class="create-picker" id="createPicker"><button class="cp-close" onclick="closeCreatePicker()">×</button><div class="cp-inner"><div class="cp-title" id="cpTitle">Что создаёшь?</div><div class="cp-subtitle" id="cpSubtitle">Выбери категорию</div><button class="cp-back" id="cpBack" style="display:none" onclick="cpGoBack()">‹ К категориям</button><div class="cp-grid" id="cpGrid"></div></div></div>');
+document.getElementById('createPicker').addEventListener('click', function(e) { if (e.target === this) closeCreatePicker(); });
+}
+function cpRenderCats() {
+cpStep = 'cats';
+document.getElementById('cpTitle').textContent = 'Что создаёшь?';
+document.getElementById('cpSubtitle').textContent = 'Выбери категорию';
+document.getElementById('cpBack').style.display = 'none';
+const g = document.getElementById('cpGrid');
+g.className = 'cp-grid';
+g.innerHTML = CP_CATS.map(c => '<div class="cp-tile" data-cat="' + c.id + '"><div class="cp-tile-icon">' + CP_ICONS[c.id] + '</div><div class="cp-tile-name">' + c.name + '</div><div class="cp-tile-hint">' + c.hint + '</div></div>').join('');
+g.querySelectorAll('.cp-tile').forEach(t => t.onclick = () => cpChooseCat(t.dataset.cat));
+}
+function cpChooseCat(cat) {
+if (cat === 'history') { closeCreatePicker(); openStoryComposer(); return; }
+const g = document.getElementById('cpGrid');
+g.classList.add('leaving');
+setTimeout(() => {
+g.classList.remove('leaving');
+cpStep = 'subs';
+const label = (CP_CATS.find(c => c.id === cat) || {}).name || cat;
+document.getElementById('cpTitle').textContent = label;
+document.getElementById('cpSubtitle').textContent = 'Выбери направление';
+document.getElementById('cpBack').style.display = '';
+g.className = 'cp-grid subs';
+const subs = CP_SUBS[cat] || [];
+g.innerHTML = subs.map(s => '<div class="cp-tile" data-sub="' + s + '"><div class="cp-tile-icon">' + CP_ICONS[cat] + '</div><div class="cp-tile-name">' + s + '</div></div>').join('') + '<div class="cp-tile" data-sub=""><div class="cp-tile-icon">' + CP_ICONS[cat] + '</div><div class="cp-tile-name">Другое</div></div>';
+g.querySelectorAll('.cp-tile').forEach(t => t.onclick = () => { closeCreatePicker(); openPostEditor(cat, t.dataset.sub); });
+}, 180);
+}
+function cpGoBack() { cpRenderCats(); }
+function openCreatePicker() { ensurePicker(); cpRenderCats(); document.getElementById('createPicker').classList.add('open'); }
+function closeCreatePicker() { const p = document.getElementById('createPicker'); if (p) p.classList.remove('open'); }
+
+window.openCreatePicker = openCreatePicker;
+window.closeCreatePicker = closeCreatePicker;
+window.cpGoBack = cpGoBack;
+
+/* --- Редактор напрямую (для пикера, редактирования, черновиков) --- */
+function openPostEditor(type, sub, opts) {
+opts = opts || {};
+if (!requireAuth()) return;
+editingPostId = opts.postId || null;
+editingDraftIdx = (opts.draftIdx !== undefined) ? opts.draftIdx : null;
+vkPostType = type;
+vkPostSubcategory = sub || '';
+vkPostImages = (opts.images || []).slice();
+const textarea = document.getElementById('vkPostTextarea');
+const tags = document.getElementById('vkPostTags');
+if (textarea) textarea.value = opts.text || '';
+if (tags) tags.value = opts.tags || '';
+document.querySelectorAll('.create-type-card').forEach(c => c.classList.toggle('active', c.dataset.type === type));
+renderPostSubcategories();
+renderVKPostGallery();
+updateVKCreationUI();
+checkVKPostContent();
+setCreationStage('editor');
+const title = document.getElementById('vkPostTitle');
+if (title) title.textContent = opts.title || sub || (VK_TYPE_LABELS[type] || 'Новый пост');
+document.getElementById('vkPostCreationPage').classList.add('active');
+const btn = document.getElementById('vkPostNextBtn');
+btn.textContent = opts.postId ? 'Сохранить' : 'Опубликовать';
+btn.disabled = opts.postId ? false : true;
+}
+window.openPostEditor = openPostEditor;
+
+/* --- Переопределение: «Создать» открывает пикер --- */
+window.openVKPostCreation = function(editPostId) {
+if (!requireAuth()) return;
+if (editPostId) {
+const post = getAllPosts().find(p => p.id === editPostId);
+if (!post) return;
+const opts = { postId: editPostId, title: 'Редактирование', text: post.caption || (post.texts || []).join('\n\n') || '', tags: (post.tags || []).join(', '), images: [] };
+if (post.images) post.images.forEach(d => opts.images.push({ data: d, title: '', isAudio: false, isVideo: false }));
+if (post.videos) post.videos.forEach(d => opts.images.push({ data: d, title: '', isVideo: true }));
+if (post.audios) post.audios.forEach((d, i) => opts.images.push({ data: d, title: (post.audioTitles || [])[i] || ('Трек ' + (i + 1)), isAudio: true }));
+openPostEditor(post.type || 'text', post.subcategory || '', opts);
+return;
+}
+openCreatePicker();
+};
+
+/* --- Черновики: клик = редактор --- */
+let editingDraftIdx = null;
+window.editDraft = function(idx) {
+if (!requireAuth()) return;
+const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+const draft = drafts[idx];
+if (!draft) return;
+const images = [];
+if (draft.images) draft.images.forEach(d => images.push({ data: d, title: '', isAudio: false, isVideo: false }));
+if (draft.videos) draft.videos.forEach(d => images.push({ data: d, title: '', isVideo: true }));
+if (draft.audios) draft.audios.forEach((d, i) => images.push({ data: d, title: (draft.audioTitles || [])[i] || ('Трек ' + (i + 1)), isAudio: true }));
+openPostEditor(draft.type || 'text', draft.subcategory || '', { draftIdx: idx, title: 'Черновик', text: draft.caption || (draft.texts || []).join('\n\n') || '', tags: (draft.tags || []).join(', '), images: images });
+};
+
+window.renderDrafts = function(container) {
+if (!currentUser) { showFullAuth('login'); return; }
+const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+let html = '<div class="info-banner">Ваши черновики — нажмите на карточку, чтобы продолжить редактирование</div>';
+if (drafts.length === 0) {
+html += '<div class="empty-state"><h2>Нет черновиков</h2><p>Сохраняйте посты как черновики, чтобы доделать позже</p></div>';
+} else {
+const typeNames = { text:'Текст', image:'Фото', art:'Арт', design:'Дизайн', audio:'Аудио', video:'Видео' };
+html += drafts.map((draft, idx) => '<div class="draft-card" style="cursor:pointer" onclick="editDraft(' + idx + ')"><div class="draft-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h6"/></svg></div><div class="draft-info"><div class="draft-title">' + escHtml(draft.caption || (draft.texts && draft.texts[0]) || 'Без названия') + '</div><div class="draft-date">' + (typeNames[draft.type] || draft.type) + ' · ' + new Date(draft.timestamp).toLocaleDateString('ru-RU') + '</div></div><div class="draft-actions"><button class="draft-action-btn preview" onclick="event.stopPropagation(); editDraft(' + idx + ')"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button><button class="draft-action-btn publish" onclick="event.stopPropagation(); publishDraft(' + idx + ')"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 13v6h14v-6"/></svg></button><button class="draft-action-btn delete" onclick="event.stopPropagation(); deleteDraft(' + idx + ')"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></div>').join('');
+}
+container.innerHTML = html;
+};
+
+window.renderDraftsInProfile = function(container) {
+const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + (currentUser?.id || 'temp')) || '[]');
+if (drafts.length === 0) { container.innerHTML = '<div class="empty-state"><p>Нет черновиков</p></div>'; return; }
+const typeNames = { text:'Текст', image:'Фото', art:'Арт', design:'Дизайн', audio:'Аудио', video:'Видео' };
+container.innerHTML = drafts.map((draft, idx) => '<div class="draft-card" style="cursor:pointer" onclick="editDraft(' + idx + ')"><div class="draft-icon"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h6"/></svg></div><div class="draft-info"><div class="draft-title">' + escHtml(draft.caption || (draft.texts && draft.texts[0]) || 'Без названия') + '</div><div class="draft-date">' + (typeNames[draft.type] || draft.type) + ' · ' + new Date(draft.timestamp).toLocaleDateString('ru-RU') + '</div></div><div class="draft-actions"><button class="draft-action-btn publish" onclick="event.stopPropagation(); publishDraft(' + idx + ')"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 13v6h14v-6"/></svg></button><button class="draft-action-btn delete" onclick="event.stopPropagation(); deleteDraft(' + idx + ')"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6"/><path d="M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div></div>').join('');
+};
+
+/* --- Публикация: без дублирования текста, с черновиками --- */
+window.publishVKPost = function() {
+if (!currentUser) return;
+const text = document.getElementById('vkPostTextarea').value.trim();
+const tagsStr = document.getElementById('vkPostTags').value.trim();
+const tags = tagsStr ? tagsStr.split(',').map(t => t.trim().replace(/^#/, '')).filter(Boolean) : [];
+if (vkPostType === 'history') { publishStory(); return; }
+const textOnly = ['text'].includes(vkPostType);
+if (textOnly && !text) return;
+if (!textOnly && !vkPostImages.length && !editingPostId && editingDraftIdx === null) return;
+
+const posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+
+if (editingPostId) {
+const post = posts.find(p => p.id === editingPostId);
+if (!post) { editingPostId = null; return; }
+post.caption = textOnly ? '' : text;
+post.tags = tags;
+post.subcategory = vkPostSubcategory;
+if (textOnly) { post.texts = [text]; post.category = 'text'; }
+else if (vkPostImages.length) {
+if (['image','art','design'].includes(vkPostType)) { post.images = vkPostImages.filter(i=>!i.isAudio&&!i.isVideo).map(i=>i.data); post.category = vkPostType==='image'?'photo':vkPostType; delete post.videos; delete post.audios; delete post.audioTitles; }
+else if (vkPostType === 'video') { post.videos = vkPostImages.filter(i=>i.isVideo).map(i=>i.data); post.category='video'; delete post.images; delete post.audios; }
+else if (vkPostType === 'audio') { post.audios = vkPostImages.filter(i=>i.isAudio).map(i=>i.data); post.audioTitles = vkPostImages.filter(i=>i.isAudio).map(i=>i.title); post.category='music'; delete post.images; delete post.videos; }
+}
+localStorage.setItem('muse_posts', JSON.stringify(posts));
+editingPostId = null; vkPostImages = [];
+document.getElementById('vkPostCreationPage').classList.remove('active');
+navigate('home');
+return;
+}
+
+let newPost = { id: Date.now(), authorId: currentUser.id, author: currentUser.name, handle: currentUser.username, avatar: currentUser.avatar, timestamp: Date.now(), type: vkPostType, caption: textOnly ? '' : text, tags, subcategory: vkPostSubcategory, likes: 0, likedBy: [], comments: [], anonymous: false };
+if (['image','art','design'].includes(vkPostType)) { newPost.images = vkPostImages.filter(i=>!i.isAudio&&!i.isVideo).map(i=>i.data); newPost.category = vkPostType==='image'?'photo':vkPostType; }
+else if (vkPostType === 'video') { newPost.videos = vkPostImages.filter(i=>i.isVideo).map(i=>i.data); newPost.category='video'; }
+else if (vkPostType === 'audio') { newPost.audios = vkPostImages.filter(i=>i.isAudio).map(i=>i.data); newPost.audioTitles = vkPostImages.filter(i=>i.isAudio).map(i=>i.title); newPost.category='music'; }
+else { newPost.texts = [text]; newPost.category = 'text'; }
+posts.unshift(newPost);
+try { localStorage.setItem('muse_posts', JSON.stringify(posts)); }
+catch (e) { alert('Хранилище браузера переполнено. Удалите старые публикации и попробуйте снова.'); return; }
+
+if (editingDraftIdx !== null) {
+const key = 'muse_drafts_' + currentUser.id;
+const drafts = JSON.parse(localStorage.getItem(key) || '[]');
+if (drafts.length > editingDraftIdx) drafts.splice(editingDraftIdx, 1);
+localStorage.setItem(key, JSON.stringify(drafts));
+editingDraftIdx = null;
+}
+vkPostImages = [];
+document.getElementById('vkPostCreationPage').classList.remove('active');
+checkAchievements();
+navigate('home');
+};
+
+window.closeVKPostCreation = function() {
+if (isRecordingMusic && musicRecorder) { try { musicRecorder.stop(); } catch(e){} isRecordingMusic=false; clearInterval(musicRecordingTimer); }
+if (editingPostId || editingDraftIdx !== null) { editingPostId = null; editingDraftIdx = null; document.getElementById('vkPostCreationPage').classList.remove('active'); return; }
+const text = document.getElementById('vkPostTextarea').value.trim();
+if (text || vkPostImages.length > 0 || document.getElementById('vkPostTags').value.trim()) { document.getElementById('draftSaveDialog').classList.add('active'); }
+else { document.getElementById('vkPostCreationPage').classList.remove('active'); }
+};
+
+/* --- Ачивки: расширение (мутация const-массива разрешена) --- */
+achievements.push(
+{ id:'hundred_posts', name:'Легенда', desc:'100 публикаций', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>', check: u => getUserPosts(u.id).length >= 100 },
+{ id:'fifty_likes', name:'Признание', desc:'50 лайков', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 10.4-8.8 10.4S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6a4.6 4.6 0 0 1 8.8 2.6z"/></svg>', check: u => getUserTotalLikes(u.id) >= 50 },
+{ id:'five_hundred_likes', name:'Кумир', desc:'500 лайков', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/><path d="M12 8v8M8 12h8"/></svg>', check: u => getUserTotalLikes(u.id) >= 500 },
+{ id:'fifty_followers', name:'Гуру', desc:'50 подписчиков', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5a3 3 0 0 1 0 6M17 15c2.2.6 3.5 2.1 3.5 5"/></svg>', check: u => (u.followers || []).length >= 50 },
+{ id:'fifty_comments', name:'Оратор', desc:'50 комментариев', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>', check: u => getUserComments(u.name).length >= 50 },
+{ id:'first_story', name:'Свидетель', desc:'Первая история', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>', check: u => { try { return getStories().some(s => s.authorId === u.id); } catch(e) { return false; } } },
+{ id:'ten_stories', name:'Хроникёр', desc:'10 историй', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3M12 3a15 15 0 0 1 0 0"/></svg>', check: u => { try { return getStories().filter(s => s.authorId === u.id).length >= 10; } catch(e) { return false; } } },
+{ id:'first_moodboard', name:'Коллекционер', desc:'Создайте коллекцию', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>', check: u => Object.keys(JSON.parse(localStorage.getItem('muse_moodboards_' + u.id) || '{}')).length >= 1 },
+{ id:'five_moodboards', name:'Куратор', desc:'5 коллекций', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>', check: u => Object.keys(JSON.parse(localStorage.getItem('muse_moodboards_' + u.id) || '{}')).length >= 5 },
+{ id:'first_draft', name:'Сомнение', desc:'Сохраните черновик', icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h6"/></svg>', check: u => JSON.parse(localStorage.getItem('muse_drafts_' + u.id) || '[]').length >= 1 },
+{ id:'secret_night_owl', name:'Полуночник', desc:'Пост глубокой ночью', secret: true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>', check: u => getUserPosts(u.id).some(p => { const h = new Date(p.timestamp).getHours(); return h >= 0 && h < 5; }) },
+{ id:'secret_early_bird', name:'Ранняя пташка', desc:'Пост на рассвете', secret: true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>', check: u => getUserPosts(u.id).some(p => { const h = new Date(p.timestamp).getHours(); return h >= 5 && h < 9; }) },
+{ id:'secret_marathon', name:'Марафонец', desc:'3 поста за один день', secret: true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>', check: u => { const days = {}; getUserPosts(u.id).forEach(p => { const d = new Date(p.timestamp).toDateString(); days[d] = (days[d] || 0) + 1; }); return Object.values(days).some(n => n >= 3); } },
+{ id:'secret_wordless', name:'Молчание', desc:'Пост без слов', secret: true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>', check: u => getUserPosts(u.id).some(p => p.type !== 'text' && !p.caption) },
+{ id:'secret_novelist', name:'Романист', desc:'Текст длиннее 1000 символов', secret: true, icon:'<svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>', check: u => getUserPosts(u.id).some(p => ((p.texts || []).join('') || '').length >= 1000) }
+);
+
+/* --- Ежедневные задания --- */
+const DAILY_TASKS = {
+text: ['Напишите хайку', 'Микро-рассказ до 50 слов', 'Опишите утро одним предложением', 'Стихотворение о любимом цвете', 'Письмо себе через год', 'Опишите звук дождя', 'Ночь глазами совы'],
+image: ['Снимите что-то зелёное', 'Фото из окна', 'Чёрно-белый кадр', 'Снимите тень', 'Макро-фото', 'Фото еды', 'Уличная сцена'],
+art: ['Нарисуйте эмоцию', 'Скетч за 5 минут', 'Портрет по памяти', 'Абстракция из кругов', 'Персонаж одной линией', 'Натюрморт из 3 предметов', 'Иллюстрация ко сну'],
+audio: ['Напойте мелодию', 'Запишите звук улицы', 'Мини-трек из 3 нот', 'Ритм ладошами', 'Кавер на 1 куплет', 'Звук утра', 'Голосовая открытка'],
+video: ['15 секунд движения', 'Таймлапс неба', 'Видео-дневник: сегодня', 'Снимите дорогу', 'Реклама себя на 10 сек', '15 секунд тишины', 'Процесс работы'],
+design: ['Логотип для себя', 'Обложка для плейлиста', 'Иконка настроения', 'Постер любимой книги', 'Мудборд из 5 картинок', 'Редизайн бытового предмета', 'Открытка другу']
+};
+const DT_CAT_MAP = { text:'text', image:'photo', art:'art', audio:'music', video:'video', design:'design' };
+const DT_LABELS = { text:'Текст', image:'Фото', art:'Арт', audio:'Музыка', video:'Видео', design:'Дизайн' };
+
+function mulberry32(a) { return function() { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+window.getDailyTasks = function() {
+const d = new Date();
+const key = '' + d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+const rnd = mulberry32(Number(key));
+const tasks = [];
+Object.keys(DAILY_TASKS).forEach(cat => {
+const list = DAILY_TASKS[cat];
+tasks.push({ cat, postCat: DT_CAT_MAP[cat], text: list[Math.floor(rnd() * list.length)] });
+});
+return { key, date: d.toLocaleDateString('ru-RU'), tasks };
+};
+
+window.isDailyTaskDone = function(task) {
+if (!currentUser) return false;
+const start = new Date(); start.setHours(0, 0, 0, 0);
+return getUserPosts(currentUser.id).some(p => p.timestamp >= start.getTime() && p.category === task.postCat);
+};
+
+window.renderStudio = function(container) {
+if (!currentUser) { showFullAuth('login'); return; }
+const posts = getUserPosts(currentUser.id);
+const likes = posts.reduce((sum, p) => sum + (p.likes || 0), 0);
+const comments = posts.reduce((sum, p) => sum + ((p.comments || []).length), 0);
+const drafts = JSON.parse(localStorage.getItem('muse_drafts_' + currentUser.id) || '[]');
+const collections = JSON.parse(localStorage.getItem('muse_moodboards_' + currentUser.id) || '{}');
+const followers = (getUserById(currentUser.id)?.followers || []).length;
+const daily = getDailyTasks();
+let dailyHtml = '<div class="daily-tasks"><div class="dt-header"><div class="dt-title">☀️ Задания дня</div><div class="dt-date">' + daily.date + '</div></div>';
+daily.tasks.forEach(t => {
+const done = isDailyTaskDone(t);
+dailyHtml += '<div class="dt-item' + (done ? ' dt-done' : '') + '"><span class="dt-cat">' + DT_LABELS[t.cat] + '</span><span class="dt-text">' + escHtml(t.text) + '</span><span class="dt-check">' + (done ? '✅' : '⬜') + '</span></div>';
+});
+dailyHtml += '<div style="font-size:11px;color:var(--muse-muted);margin-top:10px;">Выполняются автоматически при публикации поста нужной категории. Новые задания — каждый день.</div></div>';
+container.innerHTML = '<div class="studio-hero"><div style="font-size:12px;opacity:.72;margin-bottom:8px;letter-spacing:.08em;text-transform:uppercase">Creator dashboard</div><h2 style="margin:0 0 8px;font-size:28px">Muse Studio</h2><p style="margin:0;opacity:.78;line-height:1.55">Место, где видно развитие твоего творчества и всё, что сейчас в работе.</p></div>' +
+'<div class="studio-grid"><div class="studio-stat"><strong>' + posts.length + '</strong><span>публикаций</span></div><div class="studio-stat"><strong>' + likes + '</strong><span>лайков</span></div><div class="studio-stat"><strong>' + comments + '</strong><span>комментариев</span></div><div class="studio-stat"><strong>' + followers + '</strong><span>подписчиков</span></div></div>' +
+dailyHtml +
+'<div class="studio-actions"><button class="studio-action" onclick="openVKPostCreation()"><b>Создать работу</b><span>Текст, фото, арт, музыка, видео и другое</span></button><button class="studio-action" onclick="navigate(\'drafts\')"><b>Черновики · ' + drafts.length + '</b><span>Продолжить незаконченные публикации</span></button><button class="studio-action" onclick="navigate(\'moodboards\')"><b>Коллекции · ' + Object.keys(collections).length + '</b><span>Собранные идеи и вдохновение</span></button></div>';
+};
+
+})();
+</script>
 </body>
 </html>
