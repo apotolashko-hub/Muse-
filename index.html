@@ -4120,5 +4120,324 @@ renderPTab(tab);
 
 })();
 </script>
+   <style>
+/* ===== УБРАТЬ БУКВИЦУ ПОЛНОСТЬЮ ===== */
+.text-slide::first-letter,
+.carousel-track .text-slide::first-letter{
+font-size:inherit!important;
+float:none!important;
+line-height:inherit!important;
+margin:0!important;
+font-family:inherit!important;
+color:inherit!important;
+font-weight:inherit!important;
+-webkit-text-fill-color:inherit!important;
+background:none!important;
+}
+.text-slide::before,
+.carousel-track .text-slide::before{
+display:none!important;
+content:none!important;
+}
+.text-slide{
+padding:24px 20px!important;
+font-family:'Lora',Georgia,serif!important;
+font-size:16px!important;
+line-height:1.8!important;
+}
+
+/* ===== НАСТРОЙКИ: читаемые при ЛЮБОЙ теме ===== */
+/* Тёмные темы — светлый текст */
+body:not(.theme-day) .vk-set-nm,
+body:not(.theme-day) .vk-set-btn,
+body:not(.theme-day) .vk-set-title,
+body:not(.theme-day) .vk-set-back,
+body:not(.theme-day) .vk-set-sec b{
+color:#e4e6f0!important;
+}
+body:not(.theme-day) .vk-set-ph,
+body:not(.theme-day) .vk-set-sec div,
+body:not(.theme-day) .vk-set-sec span{
+color:#8b8fa8!important;
+}
+body:not(.theme-day) .vk-set-prof{
+background:rgba(255,255,255,.05)!important;
+border-bottom:1px solid rgba(255,255,255,.08)!important;
+}
+body:not(.theme-day) .vk-set-sec{
+background:rgba(255,255,255,.05)!important;
+}
+body:not(.theme-day) .vk-set-btn{
+background:rgba(255,255,255,.08)!important;
+border:1px solid rgba(255,255,255,.1)!important;
+}
+body:not(.theme-day) .vk-set-head{
+background:rgba(12,14,30,.95)!important;
+border-bottom:1px solid rgba(255,255,255,.08)!important;
+}
+body:not(.theme-day) .settings-subpage .vk-set-sec{
+background:rgba(255,255,255,.05)!important;
+}
+
+/* Светлая тема — тёмный текст */
+body.theme-day .vk-set-nm,
+body.theme-day .vk-set-btn,
+body.theme-day .vk-set-title,
+body.theme-day .vk-set-back,
+body.theme-day .vk-set-sec b{
+color:#1a1d2e!important;
+}
+body.theme-day .vk-set-ph,
+body.theme-day .vk-set-sec div,
+body.theme-day .vk-set-sec span{
+color:#666!important;
+}
+body.theme-day .vk-set-prof{
+background:#fff!important;
+border-bottom:1px solid #e8e8ee!important;
+}
+body.theme-day .vk-set-sec{
+background:#fff!important;
+}
+body.theme-day .vk-set-btn{
+background:#fff!important;
+border:1px solid #d8dae2!important;
+}
+body.theme-day .vk-set-head{
+background:rgba(252,252,254,.97)!important;
+border-bottom:1px solid #e8e8ee!important;
+}
+
+/* Тумблеры */
+body:not(.theme-day) .set-tog div:first-child div:first-child{color:#e4e6f0!important}
+body:not(.theme-day) .set-tog div:first-child div:last-child{color:#8b8fa8!important}
+body:not(.theme-day) .set-tog{border-bottom:1px solid rgba(255,255,255,.08)!important}
+body.theme-day .set-tog div:first-child div:first-child{color:#1a1d2e!important}
+body.theme-day .set-tog div:first-child div:last-child{color:#666!important}
+body.theme-day .set-tog{border-bottom:1px solid #e8e8ee!important}
+
+/* Персонализация */
+body:not(.theme-day) .pers-title{color:#e4e6f0!important}
+body:not(.theme-day) .pers-item span{color:#e4e6f0!important}
+body.theme-day .pers-title{color:#1a1d2e!important}
+body.theme-day .pers-item span{color:#333!important}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== КОММЕНТАРИИ ===== */
+window.addComment = function(pid) {
+if (!requireAuth()) return;
+var input = document.getElementById('ci-' + pid);
+if (!input) return;
+var text = input.value.trim();
+if (!text && !commentImage && !commentAudio) return;
+var rta = null;
+if (replyTo && replyTo.postId === pid) {
+var allC = getC4P(pid);
+var parent = allC.find(function(c) { return c.id === replyTo.commentId; });
+if (parent) rta = parent.author;
+}
+var posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+var p = posts.find(function(x) { return String(x.id) === String(pid); });
+if (!p) return;
+var comment = { id: Date.now(), author: currentUser.name, avatar: currentUser.avatar, text: text, image: commentImage || null, audio: commentAudio || null, replyTo: replyTo && replyTo.postId === pid ? replyTo.commentId : null, replyToAuthor: rta, time: Date.now() };
+if (!p.comments) p.comments = [];
+p.comments.push(comment);
+localStorage.setItem('muse_posts', JSON.stringify(posts));
+var pa = getUserById(p.authorId);
+if (pa) addNotif('comment', currentUser, pid, text, pa.id);
+input.value = '';
+commentImage = null;
+commentAudio = null;
+commentAudioPostId = null;
+replyTo = null;
+var list = document.getElementById('cml-' + pid);
+if (list) {
+var allC2 = getC4P(pid);
+var rootC = allC2.filter(function(c) { return !c.replyTo; });
+list.innerHTML = rootC.map(function(c) { return renderComment(c, pid, allC2); }).join('');
+}
+var cbtn = document.querySelector('#pc-' + pid + ' button[onclick*="toggleComments"]');
+if (cbtn) {
+var cs = cbtn.querySelector('span');
+if (cs) cs.textContent = p.comments.length;
+}
+checkAch();
+museToast('Отправлено', '💬');
+};
+
+/* ===== ГОЛОСОВЫЕ ===== */
+window.findCA = function(cid) {
+var posts = JSON.parse(localStorage.getItem('muse_posts') || '[]');
+for (var i = 0; i < posts.length; i++) {
+var cs = posts[i].comments || [];
+for (var j = 0; j < cs.length; j++) {
+if (String(cs[j].id) === String(cid) && cs[j].audio) return cs[j].audio;
+}
+}
+return null;
+};
+
+window.toggleCVP = function(cid) {
+if (playingVoiceId === cid && currentAudio) {
+currentAudio.pause(); currentAudio = null; playingVoiceId = null;
+return;
+}
+if (currentAudio) { currentAudio.pause(); currentAudio = null; playingVoiceId = null; }
+var src = findCA(cid);
+if (!src) { museToast('Аудио недоступно', '⚠️'); return; }
+try {
+currentAudio = new Audio(src);
+playingVoiceId = cid;
+currentAudio.play().catch(function() { currentAudio = null; playingVoiceId = null; museToast('Не удалось воспроизвести', '⚠️'); });
+currentAudio.onended = function() { currentAudio = null; playingVoiceId = null; };
+} catch(e) { museToast('Ошибка', '⚠️'); }
+};
+
+window.toggleVP = function(pid) {
+if (!commentAudio || commentAudioPostId !== pid) return;
+if (playingVoiceId === 'p-' + pid && currentAudio) {
+currentAudio.pause(); currentAudio = null; playingVoiceId = null;
+return;
+}
+if (currentAudio) { currentAudio.pause(); currentAudio = null; playingVoiceId = null; }
+try {
+currentAudio = new Audio(commentAudio);
+playingVoiceId = 'p-' + pid;
+currentAudio.play().catch(function() { currentAudio = null; playingVoiceId = null; });
+currentAudio.onended = function() { currentAudio = null; playingVoiceId = null; };
+} catch(e) {}
+};
+
+/* ===== КАТЕГОРИИ ===== */
+window.setCat = function(c) {
+currentCategory = c;
+renderFeed(document.getElementById('mainContent'));
+setTimeout(function() {
+document.querySelectorAll('.post-card').forEach(function(card) {
+card.style.opacity = '1';
+card.style.transform = 'none';
+card.style.transition = 'none';
+});
+if (typeof attachCar === 'function') attachCar();
+if (typeof makeExp === 'function') makeExp();
+}, 40);
+};
+
+/* ===== ИСТОРИИ ===== */
+window.openStories = async function(uid) {
+try {
+var stories = getUserStories(uid);
+if (!stories.length) return;
+storyViewerStories = stories;
+storyViewerIndex = 0;
+var v = document.getElementById('storyViewer');
+if (!v) {
+document.body.insertAdjacentHTML('beforeend',
+'<div id="storyViewer" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:5500;align-items:center;justify-content:center;">' +
+'<div style="position:relative;width:min(480px,100vw);height:min(850px,100vh);background:#111;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;">' +
+'<div style="position:absolute;top:6px;left:10px;right:10px;height:3px;background:rgba(255,255,255,.2);z-index:6;border-radius:4px;overflow:hidden;"><i id="spBar" style="display:block;height:100%;background:#fff;transform-origin:left;"></i></div>' +
+'<div id="spMeta" style="position:absolute;top:16px;left:16px;z-index:5;color:#fff;background:rgba(0,0,0,.4);padding:6px 12px;border-radius:12px;font-size:12px;"></div>' +
+'<button onclick="closeStories()" style="position:absolute;top:12px;right:12px;z-index:5;width:38px;height:38px;border:0;border-radius:50%;background:rgba(0,0,0,.5);color:#fff;font-size:22px;cursor:pointer;">×</button>' +
+'<div id="spMedia" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"></div>' +
+'</div></div>');
+v = document.getElementById('storyViewer');
+v.addEventListener('click', function(e) { if (e.target === v) closeStories(); });
+}
+v.style.display = 'flex';
+document.getElementById('spMedia').innerHTML = '<div style="color:#fff;opacity:.5;font-size:14px;">Загрузка…</div>';
+await window.renderStory();
+} catch(e) {
+console.error('openStories:', e);
+museToast('История недоступна', '⚠️');
+}
+};
+
+window.renderStory = async function() {
+var st = storyViewerStories[storyViewerIndex];
+if (!st) return closeStories();
+var u = getUserById(st.authorId) || { name: st.author || 'Автор' };
+document.getElementById('spMeta').textContent = u.name;
+var m = document.getElementById('spMedia');
+var src = null;
+try { src = await getMedia(st.data); } catch(e) { src = null; }
+if (!src) { m.innerHTML = '<div style="color:#fff;font-size:14px;">Недоступно</div>'; return; }
+if (st.type === 'video') m.innerHTML = '<video src="' + src + '" autoplay playsinline controls style="width:100%;height:100%;object-fit:contain;"></video>';
+else if (st.type === 'audio') m.innerHTML = '<audio src="' + src + '" controls autoplay style="width:80%;"></audio>';
+else m.innerHTML = '<img src="' + src + '" style="width:100%;height:100%;object-fit:contain;">';
+var media = m.firstElementChild;
+var dur = st.type === 'image' ? 5000 : 30000;
+var b = document.getElementById('spBar');
+if (b) {
+b.style.transition = 'none';
+b.style.transform = 'scaleX(0)';
+setTimeout(function() { b.style.transition = 'transform ' + (dur/1000) + 's linear'; b.style.transform = 'scaleX(1)'; }, 30);
+}
+clearTimeout(storyViewerTimer);
+if (media && (st.type === 'video' || st.type === 'audio')) media.onended = function() { window.advanceStory(); };
+storyViewerTimer = setTimeout(function() { window.advanceStory(); }, dur);
+};
+
+window.advanceStory = function() {
+clearTimeout(storyViewerTimer);
+storyViewerIndex++;
+if (storyViewerIndex < storyViewerStories.length) window.renderStory();
+else closeStories();
+};
+
+window.closeStories = function() {
+clearTimeout(storyViewerTimer);
+storyViewerTimer = null;
+var v = document.getElementById('storyViewer');
+if (v) v.style.display = 'none';
+var m = document.getElementById('spMedia');
+if (m) m.innerHTML = '';
+};
+
+/* ===== АЧИВКИ ===== */
+window.toggleAch = function(aid) {
+if (!requireAuth()) return;
+var users = getUsers();
+var me = users.find(function(u) { return u.id === currentUser.id; });
+if (!me) return;
+if (!me.achievements) me.achievements = [];
+if (!me.displayedAchievements) me.displayedAchievements = [];
+var idx = me.displayedAchievements.indexOf(aid);
+if (idx > -1) {
+me.displayedAchievements.splice(idx, 1);
+museToast('Убрано', '↩');
+} else {
+if (me.displayedAchievements.length >= 5) { museToast('Максимум 5', '⚠️'); return; }
+me.displayedAchievements.push(aid);
+museToast('Добавлено в профиль', '✨');
+}
+saveUsers(users);
+currentUser = me;
+localStorage.setItem('muse_cur', JSON.stringify(me));
+if (currentPage === 'achievements') renderAch(document.getElementById('mainContent'));
+else if (currentPage === 'profile') renderProfile(document.getElementById('mainContent'));
+};
+
+/* ===== НАСТРОЙКИ ===== */
+window.openSettingsSubpage = function(n) {
+document.getElementById('settingsMainPage').style.display = 'none';
+document.querySelectorAll('.settings-subpage').forEach(function(p) { p.classList.remove('active'); });
+var sp = document.getElementById('subpage-' + n);
+if (sp) sp.classList.add('active');
+if (n === 'appearance' && typeof renderPers === 'function') renderPers();
+document.querySelectorAll('.toggle-switch').forEach(function(el) {
+if (userSettings[el.id] !== undefined) el.classList.toggle('active', userSettings[el.id]);
+});
+};
+
+window.closeSettingsSubpage = function() {
+document.getElementById('settingsMainPage').style.display = 'block';
+document.querySelectorAll('.settings-subpage').forEach(function(p) { p.classList.remove('active'); });
+};
+
+})();
+</script>
 </body>
 </html>
