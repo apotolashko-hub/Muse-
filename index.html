@@ -3504,5 +3504,333 @@ container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#88
 
 })();
 </script>
+   <style>
+/* ===== ТЕМЫ: 5 красивых с градиентами ===== */
+body{--pat:none}
+body.theme-night{background:#0c0e24!important;background-image:linear-gradient(170deg,#0c0e24 0%,#1a1a48 40%,#222058 70%,#161440 100%)!important;--acc:#a78bfa;--acc2:#f0abfc;--txt:#e4e6f4;--mut:#8b8fa8;--sur:rgba(255,255,255,.06);--sur2:rgba(255,255,255,.03);--bor:rgba(255,255,255,.07);--nav:rgba(12,14,36,.92);--inp:rgba(255,255,255,.05)}
+body.theme-dream{background:#1e1236!important;background-image:linear-gradient(170deg,#1e1236 0%,#3a2050 40%,#4a2860 70%,#2a1844 100%)!important;--acc:#f472b6;--acc2:#c084fc;--txt:#f0e6f6;--mut:#a890b8;--sur:rgba(255,255,255,.06);--bor:rgba(255,255,255,.07);--nav:rgba(30,18,54,.92);--inp:rgba(255,255,255,.05)}
+body.theme-ocean{background:#061826!important;background-image:linear-gradient(170deg,#061826 0%,#0a2a44 40%,#0e3a5e 70%,#082034 100%)!important;--acc:#38bdf8;--acc2:#7dd3fc;--txt:#e0eef6;--mut:#7a9ab0;--sur:rgba(255,255,255,.06);--bor:rgba(255,255,255,.07);--nav:rgba(6,24,38,.92);--inp:rgba(255,255,255,.05)}
+body.theme-forest{background:#0a1a10!important;background-image:linear-gradient(170deg,#0a1a10 0%,#123020 40%,#1a4030 70%,#0e2416 100%)!important;--acc:#34d399;--acc2:#6ee7b7;--txt:#e0f0e6;--mut:#7aa890;--sur:rgba(255,255,255,.06);--bor:rgba(255,255,255,.07);--nav:rgba(10,26,16,.92);--inp:rgba(255,255,255,.05)}
+body.theme-day{background:#eef0f8!important;background-image:linear-gradient(170deg,#f2f3f9 0%,#e8e9f3 40%,#eef0f8 70%,#f4f5fb 100%)!important;--acc:#7c3aed;--acc2:#ec4899;--txt:#1a1d2e;--mut:#6b7280;--sur:#ffffff;--sur2:#f0f0f6;--bor:#d8dae2;--nav:rgba(252,252,254,.95);--inp:#f8f9fc}
+
+/* ===== ФОНОВЫЕ ПАТТЕРНЫ ===== */
+body.pat-stars{--pat-img:var(--pat)}
+body{background-image:var(--pat-none,none),linear-gradient(170deg,var(--bg1,#eef0f8),var(--bg2,#eef0f8))!important}
+body.pat-on{background-image:var(--pat,none),inherit!important}
+/* Паттерн через ::before */
+body::before{content:'';position:fixed;inset:0;background-image:var(--pat);background-attachment:fixed;pointer-events:none;z-index:0;opacity:1}
+
+/* ===== ПЛАВНОСТЬ НАСТРОЕК ===== */
+.vk-settings{transition:opacity .2s ease}
+.settings-subpage{animation:setIn .22s ease both}
+@keyframes setIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.vk-set-sec{transition:transform .15s ease}
+.theme-option{transition:all .2s ease;transform:scale(1)}
+.theme-option:active{transform:scale(.95)}
+
+/* ===== КАТЕГОРИИ: плавное переключение ===== */
+.categories{scroll-behavior:smooth}
+.category-chip{position:relative}
+.category-chip.active{box-shadow:0 4px 14px rgba(124,58,237,.25)!important;transform:scale(1.02)}
+
+/* ===== КАРТОЧКИ: красивые ===== */
+.post-card,.user-card,.muse-banner,.challenge-banner,.notification-item,.draft-card,.moodboard-card,.daily-tasks,.studio-stat,.studio-action,.modal-content,.auth-box,.auth-modal,.achievement-card,.tag-search-result,.dt-card{
+background:var(--sur)!important;
+border:1px solid var(--bor)!important;
+border-radius:18px!important;
+box-shadow:0 2px 12px rgba(0,0,0,.06)!important;
+overflow:visible!important;
+backdrop-filter:blur(14px)!important;
+color:var(--txt)!important;
+}
+body.theme-day .post-card{box-shadow:0 1px 8px rgba(0,0,0,.07)!important}
+
+/* ===== ПРОФИЛЬ: компактный ===== */
+.profile-cover{display:none!important}
+.profile-header{padding:24px 16px 16px!important;margin:0 0 12px!important}
+.p-av{width:100px!important;height:100px!important}
+.p-av span{font-size:38px!important}
+.p-name{font-size:27px!important}
+.p-stats{gap:32px!important;margin-bottom:16px!important}
+.profile-tabs{margin-bottom:10px!important}
+
+/* ===== ЛЕНТА: компактная ===== */
+.main-content{padding:12px 12px 90px!important}
+.feed-greeting-sub{margin-bottom:8px!important}
+.stories-bar{padding:8px 10px!important;margin:0 -10px 8px!important;gap:10px!important}
+.muse-banner{padding:12px 16px!important;margin-bottom:10px!important}
+.categories{padding:6px 14px 8px!important;margin:0 -14px 8px!important}
+.challenge-banner{padding:12px 16px!important;margin-bottom:10px!important}
+.post-card{margin-bottom:12px!important}
+
+/* ===== ШАПКА / НАВИГАЦИЯ ===== */
+.top-bar{background:var(--nav)!important;backdrop-filter:blur(20px)!important;border-bottom:1px solid var(--bor)!important;transition:background .3s ease}
+.bottom-nav{background:var(--nav)!important;backdrop-filter:blur(24px)!important;border:1px solid var(--bor)!important;box-shadow:0 8px 32px rgba(0,0,0,.15)!important;transition:background .3s ease}
+.sidebar{background:var(--nav)!important;backdrop-filter:blur(24px)!important;border-right:1px solid var(--bor)!important}
+
+/* ===== ТЕКСТ ===== */
+.post-caption{color:var(--txt)!important;padding:10px 14px 4px!important}
+.post-an{color:var(--txt)!important}
+.post-ah{color:var(--mut)!important}
+.empty-state{color:var(--mut)!important}
+.user-card-name{color:var(--txt)!important}
+.user-card-handle{color:var(--mut)!important}
+.p-stat b{color:var(--acc)!important}
+.p-stat i{color:var(--mut)!important}
+
+/* ===== ПЕРСОНАЛИЗАЦИЯ UI ===== */
+.pers-section{margin-bottom:20px}
+.pers-title{font-family:'Cormorant',Georgia,serif;font-size:18px;font-weight:700;margin-bottom:10px;color:var(--txt)}
+.pers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pers-item{
+border-radius:14px;cursor:pointer;
+border:2.5px solid transparent;
+transition:all .2s ease;
+position:relative;
+overflow:hidden;
+aspect-ratio:3/2;
+display:flex;align-items:flex-end;justify-content:center;
+padding-bottom:6px;
+}
+.pers-item:active{transform:scale(.93)}
+.pers-item.sel{border-color:var(--acc)!important;box-shadow:0 4px 14px rgba(124,58,237,.2)}
+.pers-item span{font-size:10px;font-weight:700;z-index:1;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.pers-check{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:var(--acc);color:#fff;display:none;align-items:center;justify-content:center;font-size:11px;z-index:2}
+.pers-item.sel .pers-check{display:flex}
+
+/* ===== ИНПУТЫ / ПРОЧЕЕ ===== */
+input,textarea,.search-input,.c-inp-c input{background:var(--inp)!important;color:var(--txt)!important;border-color:var(--bor)!important}
+input::placeholder{color:var(--mut)!important}
+.vk-sheet{background:var(--sur)!important;border:1px solid var(--bor)!important}
+body.theme-dark .vk-sheet{background:var(--sur)!important}
+.vk-title{color:var(--txt)!important}
+.vk-text{color:var(--txt)!important}
+.c-inp-c input{background:var(--inp)!important;color:var(--txt)!important}
+.muse-toast{background:var(--nav)!important;color:var(--txt)!important;border:1px solid var(--bor)!important}
+.dt-detail{background:rgba(0,0,0,.6)!important;backdrop-filter:blur(8px)!important}
+.dt-card{background:var(--sur)!important}
+.dt-dd{color:var(--mut)!important}
+.create-picker{background:rgba(0,0,0,.6)!important;backdrop-filter:blur(10px)!important}
+.cp-tile{background:var(--sur)!important;border:1px solid var(--bor)!important}
+.cp-tile-nm{color:var(--txt)!important}
+.cp-tile-ht{color:var(--mut)!important}
+#vkEditor{display:flex!important;flex-direction:column!important}
+.vk-sheet.cat-mode #vkEditor,.vk-sheet.sub-mode #vkEditor{display:none!important}
+.vk-sheet.cat-mode #vkGal,.vk-sheet.sub-mode #vkGal,.vk-sheet.cat-mode .vk-meta,.vk-sheet.sub-mode .vk-meta,.vk-sheet.cat-mode .vk-hint,.vk-sheet.sub-mode .vk-hint{display:none!important}
+.vk-sheet.ed-mode .vk-types,.vk-sheet.ed-mode .vk-subs{display:none!important}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== ГЕНЕРАЦИЯ ПАТТЕРНОВ ===== */
+function mkPat(syms,color){
+var texts=syms.map(function(s,i){
+var x=15+(i%3)*90,y=35+Math.floor(i/3)*75;
+var sz=16+(i%3)*6,rot=-15+i*11;
+return "%3Ctext x='"+x+"' y='"+y+"' font-size='"+sz+"' fill='"+color+"' transform='rotate("+rot+" "+x+" "+y+")'%3E"+s+"%3C/text%3E";
+}).join('');
+return "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='240'%3E"+texts+"%3C/svg%3E\")";
+}
+
+var PATTERNS={
+stars:['%E2%98%85','%E2%9C%A6','%E2%9C%A7','%E2%98%85','%E2%9C%A6','%E2%9C%A7','%E2%98%85','%E2%9C%A6'],
+hearts:['%E2%99%A1','%E2%99%A5','%E2%99%A1','%E2%99%A1','%E2%99%A5','%E2%99%A1','%E2%99%A5','%E2%99%A1'],
+notes:['%E2%99%AA','%E2%99%AB','%E2%99%AA','%E2%99%AA','%E2%99%AB','%E2%99%AA','%E2%99%AB','%E2%99%AA'],
+art:['%E2%9C%BF','%E2%9D%80','%E2%9C%8E','%E2%9C%BF','%E2%9D%80','%E2%9C%8E','%E2%9C%BF','%E2%9D%80'],
+dream:['%E2%9C%A6','%E2%99%A1','%E2%99%AA','%E2%9C%BF','%E2%9C%A7','%E2%99%A5','%E2%99%AB','%E2%9D%80']
+};
+
+/* Светлые иконки для тёмных тем, тёмные для светлой */
+var patStyle=document.createElement('style');
+var css='';
+Object.keys(PATTERNS).forEach(function(pid){
+var syms=PATTERNS[pid];
+css+='body.pat-'+pid+'.theme-day::before{background-image:'+mkPat(syms,'rgba(0,0,0,.05)')+'!important}\n';
+css+='body.pat-'+pid+':not(.theme-day)::before{background-image:'+mkPat(syms,'rgba(255,255,255,.08)')+'!important}\n';
+});
+patStyle.textContent=css;
+document.head.appendChild(patStyle);
+
+/* ===== ПРИМЕНЕНИЕ ===== */
+function applyPers(){
+var theme=localStorage.getItem('muse_pers_theme')||'night';
+var pat=localStorage.getItem('muse_pers_pat')||'stars';
+document.body.className='theme-'+theme+(pat!=='none'?' pat-'+pat:'');
+if(currentUser)localStorage.setItem('muse_set_'+currentUser.id,JSON.stringify(Object.assign({},userSettings,{theme:theme})));
+}
+applyPers();
+
+window.setPersTheme=function(t){
+localStorage.setItem('muse_pers_theme',t);
+applyPers();
+renderPers();
+museToast('Тема изменена','🎨');
+};
+window.setPersPat=function(p){
+localStorage.setItem('muse_pers_pat',p);
+applyPers();
+renderPers();
+museToast('Фон изменён','✨');
+};
+
+/* ===== UI ПЕРСОНАЛИЗАЦИИ ===== */
+var THEME_PREVIEWS={
+night:{bg:'linear-gradient(170deg,#0c0e24,#1a1a48,#222058)',label:'Ночь'},
+dream:{bg:'linear-gradient(170deg,#1e1236,#3a2050,#4a2860)',label:'Мечта'},
+ocean:{bg:'linear-gradient(170deg,#061826,#0a2a44,#0e3a5e)',label:'Океан'},
+forest:{bg:'linear-gradient(170deg,#0a1a10,#123020,#1a4030)',label:'Лес'},
+day:{bg:'linear-gradient(170deg,#f2f3f9,#e8e9f3,#f4f5fb)',label:'День'}
+};
+var PAT_PREVIEWS={
+stars:{icon:'★',label:'Звёзды'},
+hearts:{icon:'♡',label:'Сердца'},
+notes:{icon:'♪',label:'Ноты'},
+art:{icon:'✿',label:'Арт'},
+dream:{icon:'✦',label:'Мечта'},
+none:{icon:'—',label:'Чистый'}
+};
+
+window.renderPers=function(){
+var sp=document.getElementById('subpage-appearance');
+if(!sp)return;
+var curT=localStorage.getItem('muse_pers_theme')||'night';
+var curP=localStorage.getItem('muse_pers_pat')||'stars';
+var isDay=curT==='day';
+
+var h='<div style="padding:16px;background:var(--sur);border:1px solid var(--bor);border-radius:16px;margin:10px 0;">';
+h+='<div style="font-family:Cormorant,Georgia,serif;font-size:19px;font-weight:700;margin-bottom:12px;color:var(--txt);">🎨 Тема</div>';
+h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">';
+Object.keys(THEME_PREVIEWS).forEach(function(tid){
+var t=THEME_PREVIEWS[tid];
+var sel=curT===tid;
+var txtC=tid==='day'?'#333':'#fff';
+h+='<div style="aspect-ratio:3/2;border-radius:12px;cursor:pointer;border:2.5px solid '+(sel?'var(--acc)':'transparent')+';background:'+t.bg+';display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;position:relative;transition:all .2s;" onclick="setPersTheme(\''+tid+'\')">';
+h+='<span style="font-size:10px;font-weight:700;color:'+txtC+';text-shadow:0 1px 3px rgba(0,0,0,.3);">'+t.label+'</span>';
+if(sel)h+='<div style="position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;">✓</div>';
+h+='</div>';
+});
+h+='</div></div>';
+
+h+='<div style="padding:16px;background:var(--sur);border:1px solid var(--bor);border-radius:16px;margin:10px 0;">';
+h+='<div style="font-family:Cormorant,Georgia,serif;font-size:19px;font-weight:700;margin-bottom:12px;color:var(--txt);">✨ Фон</div>';
+h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">';
+Object.keys(PAT_PREVIEWS).forEach(function(pid){
+var p=PAT_PREVIEWS[pid];
+var sel=curP===pid;
+var txtC=isDay?'#666':'#fff';
+var bgC=isDay?'#f0f0f5':'#1a1c34';
+h+='<div style="aspect-ratio:3/2;border-radius:12px;cursor:pointer;border:2.5px solid '+(sel?'var(--acc)':'transparent')+';background:'+bgC+';display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative;transition:all .2s;" onclick="setPersPat(\''+pid+'\')">';
+h+='<span style="font-size:'+(pid==='none'?'14px':'20px')+';color:'+(pid==='none'?'#888':(isDay?'#7c3aed':'#a78bfa'))+';">'+p.icon+'</span>';
+h+='<span style="font-size:9px;font-weight:700;color:'+txtC+';">'+p.label+'</span>';
+if(sel)h+='<div style="position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;">✓</div>';
+h+='</div>';
+});
+h+='</div></div>';
+
+sp.innerHTML=h;
+};
+
+/* Хук на открытие настроек */
+var origOpenSub=window.openSettingsSubpage;
+if(origOpenSub){
+window.openSettingsSubpage=function(n){
+document.getElementById('settingsMainPage').style.display='none';
+document.querySelectorAll('.settings-subpage').forEach(function(p){p.classList.remove('active')});
+var sp=document.getElementById('subpage-'+n);
+if(sp)sp.classList.add('active');
+if(n==='appearance')renderPers();
+document.querySelectorAll('.toggle-switch').forEach(function(el){
+if(userSettings[el.id]!==undefined)el.classList.toggle('active',userSettings[el.id]);
+});
+};
+}
+
+/* ===== ФИКС: первый пост всегда виден ===== */
+var origAR=window.afterRender;
+if(origAR){
+window.afterRender=function(){
+try{origAR()}catch(e){}
+/* Первый пост всегда виден */
+var first=document.querySelector('.post-card');
+if(first&&first.style.opacity==='0'){
+first.style.transition='opacity .3s ease,transform .3s ease';
+first.style.opacity='1';
+first.style.transform='none';
+}
+/* Паттерн поверх */
+var pat=localStorage.getItem('muse_pers_pat')||'stars';
+if(pat!=='none')document.body.classList.add('pat-'+pat);
+};
+}
+
+/* ===== ФИКС: категории — плавное переключение ===== */
+var origSetCat=window.setCat;
+if(origSetCat){
+window.setCat=function(c){
+currentCategory=c;
+var content=document.getElementById('mainContent');
+var scrollY=window.scrollY;
+/* Обновляем только категории и посты, НЕ трогаем stories и greeting */
+var chips=content.querySelectorAll('.category-chip');
+chips.forEach(function(ch){ch.classList.remove('active')});
+/* Показываем посты без анимации */
+var posts=gAP().sort(function(a,b){return(b.timestamp||0)-(a.timestamp||0)});
+var dp=posts;
+if(feedFilter==='following'&&currentUser){
+var me=getUserById(currentUser.id);
+var fl=me?(me.following||[]):[];
+dp=posts.filter(function(p){return fl.includes(p.authorId)});
+}
+if(c!=='all')dp=dp.filter(function(p){return p.category===c});
+var postHtml=dp.length?dp.map(renderPost).join(''):'<div class="empty-state"><h2>📖</h2><p>Пока нет постов</p></div>';
+/* Находим место после баннера челленджа */
+var banner=content.querySelector('.challenge-banner');
+if(banner){
+var next=banner.nextSibling;
+while(next&&next!==content.lastChild){
+var toRemove=next;
+next=next.nextSibling;
+toRemove.remove();
+}
+banner.insertAdjacentHTML('afterend',postHtml);
+}else{
+content.insertAdjacentHTML('beforeend',postHtml);
+}
+/* Активный чип */
+chips.forEach(function(ch){
+if(ch.textContent.trim().toLowerCase()===({'all':'Всё','photo':'Фото','art':'Живопись','music':'Музыка','text':'Тексты','video':'Видео','design':'Дизайн'})[c]){
+ch.classList.add('active');
+}
+});
+window.scrollTo(0,Math.min(scrollY,50));
+setTimeout(function(){
+attachCar();
+document.querySelectorAll('.post-card').forEach(function(card){
+card.style.opacity='1';
+card.style.transform='none';
+});
+makeExp&&makeExp();
+},30);
+};
+}
+
+/* ===== ФИКС: applyTheme — перезапись для персонализации ===== */
+window.applyTheme=function(t){
+var allowed=['night','dream','ocean','forest','day'];
+if(!allowed.includes(t))t='night';
+var pat=localStorage.getItem('muse_pers_pat')||'stars';
+document.body.className='theme-'+t+(pat!=='none'?' pat-'+pat:'');
+localStorage.setItem('muse_pers_theme',t);
+userSettings.theme=t;
+if(currentUser)localStorage.setItem('muse_set_'+currentUser.id,JSON.stringify(userSettings));
+};
+window.selectTheme=function(t){setPersTheme(t)};
+
+/* Инициализация */
+setTimeout(function(){applyPers()},50);
+
+})();
+</script>
 </body>
 </html>
