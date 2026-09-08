@@ -3832,5 +3832,293 @@ setTimeout(function(){applyPers()},50);
 
 })();
 </script>
+   <style>
+/* ===== ФИКС 1: Буквица — правильное выравнивание ===== */
+.carousel-track .text-slide::first-letter,
+.text-slide::first-letter{
+font-family:'Cormorant',Georgia,serif!important;
+font-size:2.6em!important;
+float:left!important;
+line-height:1!important;
+margin:2px 10px 4px 0!important;
+font-weight:600!important;
+color:var(--acc,#7c3aed)!important;
+}
+/* Убираем декоративную кавычку — она мешает */
+.text-slide::before,
+.carousel-track .text-slide::before{
+display:none!important;
+}
+
+/* ===== ФИКС 2: Категории — активная всегда видна ===== */
+.category-chip{
+scroll-snap-align:center;
+flex-shrink:0;
+}
+.category-chip.active{
+background:linear-gradient(135deg,var(--acc,#7c3aed),var(--acc2,#ec4899))!important;
+color:#fff!important;
+border:none!important;
+box-shadow:0 4px 14px rgba(124,58,237,.3)!important;
+transform:scale(1.03)!important;
+font-weight:700!important;
+}
+
+/* ===== ФИКС 3: Настройки — адаптируются под тему ===== */
+.vk-set-prof{
+background:var(--sur)!important;
+border-bottom:1px solid var(--bor)!important;
+color:var(--txt)!important;
+}
+.vk-set-av{
+background:linear-gradient(135deg,var(--acc),var(--acc2))!important;
+color:#fff!important;
+border:3px solid var(--sur)!important;
+}
+.vk-set-nm{color:var(--txt)!important}
+.vk-set-ph{color:var(--mut)!important}
+.vk-set-btn{
+background:var(--sur)!important;
+color:var(--txt)!important;
+border:1px solid var(--bor)!important;
+}
+.vk-set-btn:active{background:var(--sur2)!important}
+.vk-set-sec{
+background:var(--sur)!important;
+border-radius:16px!important;
+border:1px solid var(--bor)!important;
+}
+.vk-set-sec .settings-section-card{
+background:var(--sur2)!important;
+border:1px solid var(--bor)!important;
+color:var(--txt)!important;
+}
+.vk-set-sec b{color:var(--txt)!important}
+.vk-set-sec div{color:var(--mut)!important}
+.vk-set-head{
+background:var(--nav)!important;
+backdrop-filter:blur(20px)!important;
+border-bottom:1px solid var(--bor)!important;
+}
+.vk-set-back{color:var(--acc)!important}
+.vk-set-title{color:var(--txt)!important}
+.vk-settings{background:var(--bg,#eef0f8)!important;background-image:none!important}
+body.theme-night .vk-settings{background:#0c0e24!important;background-image:linear-gradient(170deg,#0c0e24,#1a1a48,#222058)!important}
+body.theme-dream .vk-settings{background:#1e1236!important;background-image:linear-gradient(170deg,#1e1236,#3a2050,#4a2860)!important}
+body.theme-ocean .vk-settings{background:#061826!important;background-image:linear-gradient(170deg,#061826,#0a2a44,#0e3a5e)!important}
+body.theme-forest .vk-settings{background:#0a1a10!important;background-image:linear-gradient(170deg,#0a1a10,#123020,#1a4030)!important}
+body.theme-day .vk-settings{background:#eef0f8!important}
+
+/* Персонализация — адаптируется */
+.pers-title{color:var(--txt)!important}
+.pers-item{border-color:var(--bor)!important}
+.pers-item.sel{border-color:var(--acc)!important}
+
+/* Настройки — уведомления */
+.set-tog{border-bottom:1px solid var(--bor)!important}
+.set-tog div:first-child div:first-child{color:var(--txt)!important}
+.set-tog div:first-child div:last-child{color:var(--mut)!important}
+
+/* Шапка профиля — адаптируется */
+.profile-header{
+background:var(--sur)!important;
+border:1px solid var(--bor)!important;
+color:var(--txt)!important;
+}
+.p-name{
+background:linear-gradient(135deg,var(--acc),var(--acc2))!important;
+-webkit-background-clip:text!important;
+background-clip:text!important;
+-webkit-text-fill-color:transparent!important;
+}
+.p-handle{color:var(--mut)!important}
+.p-stat b{color:var(--acc)!important}
+.p-stat i{color:var(--mut)!important}
+
+/* Модалки — адаптируются */
+.modal-header h2{
+background:linear-gradient(135deg,var(--acc),var(--acc2))!important;
+-webkit-background-clip:text!important;
+background-clip:text!important;
+-webkit-text-fill-color:transparent!important;
+}
+.close-modal{color:var(--mut)!important}
+.input-group label{color:var(--mut)!important}
+
+/* Auth — адаптируется */
+.auth-modal h3{
+background:linear-gradient(135deg,var(--acc),var(--acc2))!important;
+-webkit-background-clip:text!important;
+background-clip:text!important;
+-webkit-text-fill-color:transparent!important;
+}
+.auth-modal p{color:var(--mut)!important}
+.auth-box h2{color:var(--mut)!important}
+
+/* Тосты — адаптируются */
+.muse-toast{
+background:var(--nav)!important;
+color:var(--txt)!important;
+border:1px solid var(--bor)!important;
+backdrop-filter:blur(16px)!important;
+}
+
+/* Пикер — адаптируется */
+.cp-title{color:#fff!important}
+.cp-sub{color:rgba(255,255,255,.5)!important}
+.cp-tile{
+background:var(--sur)!important;
+border:1px solid var(--bor)!important;
+}
+.cp-tile-nm{color:var(--txt)!important}
+.cp-tile-ht{color:var(--mut)!important}
+.cp-tile-ic{
+background:rgba(124,58,237,.08)!important;
+color:var(--acc)!important;
+}
+
+/* Окно создания — адаптируется */
+.vk-head{
+background:var(--sur)!important;
+border-bottom:1px solid var(--bor)!important;
+}
+.vk-close{
+background:var(--sur2)!important;
+color:var(--mut)!important;
+}
+.vk-hint{color:var(--mut)!important}
+.vk-gi{
+background:var(--sur2)!important;
+border:1px solid var(--bor)!important;
+}
+
+/* Комментарии — адаптируются */
+.comments{border-top:1px solid var(--bor)!important}
+.c-inp-w{border-top:1px solid var(--bor)!important}
+.comment.rp{border-left:2px solid rgba(124,58,237,.1)!important}
+
+/* Студия — адаптируется */
+.studio-hero{
+background:linear-gradient(135deg,var(--acc),var(--acc2))!important;
+color:#fff!important;
+}
+.studio-hero h2{
+background:none!important;
+-webkit-text-fill-color:#fff!important;
+color:#fff!important;
+}
+.studio-stat strong{color:var(--acc)!important}
+.studio-stat span{color:var(--mut)!important}
+.studio-action b{color:var(--txt)!important}
+.studio-action span{color:var(--mut)!important}
+
+/* Задания — адаптируются */
+.dt-title{color:var(--txt)!important}
+.dt-date{color:var(--mut)!important}
+.dt-text{color:var(--txt)!important}
+.dt-dc{color:var(--acc)!important;background:rgba(124,58,237,.08)!important}
+.dt-dt{color:var(--txt)!important}
+.dt-dd{color:var(--mut)!important}
+.dt-card{background:var(--sur)!important;border:1px solid var(--bor)!important;border-radius:24px!important}
+
+/* Черновики / Коллекции — адаптируются */
+.d-t{color:var(--txt)!important}
+.d-d{color:var(--mut)!important}
+.d-b.del{background:var(--sur2)!important;color:var(--mut)!important}
+.moodboard-name{color:var(--txt)!important}
+.moodboard-count{color:var(--mut)!important}
+
+/* Уведомления — адаптируются */
+.notification-text{color:var(--txt)!important}
+.notification-time{color:var(--mut)!important}
+.notification-item.unread{border-left:3px solid var(--acc)!important}
+
+/* Челлендж — адаптируется */
+.challenge-banner h3{color:var(--txt)!important}
+.challenge-banner p{color:var(--mut)!important}
+
+/* Муза дня — адаптируется */
+.muse-banner-quote{color:var(--txt)!important}
+.muse-banner-author{color:var(--mut)!important}
+
+/* Ачивки — адаптируются */
+.ach-nm{color:var(--txt)!important}
+.ach-ds{color:var(--mut)!important}
+
+/* Сайдбар — адаптируется */
+.sidebar-item{color:var(--txt)!important}
+.sidebar-user-name{color:var(--txt)!important}
+.sidebar-user-handle{color:var(--mut)!important}
+.sidebar-logo{
+background:linear-gradient(135deg,var(--acc),var(--acc2))!important;
+-webkit-background-clip:text!important;
+background-clip:text!important;
+-webkit-text-fill-color:transparent!important;
+}
+
+/* Top-bar заголовок */
+.top-bar h1{
+background:linear-gradient(135deg,var(--acc),var(--acc2))!important;
+-webkit-background-clip:text!important;
+background-clip:text!important;
+-webkit-text-fill-color:transparent!important;
+}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== ФИКС: Категории — плавное переключение с видимым индикатором ===== */
+window.setCat = function(c) {
+currentCategory = c;
+var content = document.getElementById('mainContent');
+var scrollY = window.scrollY;
+
+/* Полный рендер — категории правильно подсветятся */
+renderFeed(content);
+
+/* Восстанавливаем scroll (чуть выше, чтобы видеть категории) */
+window.scrollTo(0, Math.min(scrollY, 100));
+
+/* Показываем посты сразу — без анимации появления */
+setTimeout(function() {
+document.querySelectorAll('.post-card').forEach(function(card) {
+card.style.opacity = '1';
+card.style.transform = 'none';
+card.style.transition = 'none';
+});
+/* Карусели */
+if (typeof attachCar === 'function') attachCar();
+/* Читать далее */
+if (typeof makeExp === 'function') makeExp();
+}, 30);
+};
+
+/* Фильтры тоже плавно */
+window.setFF = function(f) {
+feedFilter = f;
+var scrollY = window.scrollY;
+renderFeed(document.getElementById('mainContent'));
+window.scrollTo(0, Math.min(scrollY, 100));
+setTimeout(function() {
+document.querySelectorAll('.post-card').forEach(function(card) {
+card.style.opacity = '1';
+card.style.transform = 'none';
+});
+if (typeof attachCar === 'function') attachCar();
+if (typeof makeExp === 'function') makeExp();
+}, 30);
+};
+
+/* ===== ФИКС: Профиль — табы без дёргания ===== */
+window.setPT = function(tab, btn) {
+currentProfileTab = tab;
+document.querySelectorAll('.profile-tab').forEach(function(t) { t.classList.remove('active'); });
+if (btn) btn.classList.add('active');
+renderPTab(tab);
+};
+
+})();
+</script>
 </body>
 </html>
