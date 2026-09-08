@@ -3234,5 +3234,275 @@ if (cover) cover.style.display = 'none';
 
 })();
 </script>
+   <style>
+/* ===== ФИКС 1: Текстовое поле в редакторе ===== */
+#vkEditor{display:flex!important;flex-direction:column!important}
+#vkText{
+display:block!important;
+min-height:180px!important;
+width:100%!important;
+padding:16px 18px!important;
+border:none!important;
+border-top:1px solid #d8dae2!important;
+font-size:16px!important;
+font-family:inherit!important;
+background:transparent!important;
+color:#1a1d2e!important;
+outline:none!important;
+resize:vertical!important;
+box-sizing:border-box!important;
+}
+body.theme-dark #vkText{color:#e4e6f0!important;border-top-color:rgba(255,255,255,.08)!important}
+#vkText::placeholder{color:#999!important}
+
+/* Режимы окна */
+.vk-sheet.cat-mode #vkEditor,
+.vk-sheet.sub-mode #vkEditor,
+.vk-sheet.cat-mode #vkGal,
+.vk-sheet.sub-mode #vkGal,
+.vk-sheet.cat-mode .vk-meta,
+.vk-sheet.sub-mode .vk-meta,
+.vk-sheet.cat-mode .vk-hint,
+.vk-sheet.sub-mode .vk-hint{display:none!important}
+.vk-sheet.ed-mode #vkEditor{display:flex!important}
+.vk-sheet.ed-mode #vkGal{display:flex!important}
+.vk-sheet.ed-mode .vk-meta{display:block!important}
+.vk-sheet.ed-mode .vk-hint{display:block!important}
+.vk-sheet.ed-mode .vk-types,
+.vk-sheet.ed-mode .vk-subs{display:none!important}
+
+/* ===== ФИКС 2: Лента — компактная, без пустоты ===== */
+.main-content{padding:12px 12px 90px!important;max-width:640px!important;margin:0 auto!important}
+.feed-greeting{margin-bottom:0!important}
+.feed-greeting-sub{margin-bottom:8px!important}
+.stories-bar{padding:8px 10px!important;margin:0 -10px 8px!important;gap:10px!important}
+.muse-banner{padding:12px 16px!important;margin-bottom:10px!important}
+.categories{padding:6px 14px 8px!important;margin:0 -14px 10px!important}
+.feed-filters{margin-bottom:10px!important}
+.challenge-banner{padding:12px 16px!important;margin-bottom:10px!important}
+.post-card{margin-bottom:12px!important}
+
+/* Профиль — без пустоты */
+.profile-header{padding:20px 16px 16px!important;margin:0 0 12px 0!important}
+.profile-cover{display:none!important}
+.p-av{width:96px!important;height:96px!important}
+.p-av span{font-size:36px!important}
+.p-name{font-size:26px!important}
+.p-stats{gap:28px!important;margin-bottom:16px!important}
+.profile-tabs{margin-bottom:12px!important}
+
+/* ===== ФИКС 3: Карточки авторов — нормальные ===== */
+.user-card{
+padding:14px!important;
+margin-bottom:10px!important;
+display:flex!important;
+align-items:center!important;
+gap:12px!important;
+background:#ffffff!important;
+border:1px solid #d8dae2!important;
+border-radius:16px!important;
+box-shadow:0 1px 6px rgba(0,0,0,.05)!important;
+cursor:pointer!important;
+overflow:visible!important;
+backdrop-filter:none!important;
+}
+body.theme-dark .user-card{
+background:#1c1f38!important;
+border:1px solid rgba(255,255,255,.08)!important;
+}
+.user-card-avatar{
+width:44px!important;
+height:44px!important;
+border-radius:50%!important;
+background:linear-gradient(135deg,#7c3aed,#ec4899)!important;
+display:flex!important;
+align-items:center!important;
+justify-content:center!important;
+color:#fff!important;
+font-weight:600!important;
+font-size:16px!important;
+overflow:hidden!important;
+flex-shrink:0!important;
+}
+.user-card-avatar img{width:100%!important;height:100%!important;object-fit:cover!important}
+.user-card-info{flex:1!important;min-width:0!important}
+.user-card-name{font-weight:600!important;font-size:14px!important;color:#1a1d2e!important;margin-bottom:2px!important}
+.user-card-handle{font-size:12px!important;color:#888!important}
+body.theme-dark .user-card-name{color:#e4e6f0!important}
+body.theme-dark .user-card-handle{color:#8b8fa8!important}
+
+/* ===== ФИКС 4: Все карточки — красивые, читаемые ===== */
+.post-card,.muse-banner,.challenge-banner,.notification-item,.draft-card,.moodboard-card,.daily-tasks,.studio-stat,.studio-action,.modal-content,.auth-box,.auth-modal,.achievement-card,.tag-search-result,.dt-card{
+overflow:visible!important;
+backdrop-filter:none!important;
+background:#ffffff!important;
+border:1px solid #d8dae2!important;
+box-shadow:0 1px 8px rgba(0,0,0,.05)!important;
+color:#1a1d2e!important;
+}
+body.theme-dark .post-card,body.theme-dark .muse-banner,body.theme-dark .challenge-banner,
+body.theme-dark .notification-item,body.theme-dark .draft-card,body.theme-dark .moodboard-card,
+body.theme-dark .daily-tasks,body.theme-dark .studio-stat,body.theme-dark .studio-action,
+body.theme-dark .modal-content,body.theme-dark .auth-box,body.theme-dark .auth-modal,
+body.theme-dark .achievement-card,body.theme-dark .tag-search-result,body.theme-dark .dt-card{
+background:#1c1f38!important;
+border:1px solid rgba(255,255,255,.08)!important;
+color:#e4e6f0!important;
+}
+
+/* Текст в карточках */
+.post-caption{color:#1a1d2e!important;padding:10px 14px 4px!important}
+.post-an{color:#1a1d2e!important}
+.post-ah{color:#888!important}
+body.theme-dark .post-caption,body.theme-dark .post-an{color:#e4e6f0!important}
+body.theme-dark .post-ah{color:#8b8fa8!important}
+
+/* ===== ФИКС 5: Окно создания — нормальный вид ===== */
+.vk-sheet{background:#ffffff!important;border:1px solid #d8dae2!important}
+body.theme-dark .vk-sheet{background:#1c1f38!important;border-color:rgba(255,255,255,.08)!important}
+.vk-title{color:#1a1d2e!important}
+body.theme-dark .vk-title{color:#e4e6f0!important}
+.vk-hint{color:#888!important}
+.vk-gal{display:flex!important;flex-wrap:wrap!important;gap:8px!important;padding:10px 16px!important}
+
+/* ===== ФИКС 6: Топ-бар и навигация ===== */
+.top-bar{background:rgba(252,252,254,.98)!important;box-shadow:0 1px 4px rgba(0,0,0,.06)!important;border-bottom:1px solid #e8e8ee!important}
+body.theme-dark .top-bar{background:rgba(12,14,24,.98)!important;border-bottom:1px solid rgba(255,255,255,.06)!important}
+.bottom-nav{background:rgba(252,252,254,.98)!important;border:1px solid #e8e8ee!important;box-shadow:0 6px 24px rgba(0,0,0,.12)!important}
+body.theme-dark .bottom-nav{background:rgba(12,14,24,.98)!important;border-color:rgba(255,255,255,.06)!important}
+
+/* Фон */
+body{background:#e8eaf2!important;background-image:none!important}
+body.theme-dark{background:#0b0d18!important}
+body.theme-ocean{background:#e8f2f8!important}
+body.theme-rose{background:#f8eef0!important}
+body.theme-forest{background:#e8f2ec!important}
+
+/* ===== ФИКС 7: пикер и модалки ===== */
+.create-picker{background:rgba(0,0,0,.6)!important;backdrop-filter:blur(8px)!important}
+.dt-detail{background:rgba(0,0,0,.6)!important;backdrop-filter:blur(8px)!important;z-index:6100!important}
+.dt-card{background:#fff!important;border-radius:24px!important;box-shadow:0 20px 60px rgba(0,0,0,.25)!important;padding:28px 24px!important}
+body.theme-dark .dt-card{background:#1c1f38!important}
+.dt-dd{color:#666!important}
+body.theme-dark .dt-dd{color:#8b8fa8!important}
+
+/* Комментарии */
+.c-inp-c input{background:#f5f6fa!important;color:#1a1d2e!important;border:1px solid #d8dae2!important}
+body.theme-dark .c-inp-c input{background:rgba(255,255,255,.05)!important;color:#e4e6f0!important;border-color:rgba(255,255,255,.08)!important}
+
+/* Тосты */
+.muse-toast{background:#1a1d2e!important;color:#fff!important;border:none!important}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== ФИКС: renderExplore — карточки авторов с инлайн стилями ===== */
+window.renderExplore = function(container) {
+var users = getUsers();
+var following = currentUser ? ((getUserById(currentUser.id) || currentUser).following || []) : [];
+
+var html = '<div style="display:flex;gap:6px;margin-bottom:14px;">';
+html += '<button class="search-mode-btn" style="flex:1;padding:9px;border:none;border-radius:12px;background:' + (searchMode === 'users' ? 'linear-gradient(135deg,var(--acc),var(--acc2))' : 'var(--sur)') + ';color:' + (searchMode === 'users' ? '#fff' : 'var(--mut)') + ';font-family:inherit;font-weight:600;cursor:pointer;" onclick="setSM(\'users\')">Люди</button>';
+html += '<button class="search-mode-btn" style="flex:1;padding:9px;border:none;border-radius:12px;background:' + (searchMode === 'tags' ? 'linear-gradient(135deg,var(--acc),var(--acc2))' : 'var(--sur)') + ';color:' + (searchMode === 'tags' ? '#fff' : 'var(--mut)') + ';font-family:inherit;font-weight:600;cursor:pointer;" onclick="setSM(\'tags\')">Теги</button>';
+html += '</div>';
+html += '<input type="text" class="search-input" id="si" placeholder="Поиск..." value="' + escH(searchQuery) + '" oninput="handleS(this.value)" style="width:100%;padding:12px 16px;border:1.5px solid #d8dae2;border-radius:14px;font-size:14px;background:#fff;color:#1a1d2e;font-family:inherit;margin-bottom:14px;">';
+
+if (searchMode === 'users') {
+html += '<h2 style="margin:0 0 12px;font-size:16px;font-weight:700;color:#1a1d2e;">Авторы</h2>';
+var disp = users.filter(function(u) {
+if (currentUser && u.id === currentUser.id) return false;
+if (!searchQuery) return true;
+var q = searchQuery.toLowerCase();
+return u.name.toLowerCase().includes(q) || u.username.toLowerCase().includes(q);
+});
+if (disp.length === 0) {
+html += '<div style="text-align:center;padding:40px;color:#888;">Не найдено</div>';
+} else {
+html += disp.map(function(u) {
+var isF = following.includes(u.id);
+return '<div style="display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:1px solid #d8dae2;border-radius:16px;margin-bottom:10px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.04);" onclick="openProfile(\'' + u.id + '\')">' +
+'<div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:16px;overflow:hidden;flex-shrink:0;">' + (u.photo ? '<img src="' + u.photo + '" style="width:100%;height:100%;object-fit:cover;">' : escH(u.avatar)) + '</div>' +
+'<div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:14px;color:#1a1d2e;">' + escH(u.name) + '</div><div style="font-size:12px;color:#888;">' + escH(u.username) + '</div>' + (u.bio ? '<div style="font-size:11px;color:#999;margin-top:2px;">' + escH(u.bio) + '</div>' : '') + '</div>' +
+'<button onclick="event.stopPropagation();toggleFollow(\'' + u.id + '\')" style="padding:8px 14px;border:none;border-radius:10px;font-weight:600;cursor:pointer;font-size:12px;font-family:inherit;background:' + (isF ? '#f0f0f5' : 'linear-gradient(135deg,#7c3aed,#ec4899)') + ';color:' + (isF ? '#555' : '#fff') + ';">' + (isF ? 'Отписаться' : 'Подписаться') + '</button></div>';
+}).join('');
+}
+} else {
+var tagMap = {};
+gAP().forEach(function(p) { (p.tags || []).forEach(function(t) { var k = t.toLowerCase(); if (!tagMap[k]) tagMap[k] = { tag: t, posts: [] }; tagMap[k].posts.push(p); }); });
+var tags = Object.values(tagMap);
+if (searchQuery) { var q = searchQuery.toLowerCase().replace(/^#/, ''); tags = tags.filter(function(t) { return t.tag.toLowerCase().includes(q); }); }
+tags.sort(function(a, b) { return b.posts.length - a.posts.length; });
+if (tags.length === 0) {
+html += '<div style="text-align:center;padding:40px;color:#888;">Теги не найдены</div>';
+} else {
+html += tags.slice(0, 20).map(function(tm) {
+return '<div style="padding:14px;background:#fff;border:1px solid #d8dae2;border-radius:16px;margin-bottom:10px;"><div style="display:flex;gap:8px;margin-bottom:8px;"><span style="font-size:13px;font-weight:600;color:#7c3aed;background:rgba(124,58,237,.08);padding:4px 10px;border-radius:8px;">#' + escH(tm.tag) + '</span><span style="font-size:11px;color:#888;">' + tm.posts.length + '</span></div>' + tm.posts.slice(0, 2).map(renderPost).join('') + '</div>';
+}).join('');
+}
+}
+container.innerHTML = html;
+setTimeout(afterRender, 50);
+};
+
+/* ===== ФИКС: openEditor — показывает textarea гарантированно ===== */
+var origOpenEditor = window.openEditorFix || window.openEditor;
+if (origOpenEditor) {
+window.openEditorFix = function(type, sub, opts) {
+opts = opts || {};
+editingPostId = opts.postId || null;
+editingDraftIdx = (opts.draftIdx !== undefined) ? opts.draftIdx : null;
+vkPostType = type;
+vkPostSubcategory = sub || '';
+vkPostImages = (opts.images || []).slice();
+
+var ta = document.getElementById('vkText');
+var tg = document.getElementById('vkTags');
+if (ta) { ta.value = opts.text || ''; ta.style.display = 'block'; }
+if (tg) tg.value = opts.tags || '';
+
+document.querySelectorAll('.vk-type').forEach(function(c) { c.classList.toggle('active', c.dataset.t === type); });
+if (typeof renderSubs === 'function') renderSubs();
+if (typeof updateUI === 'function') updateUI();
+if (typeof renderGal === 'function') renderGal();
+if (typeof checkVK === 'function') checkVK();
+
+/* Показываем редактор */
+var editor = document.getElementById('vkEditor');
+if (editor) { editor.style.display = 'flex'; editor.style.flexDirection = 'column'; }
+
+var sheet = document.querySelector('.vk-sheet');
+if (sheet) {
+sheet.classList.remove('cat-mode', 'sub-mode', 'ed-mode');
+sheet.classList.add('ed-mode');
+}
+
+document.getElementById('vkTitle').textContent = opts.title || sub || type;
+document.getElementById('vkCreation').classList.add('active');
+var btn = document.getElementById('vkNext');
+btn.textContent = opts.postId ? 'Сохранить' : 'Опубликовать';
+btn.disabled = opts.postId ? false : (type === 'text' ? !ta || !ta.value.trim() : vkPostImages.length === 0);
+};
+}
+
+/* ===== ФИКС: renderFeed — с fallback на случай ошибки ===== */
+var origFeed = window.renderFeed;
+if (origFeed) {
+window.renderFeed = function(container) {
+try {
+origFeed(container);
+/* Проверяем что контент не пустой */
+if (container && container.innerHTML.length < 50) {
+container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#888;"><h2>📖</h2><p>Пока нет постов</p></div>';
+}
+} catch (e) {
+console.error('renderFeed error:', e);
+container.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#888;"><h2>⚠️</h2><p>Ошибка загрузки ленты</p></div>';
+}
+};
+}
+
+})();
+</script>
 </body>
 </html>
