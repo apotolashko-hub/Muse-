@@ -414,9 +414,7 @@ font-size:10px;color:var(--mut);font-weight:600;
 max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 text-align:center;
 }
-</style>
-</head>
-<body class="">
+<style>
    /* ===== КАРТОЧКА ПОСТА ===== */
 .post-card{
 position:relative;
@@ -1610,6 +1608,9 @@ color:var(--mut);
 </head>
 <body class="">
 
+   </style>
+</head>
+<body class="">
 <!-- ЗАСТАВКА -->
 <div id="splash">
 <div id="splashStars"></div>
@@ -4463,6 +4464,36 @@ if(p&&['home','studio','profile','popular','challenges','explore','notifications
 }
 window.addEventListener('hashchange',boot);
 window.addEventListener('load',function(){setTimeout(boot,100)});
+})();
+</script>
+   <script>
+/* ===== ФИКС МЕЛКИХ БАГОВ ===== */
+
+/* Фикс 1: правильные теги для кнопок комментариев */
+(function(){
+var orig=window.renderPost;
+if(orig){
+window.renderPost=function(post){
+var html=orig(post);
+/* Заменяем div на button для кнопок */
+html=html.replace(/<div class="c-attach"/g,'<button class="c-attach"');
+return html;
+};
+}
+})();
+
+/* Фикс 2: closeDraftPrev */
+function closeDraftPrev(){
+var m=document.getElementById('draftPreview');
+if(m)m.classList.remove('active');
+}
+
+/* Фикс 3: удаляем дубли createPicker если есть */
+(function(){
+var pickers=document.querySelectorAll('#createPicker');
+if(pickers.length>1){
+for(var i=1;i<pickers.length;i++)pickers[i].remove();
+}
 })();
 </script>
 </body>
