@@ -2928,5 +2928,311 @@ window.addEventListener('hashchange',boot);
 window.addEventListener('load',function(){setTimeout(boot,0)});
 })();
 </script>
+   <style>
+/* ===== ФИКС: контраст — карточки ярче фона ===== */
+body{background:#e8eaf2!important;background-image:none!important}
+body.theme-dark{background:#0b0d18!important}
+body.theme-ocean{background:#eaf4fa!important}
+body.theme-rose{background:#faf0f2!important}
+body.theme-forest{background:#edf7f2!important}
+
+.post-card,.user-card,.challenge-banner,.muse-banner,.notification-item,
+.draft-card,.moodboard-card,.daily-tasks,.studio-stat,.studio-action,
+.auth-box,.auth-modal,.modal-content,.achievement-card,.tag-search-result{
+background:#ffffff!important;
+border:1px solid #d5d8e0!important;
+box-shadow:0 2px 16px rgba(0,0,0,.07)!important;
+color:#1a1d2e!important;
+}
+body.theme-dark .post-card,body.theme-dark .user-card,
+body.theme-dark .challenge-banner,body.theme-dark .muse-banner,
+body.theme-dark .notification-item,body.theme-dark .draft-card,
+body.theme-dark .moodboard-card,body.theme-dark .daily-tasks,
+body.theme-dark .studio-stat,body.theme-dark .studio-action,
+body.theme-dark .auth-box,body.theme-dark .auth-modal,
+body.theme-dark .modal-content,body.theme-dark .achievement-card{
+background:#1c1f38!important;
+border:1px solid rgba(255,255,255,.08)!important;
+color:#e4e6f0!important;
+}
+
+/* ===== ФИКС: пустая область в профиле ===== */
+.profile-cover{display:none!important}
+.profile-header{padding-top:20px!important;margin:0 0 14px 0!important}
+
+/* ===== ФИКС: модалка заданий с фоном ===== */
+.dt-detail{background:rgba(0,0,0,.65)!important;backdrop-filter:blur(8px)!important;z-index:6100!important}
+.dt-card{background:#ffffff!important;border-radius:24px!important;box-shadow:0 20px 60px rgba(0,0,0,.3)!important;padding:28px 24px!important;color:#1a1d2e!important}
+body.theme-dark .dt-card{background:#1c1f38!important;color:#e4e6f0!important}
+.dt-dd{color:#666!important}
+body.theme-dark .dt-dd{color:#8b8fa8!important}
+
+/* ===== ФИКС: шапка и навигация ===== */
+.top-bar{background:rgba(252,252,254,.97)!important;box-shadow:0 1px 6px rgba(0,0,0,.06)!important}
+body.theme-dark .top-bar{background:rgba(11,13,24,.97)!important}
+.bottom-nav{background:rgba(252,252,254,.97)!important;box-shadow:0 8px 32px rgba(0,0,0,.15)!important;border:1px solid #d5d8e0!important}
+body.theme-dark .bottom-nav{background:rgba(11,13,24,.97)!important;border:1px solid rgba(255,255,255,.08)!important}
+
+/* ===== ФИКС: тексты читаемые ===== */
+.post-caption{color:#1a1d2e!important}
+.post-an{color:#1a1d2e!important}
+.post-ah{color:#666!important}
+body.theme-dark .post-caption,body.theme-dark .post-an{color:#e4e6f0!important}
+body.theme-dark .post-ah{color:#8b8fa8!important}
+.empty-state{color:#888!important}
+body.theme-dark .empty-state{color:#666!important}
+
+/* ===== ФИКС: пикер с фоном ===== */
+.create-picker{background:rgba(0,0,0,.6)!important;backdrop-filter:blur(10px)!important}
+.cp-tile{background:#ffffff!important;border:1px solid #d5d8e0!important;box-shadow:0 4px 20px rgba(0,0,0,.1)!important}
+body.theme-dark .cp-tile{background:#1c1f38!important;border:1px solid rgba(255,255,255,.08)!important}
+.cp-tile-nm{color:#1a1d2e!important}
+body.theme-dark .cp-tile-nm{color:#e4e6f0!important}
+.cp-tile-ht{color:#888!important}
+body.theme-dark .cp-tile-ht{color:#666!important}
+
+/* ===== ФИКС: окно создания с фоном ===== */
+.vk-creation{background:rgba(0,0,0,.55)!important;backdrop-filter:blur(8px)!important}
+.vk-sheet{background:#ffffff!important;border:1px solid #d5d8e0!important}
+body.theme-dark .vk-sheet{background:#1c1f38!important;border:1px solid rgba(255,255,255,.08)!important}
+.vk-title{color:#1a1d2e!important}
+body.theme-dark .vk-title{color:#e4e6f0!important}
+.vk-text{color:#1a1d2e!important}
+body.theme-dark .vk-text{color:#e4e6f0!important}
+
+/* ===== ФИКС: лента — компактнее ===== */
+.stories-bar{margin:0 0 10px!important;padding:10px 12px!important}
+.feed-greeting{margin-bottom:1px!important}
+.feed-greeting-sub{margin-bottom:10px!important}
+
+/* ===== ФИКС: сторис вьюер ===== */
+#storyViewer{background:rgba(0,0,0,.95)!important}
+
+/* ===== ФИКС: комментарии читаемые ===== */
+.c-inp-c input{background:#f8f9fc!important;color:#1a1d2e!important;border:1px solid #d5d8e0!important}
+body.theme-dark .c-inp-c input{background:rgba(255,255,255,.06)!important;color:#e4e6f0!important;border:1px solid rgba(255,255,255,.08)!important}
+
+/* ===== Тосты ===== */
+.muse-toast{background:#1a1d2e!important;color:#fff!important;border:none!important;box-shadow:0 8px 30px rgba(0,0,0,.3)!important}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== ФИКС: кнопка создания — надёжная версия ===== */
+window.openVKPostCreation = function(editId) {
+if (!currentUser) {
+document.getElementById('authModal').classList.add('active');
+return;
+}
+if (editId) {
+var post = JSON.parse(localStorage.getItem('muse_posts') || '[]').find(function(p) { return p.id === editId; });
+if (!post) return;
+var opts = { postId: editId, title: 'Редактирование', text: post.caption || (post.texts || []).join('\n\n') || '', tags: (post.tags || []).join(', '), images: [] };
+if (post.images) post.images.forEach(function(d) { opts.images.push({ data: d }); });
+if (post.videos) post.videos.forEach(function(d) { opts.images.push({ data: d, isVideo: true }); });
+if (post.audios) post.audios.forEach(function(d, i) { opts.images.push({ data: d, title: (post.audioTitles || [])[i] || 'Трек ' + (i + 1), isAudio: true }); });
+openEditor(post.type || 'text', post.subcategory || '', opts);
+return;
+}
+/* Пикер: тайлы категорий */
+ensurePickerFix();
+};
+
+function ensurePickerFix() {
+var p = document.getElementById('cp');
+if (!p) {
+document.body.insertAdjacentHTML('beforeend',
+'<div class="create-picker" id="cp" style="position:fixed;inset:0;z-index:6200;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);">' +
+'<button onclick="closePickerFix()" style="position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:22px;cursor:pointer;z-index:5;">×</button>' +
+'<div style="display:flex;flex-direction:column;align-items:center;width:min(400px,90vw);">' +
+'<div id="cpT" style="color:#fff;font-family:Cormorant,Georgia,serif;font-size:26px;font-weight:700;margin-bottom:2px;">Что создаёшь?</div>' +
+'<div id="cpS" style="color:rgba(255,255,255,.5);font-size:12px;margin-bottom:16px;">Категория</div>' +
+'<button id="cpB" style="display:none;background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-weight:600;font-size:12px;cursor:pointer;margin-bottom:12px;font-family:inherit;" onclick="cpBackFix()">‹ Назад</button>' +
+'<div id="cpG" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%;"></div>' +
+'</div></div>');
+p = document.getElementById('cp');
+p.addEventListener('click', function(e) { if (e.target === p) closePickerFix(); });
+}
+renderCatsFix();
+p.style.display = 'flex';
+}
+
+function renderCatsFix() {
+document.getElementById('cpT').textContent = 'Что создаёшь?';
+document.getElementById('cpS').textContent = 'Категория';
+document.getElementById('cpB').style.display = 'none';
+var g = document.getElementById('cpG');
+g.innerHTML = '';
+var cats = [
+{ id: 'text', name: 'Текст', hint: 'Стихи и проза' },
+{ id: 'image', name: 'Фото', hint: 'Снимки' },
+{ id: 'art', name: 'Арт', hint: 'Иллюстрации' },
+{ id: 'audio', name: 'Музыка', hint: 'Треки' },
+{ id: 'video', name: 'Видео', hint: 'Клипы' },
+{ id: 'design', name: 'Дизайн', hint: 'Макеты' },
+{ id: 'history', name: 'История', hint: '24 часа' }
+];
+var icons = {
+text: '<svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M4 6h16M4 12h12M4 18h8"/></svg>',
+image: '<svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>',
+art: '<svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M12 3a9 9 0 0 0 0 18h1.2a2 2 0 0 0 1.8-2.8l-.4-.8a2 2 0 0 1 1.8-2.9H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="10" r="1"/></svg>',
+audio: '<svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
+video: '<svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>',
+design: '<svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M4 4h16v16H4z"/><path d="M4 15l5-5 3 3 3-4 5 6"/></svg>',
+history: '<svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg>'
+};
+cats.forEach(function(c, i) {
+var t = document.createElement('div');
+t.style.cssText = 'background:var(--sur,#fff);border:1px solid #d5d8e0;border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;animation:cpin .32s cubic-bezier(.25,.9,.3,1.15) both;animation-delay:' + (i * 0.04) + 's;';
+t.innerHTML = '<div style="width:46px;height:46px;border-radius:14px;background:rgba(124,58,237,.08);display:flex;align-items:center;justify-content:center;color:var(--acc,#7c3aed);">' + icons[c.id] + '</div>' +
+'<div style="font-family:Cormorant,Georgia,serif;font-weight:600;font-size:16px;color:var(--txt,#1a1d2e);">' + c.name + '</div>' +
+'<div style="font-size:10px;color:#888;">' + c.hint + '</div>';
+t.onclick = function() { chooseCatFix(c.id); };
+g.appendChild(t);
+});
+}
+
+function chooseCatFix(cat) {
+if (cat === 'history') {
+closePickerFix();
+openStoryComp();
+return;
+}
+var g = document.getElementById('cpG');
+/* Анимация ухода */
+var tiles = g.children;
+for (var i = 0; i < tiles.length; i++) {
+tiles[i].style.animation = 'cpout .16s ease both';
+}
+setTimeout(function() {
+document.getElementById('cpT').textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+document.getElementById('cpS').textContent = 'Направление';
+document.getElementById('cpB').style.display = '';
+g.innerHTML = '';
+var subs = {
+text: ['Поэзия', 'Проза', 'Рассказ', 'Эссе'],
+image: ['Портрет', 'Пейзаж', 'Уличное', 'Предметное'],
+art: ['Живопись', 'Иллюстрация', 'Цифровое', 'Скетч'],
+audio: ['Песня', 'Инструментал', 'Электроника', 'Подкаст'],
+video: ['Клип', 'Влог', 'Анимация', 'Короткометражка'],
+design: ['Графика', 'UI/UX', 'Брендинг', 'Типографика']
+}[cat] || [];
+var icons = {
+text: '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M4 6h16M4 12h12M4 18h8"/></svg>',
+image: '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>',
+art: '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M12 3a9 9 0 0 0 0 18h1.2a2 2 0 0 0 1.8-2.8l-.4-.8a2 2 0 0 1 1.8-2.9H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="10" r="1"/></svg>',
+audio: '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
+video: '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg>',
+design: '<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;"><path d="M4 4h16v16H4z"/><path d="M4 15l5-5 3 3 3-4 5 6"/></svg>'
+};
+subs.forEach(function(s, i) {
+var t = document.createElement('div');
+t.style.cssText = 'background:var(--sur,#fff);border:1px solid #d5d8e0;border-radius:16px;padding:14px 10px;display:flex;align-items:center;gap:10px;cursor:pointer;animation:cpin .3s cubic-bezier(.25,.9,.3,1.15) both;animation-delay:' + (i * 0.04) + 's;';
+t.innerHTML = '<div style="width:38px;height:38px;border-radius:12px;background:rgba(124,58,237,.08);display:flex;align-items:center;justify-content:center;color:var(--acc,#7c3aed);">' + icons[cat] + '</div>' +
+'<div style="font-family:Cormorant,Georgia,serif;font-weight:600;font-size:15px;color:var(--txt,#1a1d2e);">' + s + '</div>';
+t.onclick = function() {
+closePickerFix();
+openEditorFix(cat, s);
+};
+g.appendChild(t);
+});
+/* "Другое" */
+var other = document.createElement('div');
+other.style.cssText = 'background:var(--sur,#fff);border:1px solid #d5d8e0;border-radius:16px;padding:14px 10px;display:flex;align-items:center;gap:10px;cursor:pointer;animation:cpin .3s both;animation-delay:' + (subs.length * 0.04) + 's;';
+other.innerHTML = '<div style="width:38px;height:38px;border-radius:12px;background:rgba(124,58,237,.08);display:flex;align-items:center;justify-content:center;color:var(--acc,#7c3aed);">' + icons[cat] + '</div><div style="font-family:Cormorant,Georgia,serif;font-weight:600;font-size:15px;color:var(--txt,#1a1d2e);">Другое</div>';
+other.onclick = function() { closePickerFix(); openEditorFix(cat, ''); };
+g.appendChild(other);
+}, 170);
+}
+
+window.cpBackFix = function() { renderCatsFix(); };
+window.closePickerFix = function() {
+var p = document.getElementById('cp');
+if (p) p.style.display = 'none';
+};
+
+/* Надёжный openEditor */
+function openEditorFix(type, sub) {
+editingPostId = null;
+editingDraftIdx = null;
+vkPostType = type;
+vkPostSubcategory = sub || '';
+vkPostImages = [];
+var ta = document.getElementById('vkText');
+var tg = document.getElementById('vkTags');
+if (ta) ta.value = '';
+if (tg) tg.value = '';
+document.querySelectorAll('.vk-type').forEach(function(c) { c.classList.toggle('active', c.dataset.t === type); });
+if (typeof renderSubs === 'function') renderSubs();
+if (typeof updateUI === 'function') updateUI();
+if (typeof renderGal === 'function') renderGal();
+if (typeof checkVK === 'function') checkVK();
+/* Сразу в режим редактора */
+var sheet = document.querySelector('.vk-sheet');
+if (sheet) {
+sheet.classList.remove('cat-mode', 'sub-mode', 'ed-mode');
+sheet.classList.add('ed-mode');
+}
+document.getElementById('vkTitle').textContent = sub || type;
+document.getElementById('vkCreation').classList.add('active');
+var btn = document.getElementById('vkNext');
+btn.textContent = 'Опубликовать';
+btn.disabled = true;
+/* Если текст — активируем кнопку */
+if (type === 'text') btn.disabled = false;
+}
+
+/* Анимации для пикера */
+var animStyle = document.createElement('style');
+animStyle.textContent = '@keyframes cpin{from{opacity:0;transform:translateY(30px) scale(.88)}}@keyframes cpout{to{opacity:0;transform:translateY(-20px) scale(.92)}}';
+document.head.appendChild(animStyle);
+
+/* ===== ФИКС: stories-бар — только свои + подписки ===== */
+var origRenderFeed = window.renderFeed;
+if (origRenderFeed) {
+window.renderFeed = function(container) {
+origRenderFeed(container);
+/* Фильтруем stories-бар */
+var bar = container.querySelector('.stories-bar');
+if (bar && currentUser) {
+var me = getUserById(currentUser.id);
+var following = me ? (me.following || []) : [];
+var circles = bar.querySelectorAll('.story-circle');
+circles.forEach(function(circle) {
+/* Пропускаем кнопку "Твоя" */
+var nm = circle.querySelector('.story-nm');
+if (nm && nm.textContent === 'Твоя') return;
+/* Проверяем onclick */
+var onclick = circle.getAttribute('onclick') || '';
+var uid = onclick.match(/'([^']+)'/);
+if (uid && uid[1]) {
+var storyUid = uid[1];
+/* Показываем только свои и подписки */
+if (storyUid !== currentUser.id && !following.includes(storyUid)) {
+circle.style.display = 'none';
+}
+}
+});
+}
+};
+}
+
+/* ===== ФИКС: пустая область — убираем лишний padding ===== */
+var origProfile = window.renderProfile;
+if (origProfile) {
+window.renderProfile = function(container) {
+origProfile(container);
+var header = container.querySelector('.profile-header');
+if (header) {
+header.style.paddingTop = '20px';
+var cover = header.querySelector('.profile-cover');
+if (cover) cover.style.display = 'none';
+}
+};
+}
+
+})();
+</script>
 </body>
 </html>
