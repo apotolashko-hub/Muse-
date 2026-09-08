@@ -4496,5 +4496,315 @@ for(var i=1;i<pickers.length;i++)pickers[i].remove();
 }
 })();
 </script>
+   <style>
+/* ===== КОММЕНТАРИИ: стиль TikTok ===== */
+.comment{
+display:flex;gap:10px;margin-bottom:14px;padding:2px 0;position:relative;
+}
+.comment.reply{
+margin-left:36px;padding-left:10px;border-left:2px solid rgba(124,58,237,.08);
+}
+.c-avatar{
+width:32px;height:32px;border-radius:50%;
+background:linear-gradient(135deg,var(--acc),var(--acc2));
+display:flex;align-items:center;justify-content:center;
+color:#fff;font-weight:600;font-size:11px;
+flex-shrink:0;overflow:hidden;
+}
+.c-avatar img{width:100%;height:100%;object-fit:cover}
+.c-content{flex:1;min-width:0}
+.c-header{
+font-size:11px;color:var(--mut);margin-bottom:3px;
+display:flex;align-items:center;gap:4px;flex-wrap:wrap;
+}
+.c-name{font-weight:600;color:var(--txt);font-size:12px}
+.c-time{font-size:10px;color:var(--mut)}
+.c-text{
+font-size:14px;line-height:1.4;color:var(--txt);
+word-wrap:break-word;
+}
+.c-reply-btn{
+background:none;border:none;font-size:11px;font-weight:600;
+cursor:pointer;padding:4px 0 0;margin-top:2px;
+color:var(--mut);font-family:inherit;opacity:.7;
+}
+.c-reply-btn:active{opacity:1;color:var(--acc)}
+.c-del-btn{
+position:absolute;top:2px;right:0;
+background:none;border:none;color:#ef4444;
+font-size:14px;cursor:pointer;padding:2px;opacity:.3;
+}
+.c-image{
+max-width:160px;max-height:160px;
+border-radius:10px;margin-top:6px;
+cursor:pointer;display:block;
+}
+.c-audio-btn{
+width:32px;height:32px;border-radius:50%;
+background:var(--sur2);color:var(--acc);
+border:1px solid var(--bor);cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+}
+.c-audio-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Поле ввода комментария — красивое */
+.comment-input-wrapper{
+display:flex;gap:8px;margin-top:10px;padding-top:10px;
+border-top:1px solid var(--bor);align-items:flex-end;
+}
+.comment-input-container{flex:1;position:relative}
+.comment-input{
+width:100%;padding:10px 72px 10px 14px;
+border:1px solid var(--bor);border-radius:18px;
+font-size:13px;font-family:inherit;
+background:var(--sur2);color:var(--txt);
+}
+.comment-input:focus{outline:none;border-color:var(--acc)}
+.c-btn{
+position:absolute;top:4px;width:28px;height:28px;
+display:flex;align-items:center;justify-content:center;
+border-radius:50%;border:none;
+background:none;color:var(--mut);cursor:pointer;
+}
+.c-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.c-btn:first-of-type{right:36px}
+.c-btn:last-of-type{right:2px}
+.c-btn:active{color:var(--acc);background:rgba(124,58,237,.06)}
+.comment-submit{
+background:linear-gradient(135deg,var(--acc),var(--acc2));
+color:#fff;border:none;padding:9px 14px;
+border-radius:18px;font-weight:600;cursor:pointer;
+font-size:12px;flex-shrink:0;
+}
+.comment-submit:active{transform:scale(.93)}
+
+/* Индикатор записи — компактный */
+.c-rec{
+display:none;align-items:center;gap:6px;
+margin:4px 0 0;padding:5px 10px;
+border-radius:8px;background:rgba(239,68,68,.06);
+color:#dc2626;font-size:10px;font-weight:700;
+}
+.c-rec.on{display:flex}
+.c-rec i{width:6px;height:6px;border-radius:50%;background:#ef4444;animation:prec 1s infinite}
+@keyframes prec{50%{opacity:.3}}
+.c-rec .rec-time{margin-left:auto;font-variant-numeric:tabular-nums}
+
+/* ===== НАСТРОЙКИ: умная кнопка назад ===== */
+.vk-set-back:active{transform:scale(.92)}
+
+/* ===== ПРЕДЫДУЩИЕ ФИКСЫ ===== */
+.feed-grid-2{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+@media(max-width:380px){.feed-grid-2{grid-template-columns:1fr!important}}
+.view-toggle-btn{
+display:flex;align-items:center;justify-content:center;gap:5px;
+flex:1;padding:8px;border:none;border-radius:10px;
+background:var(--sur);color:var(--mut);
+cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;
+border:1px solid var(--bor);
+}
+.view-toggle-btn.active{
+background:linear-gradient(135deg,var(--acc),var(--acc2));
+color:#fff;border-color:transparent;
+box-shadow:0 3px 10px rgba(124,58,237,.2);
+}
+.view-toggle-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.search-wrap{position:relative;margin-bottom:14px}
+.search-wrap svg{
+position:absolute;left:14px;top:50%;transform:translateY(-50%);
+color:var(--mut);pointer-events:none;
+}
+.search-input{
+width:100%;padding:12px 16px 12px 44px!important;
+border:1.5px solid var(--bor)!important;border-radius:16px!important;
+font-size:14px!important;font-family:inherit;
+background:var(--sur)!important;color:var(--txt)!important;
+}
+.inspire-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+.inspire-btn{font-size:0!important}
+.pa-badge{
+display:inline-flex;align-items:center;gap:4px;
+padding:5px 12px;border-radius:10px;
+font-size:11px;font-weight:600;
+background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(236,72,153,.08));
+color:var(--acc);border:1px solid rgba(124,58,237,.15);
+}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== 1: УМНАЯ КНОПКА НАЗАД В НАСТРОЙКАХ ===== */
+function smartBack(){
+var sub=document.querySelector('.settings-subpage.active');
+if(sub){
+closeSettingsSub();
+}else{
+closeVKSettings();
+}
+}
+/* Перехватываем основную кнопку назад */
+var mainBackBtn=document.querySelector('#vkSettingsPage > .vk-set-head .vk-set-back');
+if(mainBackBtn){
+mainBackBtn.onclick=smartBack;
+}
+/* Кнопки назад в субстраницах тоже вызывают closeSettingsSub */
+document.querySelectorAll('.settings-subpage .vk-set-back').forEach(function(btn){
+btn.onclick=function(){closeSettingsSub()};
+});
+
+/* ===== 2: КОММЕНТАРИИ — стиль TikTok ===== */
+window.renderComment=function(c,pid,allC){
+var replies=allC.filter(function(x){return x.replyTo===c.id});
+var isOwn=currentUser&&c.author===currentUser.name;
+var an=c.anonymous;
+var aname=an?'Аноним':c.author;
+
+var img=c.image?'<img src="'+c.image+'" class="c-image" onclick="openPV(this.src)">':'';
+var txt=c.text?'<div class="c-text">'+escH(c.text)+'</div>':'';
+var aud=c.audio?'<div style="display:flex;align-items:center;gap:8px;margin-top:4px;"><button class="c-audio-btn" onclick="toggleCVP(\''+c.id+'\')"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></button><span style="font-size:10px;color:var(--mut);">голосовое</span></div>':'';
+
+var h='<div class="comment">'+
+'<div class="c-avatar">'+(an?'?':escH(c.avatar||'?'))+'</div>'+
+'<div class="c-content">'+
+'<div class="c-header"><span class="c-name">'+escH(aname)+'</span><span class="c-time">· '+tAgo(c.time)+'</span></div>'+
+txt+aud+img+
+'<button class="c-reply-btn" onclick="startReply('+pid+',\''+escA(aname)+'\','+c.id+')">Ответить</button>'+
+'</div>'+
+(isOwn?'<button class="c-del-btn" onclick="delComment('+pid+','+c.id+')">×</button>':'')+
+'</div>';
+
+replies.forEach(function(r){
+var isR=currentUser&&r.author===currentUser.name;
+var rN=r.anonymous?'Аноним':r.author;
+var rI=r.image?'<img src="'+r.image+'" class="c-image" onclick="openPV(this.src)">':'';
+var rT=r.text?'<div class="c-text">'+escH(r.text)+'</div>':'';
+h+='<div class="comment reply">'+
+'<div class="c-avatar">'+(r.anonymous?'?':escH(r.avatar||'?'))+'</div>'+
+'<div class="c-content">'+
+'<div class="c-header"><span class="c-name">'+escH(rN)+'</span><span class="c-time">· '+tAgo(r.time)+'</span></div>'+
+rT+rI+
+'<button class="c-reply-btn" onclick="startReply('+pid+',\''+escA(rN)+'\','+c.id+')">Ответить</button>'+
+'</div>'+
+(isR?'<button class="c-del-btn" onclick="delComment('+pid+','+r.id+')">×</button>':'')+
+'</div>';
+});
+return h;
+};
+
+/* Кнопки фото/голос в поле комментария — SVG */
+var origPost=window.renderPost;
+if(origPost){
+window.renderPost=function(post){
+var html=origPost(post);
+/* Заменяем эмодзи на SVG */
+html=html.replace(/>📷</g,'><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg><');
+html=html.replace(/>🎤</g,'><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><');
+html=html.replace(/>➤</g,'><svg viewBox="0 0 24 24"><path d="M5 12l14-7v14Z"/></svg><');
+/* Заменяем div на button для c-attach */
+html=html.replace(/<div class="c-attach"/g,'<button class="c-btn c-attach"');
+html=html.replace(/class="c-attach"/g,'class="c-btn"');
+return html;
+};
+}
+
+/* ===== 3: ПИКЕР — русские названия ===== */
+window.cpChoose=function(cat){
+if(cat==='history'){closePicker();openStoryComp();return}
+var g=document.getElementById('cpGrid');
+g.classList.add('leaving');
+setTimeout(function(){
+g.classList.remove('leaving');
+var catData=CP_DATA.find(function(x){return x.id===cat});
+document.getElementById('cpTitle').textContent=catData?catData.name:cat;
+document.getElementById('cpSub').textContent='Направление';
+document.getElementById('cpBack').style.display='';
+g.className='cp-grid';
+var subs=CP_SUBS[cat]||[];
+g.innerHTML=subs.map(function(s){
+return'<div class="cp-tile" style="flex-direction:row;gap:10px;padding:14px 12px;" data-s="'+s+'">'+
+'<div class="cp-tile-ic" style="width:38px;height:38px;border-radius:12px;">'+catData.ic+'</div>'+
+'<div class="cp-tile-nm" style="font-size:15px;">'+s+'</div></div>';
+}).join('')+
+'<div class="cp-tile" style="flex-direction:row;gap:10px;padding:14px 12px;" data-s="">'+
+'<div class="cp-tile-ic" style="width:38px;height:38px;border-radius:12px;">'+catData.ic+'</div>'+
+'<div class="cp-tile-nm" style="font-size:15px;">Другое</div></div>';
+g.querySelectorAll('.cp-tile').forEach(function(t){
+t.onclick=function(){closePicker();openEditor(cat,t.dataset.s)};
+});
+},170);
+};
+
+/* ===== 4: GRID — работает везде ===== */
+window.setView=function(v){
+feedView=v;
+renderFeed(document.getElementById('mainContent'));
+setTimeout(function(){
+document.querySelectorAll('.post-card').forEach(function(c){
+c.style.opacity='1';c.style.transform='none';c.style.transition='none';
+});
+if(typeof attachCar==='function')attachCar();
+},40);
+};
+
+/* ===== 5: АЧИВКИ — гарантированное выставление ===== */
+window.toggleAch=function(aid){
+if(!requireAuth())return;
+var users=getUsers();
+var me=users.find(function(u){return u.id===currentUser.id});
+if(!me){me=currentUser;users.push(me)}
+if(!me.achievements)me.achievements=[];
+if(!me.displayedAchievements)me.displayedAchievements=[];
+var idx=me.displayedAchievements.indexOf(aid);
+if(idx>-1){
+me.displayedAchievements.splice(idx,1);
+toast('Убрано','↩');
+}else{
+if(me.displayedAchievements.length>=5){toast('Максимум 5','⚠');return}
+me.displayedAchievements.push(aid);
+var ach=ACHIEVEMENTS.find(function(a){return a.id===aid});
+toast('В профиль: '+(ach?ach.n:''),'✨');
+}
+saveUsers(users);
+currentUser=me;
+localStorage.setItem('muse_cur',JSON.stringify(me));
+if(currentPage==='achievements')renderAchPage(document.getElementById('mainContent'));
+else if(currentPage==='profile')renderProfile(document.getElementById('mainContent'));
+};
+
+/* ===== 6: КНОПКИ ВИДА + ПОИСК ===== */
+var origFeed=window.renderFeed;
+if(origFeed){
+window.renderFeed=function(c){
+origFeed(c);
+/* Кнопки Один/Два */
+var oneBtn=c.querySelector('button[onclick*="setView"]');
+if(oneBtn){
+var parent=oneBtn.parentElement;
+var newHtml=
+'<button class="view-toggle-btn'+(feedView==='single'?' active':'')+'" onclick="setView(\'single\')"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/></svg> Один</button>'+
+'<button class="view-toggle-btn'+(feedView==='grid'?' active':'')+'" onclick="setView(\'grid\')"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="8" height="14" rx="2"/><rect x="13" y="5" width="8" height="14" rx="2"/></svg> Два</button>';
+parent.innerHTML=newHtml;
+}
+/* Поиск с иконкой */
+var si=c.querySelector('#si');
+if(si&&!si.parentElement.classList.contains('search-wrap')){
+var w=document.createElement('div');
+w.className='search-wrap';
+si.parentNode.insertBefore(w,si);
+w.appendChild(si);
+w.insertAdjacentHTML('afterbegin','<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>');
+}
+};
+}
+
+/* Кнопка вдохни — SVG */
+var insp=document.querySelector('.inspire-btn');
+if(insp){
+insp.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>';
+}
+
+})();
+</script>
 </body>
 </html>
