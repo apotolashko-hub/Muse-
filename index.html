@@ -4348,5 +4348,18 @@ window.addEventListener('hashchange',boot);
 window.addEventListener('load',function(){setTimeout(boot,100)});
 })();
 </script>
+  <script>
+if (typeof initSplash === 'function') alert('Часть 5 работает');
+else alert('Часть 5 СЛОМАНА');
+
+if (typeof renderPost === 'function') alert('Часть 6 работает');
+else alert('Часть 6 СЛОМАНА');
+
+if (typeof navigate === 'function') alert('Часть 7 работает');
+else alert('Часть 7 СЛОМАНА');
+
+if (typeof window.onload === 'function') alert('window.onload установлен');
+else alert('window.onload НЕ установлен');
+</script>
 </body>
 </html>
