@@ -4256,7 +4256,7 @@ var today=new Date().toDateString();
 var last=localStorage.getItem('muse_fairy_date');
 if(last===today)return;
 localStorage.setItem('muse_fairy_date',today);
-document.getElementById('fairyTip').textContent=FAIRY_TIPS[Math.floor(Math.random()*FAIRY_TIPS.length];
+document.getElementById('fairyTip').textContent=FAIRY_TIPS[Math.floor(Math.random()*FAIRY_TIPS.length)];
 f.classList.add('show');
 setTimeout(function(){f.classList.remove('show')},8000);
 f.onclick=function(){
