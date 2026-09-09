@@ -4361,5 +4361,15 @@ else alert('Часть 7 СЛОМАНА');
 if (typeof window.onload === 'function') alert('window.onload установлен');
 else alert('window.onload НЕ установлен');
 </script>
+  <script>
+var scripts = document.querySelectorAll('script');
+for (var i = 0; i < scripts.length; i++) {
+    try {
+        new Function(scripts[i].textContent);
+    } catch(e) {
+        alert('Блок ' + (i+1) + ' из ' + scripts.length + ': ' + e.message);
+    }
+}
+</script>
 </body>
 </html>
