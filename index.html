@@ -5636,49 +5636,518 @@ card.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function unzoom(){
+<style>
+/* ===== КОММЕНТАРИИ ===== */
+.comments-section{max-height:0;overflow:hidden;opacity:0;transition:max-height .3s ease,opacity .25s ease}
+.comments-section.open{max-height:600px;opacity:1;overflow-y:auto}
+.comments-inner{padding:10px 14px;border-top:1px solid var(--bor)}
+.comment{display:flex;gap:10px;margin-bottom:12px;padding:2px 0;position:relative}
+.comment.rp{margin-left:36px;padding-left:10px;border-left:2px solid rgba(124,58,237,.08)}
+.c-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:11px;flex-shrink:0;overflow:hidden}
+.c-av img{width:100%;height:100%;object-fit:cover}
+.c-bd{flex:1;min-width:0}
+.c-hd{font-size:11px;color:var(--mut);margin-bottom:3px;display:flex;align-items:center;gap:4px}
+.c-nm{font-weight:600;color:var(--txt);font-size:12px}
+.c-tm{font-size:10px;color:var(--mut)}
+.c-tx{font-size:14px;line-height:1.4;color:var(--txt);word-wrap:break-word}
+.c-rp-btn{background:none;border:none;font-size:11px;font-weight:600;cursor:pointer;padding:4px 0 0;color:var(--mut);font-family:inherit;opacity:.7}
+.c-dl{position:absolute;top:2px;right:0;background:none;border:none;color:#ef4444;font-size:14px;cursor:pointer;opacity:.3}
+.c-img{max-width:160px;max-height:160px;border-radius:10px;margin-top:4px;cursor:pointer;display:block}
+.ci-w{display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--bor);align-items:flex-end}
+.ci-c{flex:1;position:relative}
+.ci-ta{width:100%;padding:10px 72px 10px 14px;min-height:40px;border:1.5px solid var(--bor);border-radius:16px;font-size:14px;font-family:inherit;line-height:1.4;background:var(--sur2);color:var(--txt);resize:none;overflow:hidden;box-sizing:border-box;transition:border-color .2s}
+.ci-ta:focus{outline:none;border-color:var(--acc)}
+.ci-tools{display:flex;gap:2px;position:absolute;bottom:5px;right:4px}
+.ci-tool{width:30px;height:30px;border:none;border-radius:50%;background:none;color:var(--mut);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ci-tool svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.ci-tool:active{color:var(--acc);background:rgba(124,58,237,.08)}
+.ci-send{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;padding:10px 14px;border-radius:16px;font-weight:600;cursor:pointer;font-size:13px;flex-shrink:0}
+.ci-send:active{transform:scale(.93)}
+.rec-bar{display:none;align-items:center;gap:8px;margin-top:6px;padding:8px 12px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:12px}
+.rec-bar.on{display:flex}
+.rec-bar .dot{width:8px;height:8px;border-radius:50%;background:#ef4444;animation:recB 1s infinite}
+@keyframes recB{50%{opacity:.3}}
+.rec-bar .lbl{font-size:12px;font-weight:700;color:#dc2626;flex:1}
+.rec-bar .tm{font-size:12px;color:#dc266;font-weight:700}
+.rec-stop{padding:4px 12px;border:none;border-radius:8px;background:#ef4444;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.img-pv{display:none;position:relative;margin-top:6px;padding:6px;background:var(--sur2);border-radius:12px;border:1px solid var(--bor);width:fit-content}
+.img-pv.on{display:block}
+.img-pv img{max-width:120px;max-height:120px;border-radius:8px;display:block}
+.img-pv .rm,.vp .rm{position:absolute;top:-6px;right:-6px;width:24px;height:24px;border:none;border-radius:50%;background:#ef4444;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.vp{display:none;align-items:center;gap:8px;margin-top:6px;padding:8px 12px;background:var(--sur2);border-radius:12px;border:1px solid var(--bor);position:relative;width:fit-content}
+.vp.on{display:flex}
+.vp svg{width:20px;height:20px;stroke:var(--acc);fill:none;stroke-width:2}
+.vp span{font-size:12px;color:var(--mut)}
+.ri{display:none;align-items:center;justify-content:space-between;background:rgba(124,58,237,.06);padding:5px 10px;border-radius:8px;font-size:11px;color:var(--acc);margin-bottom:6px}
+.ri.on{display:flex}
+
+/* ===== БЕЗ ИСЧЕЗНОВЕНИЯ ПОСТОВ ===== */
+.post-card{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.post-card .text-slide,.post-card .post-caption{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+.post-card{transition:transform .35s cubic-bezier(.25,.8,.3,1),box-shadow .35s ease}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== 1. RENDER POST — чистый, с новыми комментариями ===== */
+window.renderPost=function(post){
+var items=[];
+if(post.type==='image'||['photo','art','design'].includes(post.category))items=post.images||[];
+else if(post.type==='video'||post.category==='video')items=post.videos||[];
+else if(post.type==='text'||post.category==='text')items=post.texts||[];
+else if(post.type==='audio'||post.category==='music')items=post.audios||[];
+
+var lb=Array.isArray(post.likedBy)?post.likedBy:[];
+var vl=!!(currentUser&&lb.includes(currentUser.id));
+var n=items.length;
+var media='';
+
+if(n===1){
+if(post.type==='image'||['photo','art','design'].includes(post.category)){
+media='<div class="post-media" data-pid="'+post.id+'" style="padding:0 14px 8px;position:relative;"><img src="'+items[0]+'" data-pid="'+post.id+'" style="width:100%;border-radius:14px;max-height:520px;object-fit:cover;cursor:pointer;"><div class="like-overlay" id="lo-'+post.id+'">❤️</div></div>';
+}else if(post.type==='text'||post.category==='text'){
+media='<div class="post-media" style="padding:0 14px 8px;"><div class="text-slide" style="padding:20px 18px;font-size:15px;line-height:1.75;color:var(--txt);white-space:pre-line;">'+escH(items[0])+'</div></div>';
+}else if(post.type==='video'){
+media='<div class="post-media" style="padding:0 14px 8px;position:relative;"><video controls playsinline preload="metadata" style="width:100%;border-radius:14px;max-height:520px;"><source src="'+items[0]+'"></video><div class="like-overlay" id="lo-'+post.id+'">❤️</div></div>';
+}else if(post.type==='audio'){
+media='<div class="post-media" style="padding:0 14px 8px;"><div class="audio-slide" style="padding:16px;border-radius:14px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;flex-direction:column;gap:8px;color:#fff;"><div style="font-weight:600;font-size:13px;">'+escH(post.audioTitles?post.audioTitles[0]:'Аудио')+'</div><audio controls preload="metadata" src="'+items[0]+'" style="width:100%;"></audio></div></div>';
+}
+}else if(n>1){
+var sl='';
+if(post.type==='image'||['photo','art','design'].includes(post.category)){
+sl=items.map(function(img){return'<img src="'+img+'" style="width:100%;max-height:520px;object-fit:cover;display:block;pointer-events:auto;">'}).join('');
+}else if(post.type==='text'||post.category==='text'){
+sl=items.map(function(t){return'<div class="text-slide" style="padding:20px 18px;font-size:15px;line-height:1.75;color:var(--txt);white-space:pre-line;">'+escH(t)+'</div>'}).join('');
+}else if(post.type==='audio'){
+sl=items.map(function(a,i){return'<div class="audio-slide" style="padding:16px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;flex-direction:column;gap:8px;color:#fff;"><div style="font-weight:600;font-size:13px;">'+escH((post.audioTitles||[])[i]||'Трек '+(i+1))+'</div><audio controls preload="metadata" src="'+a+'" style="width:100%;"></audio></div>'}).join('');
+}
+media='<div class="post-media" style="padding:0 14px 8px;position:relative;"><div style="position:relative;"><div class="carousel-track" data-pid="'+post.id+'" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;">'+sl+'</div><div class="carousel-counter" id="ctr-'+post.id+'" style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;padding:4px 10px;border-radius:10px;font-size:11px;font-weight:700;z-index:5;">1/'+n+'</div><div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5;">'+items.map(function(_,i){return'<div class="carousel-dot" style="width:5px;height:5px;border-radius:50%;background:'+(i===0?'#fff':'rgba(255,255,255,.4)')+';transition:.25s;"></div>'}).join('')+'</div><div class="like-overlay" id="lo-'+post.id+'">❤️</div></div></div>';
+}
+
+var allC=getCommentsForPost(post.id);
+var rootC=allC.filter(function(c){return!c.replyTo});
+var cc=allC.length;
+var isOwn=currentUser&&post.authorId===currentUser.id;
+var author=getUserById(post.authorId);
+var ta=tAgo(post.timestamp||Date.now());
+var cap=(post.caption&&post.type!=='text')?'<div class="post-caption" style="font-size:14px;line-height:1.6;padding:4px 16px 6px;color:var(--txt);white-space:pre-line;">'+escH(post.caption)+'</div>':'';
+var sub=post.subcategory?'<div class="post-sub" style="padding:0 16px 4px;color:var(--acc);font-size:10px;font-weight:700;text-transform:uppercase;">'+escH(post.subcategory)+'</div>':'';
+var allTags=[...(post.tags||[])];
+if(post.category)allTags.push(post.category);
+if(post.subcategory)allTags.push(post.subcategory);
+var tags=allTags.length?'<div class="post-tags" style="display:flex;gap:5px;flex-wrap:wrap;padding:2px 16px 8px;">'+allTags.map(function(t){return'<span class="tag" onclick="searchTag(\''+escA(t)+'\')">#'+escH(t)+'</span>'}).join('')+'</div>':'';
+
+var menu='<div id="pm-'+post.id+'" style="position:absolute;top:50px;right:10px;background:var(--sur);border:1px solid var(--bor);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,20,.15);z-index:50;display:none;min-width:140px;overflow:hidden;">';
+menu+='<div onclick="addToMoodboard('+post.id+')" style="padding:10px 14px;cursor:pointer;font-size:13px;color:var(--txt);">📚 Коллекция</div>';
+if(isOwn){
+menu+='<div onclick="editPost('+post.id+')" style="padding:10px 14px;cursor:pointer;font-size:13px;color:var(--txt);">✏️ Изменить</div>';
+menu+='<div onclick="pinPost('+post.id+')" style="padding:10px 14px;cursor:pointer;font-size:13px;color:var(--txt);">📌 Закрепить</div>';
+menu+='<div onclick="deletePost('+post.id+')" style="padding:10px 14px;cursor:pointer;font-size:13px;color:#ef4444;">🗑 Удалить</div>';
+}
+menu+='</div>';
+
+var hasSt=hasStories(post.authorId);
+
+/* Комментарии — новый дизайн */
+var commSec='<div id="cm-'+post.id+'" class="comments-section"><div class="comments-inner">';
+commSec+='<div id="cml-'+post.id+'">'+rootC.map(function(c){return renderComment(c,post.id,allC)}).join('')+'</div>';
+commSec+='<div id="ri-'+post.id+'" class="ri"><span></span><button onclick="cancelReply('+post.id+')" style="background:none;border:none;color:var(--acc);cursor:pointer;font-size:16px;">×</button></div>';
+commSec+='<div class="ci-w"><div class="ci-c">';
+commSec+='<textarea class="ci-ta" rows="1" id="ci-'+post.id+'" placeholder="'+(currentUser?'Комментарий...':'Войдите')+'" '+(currentUser?'':'onclick="showFullAuth(\'login\')" readonly')+'></textarea>';
+commSec+='<div class="ci-tools">';
+commSec+='<button class="ci-tool" onclick="'+(currentUser?'doAttachImg('+post.id+')':'showFullAuth(\'login\')')+'" title="Фото"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg></button>';
+commSec+='<button class="ci-tool" onclick="'+(currentUser?'toggleRec('+post.id+')':'showFullAuth(\'login\')')+'" title="Голос"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>';
+commSec+='</div>';
+commSec+='<div id="recBar-'+post.id+'" class="rec-bar"><div class="dot"></div><span class="lbl">Запись</span><span class="tm" id="recTime-'+post.id+'">00:00</span><button class="rec-stop" onclick="toggleRec('+post.id+')">Стоп</button></div>';
+commSec+='<div id="imgPv-'+post.id+'" class="img-pv"><img id="imgPvImg-'+post.id+'" src=""><button class="rm" onclick="rmCImg('+post.id+')">×</button></div>';
+commSec+='<div id="vp-'+post.id+'" class="vp"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg><span>Голосовое</span><button class="rm" onclick="rmCVoice('+post.id+')">×</button></div>';
+commSec+='</div>';
+commSec+='<button onclick="'+(currentUser?'addComment('+post.id+')':'showFullAuth(\'login\')')+'" class="ci-send">➤</button>';
+commSec+='</div></div></div>';
+
+return'<div class="post-card" id="pc-'+post.id+'">'+
+'<div class="post-header" onclick="openProfile(\''+post.authorId+'\')">'+
+'<div class="post-avatar'+(hasSt?' sr':'')+'" onclick="event.stopPropagation();'+(hasSt?'openStories(\''+post.authorId+'\')':'')+'">'+
+(author&&author.photo?'<img src="'+author.photo+'">':'<span>'+escH((author&&author.avatar)||post.avatar||'?')+'</span>')+'</div>'+
+'<div class="post-header-info"><div class="post-author-name">'+escH(post.author)+'</div><div class="post-author-handle">'+escH(post.handle||'')+' · '+ta+'</div></div>'+
+(isOwn?'<button class="post-menu-btn" onclick="event.stopPropagation();togglePM('+post.id+')">⋮</button>':'')+
+'</div>'+menu+media+cap+sub+tags+
+'<div class="post-actions">'+
+'<button onclick="toggleLike('+post.id+')" id="lk-'+post.id+'" style="color:'+(vl?'#ef4444':'var(--mut)')+';display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-size:13px;padding:8px 12px;border-radius:10px;font-family:inherit;font-weight:600;position:relative;">'+
+'<svg fill="'+(vl?'currentColor':'none')+'" stroke="currentColor" viewBox="0 0 24 24" style="width:20px;height:20px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg><span>'+(post.likes||0)+'</span></button>'+
+'<button onclick="toggleComments('+post.id+')" style="color:var(--mut);display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-size:13px;padding:8px 12px;border-radius:10px;font-family:inherit;font-weight:600;">💬<span>'+cc+'</span></button>'+
+'<button onclick="sharePost('+post.id+')" style="color:var(--mut);margin-left:auto;background:none;border:none;cursor:pointer;padding:8px 12px;border-radius:10px;">↗</button></div>'+
+commSec+'</div>';
+};
+
+/* ===== 2. RENDER COMMENT — TikTok стиль ===== */
+window.renderComment=function(c,pid,allC){
+var replies=allC.filter(function(x){return x.replyTo===c.id});
+var isOwn=currentUser&&c.author===currentUser.name;
+var an=c.anonymous;
+var aname=an?'Аноним':c.author;
+var img=c.image?'<img src="'+c.image+'" class="c-img" onclick="openPV(this.src)">':'';
+var txt=c.text?'<div class="c-tx">'+escH(c.text)+'</div>':'';
+var aud=c.audio?'<div style="display:flex;gap:8px;margin-top:4px;"><button class="ci-tool" style="position:static;" onclick="toggleCVP(\''+c.id+'\')"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></button><span style="font-size:10px;color:var(--mut);">голосовое</span></div>':'';
+
+var h='<div class="comment'+(c.replyTo?' rp':'')+'">'+
+'<div class="c-av">'+(an?'?':escH(c.avatar||'?'))+'</div>'+
+'<div class="c-bd"><div class="c-hd"><span class="c-nm">'+escH(aname)+'</span><span class="c-tm">· '+tAgo(c.time)+'</span></div>'+
+txt+aud+img+
+'<button class="c-rp-btn" onclick="startReply('+pid+',\''+escA(aname)+'\','+c.id+')">Ответить</button></div>'+
+(isOwn?'<button class="c-dl" onclick="delComment('+pid+','+c.id+')">×</button>':'')+'</div>';
+return h;
+};
+
+/* ===== 3. КОММЕНТАРИИ: функции ===== */
+window.toggleComments=function(pid){
+var s=document.getElementById('cm-'+pid);
+if(!s)return;
+if(!s.classList.contains('open')){
+s.classList.add('open');
+s.style.opacity='1';
+setTimeout(function(){s.style.maxHeight=(s.scrollHeight+40)+'px'},30);
+}else{
+s.style.transition='max-height .25s ease,opacity .2s ease';
+s.style.maxHeight='0px';
+s.style.opacity='0';
+setTimeout(function(){s.classList.remove('open');s.style.transition='';s.style.opacity=''},250);
+}
+};
+
+document.addEventListener('input',function(e){
+var ta=e.target;
+if(ta.classList&&ta.classList.contains('ci-ta')){
+ta.style.height='auto';
+ta.style.height=Math.min(ta.scrollHeight,120)+'px';
+}
+});
+
+window.doAttachImg=function(pid){
+var existing=document.getElementById('cfi-'+pid);
+if(existing){existing.click();return}
+var i=document.createElement('input');
+i.type='file';i.id='cfi-'+pid;i.accept='image/*';i.style.display='none';
+i.onchange=function(e){handleCImg(e,pid)};
+document.body.appendChild(i);
+i.click();
+};
+
+window.handleCImg=function(ev,pid){
+var f=ev.target.files[0];
+if(!f)return;
+var r=new FileReader();
+r.onload=function(e){
+var img=new Image();
+img.onload=function(){
+var c=document.createElement('canvas');
+var mx=600;var w=img.width,h=img.height;
+if(w>h&&w>mx){h=h*mx/w;w=mx}else if(h>mx){w=w*mx/h;h=mx}
+c.width=w;c.height=h;
+c.getContext('2d').drawImage(img,0,0,w,h);
+commentImage=c.toDataURL('image/jpeg',0.8);
+var pv=document.getElementById('imgPv-'+pid);
+var pi=document.getElementById('imgPvImg-'+pid);
+if(pv&&pi){pi.src=commentImage;pv.classList.add('on')}
+};
+img.src=e.target.result;
+};
+r.readAsDataURL(f);
+ev.target.value='';
+};
+
+window.rmCImg=function(pid){
+commentImage=null;
+var pv=document.getElementById('imgPv-'+pid);
+if(pv)pv.classList.remove('on');
+};
+
+window.rmCVoice=function(pid){
+commentAudio=null;
+commentAudioPostId=null;
+var vp=document.getElementById('vp-'+pid);
+if(vp)vp.classList.remove('on');
+};
+
+window.toggleRec=function(pid){
+if(!requireAuth())return;
+var bar=document.getElementById('recBar-'+pid);
+var timeEl=document.getElementById('recTime-'+pid);
+if(isRecordingAudio){
+if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop();
+isRecordingAudio=false;
+clearInterval(recordingTimer);
+if(bar)bar.classList.remove('on');
+return;
+}
+try{
+navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+recordingPostId=pid;
+recordingStartedAt=Date.now();
+mediaRecorder=new MediaRecorder(stream);
+audioChunks=[];
+mediaRecorder.ondataavailable=function(e){if(e.data&&e.data.size)audioChunks.push(e.data)};
+mediaRecorder.onstop=function(){
+var blob=new Blob(audioChunks,{type:audioChunks[0]?audioChunks[0].type:'audio/webm'});
+var r=new FileReader();
+r.onload=function(e){
+commentAudio=e.target.result;
+commentAudioPostId=pid;
+var vp=document.getElementById('vp-'+pid);
+if(vp)vp.classList.add('on');
+};
+r.readAsDataURL(blob);
+stream.getTracks().forEach(function(t){t.stop()});
+};
+mediaRecorder.start(250);
+isRecordingAudio=true;
+if(bar)bar.classList.add('on');
+if(timeEl)timeEl.textContent='00:00';
+clearInterval(recordingTimer);
+recordingTimer=setInterval(function(){
+if(timeEl){
+var s=Math.floor((Date.now()-recordingStartedAt)/1000);
+timeEl.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}
+},250);
+if(typeof playSound==='function')playSound('comment');
+}).catch(function(){toast('Микрофон недоступен','⚠')});
+}catch(e){toast('Ошибка','⚠')}
+};
+
+window.delComment=function(pid,cid){
+if(!requireAuth())return;
+if(!confirm('Удалить?'))return;
+var posts=JSON.parse(localStorage.getItem('muse_posts')||'[]');
+var p=posts.find(function(x){return String(x.id)===String(pid)});
+if(p&&p.comments){
+p.comments=p.comments.filter(function(c){return c.id!==cid&&c.replyTo!==cid});
+localStorage.setItem('muse_posts',JSON.stringify(posts));
+}
+var list=document.getElementById('cml-'+pid);
+if(list){
+var allC=getCommentsForPost(pid);
+var rootC=allC.filter(function(x){return!x.replyTo});
+list.innerHTML=rootC.map(function(x){return renderComment(x,pid,allC)}).join('');
+}
+var cb=document.querySelector('#pc-'+pid+' button[onclick*="toggleComments"]');
+if(cb){
+var cs=cb.querySelector('span');
+if(cs&&p)cs.textContent=(p.comments||[]).length;
+}
+};
+
+window.addComment=function(pid){
+if(!requireAuth())return;
+var input=document.getElementById('ci-'+pid);
+if(!input)return;
+var text=input.value.trim();
+if(!text&&!commentImage&&!commentAudio)return;
+var rta=null;
+if(replyTo&&replyTo.postId===pid){
+var allC=getCommentsForPost(pid);
+var parent=allC.find(function(c){return c.id===replyTo.commentId});
+if(parent)rta=parent.author;
+}
+var posts=JSON.parse(localStorage.getItem('muse_posts')||'[]');
+var p=posts.find(function(x){return String(x.id)===String(pid)});
+if(!p)return;
+var c={id:Date.now(),author:currentUser.name,avatar:currentUser.avatar,text:text,image:commentImage||null,audio:commentAudio||null,replyTo:replyTo&&replyTo.postId===pid?replyTo.commentId:null,replyToAuthor:rta,time:Date.now()};
+if(!p.comments)p.comments=[];
+p.comments.push(c);
+localStorage.setItem('muse_posts',JSON.stringify(posts));
+var pa=getUserById(p.authorId);
+if(pa)addNotif('comment',currentUser,pid,text,pa.id);
+input.value='';
+input.style.height='auto';
+rmCImg(pid);
+rmCVoice(pid);
+cancelReply(pid);
+var list=document.getElementById('cml-'+pid);
+if(list){
+var allC2=getCommentsForPost(pid);
+var rootC=allC2.filter(function(x){return!x.replyTo});
+list.innerHTML=rootC.map(function(x){return renderComment(x,pid,allC2)}).join('');
+}
+var cb=document.querySelector('#pc-'+pid+' button[onclick*="toggleComments"]');
+if(cb){
+var cs=cb.querySelector('span');
+if(cs)cs.textContent=p.comments.length;
+}
+if(typeof checkAch==='function')checkAch();
+if(typeof playSound==='function')playSound('comment');
+toast('Отправлено','💬');
+};
+
+/* ===== 4. RENDER PROFILE — ачивки работают ===== */
+window.renderProfile=function(c){
+if(!currentUser){showFullAuth('login');return}
+var uid=currentProfileUserId||currentUser.id;
+var user=getUserById(uid);
+if(!user&&uid===currentUser.id)user=currentUser;
+if(!user){c.innerHTML='<div class="empty-state"><p>Недоступен</p></div>';return}
+var isOwn=String(uid)===String(currentUser.id);
+var me=getUserById(currentUser.id)||currentUser;
+var fl=me.following||[];
+var isF=fl.includes(uid);
+var posts=getUserPosts(uid).sort(function(a,b){return(b.timestamp||0)-(a.timestamp||0)});
+var pinned=posts.filter(function(p){return p.pinned});
+var unpinned=posts.filter(function(p){return!p.pinned});
+var fc=(user.followers||[]).length;
+var fic=(user.following||[]).length;
+var dAch=user.displayedAchievements||[];
+var drafts=isOwn?JSON.parse(localStorage.getItem('muse_dr_'+uid)||'[]'):[];
+var mbs=isOwn?JSON.parse(localStorage.getItem('muse_mb_'+uid)||'{}'):{};
+var hasSt=hasStories(uid);
+var streak=getStreak(uid);
+var sIcon=streakIcon(streak);
+
+var h='<div class="profile-header" style="text-align:center;padding:24px 16px 16px;margin-bottom:12px;background:var(--sur);border:1px solid var(--bor);border-radius:20px;box-shadow:var(--sh);">';
+h+='<div style="display:flex;justify-content:center;margin-bottom:14px;">';
+if(hasSt){
+h+='<div class="p-av sr" style="cursor:pointer;padding:3px;" onclick="openStories(\''+uid+'\')">';
+h+=(user.photo?'<img src="'+user.photo+'">':'<span>'+escH(user.avatar)+'</span>')+'</div>';
+}else{
+h+='<div class="p-av">'+(user.photo?'<img src="'+user.photo+'">':'<span>'+escH(user.avatar)+'</span>')+'</div>';
+}
+h+='</div>';
+h+='<div class="p-name" style="font-family:Cormorant,Georgia,serif;font-size:28px;font-weight:700;margin-bottom:2px;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">'+escH(user.name)+'</div>';
+h+='<div class="p-handle" style="font-size:13px;color:var(--mut);margin-bottom:6px;">'+escH(user.username||'')+'</div>';
+if(user.bio)h+='<div class="p-bio" style="font-size:13px;color:var(--txt);max-width:280px;margin:0 auto 14px;">'+escH(user.bio)+'</div>';
+h+='<div style="display:flex;justify-content:center;margin-bottom:12px;"><div class="streak-badge"><span class="streak-icon">'+sIcon+'</span>'+streak+' дн · '+streakLabel(streak)+'</div></div>';
+h+='<div class="p-stats" style="display:flex;justify-content:center;gap:32px;margin-bottom:16px;">';
+h+='<div class="p-stat"><b>'+posts.length+'</b><i>публикаций</i></div>';
+h+='<div class="p-stat"><b>'+fic+'</b><i>подписок</i></div>';
+h+='<div class="p-stat"><b>'+fc+'</b><i>подписчиков</i></div></div>';
+h+='<div class="p-buttons" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;">';
+if(isOwn){
+h+='<button class="p-btn p-btn-primary" onclick="openEditModal()">Редактировать</button>';
+h+='<button class="p-btn p-btn-secondary" onclick="navigate(\'achievements\')">Достижения</button>';
+}else{
+h+='<button class="p-btn '+(isF?'p-btn-secondary':'p-btn-primary')+'" onclick="toggleFollow(\''+uid+'\')">'+(isF?'Вы подписаны':'Подписаться')+'</button>';
+}
+h+='</div>';
+/* АЧИВКИ — показываем ВСЕ выбранные */
+if(dAch.length){
+h+='<div class="profile-achievements" style="padding:12px 16px;margin-top:4px;border-top:1px solid var(--bor);"><div class="pa-title" style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:8px;">Достижения</div><div class="pa-badges" style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;">';
+dAch.forEach(function(aid){
+var a=ACHIEVEMENTS.find(function(x){return x.id===aid});
+if(a){ /* БЕЗ проверки uAch.includes() */
+h+='<div class="pa-badge">'+a.ic+' '+escH(a.n)+'</div>';
+}
+});
+h+='</div></div>';
+}
+h+='</div>';
+
+h+='<div class="profile-tabs">';
+h+='<button class="profile-tab '+(currentProfileTab==='posts'?'active':'')+'" onclick="setPT(\'posts\',this)">Публикации</button>';
+if(isOwn)h+='<button class="profile-tab '+(currentProfileTab==='drafts'?'active':'')+'" onclick="setPT(\'drafts\',this)">Черновики ('+drafts.length+')</button>';
+if(isOwn)h+='<button class="profile-tab '+(currentProfileTab==='moodboards'?'active':'')+'" onclick="setPT(\'moodboards\',this)">Коллекции ('+Object.keys(mbs).length+')</button>';
+h+='</div><div id="ptc"></div>';
+
+c.innerHTML=h;
+
+var ptc=document.getElementById('ptc');
+if(currentProfileTab==='posts'){
+var ph='';
+if(pinned.length)ph+='<div class="pinned-section" style="padding:12px 16px;border-top:1px solid var(--bor);"><div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:10px;">📌 Избранное</div>'+pinned.map(renderPost).join('')+'</div>';
+ph+=unpinned.length?unpinned.map(renderPost).join(''):'<div class="empty-state"><h2>✍️</h2><p class="quote">Первое произведение ждёт.</p></div>';
+ptc.innerHTML=ph;
+}else if(currentProfileTab==='drafts'){
+ptc.innerHTML=renderDraftsHTML(drafts);
+}else if(currentProfileTab==='moodboards'){
+ptc.innerHTML=renderMbsHTML(mbs);
+}
+setTimeout(afterRender,60);
+};
+
+/* ===== 5. TOGGLE ACH — работает правильно ===== */
+window.toggleAch=function(aid){
+if(!requireAuth())return;
+var key='muse_users';
+var sampleIds=sampleUsers.map(function(u){return u.id});
+var users=JSON.parse(localStorage.getItem(key)||'[]');
+var me=users.find(function(u){return u.id===currentUser.id});
+if(!me){
+me=JSON.parse(JSON.stringify(currentUser));
+users.push(me);
+}
+if(!me.displayedAchievements)me.displayedAchievements=[];
+var idx=me.displayedAchievements.indexOf(aid);
+if(idx>-1){
+me.displayedAchievements.splice(idx,1);
+toast('Убрано','↩');
+}else{
+if(me.displayedAchievements.length>=5){toast('Максимум 5','⚠');return}
+me.displayedAchievements.push(aid);
+var ach=ACHIEVEMENTS.find(function(a){return a.id===aid});
+toast('В профиль: '+(ach?ach.n:''),'✨');
+}
+localStorage.setItem(key,JSON.stringify(users.filter(function(u){return!sampleIds.includes(u.id)})));
+currentUser=me;
+localStorage.setItem('muse_cur',JSON.stringify(me));
+if(currentPage==='achievements')renderAchPage(document.getElementById('mainContent'));
+else if(currentPage==='profile')renderProfile(document.getElementById('mainContent'));
+};
+
+/* ===== 6. AFTER RENDER — без исчезновения ===== */
+window.afterRender=function(){
+if(typeof attachCar==='function')attachCar();
+document.querySelectorAll('.post-card').forEach(function(c){
+c.style.opacity='1';
+c.style.transform='none';
+c.style.transition='none';
+});
+if(typeof makeExp==='function')makeExp();
+};
+
+/* ===== 7. ДВОЙНОЙ ТАП + ЗУМ ===== */
+var zTimer=null;
+var zCard=null;
+var overlay=document.createElement('div');
+overlay.style.cssText='display:none;position:fixed;inset:0;z-index:1400;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s ease;';
+overlay.addEventListener('click',function(){unzoom()});
+document.body.appendChild(overlay);
+
+function zoomPost(card){
+if(zCard)unzoom();
+zCard=card;
+card.classList.add('zoomed');
+card.style.position='relative';
+card.style.zIndex='1500';
+var main=document.querySelector('.main-content');
+if(main)main.style.zIndex='1600';
+overlay.style.display='block';
+requestAnimationFrame(function(){requestAnimationFrame(function(){overlay.style.opacity='1'})});
+card.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function unzoom(){
 if(!zCard)return;
 zCard.classList.remove('zoomed');
-zCard.style.zIndex='';
-zCard.style.position='';
-zCard=null;
+zCard.style.zIndex='';zCard.style.position='';zCard=null;
 var main=document.querySelector('.main-content');
 if(main)main.style.zIndex='';
 overlay.style.opacity='0';
 setTimeout(function(){overlay.style.display='none'},300);
 }
 
-/* Главный обработчик — двойной тап = лайк, одиночный = зум */
 document.addEventListener('click',function(e){
-/* Отменяем таймер зума при любом клике */
 if(zTimer){clearTimeout(zTimer);zTimer=null}
-
-/* Если зумирован — раззум */
-if(zCard){
-if(!e.target.closest('button,input,textarea')){
-unzoom();
-}
-return;
-}
-
-/* Не зумим интерактивные элементы */
-if(e.target.closest('button, a, input, textarea, .tag, .ci-tool, .ci-send, .post-menu-btn'))return;
-
+if(zCard){if(!e.target.closest('button,input,textarea'))unzoom();return}
+if(e.target.closest('button, a, input, textarea, .tag, .ci-tool, .ci-send'))return;
 var card=e.target.closest('.post-card');
 if(!card)return;
-
 var pidMatch=card.id.match(/pc-(.+)/);
 if(!pidMatch)return;
 var pid=pidMatch[1];
-
 var now=Date.now();
 var dt=now-(window._lt||0);
 window._lt=now;
-
 if(dt<350&&dt>50){
-/* ===== ДВОЙНОЙ ТАП → ЛАЙК ===== */
 e.preventDefault();
 if(window.getSelection)window.getSelection().removeAllRanges();
-
 var posts=JSON.parse(localStorage.getItem('muse_posts')||'[]');
 var post=posts.find(function(p){return String(p.id)===String(pid)});
 if(post&&currentUser){
@@ -5687,7 +6156,6 @@ if(!post.likedBy.includes(currentUser.id)){
 post.likedBy.push(currentUser.id);
 post.likes=(post.likes||0)+1;
 localStorage.setItem('muse_posts',JSON.stringify(posts));
-
 var btn=document.getElementById('lk-'+pid);
 if(btn){
 btn.style.color='#ef4444';
@@ -5705,18 +6173,52 @@ if(typeof checkAch==='function')checkAch();
 }
 }
 }else{
-/* ===== ОДИНОЧНЫЙ КЛИК → ЗУМ через 500мс ===== */
-zTimer=setTimeout(function(){
-zTimer=null;
-zoomPost(card);
-},500);
+zTimer=setTimeout(function(){zTimer=null;zoomPost(card)},500);
 }
 },true);
 
-/* Escape — раззум */
-document.addEventListener('keydown',function(e){
-if(e.key==='Escape')unzoom();
+/* Скролл → раззум */
+window.addEventListener('scroll',function(){if(zCard)unzoom()},{passive:true});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')unzoom()});
+
+/* ===== 8. PIKER — русские названия ===== */
+window.cpChoose=function(cat){
+if(cat==='history'){closePicker();openStoryComp();return}
+var g=document.getElementById('cpGrid');
+g.classList.add('leaving');
+setTimeout(function(){
+g.classList.remove('leaving');
+var catData=CP_DATA.find(function(x){return x.id===cat});
+document.getElementById('cpTitle').textContent=catData?catData.name:cat;
+document.getElementById('cpSub').textContent='Направление';
+document.getElementById('cpBack').style.display='';
+g.className='cp-grid';
+var subs=CP_SUBS[cat]||[];
+g.innerHTML=subs.map(function(s){
+return'<div class="cp-tile" style="flex-direction:row;gap:10px;padding:14px 12px;" data-s="'+s+'">'+
+'<div class="cp-tile-ic" style="width:38px;height:38px;border-radius:12px;">'+catData.ic+'</div>'+
+'<div class="cp-tile-nm" style="font-size:15px;">'+s+'</div></div>';
+}).join('')+
+'<div class="cp-tile" style="flex-direction:row;gap:10px;padding:14px 12px;" data-s="">'+
+'<div class="cp-tile-ic" style="width:38px;height:38px;border-radius:12px;">'+catData.ic+'</div>'+
+'<div class="cp-tile-nm" style="font-size:15px;">Другое</div></div>';
+g.querySelectorAll('.cp-tile').forEach(function(t){
+t.onclick=function(){closePicker();openEditor(cat,t.dataset.s)};
 });
+},170);
+};
+
+/* ===== 9. SET VIEW ===== */
+window.setView=function(v){
+feedView=v;
+renderFeed(document.getElementById('mainContent'));
+setTimeout(function(){
+document.querySelectorAll('.post-card').forEach(function(c){
+c.style.opacity='1';c.style.transform='none';c.style.transition='none';
+});
+if(typeof attachCar==='function')attachCar();
+},40);
+};
 
 })();
 </script>
