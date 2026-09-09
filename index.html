@@ -4807,5 +4807,187 @@ insp.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d=
 
 })();
 </script>
+<style>
+/* ===== АДАПТАЦИЯ ДЛЯ КОМПЬЮТЕРА ===== */
+@media(min-width:769px){
+.bottom-nav{display:none!important}
+.fab{display:flex!important}
+#mainApp>.main-content{margin-left:270px;max-width:640px;padding-left:28px}
+.sidebar{transform:translateX(0)!important}
+.sidebar-close{display:none!important}
+.sidebar-overlay{display:none!important}
+}
+@media(max-width:768px){
+#mainApp>.main-content{margin-left:0!important;padding-left:14px!important}
+.sidebar{transform:translateX(-100%)!important}
+.sidebar.active{transform:translateX(0)!important}
+}
+
+/* ===== GRID: всегда 2 колонки ===== */
+.feed-grid-2{
+display:grid!important;
+grid-template-columns:1fr 1fr!important;
+gap:10px!important;
+}
+.feed-grid-2 .post-card{margin-bottom:0!important;width:100%!important}
+.feed-grid-2 .post-media img{max-height:280px!important}
+.feed-grid-2 .post-caption{
+font-size:12px!important;padding:6px 10px 2px!important;
+display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* ===== ПЛАВНОСТЬ: все кнопки ===== */
+button,.nav-item,.sidebar-item,.category-chip,.filter-btn,
+.profile-tab,.cp-tile,.tag,.draft-btn,.set-card,
+.theme-option,.toggle-switch,.studio-action,.ach-card,
+.view-toggle-btn,.search-mode-btn,.inspire-btn{
+transition:transform .18s cubic-bezier(.25,.8,.3,1),
+background .2s ease,color .2s ease,
+opacity .2s ease,box-shadow .2s ease,border-color .2s ease!important;
+}
+button:active,.nav-item:active,.cp-tile:active,
+.category-chip:active,.tag:active{
+transform:scale(.93)!important;
+}
+
+/* ===== ПЕРВЫЕ ПОСТЫ: всегда видны ===== */
+.post-card{min-height:0!important}
+</style>
+<script>
+(function(){
+'use strict';
+
+/* ===== 1. ДВОЙНОЙ ТАП НА ВЕСЬ ПОСТ ===== */
+document.addEventListener('click',function(e){
+var card=e.target.closest('.post-card');
+if(!card)return;
+var pidMatch=card.id.match(/pc-(.+)/);
+if(!pidMatch)return;
+var pid=pidMatch[1];
+var now=Date.now();
+if(now-(window._lastTap||0)<350&&now-(window._lastTap||0)>50){
+var posts=JSON.parse(localStorage.getItem('muse_posts')||'[]');
+var post=posts.find(function(p){return String(p.id)===String(pid)});
+if(post&&currentUser){
+post.likedBy=Array.isArray(post.likedBy)?post.likedBy:[];
+if(!post.likedBy.includes(currentUser.id)){
+post.likedBy.push(currentUser.id);
+post.likes=(post.likes||0)+1;
+localStorage.setItem('muse_posts',JSON.stringify(posts));
+var btn=document.getElementById('lk-'+pid);
+if(btn){
+btn.style.color='#ef4444';
+var svg=btn.querySelector('svg');
+if(svg){
+svg.setAttribute('fill','currentColor');
+svg.classList.remove('like-pulse');
+void svg.offsetWidth;
+svg.classList.add('like-pulse');
+}
+var span=btn.querySelector('span');
+if(span)span.textContent=post.likes;
+}
+var lo=document.getElementById('lo-'+pid);
+if(lo){lo.classList.remove('animate');void lo.offsetWidth;lo.classList.add('animate')}
+if(typeof playSound==='function')playSound('like');
+var author=getUserById(post.authorId);
+if(author&&author.id!==currentUser.id)addNotif('like',currentUser,post.id,'',author.id);
+if(typeof checkAch==='function')checkAch();
+}
+}
+window._lastTap=now;
+});
+
+/* ===== 2. СТАГГЕР: первые посты видны, без исчезновения ===== */
+window.afterRender=function(){
+if(typeof attachCar==='function')attachCar();
+document.querySelectorAll('.post-card').forEach(function(c,i){
+if(i<4){
+c.style.opacity='1';
+c.style.transform='none';
+c.style.transition='none';
+}else{
+if(c.style.opacity!=='1'&&!c.dataset.stg){
+c.style.opacity='0';
+c.style.transform='translateY(10px)';
+c.dataset.stg='1';
+if(!window._sObs){
+window._sObs=new IntersectionObserver(function(es){
+es.forEach(function(en){
+if(en.isIntersecting){
+en.target.style.transition='opacity .25s ease,transform .3s cubic-bezier(.2,.8,.3,1)';
+en.target.style.opacity='1';
+en.target.style.transform='none';
+window._sObs.unobserve(en.target);
+}
+});
+},{threshold:.05});
+}
+window._sObs.observe(c);
+}
+}
+});
+if(typeof makeExp==='function')makeExp();
+};
+
+/* ===== 3. GRID: гарантированно 2 колонки ===== */
+window.setView=function(v){
+feedView=v;
+var c=document.getElementById('mainContent');
+/* Оригинальный renderFeed */
+if(typeof window._origFeed==='function'){
+window._origFeed(c);
+}else{
+renderFeed(c);
+}
+setTimeout(function(){
+if(feedView==='grid'){
+var cards=c.querySelectorAll('.post-card');
+if(cards.length>1){
+var grid=c.querySelector('.feed-grid-2');
+if(!grid){
+grid=document.createElement('div');
+grid.className='feed-grid-2';
+var parent=cards[0].parentElement;
+cards.forEach(function(card){grid.appendChild(card)});
+parent.appendChild(grid);
+}
+}
+}
+document.querySelectorAll('.post-card').forEach(function(card){
+card.style.opacity='1';
+card.style.transform='none';
+card.style.transition='none';
+});
+if(typeof attachCar==='function')attachCar();
+},50);
+};
+
+/* Сохраняем оригинальный renderFeed для setView */
+if(!window._origFeed&&typeof renderFeed==='function'){
+window._origFeed=renderFeed;
+}
+
+/* ===== 4. Плавный переход страниц ===== */
+var origNav=window.navigate;
+if(origNav){
+window.navigate=function(page,wh){
+var c=document.getElementById('mainContent');
+if(c){
+c.style.opacity='0';
+c.style.transition='opacity .1s ease';
+}
+origNav(page,wh);
+setTimeout(function(){
+if(c){
+c.style.transition='opacity .2s ease';
+c.style.opacity='1';
+}
+},60);
+};
+}
+
+})();
+</script>
 </body>
 </html>
