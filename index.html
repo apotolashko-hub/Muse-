@@ -4649,7 +4649,7 @@ t.onclick=function(){closePicker();openEditor(cat,t.dataset.s)};
 var origRenderFeed=window.renderFeed;
 if(origRenderFeed){
 window.renderFeed=function(c){
-origRenderFeedFeed(c);
+origRenderFeed(c);
 /* Заменяем кнопки вида */
 var toggle=c.querySelector('.view-toggle');
 if(toggle){
