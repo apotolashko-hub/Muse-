@@ -4866,5 +4866,30 @@ btn.innerHTML='<svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:cur
 
 })();
 </script>
+  <script>
+/* Фикс: редактор не открывался из-за несовпадения классов */
+(function(){
+var origOpenEditor=window.openEditor;
+if(origOpenEditor){
+window.openEditor=function(type,sub,opts){
+origOpenEditor(type,sub,opts);
+/* Добавляем правильный класс */
+var el=document.getElementById('editorOverlay');
+if(el){
+el.classList.remove('active');
+el.classList.add('open');
+}
+};
+}
+var origCloseEditor=window.closeEditor;
+if(origCloseEditor){
+window.closeEditor=function(){
+var el=document.getElementById('editorOverlay');
+if(el){el.classList.remove('active','open')}
+origCloseEditor();
+};
+}
+})();
+</script>
 </body>
 </html>
