@@ -1374,12 +1374,8 @@ background:var(--sur2);border:1px solid var(--bor);
 border-radius:12px;font-size:14px;font-weight:600;
 cursor:pointer;color:var(--txt);font-family:inherit;
 }
-.vk-set-sec{
-background:var(--sur);margin:10px 14px;
-padding:4px 14px 14px;border-radius:16px;
-border:1px solid var(--bor);
-}
-.settings-subpage{display:none;padding:10px 14px}
+
+
 .settings-subpage.active{display:block;animation:pageIn .22s ease both}
 @keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 /* Карточки настроек */
@@ -1392,51 +1388,28 @@ border-radius:14px;cursor:pointer;
 .set-card-title{font-size:15px;font-weight:600;color:var(--txt)}
 .set-card-desc{font-size:12px;color:var(--mut);margin-top:2px}
 /* Темы и фоны */
-.pers-section{margin-bottom:20px}
-.pers-title{
-font-family:'Cormorant',Georgia,serif;
-font-size:18px;font-weight:700;
-margin-bottom:10px;color:var(--txt);
-}
-.pers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pers-item{
-aspect-ratio:3/2;border-radius:12px;cursor:pointer;
-border:2.5px solid transparent;
-position:relative;overflow:hidden;
-display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-transition:all .2s;
-}
+
+
+
+
 .pers-item:active{transform:scale(.93)}
-.pers-item.sel{border-color:var(--acc);box-shadow:0 4px 14px rgba(124,58,237,.2)}
+
 .pers-item span{font-size:10px;font-weight:700;z-index:1}
-.pers-check{
-position:absolute;top:4px;right:4px;
-width:18px;height:18px;border-radius:50%;
-background:var(--acc);color:#fff;
-display:none;align-items:center;justify-content:center;
-font-size:10px;z-index:2;
-}
-.pers-item.sel .pers-check{display:flex}
+
+.pers-item.sel 
 /* Тумблеры */
-.toggle-switch{
-position:relative;width:46px;height:26px;
-background:var(--bor);border-radius:13px;
-cursor:pointer;flex-shrink:0;transition:background .2s;
-}
-.toggle-switch.active{background:var(--acc)}
+
+
 .toggle-switch::after{
 content:'';position:absolute;top:3px;left:3px;
 width:20px;height:20px;background:#fff;
 border-radius:50%;transition:transform .2s;
 }
 .toggle-switch.active::after{transform:translateX(20px)}
-.set-tog{
-display:flex;align-items:center;justify-content:space-between;
-padding:14px 0;border-bottom:1px solid var(--bor);
-}
-.set-tog:last-child{border-bottom:none}
-.set-tog-label{font-size:14px;font-weight:500;color:var(--txt)}
-.set-tog-desc{font-size:11px;color:var(--mut);margin-top:2px}
+
+
+
+
 /* ===== ИСТОРИИ: ВЬЮЕР ===== */
 .story-viewer{
 display:none;position:fixed;inset:0;
@@ -1777,19 +1750,42 @@ align-items:center;justify-content:center;font-weight:700;font-size:18px;flex-sh
 .podium-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .podium-item{
 background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
-border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;
-transition:transform .2s,background .2s,border-color .2s;
+border-radius:14px;padding:12px;text-align:center;cursor:pointer;
+transition:transform .2s,background .2s,border-color .2s,box-shadow .2s;
+overflow:hidden;display:flex;flex-direction:column;gap:6px;
 }
-.podium-item:hover{transform:translateY(-3px);background:rgba(255,255,255,.14)}
-.podium-item.voted{border-color:#fff;background:rgba(255,255,255,.18)}
-.podium-medal{font-size:28px;margin-bottom:6px}
+.podium-item:hover{transform:translateY(-3px);background:rgba(255,255,255,.14);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.podium-item.voted{border-color:#facc15;background:rgba(250,204,21,.15);box-shadow:0 0 20px rgba(250,204,21,.3)}
+.podium-medal{font-size:28px;line-height:1;margin-bottom:2px}
+.podium-post-img{
+width:100%;height:120px;object-fit:cover;border-radius:10px;
+display:block;background:rgba(0,0,0,.2);
+}
+.podium-post-icon{
+width:100%;height:80px;border-radius:10px;background:rgba(0,0,0,.2);
+display:flex;align-items:center;justify-content:center;font-size:36px;
+}
+.podium-post-text{
+width:100%;height:80px;border-radius:10px;background:rgba(0,0,0,.15);
+padding:10px;font-size:11px;color:rgba(255,255,255,.85);
+overflow:hidden;text-align:left;line-height:1.4;
+display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;
+}
 .podium-avatar{
 width:36px;height:36px;border-radius:50%;background:var(--grad);color:#fff;
-display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 6px;
+display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto;
 }
-.podium-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.podium-name{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .podium-stats{font-size:11px;color:rgba(255,255,255,.7)}
-.podium-vote{font-size:10px;color:var(--acc2);margin-top:6px;font-weight:600}
+.podium-caption{
+font-size:11px;color:rgba(255,255,255,.6);font-style:italic;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:14px;
+}
+.podium-vote{
+font-size:11px;color:var(--acc2);margin-top:4px;font-weight:700;
+padding:4px 8px;border-radius:8px;background:rgba(255,255,255,.06);
+}
+.podium-item.voted .podium-vote{background:rgba(250,204,21,.2);color:#facc15}
 @media(max-width:480px){.podium-grid{grid-template-columns:1fr}}
 
 
@@ -2088,6 +2084,143 @@ width:10px;height:10px;background:#fff;border-radius:2px;
 }
 .c-rec-stop{display:inline-block;width:12px;height:12px;background:#ef4444;border-radius:3px;animation:recDotBlink 1s infinite;vertical-align:middle}
 @keyframes recBlink{50%{opacity:.4}}
+
+
+
+/* ===== SETTINGS — BEAUTIFUL ===== */
+.settings-subpage{
+display:none;padding:12px 14px 20px;
+animation:settingsFadeIn .25s ease;
+}
+@keyframes settingsFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pers-section{
+background:var(--sur);border:1px solid var(--bor);
+border-radius:var(--r2);padding:18px 16px 20px;
+margin-bottom:14px;box-shadow:var(--sh);
+}
+.pers-title{
+font-family:'Cormorant',Georgia,serif;
+font-size:20px;font-weight:700;
+margin-bottom:14px;color:var(--txt);
+display:flex;align-items:center;gap:8px;
+}
+.pers-title::before{
+content:'';display:inline-block;
+width:4px;height:20px;background:var(--grad);
+border-radius:2px;
+}
+.pers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:480px){.pers-grid{grid-template-columns:repeat(3,1fr)}}
+.pers-item{
+aspect-ratio:4/3;border-radius:12px;cursor:pointer;
+border:2.5px solid transparent;
+position:relative;overflow:hidden;
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.pers-item:hover{transform:translateY(-3px) scale(1.02);box-shadow:var(--sh2)}
+.pers-item.sel{
+border-color:var(--acc);
+box-shadow:0 0 0 4px rgba(124,58,237,.12),var(--sh2);
+}
+.pers-check{
+position:absolute;top:6px;right:6px;
+width:22px;height:22px;border-radius:50%;
+background:var(--grad);color:#fff;
+display:none;align-items:center;justify-content:center;
+font-size:12px;z-index:2;
+box-shadow:0 2px 8px rgba(124,58,237,.4);
+}
+.pers-item.sel .pers-check{display:flex}
+.pers-item span{font-size:11px;font-weight:600;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);z-index:1;position:relative}
+.pers-item span:first-of-type{font-size:18px;margin-bottom:2px}
+/* Settings card sections */
+.vk-set-sec{
+background:var(--sur);margin:0 0 14px;
+padding:8px 16px 4px;border-radius:var(--r2);
+border:1px solid var(--bor);box-shadow:var(--sh);
+}
+.set-tog{
+display:flex;align-items:center;justify-content:space-between;
+padding:14px 0;border-bottom:1px solid var(--bor);
+transition:background .15s;
+}
+.set-tog:last-child{border-bottom:none}
+.set-tog:hover{background:var(--sur2);margin:0 -16px;padding-left:16px;padding-right:16px;border-radius:8px}
+.set-tog-label{font-size:14px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:8px}
+.set-tog-desc{font-size:11px;color:var(--mut);margin-top:4px}
+/* Toggle switch — modern look */
+.toggle-switch{
+position:relative;width:48px;height:26px;
+background:var(--bor);border-radius:13px;
+cursor:pointer;flex-shrink:0;
+transition:background .25s;
+}
+.toggle-switch::after{
+content:'';position:absolute;
+top:3px;left:3px;width:20px;height:20px;
+background:#fff;border-radius:50%;
+box-shadow:0 2px 6px rgba(0,0,0,.2);
+transition:transform .25s cubic-bezier(.4,0,.2,1),background .25s;
+}
+.toggle-switch.active{background:var(--grad)}
+.toggle-switch.active::after{transform:translateX(22px)}
+/* Subpage back button */
+.sub-back{
+display:flex;align-items:center;gap:10px;
+padding:14px 16px;margin-bottom:14px;
+background:var(--sur);border:1px solid var(--bor);
+border-radius:var(--r2);cursor:pointer;
+box-shadow:var(--sh);transition:transform .15s,box-shadow .15s;
+}
+.sub-back:hover{transform:translateX(-3px);box-shadow:var(--sh2)}
+.sub-back svg{width:18px;height:18px;stroke:var(--acc);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sub-back span{font-size:14px;font-weight:600;color:var(--txt)}
+/* Settings container */
+.vk-settings{padding:0 14px 100px;max-width:640px;margin:0 auto}
+.vk-set-ph{
+font-family:'Cormorant',Georgia,serif;
+font-size:20px;font-weight:700;
+color:var(--txt);text-align:center;margin-bottom:16px;
+}
+/* Wallpaper preview — show actual gradient in tile */
+.pers-item[data-pat-type="gradient"]::before{
+content:'';position:absolute;inset:0;
+background:var(--pat-bg,transparent);
+z-index:0;
+}
+.pers-item[data-pat-type="pattern"]::before{
+content:'';position:absolute;inset:0;
+background:var(--sur2);
+z-index:0;
+}
+.pers-item > *{position:relative;z-index:1}
+/* Settings main list — beautiful cards */
+.vk-set-card{
+background:var(--sur);border:1px solid var(--bor);
+border-radius:var(--r2);padding:14px 16px;
+margin-bottom:10px;cursor:pointer;
+display:flex;align-items:center;gap:14px;
+box-shadow:var(--sh);
+transition:transform .15s,box-shadow .15s,border-color .15s;
+}
+.vk-set-card:hover{
+transform:translateY(-2px);
+box-shadow:var(--sh2);
+border-color:var(--acc);
+}
+.vk-set-icon{
+width:40px;height:40px;border-radius:12px;
+background:var(--grad-soft);
+display:flex;align-items:center;justify-content:center;
+font-size:18px;flex-shrink:0;
+}
+.vk-set-info{flex:1;min-width:0}
+.vk-set-name{font-size:15px;font-weight:600;color:var(--txt)}
+.vk-set-desc{font-size:12px;color:var(--mut);margin-top:2px}
+.vk-set-arrow{
+color:var(--mut);font-size:18px;
+}
 
 </style>
 </head>
@@ -3144,7 +3277,7 @@ return '<div class="post-card" id="pc-'+post.id+'">'+
 '<div class="comment-input-container">'+
 '<textarea id="ci-'+post.id+'" rows="1" placeholder="'+(currentUser?'Комментарий...':'Войдите')+'" '+(currentUser?'oninput="autoGrowComment(this)" onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();addComment('+post.id+')}"':'onclick="showFullAuth(\'login\')" readonly')+' style="width:100%;min-height:38px;max-height:140px;resize:none;padding:10px 72px 10px 14px;border:1px solid var(--bor);border-radius:20px;font-size:13px;font-family:inherit;background:var(--sur);color:var(--txt);overflow:hidden;line-height:1.4"></textarea>'+
 '<button class="c-attach" onclick="'+(currentUser?'attachImg('+post.id+')':'showFullAuth(\'login\')')+'" title="Фото">📷</button>'+
-'<button class="c-attach" onclick="'+(currentUser?'toggleRec('+post.id+')':'showFullAuth(\'login\')')+'" title="Голос">🎤</button>'+
+'<button class="c-attach" onclick="'+(currentUser?'toggleRec('+post.id+',event)':'showFullAuth(\'login\')')+'" title="Голос"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg></button>'+
 '<div id="rs-'+post.id+'" class="c-rec" style="display:none;"><span class="c-rec-dot"></span><span>Запись голосового</span><span class="c-rec-time" id="rt-'+post.id+'">00:00</span><button class="c-rec-stop-btn" onclick="toggleRec('+post.id+')"><span class="c-rec-stop-icon"></span>Стоп</button></div>'+
 '<div id="ap-'+post.id+'" style="display:none;margin-top:6px;"><div style="display:flex;align-items:center;gap:8px;"><button onclick="toggleVP('+post.id+')" id="vp-'+post.id+'" style="width:30px;height:30px;border-radius:50%;background:var(--sur2);color:var(--acc);border:1px solid var(--bor);cursor:pointer;font-size:12px;">▶</button><span style="font-size:11px;color:var(--mut);">Голосовое</span><button onclick="rmCA('+post.id+')" style="background:#ef4444;color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;">×</button></div></div>'+
 '</div>'+
@@ -3323,9 +3456,9 @@ let h='<div class="c-item">'+
 '<div class="c-body">'+
 '<div class="c-header"><span class="c-name">'+escH(aname)+'</span><span class="c-time">'+tAgo(c.time)+'</span></div>'+
 txt+aud+img+
-'<button class="c-reply-btn" onclick="startReply('+pid+',\''+escA(aname)+'\','+c.id+')">Ответить</button>'+
+'<button class="c-reply-btn" onclick="startReply('+pid+',\''+escA(aname)+'\',\''+c.id+'\')">Ответить</button>'+
 '</div>'+
-(isOwn?'<button class="c-del-btn" onclick="delComment('+pid+','+c.id+')" title="Удалить"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>':'')+
+(isOwn?'<button class="c-del-btn" onclick="delComment('+pid+',\''+c.id+'\')" title="Удалить"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>':'')+
 '</div>';
 replies.forEach(r=>{
 const isR=currentUser&&r.author===currentUser.name;
@@ -3339,9 +3472,9 @@ h+='<div class="c-item c-reply">'+
 '<div class="c-body">'+
 '<div class="c-header"><span class="c-name">'+escH(rN)+'</span><span class="c-time">'+tAgo(r.time)+'</span></div>'+
 rT+rI+
-'<button class="c-reply-btn" onclick="startReply('+pid+',\''+escA(rN)+'\','+r.id+')">Ответить</button>'+
+'<button class="c-reply-btn" onclick="startReply('+pid+',\''+escA(rN)+'\',\''+r.id+'\')">Ответить</button>'+
 '</div>'+
-(isR?'<button class="c-del-btn" onclick="delComment('+pid+','+r.id+')" title="Удалить"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>':'')+
+(isR?'<button class="c-del-btn" onclick="delComment('+pid+',\''+r.id+'\')" title="Удалить"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>':'')+
 '</div>';
 });
 return h;
@@ -3385,15 +3518,26 @@ if(!confirm('Удалить?'))return;
 const ps=JSON.parse(localStorage.getItem('muse_posts')||'[]');
 const p=ps.find(x=>String(x.id)===String(pid));
 if(p&&p.comments){
-p.comments=p.comments.filter(c=>c.id!==cid&&c.replyTo!==cid);
+p.comments=p.comments.filter(c=>String(c.id)!==String(cid)&&String(c.replyTo)!==String(cid));
 localStorage.setItem('muse_posts',JSON.stringify(ps));
+/* Re-render comments list */
+const list=document.getElementById('cml-'+pid);
+if(list){
+const allC2=getCommentsForPost(pid);
+const rootC=allC2.filter(x=>!x.replyTo);
+list.innerHTML=rootC.map(x=>renderComment(x,pid,allC2)).join('');
 }
-if(currentPage==='home')renderFeed(document.getElementById('mainContent'));
-setTimeout(()=>{const s=document.getElementById('cm-'+pid);if(s)s.style.display='block'},50);
+/* Update count */
+const cb=document.querySelector('#pc-'+pid+' button[onclick*="toggleComments"]');
+if(cb){
+const cs=cb.querySelector('span');
+if(cs)cs.textContent=p.comments.length;
+}
+}
 }
 function startReply(pid,name,cid){
 if(!requireAuth())return;
-replyTo={postId:pid,author:name,commentId:cid};
+replyTo={postId:String(pid),author:name,commentId:String(cid)};
 const ind=document.getElementById('ri-'+pid);
 if(ind){ind.classList.add('on');ind.querySelector('span').textContent='Ответ @'+name}
 const inp=document.getElementById('ci-'+pid);
@@ -3444,19 +3588,25 @@ inputWrapper.parentNode.insertBefore(prev,inputWrapper);
 container.appendChild(prev);
 }
 }
-async function toggleRec(pid){
+async function toggleRec(pid,event){
 if(!requireAuth())return;
 const st=document.getElementById('rs-'+pid);
 const tm=document.getElementById('rt-'+pid);
-const btn=event.target;
+/* Find the button — could be event.target or its closest .c-attach */
+var btn=event?event.target: null;
+if(btn&&!btn.classList.contains('c-attach')){
+btn=btn.closest('.c-attach');
+}
+/* Stop recording if active */
 if(isRecordingAudio){
 if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop();
 isRecordingAudio=false;
 clearInterval(recordingTimer);
-if(st)st.style.display='none';
-if(btn){btn.innerHTML='🎤';btn.title='Записать голос'}
+if(st){st.style.display='none';st.classList.remove('active')}
+if(btn){btn.innerHTML='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>';btn.title='Записать голос';btn.classList.remove('recording')}
 return;
 }
+/* Start recording */
 try{
 const stream=await navigator.mediaDevices.getUserMedia({audio:true});
 recordingPostId=pid;
@@ -3473,6 +3623,9 @@ commentAudioPostId=pid;
 const ap=document.getElementById('ap-'+pid);
 if(ap)ap.style.display='block';
 showCommentAttachmentPreview(pid,commentAudio,'audio');
+/* Reset button icon after stop */
+if(btn){btn.innerHTML='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>';btn.title='Записать голос';btn.classList.remove('recording')}
+toast('Голосовое записано','🎤');
 };
 r.readAsDataURL(blob);
 stream.getTracks().forEach(t=>t.stop());
@@ -3481,12 +3634,12 @@ mediaRecorder.start(250);
 isRecordingAudio=true;
 if(st){st.style.display='flex';st.classList.add('active')}
 if(tm)tm.textContent='00:00';
-if(btn){btn.innerHTML='<span class="c-rec-stop"></span>';btn.title='Остановить'}
+if(btn){btn.innerHTML='<span class="c-rec-stop"></span>';btn.title='Остановить';btn.classList.add('recording')}
 clearInterval(recordingTimer);
 recordingTimer=setInterval(()=>{
 if(tm){const s=Math.floor((Date.now()-recordingStartedAt)/1000);tm.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 },250);
-}catch(e){toast('Микрофон недоступен','⚠')}
+}catch(e){console.error('toggleRec failed:',e);toast('Микрофон недоступен','⚠')}
 }
 function rmCA(pid){
 commentAudio=null;
@@ -3501,25 +3654,39 @@ if(!input)return;
 const text=input.value.trim();
 if(!text&&!commentImage&&!commentAudio)return;
 let rta=null;
-if(replyTo&&replyTo.postId===pid){
+let replyCid=null;
+if(replyTo&&String(replyTo.postId)===String(pid)){
 const allC=getCommentsForPost(pid);
-const parent=allC.find(c=>c.id===replyTo.commentId);
-if(parent)rta=parent.author;
+/* Find parent comment by id (compare as strings to avoid type mismatch) */
+const parent=allC.find(c=>String(c.id)===String(replyTo.commentId));
+if(parent){rta=parent.author;replyCid=parent.id}
 }
 const ps=JSON.parse(localStorage.getItem('muse_posts')||'[]');
 const p=ps.find(x=>String(x.id)===String(pid));
 if(!p)return;
-const c={id:Date.now(),author:currentUser.name,avatar:currentUser.avatar,text,image:(commentAudioPostId===pid?commentImage:null),audio:(commentAudioPostId===pid?commentAudio:null),replyTo:replyTo&&replyTo.postId===pid?replyTo.commentId:null,replyToAuthor:rta,time:Date.now()};
+const c={id:'c'+Date.now(),author:currentUser.name,avatar:currentUser.avatar,text,image:(commentAudioPostId===pid?commentImage:null),audio:(commentAudioPostId===pid?commentAudio:null),replyTo:replyCid,replyToAuthor:rta,time:Date.now()};
 if(!p.comments)p.comments=[];
 p.comments.push(c);
 localStorage.setItem('muse_posts',JSON.stringify(ps));
 const pa=getUserById(p.authorId);
 if(pa)addNotif('comment',currentUser,pid,text,pa.id);
+/* Reset input + state */
 input.value='';
+input.style.height='40px';
 commentImage=null;
 commentAudio=null;
 commentAudioPostId=null;
 replyTo=null;
+/* Remove attachment preview */
+var prev=document.getElementById('cap-'+pid);
+if(prev)prev.remove();
+/* Hide recording bar */
+var rs=document.getElementById('rs-'+pid);
+if(rs){rs.style.display='none';rs.classList.remove('active')}
+/* Reset reply indicator */
+var ri=document.getElementById('ri-'+pid);
+if(ri)ri.classList.remove('on');
+/* Re-render comments */
 const list=document.getElementById('cml-'+pid);
 if(list){
 const allC2=getCommentsForPost(pid);
@@ -4439,6 +4606,7 @@ const prevCh=challenges[Math.floor(lastWeekStart/weekMs)%challenges.length];
 const prevPs=getAllPosts().filter(p=>p.tags&&p.tags.some(t=>t.toLowerCase().includes(prevCh.tag.replace('#','').toLowerCase()))&&(p.timestamp||0)<lastWeekStart+weekMs&&(p.timestamp||0)>=lastWeekStart);
 const prevWinner=prevPs.length?prevPs.sort((a,b)=>(b.likes||0)-(a.likes||0))[0]:null;
 let h='<div class="info-banner">Новый челлендж каждую неделю</div>';
+/* Previous winner */
 if(prevWinner){
 h+='<div class="prev-winner-card"><div class="pw-title">👑 Победитель прошлой недели</div><div class="pw-info"><div class="pw-avatar">'+escH(prevWinner.avatar||'?')+'</div><div><div class="pw-name">'+escH(prevWinner.author)+'</div><div class="pw-tag">'+escH(prevCh.title)+' · '+(prevWinner.likes||0)+' лайков</div></div></div></div>';
 }
@@ -4448,7 +4616,28 @@ h+='<div class="podium-section"><div class="podium-title">🏆 Топ-3 (гол�
 top.forEach((p,i)=>{
 const v=!!votes[p.id]&&votes[p.id]===(currentUser&&currentUser.id);
 const medal=['🥇','🥈','🥉'][i];
-h+='<div class="podium-item'+(v?' voted':'')+'" onclick="votePost('+p.id+')"><div class="podium-medal">'+medal+'</div><div class="podium-avatar">'+escH(p.avatar||'?')+'</div><div class="podium-name">'+escH(p.author)+'</div><div class="podium-stats">❤️ '+(p.likes||0)+' · 💬 '+((p.comments||[]).length)+'</div><div class="podium-vote">'+(v?'✓ Вы проголосовали':'Нажмите для голоса')+'</div></div>';
+/* Show post preview — image or text snippet */
+var postPreview='';
+if(p.type==='image'&&p.images&&p.images[0]){
+postPreview='<img src="'+p.images[0]+'" class="podium-post-img">';
+}else if(p.type==='video'&&p.videos&&p.videos[0]){
+postPreview='<div class="podium-post-icon">🎬</div>';
+}else if(p.type==='audio'){
+postPreview='<div class="podium-post-icon">🎵</div>';
+}else{
+/* Text post — show snippet */
+var textSnippet=((p.texts||[])[0]||p.caption||'Без текста').substring(0,80);
+postPreview='<div class="podium-post-text">'+escH(textSnippet)+'</div>';
+}
+h+='<div class="podium-item'+(v?' voted':'')+'" onclick="votePost('+p.id+')">';
+h+='<div class="podium-medal">'+medal+'</div>';
+h+=postPreview;
+h+='<div class="podium-avatar">'+escH(p.avatar||'?')+'</div>';
+h+='<div class="podium-name">'+escH(p.author)+'</div>';
+h+='<div class="podium-stats">❤️ '+(p.likes||0)+' · 💬 '+((p.comments||[]).length)+'</div>';
+h+='<div class="podium-caption">'+escH((p.caption||(p.texts||[])[0]||'').substring(0,40))+'</div>';
+h+='<div class="podium-vote">'+(v?'✓ Ваш голос':'Нажмите для голоса')+'</div>';
+h+='</div>';
 });
 h+='</div></div>';
 }else h+='<p style="font-size:12px;opacity:.7;margin-top:8px;">Тег: '+escH(ch.tag)+'</p>';
@@ -4841,31 +5030,43 @@ const pg=document.getElementById('patGrid');
 if(!tg||!pg)return;
 const curT=userSettings.theme||'aurora';
 const curP=userSettings.pattern||'aurora';
+/* Themes */
 tg.innerHTML=Object.keys(THEMES).map(tid=>{
 const t=THEMES[tid];
 const sel=curT===tid;
 return'<div class="pers-item'+(sel?' sel':'')+'" style="background:'+t.bg+';color:'+t.txt+';" onclick="setPersTheme(\''+tid+'\')">'+
-'<div class="pers-check">✓</div><span>'+t.label+'</span></div>';
+'<div class="pers-check">✓</div><span style="color:'+t.txt+'">'+t.label+'</span></div>';
 }).join('');
+/* Wallpapers — show actual gradient preview */
 pg.innerHTML=Object.keys(PAT_PREVIEW).map(pid=>{
 const p=PAT_PREVIEW[pid];
 const sel=curP===pid;
-/* For gradient backgrounds, show actual gradient preview */
-var bgStyle='var(--sur2)';
 var pDef=PATTERNS[pid];
+var bgStyle='var(--sur2)';
+var isGradient=false;
 if(pDef&&pDef.type==='gradient'&&pDef.gradient){
-bgStyle='linear-gradient(135deg,'+(userSettings.theme&&userSettings.theme.endsWith('-dark')?'rgba(20,20,40,0.6)':'rgba(255,255,255,0.6)')+'),'+pDef.gradient;
+isGradient=true;
+bgStyle=pDef.gradient;
+}else if(pDef&&pDef.type==='pattern'&&pDef.syms&&pDef.syms.length){
+/* Pattern preview — light bg + small pattern hint */
+bgStyle='linear-gradient(135deg,var(--sur2),var(--bg2))';
 }else{
-bgStyle='var(--sur2)';
+bgStyle='linear-gradient(135deg,var(--sur2),var(--bg2))';
 }
-return'<div class="pers-item'+(sel?' sel':'')+'" style="background:'+bgStyle+';color:var(--acc);position:relative;overflow:hidden;" onclick="setPersPat(\''+pid+'\')">'+
-'<div class="pers-check">✓</div><span style="font-size:18px;">'+p.icon+'</span><span style="font-size:11px;">'+p.label+'</span></div>';
+return'<div class="pers-item'+(sel?' sel':'')+'" data-pat-type="'+(isGradient?'gradient':'pattern')+'" style="background:'+bgStyle+';color:#fff;" onclick="setPersPat(\''+pid+'\')">'+
+'<div class="pers-check">✓</div>'+
+'<span style="font-size:20px;">'+p.icon+'</span>'+
+'<span style="font-size:11px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5);">'+p.label+'</span>'+
+'</div>';
 }).join('');
 }
 function setPersTheme(t){
+/* Smooth transition */
+document.body.style.transition='background .3s ease,color .3s ease';
 userSettings.theme=t;
 applyTheme(t);
 renderPers();
+setTimeout(function(){document.body.style.transition=''},300);
 }
 function setPersPat(p){
 userSettings.pattern=p;
@@ -5182,12 +5383,7 @@ transition:transform .18s cubic-bezier(.25,.8,.3,1),
 background .22s,color .22s,opacity .22s,box-shadow .22s,border-color .22s;
 }
 /* ===== ФИКС: Субстраницы настроек с кнопкой назад ===== */
-.settings-subpage .sub-back{
-display:flex;align-items:center;gap:10px;
-padding:14px 16px;margin-bottom:10px;
-background:var(--sur);border:1px solid var(--bor);
-border-radius:14px;cursor:pointer;
-}
+.settings-subpage 
 .settings-subpage .sub-back:active{transform:scale(.98)}
 .settings-subpage .sub-back svg{width:20px;height:20px;stroke:var(--acc);fill:none;stroke-width:2}
 .settings-subpage .sub-back span{font-weight:700;font-size:15px;color:var(--txt)}
@@ -5919,6 +6115,44 @@ if(!post)return;
 var url=location.origin+location.pathname+'#post/'+pid;
 try{navigator.clipboard.writeText(url);toast('Ссылка скопирована','🔗')}catch(e){toast(url,'🔗')}
 }
+</script>
+
+
+<script>
+/* ===== AUTO-CLOSE COMMENTS ON SCROLL ===== */
+var lastScrollY=window.scrollY;
+var scrollCloseTimer=null;
+window.addEventListener('scroll',function(){
+if(scrollCloseTimer)clearTimeout(scrollCloseTimer);
+scrollCloseTimer=setTimeout(function(){
+var open=document.querySelectorAll('.comments-section.open');
+if(!open.length)return;
+open.forEach(function(cs){
+var card=cs.closest('.post-card');
+if(!card)return;
+var rect=card.getBoundingClientRect();
+/* If post-card is mostly out of viewport (top above viewport OR bottom below), close comments */
+if(rect.bottom<80||rect.top>window.innerHeight-80){
+/* Directly close — remove .open class and reset styles */
+cs.classList.remove('open');
+cs.style.maxHeight='0px';
+cs.style.opacity='0';
+/* Also reset reply state for this post */
+var pid=card.id.replace('pc-','');
+var ri=document.getElementById('ri-'+pid);
+if(ri)ri.classList.remove('on');
+/* Reset recording if active for this post */
+if(window.isRecordingAudio&&window.recordingPostId===pid){
+try{if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop()}catch(e){}
+isRecordingAudio=false;
+if(recordingTimer)clearInterval(recordingTimer);
+var rs=document.getElementById('rs-'+pid);
+if(rs)rs.style.display='none';
+}
+}
+});
+},120);
+},{passive:true});
 </script>
 
 </body>
